@@ -79,7 +79,7 @@ sonata_block:
 
 sonata_admin:
     title: PronIT
-    title_logo: /bundles/pronitcore/img/logo.png   
+    title_logo: bundles/pronitcore/img/logo.png   
     templates:
         layout:  PronitCoreBundle:Admin:layout.html.twig
     
