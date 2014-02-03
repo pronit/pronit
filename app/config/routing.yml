@@ -1,3 +1,7 @@
+pronit_parametrizacion_general:
+    resource: "@PronitParametrizacionGeneralBundle/Resources/config/routing.yml"
+    prefix:   /
+
 pronit_estructura_empresa:
     resource: "@PronitEstructuraEmpresaBundle/Resources/config/routing.yml"
     prefix:   /

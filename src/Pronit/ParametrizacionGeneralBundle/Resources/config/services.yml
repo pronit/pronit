@@ -1,0 +1,7 @@
+parameters:
+#    pronit_parametrizacion_general.example.class: Pronit\ParametrizacionGeneralBundle\Example
+
+services:
+#    pronit_parametrizacion_general.example:
+#        class: %pronit_parametrizacion_general.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

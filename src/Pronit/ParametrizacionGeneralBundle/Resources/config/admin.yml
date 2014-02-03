@@ -1,0 +1,11 @@
+services:
+    sonata.admin.moneda:
+        class: Pronit\ParametrizacionGeneralBundle\Admin\MonedaAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Parametrización General", label: "Moneda" }
+        arguments:
+            - ~
+            - Pronit\ParametrizacionGeneralBundle\Entity\Moneda
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitParametrizacionGeneralBundle]]
