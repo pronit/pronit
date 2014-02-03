@@ -1,0 +1,3 @@
+pronit_parametrizacion_general_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: PronitParametrizacionGeneralBundle:Default:index }

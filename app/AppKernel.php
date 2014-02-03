@@ -30,7 +30,8 @@ class AppKernel extends Kernel
             
             
                         new Pronit\EstructuraEmpresaBundle\PronitEstructuraEmpresaBundle(),
-                        new Pronit\CoreBundle\PronitCoreBundle()
+                        new Pronit\CoreBundle\PronitCoreBundle(),
+                        new Pronit\ParametrizacionGeneralBundle\PronitParametrizacionGeneralBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
