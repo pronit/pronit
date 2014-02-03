@@ -1,0 +1,3 @@
+pronit_estructura_empresa_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: PronitEstructuraEmpresaBundle:Default:index }

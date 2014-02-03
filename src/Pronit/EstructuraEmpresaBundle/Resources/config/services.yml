@@ -1,0 +1,7 @@
+parameters:
+#    pronit_estructura_empresa.example.class: Pronit\EstructuraEmpresaBundle\Example
+
+services:
+#    pronit_estructura_empresa.example:
+#        class: %pronit_estructura_empresa.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

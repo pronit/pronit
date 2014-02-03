@@ -1,10 +1,11 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
-
+    - { resource: @PronitEstructuraEmpresaBundle/Resources/config/admin.yml }
+    
 framework:
     #esi:             ~
-    #translator:      { fallback: "%locale%" }
+    translator:      { fallback: "%locale%" }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -75,3 +76,10 @@ sonata_block:
         sonata.admin.block.admin_list:
             contexts:   [admin]
         # Your other blocks
+
+sonata_admin:
+    title: PronIT
+    title_logo: /bundles/pronitcore/img/logo.png   
+    templates:
+        layout:  PronitCoreBundle:Admin:layout.html.twig
+    

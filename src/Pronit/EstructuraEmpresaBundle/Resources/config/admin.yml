@@ -1,0 +1,11 @@
+services:
+    sonata.admin.sociedadfi:
+        class: Pronit\EstructuraEmpresaBundle\Admin\SociedadFIAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Estructura de empresa", label: "Sociedad FI" }
+        arguments:
+            - ~
+            - Pronit\EstructuraEmpresaBundle\Entity\SociedadFI
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitEstructuraEmpresaBundle]]
