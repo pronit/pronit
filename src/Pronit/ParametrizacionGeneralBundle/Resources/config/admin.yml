@@ -9,3 +9,14 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [PronitParametrizacionGeneralBundle]]
+            
+    sonata.admin.pais:
+        class: Pronit\ParametrizacionGeneralBundle\Admin\PaisAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Parametrización General", label: "Pais" }
+        arguments:
+            - ~
+            - Pronit\ParametrizacionGeneralBundle\Entity\Pais
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitParametrizacionGeneralBundle]]            
