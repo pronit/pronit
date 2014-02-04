@@ -5,21 +5,10 @@ namespace Pronit\EstructuraEmpresaBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
- * @ORM\Table(name="eempre_sociedades")
- * @ORM\InheritanceType("SINGLE_TABLE")
- * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"sociedadco" = "SociedadCO", "sociedadgl" = "SociedadGL", "sociedadfi" = "SociedadFI"})
+ * @ORM\MappedSuperclass
  */
 abstract class Sociedad
 {    
-    /**
-     * @ORM\Column(type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */    
-    private $id;
-       
     /**
      * @ORM\Column(type="string", length=100)
      */    
@@ -46,11 +35,6 @@ abstract class Sociedad
      * @ORM\Column(type="date")
      */            
     private $fechaFundacion;
-    
-    public function getId()
-    {
-        return $this->id;
-    }    
         
     public function setNombre($valor)
     {

@@ -16,10 +16,10 @@ class SociedadGLAdmin extends SociedadAdmin
     {
         $formMapper
             ->add('sociedadCO', 'sonata_type_model_list', array(
-                    'btn_add'       => 'Crear Sociedad CO',
-                    'btn_list'      => 'button.list',
-                    'btn_delete'    => false,
-                    'btn_catalogue' => 'SonataAdminBundle'
+                    'btn_add'       => 'Crear Sociedad CO',      //Specify a custom label
+                    'btn_list'      => 'button.list',     //which will be translated
+                    'btn_delete'    => false,             //or hide the button.
+                    //'btn_catalogue' => 'SonataNewsBundle' //Custom translation domain for buttons
                 ), array(
                     'placeholder' => 'Ninguna Sociedad CO seleccionada'
                 ))
