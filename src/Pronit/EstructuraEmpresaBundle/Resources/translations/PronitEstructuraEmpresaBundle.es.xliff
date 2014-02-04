@@ -2,10 +2,23 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" datatype="plaintext" original="" >
         <body>
+            <trans-unit id="Sociedad C O List">
+                <source>Sociedad C O List</source>
+                <target>Sociedades CO</target>
+            </trans-unit>
+            <trans-unit id="Sociedad C O">
+                <source>Sociedad C O</source>
+                <target>Sociedad CO</target>
+            </trans-unit>            
+            <trans-unit id="Sociedad G L List">
+                <source>Sociedad G L List</source>
+                <target>Sociedades GL</target>
+            </trans-unit>            
             <trans-unit id="Sociedad F I List">
                 <source>Sociedad F I List</source>
                 <target>Sociedades FI</target>
             </trans-unit>
+            
         </body>
     </file>
 </xliff>
