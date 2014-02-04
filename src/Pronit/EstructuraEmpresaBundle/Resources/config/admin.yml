@@ -8,4 +8,4 @@ services:
             - Pronit\EstructuraEmpresaBundle\Entity\SociedadFI
             - ~
         calls:
-            - [ setTranslationDomain, [PronitEstructuraEmpresaBundle]]
+            - [ setTranslationDomain, [PronitEstructuraEmpresaBundle]]   
