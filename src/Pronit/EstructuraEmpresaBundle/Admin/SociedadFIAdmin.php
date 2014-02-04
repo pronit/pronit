@@ -13,6 +13,21 @@ use Sonata\AdminBundle\Form\FormMapper;
  */
 class SociedadFIAdmin extends SociedadAdmin
 {
+    protected function configureFormFields(FormMapper $formMapper)
+    {
+        $formMapper
+            ->add('sociedadGL', 'sonata_type_model_list', array(
+                    'btn_add'       => 'Crear Sociedad GL',
+                    'btn_list'      => 'button.list',
+                    'btn_delete'    => false,
+                    'btn_catalogue' => 'SonataAdminBundle'
+                ), array(
+                    'placeholder' => 'Ninguna Sociedad GL seleccionada'
+                ))
+        ;
+        
+        parent::configureFormFields($formMapper);
+    }
 
 }
 
