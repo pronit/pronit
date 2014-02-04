@@ -9,9 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @author gcaseres
  * @ORM\Entity
- * @ORM\Table(name="eempre_sociedadesfi")
+ * @ORM\Table(name="eempre_sociedadesgl")
  */
-class SociedadFI extends Sociedad
+class SociedadGL extends Sociedad
 {
     /**
      * @ORM\Column(type="integer")
@@ -21,24 +21,23 @@ class SociedadFI extends Sociedad
     private $id;
     
     /**
-     * @ORM\ManyToOne(targetEntity="SociedadGL")
+     * @ORM\ManyToOne(targetEntity="SociedadCO")
      */
-    private $sociedadGL;    
-    
+    private $sociedadCO;    
     
     public function getId()
     {
         return $this->id;
     }
-
-    public function getSociedadGL()
+    
+    public function getSociedadCO()
     {
-        return $this->sociedadGL;
+        return $this->sociedadCO;
     }
 
-    public function setSociedadGL($sociedadGL)
+    public function setSociedadCO($sociedadCO)
     {
-        $this->sociedadGL = $sociedadGL;
+        $this->sociedadCO = $sociedadCO;
     }    
 }
 
