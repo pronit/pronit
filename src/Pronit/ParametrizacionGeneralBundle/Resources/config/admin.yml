@@ -20,3 +20,25 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [PronitParametrizacionGeneralBundle]]            
+            
+    sonata.admin.varianteejercicio:
+        class: Pronit\ParametrizacionGeneralBundle\Admin\VarianteEjercicioAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Parametrización General", label: "Variante Ejercicio" }
+        arguments:
+            - ~
+            - Pronit\ParametrizacionGeneralBundle\Entity\VarianteEjercicio
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitParametrizacionGeneralBundle]]                        
+            
+    sonata.admin.periodovarianteejercicio:
+        class: Pronit\ParametrizacionGeneralBundle\Admin\PeriodoVarianteEjercicioAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, show_in_dashboard: false }
+        arguments:
+            - ~
+            - Pronit\ParametrizacionGeneralBundle\Entity\PeriodoVarianteEjercicio
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitParametrizacionGeneralBundle]]                                    
