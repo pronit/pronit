@@ -31,3 +31,25 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [PronitEstructuraEmpresaBundle]]   
+            
+    sonata.admin.monedalegal:
+        class: Pronit\EstructuraEmpresaBundle\Admin\MonedaLegalAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, show_in_dashboard: false, group: "Estructura de empresa", label: "Moneda Legal" }
+        arguments:
+            - ~
+            - Pronit\EstructuraEmpresaBundle\Entity\MonedaLegal
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitEstructuraEmpresaBundle]]   
+
+    sonata.admin.monedafuerte:
+        class: Pronit\EstructuraEmpresaBundle\Admin\MonedaFuerteAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, show_in_dashboard: false, group: "Estructura de empresa", label: "Moneda Fuerte" }
+        arguments:
+            - ~
+            - Pronit\EstructuraEmpresaBundle\Entity\MonedaFuerte
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitEstructuraEmpresaBundle]]   

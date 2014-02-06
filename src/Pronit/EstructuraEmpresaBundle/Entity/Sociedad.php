@@ -3,6 +3,7 @@
 namespace Pronit\EstructuraEmpresaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
@@ -47,11 +48,24 @@ abstract class Sociedad
      */            
     private $fechaFundacion;
     
+
     public function getId()
     {
         return $this->id;
     }    
-        
+            
+     /**
+     *
+     * @ORM\OneToMany(targetEntity="MonedaLegal", mappedBy="sociedad", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    private $monedasLegales;
+
+     /**
+     *
+     * @ORM\OneToMany(targetEntity="MonedaFuerte", mappedBy="sociedad", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    private $monedasFuertes;
+    
     public function setNombre($valor)
     {
         $this->nombre = $valor;
@@ -101,6 +115,101 @@ abstract class Sociedad
     public function getFechaFundacion()
     {
         return $this->fechaFundacion;
+    }
+    
+    public function setMonedasLegales($value)
+    {
+        $this->monedasLegales = $value;
+    }
+    
+    public function getMonedasLegales()
+    {
+        return $this->monedasLegales;
+    }
+    
+    /**
+     * Este método es un Alias de <u>Sociedad::addMonedaLegal()</u>
+     * 
+     * Se utiliza debido a que symfony realiza singularización solo en inglés.
+     * 
+     * @param \Pronit\EstructuraEmpresaBundle\Entity\MonedaLegal $moneda
+     */
+    public function addMonedasLegale(MonedaLegal $moneda)
+    {
+        $this->addMonedaLegal($moneda);
+    }
+
+    /**
+     * Este método es un Alias de <u>Sociedad::removeMonedaLegal()</u>
+     * 
+     * Se utiliza debido a que symfony realiza singularización solo en inglés.
+     * 
+     * @param \Pronit\EstructuraEmpresaBundle\Entity\MonedaLegal $moneda
+     */
+    public function removeMonedasLegale(MonedaLegal $moneda)
+    {
+        $this->removeMonedaLegal($moneda);
+    }
+    
+    
+    public function addMonedaLegal(MonedaLegal $moneda)
+    {        
+        $moneda->setSociedad($this);
+        $this->monedasLegales->add($moneda);
+    }
+
+    public function removeMonedaLegal(MonedaLegal $moneda)
+    {
+        $this->monedasLegales->removeElement($moneda);
+        
+    }
+
+    
+    
+    public function setMonedasFuertes($value)
+    {
+        $this->monedasFuertes = $value;
+    }
+    
+    public function getMonedasFuertes()
+    {
+        return $this->monedasFuertes;
+    }
+    
+    /**
+     * Este método es un Alias de <u>Sociedad::addMonedaFuerte()</u>
+     * 
+     * Se utiliza debido a que symfony realiza singularización solo en inglés.
+     * 
+     * @param \Pronit\EstructuraEmpresaBundle\Entity\MonedaFuerte $moneda
+     */
+    public function addMonedasFuerte(MonedaFuerte $moneda)
+    {
+        $this->addMonedaFuerte($moneda);
+    }
+
+    /**
+     * Este método es un Alias de <u>Sociedad::removeMonedaFuerte()</u>
+     * 
+     * Se utiliza debido a que symfony realiza singularización solo en inglés.
+     * 
+     * @param \Pronit\EstructuraEmpresaBundle\Entity\MonedaFuerte $moneda
+     */
+    public function removeMonedasFuerte(MonedaFuerte $moneda)
+    {
+        $this->removeMonedaLegal($moneda);
+    }
+    
+    
+    public function addMonedaFuerte(MonedaFuerte $moneda)
+    {        
+        $moneda->setSociedad($this);
+        $this->monedasFuertes->add($moneda);
+    }
+
+    public function removeMonedaFuerte(MonedaFuerte $moneda)
+    {
+        $this->monedasFuertes->removeElement($moneda);
     }
     
     public function __toString() 

@@ -43,9 +43,15 @@ class PaisAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('nombre')
+            ->add('nombre')
             ->add('abreviatura')
             ->add('codigoISO')
+                 // add custom action links
+            ->add('_action', 'actions', array(
+                'actions' => array(
+                    'edit' => array(),
+                )
+            ))
         ;
     }
 }

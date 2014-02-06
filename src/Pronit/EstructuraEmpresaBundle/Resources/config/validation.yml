@@ -1,0 +1,24 @@
+Pronit\EstructuraEmpresaBundle\Entity\Sociedad:
+    properties:
+      nombre:
+        - NotBlank: ~
+        - Length: 
+            max: 100
+      abreviatura:
+        - NotBlank: ~
+        - Length: 
+            max: 20
+      nombreFantasia:
+        - NotBlank: ~
+        - Length: 
+            max: 100
+      monedasLegales:
+        - Valid: ~
+        
+        
+Pronit\EstructuraEmpresaBundle\Entity\MonedaLegal:
+    properties:
+        fechaDesde:
+            - Expression:
+                expression: "this.getFechaHasta() === null || this.getFechaHasta() >= value"
+                message: "La fecha de inicio no puede ser superior a la fecha de fin."

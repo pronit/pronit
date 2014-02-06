@@ -90,8 +90,15 @@ class Moneda
     }
         
     public function __toString() 
-    {
-        return (string)$this->getNombre();
+    {        
+        return (string)$this->nombre;
     }
+    
+    public function getDescripcion()
+    {
+        return sprintf("%s (%s)", $this->codigoISO, $this->nombre);
+    }
+    
+
 }
 

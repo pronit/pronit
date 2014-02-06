@@ -16,6 +16,7 @@ class SociedadFIAdmin extends SociedadAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
+            ->with('Datos generales')
             ->add('sociedadGL', 'sonata_type_model_list', array(
                     'btn_add'       => 'Crear Sociedad GL',
                     'btn_list'      => 'button.list',
