@@ -24,6 +24,13 @@ abstract class SociedadAdmin extends Admin
             ->add('nombreFantasia', 'text', array('label' => 'Nombre de fantasía'))
             ->add('activa', 'checkbox', array('label' => 'Activa'))
             ->add('fechaFundacion', 'date', array('label' => 'Fecha de fundación', 'years' => $years))
+            ->add('variantesEjercicio', 'sonata_type_collection', 
+                array('by_reference' => false),
+                array(
+                    'edit' => 'inline',
+                    'inline' => 'table',
+                ))
+                
         ;
     }
 

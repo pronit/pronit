@@ -3,6 +3,7 @@
 namespace Pronit\EstructuraEmpresaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
@@ -46,7 +47,17 @@ abstract class Sociedad
      * @ORM\Column(type="date")
      */            
     private $fechaFundacion;
-    
+
+    /**
+     * @ORM\OneToMany(targetEntity="VarianteEjercicioSociedad", mappedBy="sociedad", cascade={"persist"}, orphanRemoval=true)
+     */        
+    private $variantesEjercicio;    
+
+    public function __construct()
+    {
+        $this->variantesEjercicio = new ArrayCollection();
+    }
+   
     public function getId()
     {
         return $this->id;
@@ -102,6 +113,23 @@ abstract class Sociedad
     {
         return $this->fechaFundacion;
     }
+    
+    public function getVariantesEjercicio()
+    {
+        return $this->variantesEjercicio;
+    }
+    
+    public function addVariantesEjercicio( VarianteEjercicioSociedad $varianteEjercicio )
+    {
+        $varianteEjercicio->setSociedad($this);
+        $this->getVariantesEjercicio()->add($varianteEjercicio);
+    }
+
+    public function removeVariantesEjercicio( VarianteEjercicioSociedad $varianteEjercicio )
+    {
+        $this->getVariantesEjercicio()->removeElement($varianteEjercicio);
+    }
+    
     
     public function __toString() 
     {

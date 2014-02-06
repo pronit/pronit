@@ -6,6 +6,11 @@
                 <source>Moneda List</source>
                 <target>Monedas</target>
             </trans-unit>
+            <trans-unit id="Variante Ejercicio List">
+                <source>Variante Ejercicio List</source>
+                <target>Variantes Ejercicios</target>
+            </trans-unit>
+            
         </body>
     </file>
 </xliff>
