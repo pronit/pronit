@@ -55,8 +55,7 @@ class VarianteEjercicio
     public function getNombre()
     {
         return $this->nombre;
-    }
-    
+    }    
     
     public function setAbreviatura($value)
     {

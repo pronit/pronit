@@ -39,11 +39,6 @@ class PeriodoVarianteEjercicio
     /**
      * @ORM\Column(type="integer")
      */    
-    private $mes;
-    
-    /**
-     * @ORM\Column(type="integer")
-     */    
     private $periodo;
 
     /**
@@ -101,16 +96,6 @@ class PeriodoVarianteEjercicio
     {
         return $this->abreviatura;
     }    
-
-    public function getMes()
-    {
-        return $this->mes;
-    }
-
-    public function setMes($mes)
-    {
-        $this->mes = $mes;
-    }
 
     public function getPeriodo()
     {

@@ -1,0 +1,11 @@
+pronit_geographic_core_homepage:
+    pattern:  /hello/
+    defaults: { _controller: PronitGeographicCoreBundle:Default:index }
+
+pronit_geographic_core_localizar:
+    pattern:  /hello/localizar
+    defaults: { _controller: PronitGeographicCoreBundle:Default:localizar }
+    
+pronit_geographic_core_metadata_provider:
+    pattern:  /metadata
+    defaults: { _controller: PronitGeographicCoreBundle:Default:metadataProvider }

@@ -19,7 +19,6 @@ class PeriodoVarianteEjercicioAdmin extends Admin
         $formMapper
             ->add('nombre', 'text', array('label' => 'Nombre', 'max_length' => 15))
             ->add('abreviatura', 'text', array('label' => 'Abreviatura', 'max_length' => 3))
-            ->add('mes', 'integer')
             ->add('periodo', 'integer')    
             ->add('diaComienzo', 'integer')    
             ->add('mesComienzo', 'integer')    
