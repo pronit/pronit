@@ -111,7 +111,7 @@ class LoadDivisionesAdministrativas extends AbstractFixture implements FixtureIn
             $pais = new DivisionAdministrativa($nombrePais, $tipoDivisionAdministrativaPais);
             $manager->persist($pais);       
             
-            $this->addReference('pronit-geographic-pais-' . strtolower( $nombrePais ), $pais);
+            $this->addReference('pronit-geographic-pais-' . mb_strtolower( $nombrePais ), $pais);
         }                    
     }
 
@@ -132,7 +132,7 @@ class LoadDivisionesAdministrativas extends AbstractFixture implements FixtureIn
             
             $manager->persist($provincia);       
             
-            $this->addReference('pronit-geographic-provincia-' . strtolower( $provincia->getNombre() ), $provincia);
+            $this->addReference('pronit-geographic-provincia-' . mb_strtolower( $provincia->getNombre() ), $provincia);
         }                    
     }
 
@@ -158,7 +158,7 @@ class LoadDivisionesAdministrativas extends AbstractFixture implements FixtureIn
             
             $manager->persist($partido);       
             
-            $this->addReference('pronit-geographic-partido-' . strtolower( $partido->getNombre() ), $partido);
+            $this->addReference('pronit-geographic-partido-' . mb_strtolower( $partido->getNombre() ), $partido);
         }                    
     }
 
@@ -197,7 +197,7 @@ class LoadDivisionesAdministrativas extends AbstractFixture implements FixtureIn
             
             $manager->persist($ciudad);       
             
-            $this->addReference('pronit-geographic-ciudad-' . strtolower( $ciudad->getNombre() ), $ciudad);
+            $this->addReference('pronit-geographic-ciudad-' . mb_strtolower( $ciudad->getNombre() ), $ciudad);
         }                    
     }
 
@@ -214,7 +214,7 @@ class LoadDivisionesAdministrativas extends AbstractFixture implements FixtureIn
 
         $manager->persist($distritoFederal);       
 
-        $this->addReference('pronit-geographic-distrito federal-' . strtolower( $distritoFederal->getNombre() ), $distritoFederal);
+        $this->addReference('pronit-geographic-distrito federal-' . mb_strtolower( $distritoFederal->getNombre() ), $distritoFederal);
     }
 
     public function loadBarriosArgentina()
@@ -241,7 +241,7 @@ class LoadDivisionesAdministrativas extends AbstractFixture implements FixtureIn
             
             $manager->persist($barrio);       
             
-            $this->addReference('pronit-geographic-barrio-' . strtolower( $barrio->getNombre() ), $barrio);
+            $this->addReference('pronit-geographic-barrio-' . mb_strtolower( $barrio->getNombre() ), $barrio);
         }                    
     }
     
@@ -261,7 +261,7 @@ class LoadDivisionesAdministrativas extends AbstractFixture implements FixtureIn
             
             $manager->persist($comunidadAutonoma);       
             
-            $this->addReference('pronit-geographic-comunidadautonoma-' . strtolower( $comunidadAutonoma->getNombre() ), $comunidadAutonoma);
+            $this->addReference('pronit-geographic-comunidadautonoma-' . mb_strtolower( $comunidadAutonoma->getNombre() ), $comunidadAutonoma);
         }                    
     }
     
