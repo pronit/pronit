@@ -15,27 +15,33 @@ class AppKernel extends Kernel
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
+            new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
 			
-			// Add your dependencies
-			new Sonata\CoreBundle\SonataCoreBundle(),
-			new Sonata\BlockBundle\SonataBlockBundle(),
-			new Sonata\jQueryBundle\SonatajQueryBundle(),
-			new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            new Sonata\CoreBundle\SonataCoreBundle(),
+            new Sonata\BlockBundle\SonataBlockBundle(),
+            //  NO SE NECESITA EN Sonata 2.3 new Sonata\jQueryBundle\SonatajQueryBundle(),
+            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
 
-			new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
-
-			// Then add SonataAdminBundle
-			new Sonata\AdminBundle\SonataAdminBundle(),
+            new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
+            new FOS\UserBundle\FOSUserBundle(),
+            new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),
             
+            new Sonata\AdminBundle\SonataAdminBundle(),
+            new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),            
             
-                        new Pronit\EstructuraEmpresaBundle\PronitEstructuraEmpresaBundle(),
-                        new Pronit\CoreBundle\PronitCoreBundle(),
-                        new Pronit\ParametrizacionGeneralBundle\PronitParametrizacionGeneralBundle(),
+            new Application\Sonata\UserBundle\ApplicationSonataUserBundle(),
+            
+            new Bluegrass\Metadata\Bundle\MetadataBundle\BluegrassMetadataBundleMetadataBundle(),
+            
+            new Pronit\CoreBundle\PronitCoreBundle(),
+            new Pronit\ParametrizacionGeneralBundle\PronitParametrizacionGeneralBundle(),
+            new Pronit\EstructuraEmpresaBundle\PronitEstructuraEmpresaBundle(),
+            new Pronit\Geographic\CoreBundle\PronitGeographicCoreBundle(),
+            
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
-            $bundles[] = new Acme\DemoBundle\AcmeDemoBundle();
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
