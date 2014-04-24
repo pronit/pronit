@@ -102,7 +102,7 @@ class LoadDivisionesAdministrativas extends AbstractFixture implements FixtureIn
     {        
         $manager = $this->getManager();
         
-        $tipoDivisionAdministrativaPais = $this->getReference('pronit-geographic-tipodivisionadministrativa-país');
+        $tipoDivisionAdministrativaPais = $this->getReference('pronit-geographic-tipodivisionadministrativa-pais');
         
         $paises = array( 'Argentina', 'España' );
         
@@ -111,7 +111,7 @@ class LoadDivisionesAdministrativas extends AbstractFixture implements FixtureIn
             $pais = new DivisionAdministrativa($nombrePais, $tipoDivisionAdministrativaPais);
             $manager->persist($pais);       
             
-            $this->addReference('pronit-geographic-país-' . strtolower( $nombrePais ), $pais);
+            $this->addReference('pronit-geographic-pais-' . strtolower( $nombrePais ), $pais);
         }                    
     }
 
@@ -121,7 +121,7 @@ class LoadDivisionesAdministrativas extends AbstractFixture implements FixtureIn
         
         $tipoDivisionAdministrativaProvincia = $this->getReference('pronit-geographic-tipodivisionadministrativa-provincia');
         
-        $argentina = $this->getReference('pronit-geographic-país-argentina');        
+        $argentina = $this->getReference('pronit-geographic-pais-argentina');        
         
         $provincias = array( 'Buenos Aires', 'San Luis');        
         
@@ -207,7 +207,7 @@ class LoadDivisionesAdministrativas extends AbstractFixture implements FixtureIn
         
         $tipoDivisionAdministrativa = $this->getReference('pronit-geographic-tipodivisionadministrativa-distrito federal');
         
-        $argentina = $this->getReference('pronit-geographic-país-argentina');
+        $argentina = $this->getReference('pronit-geographic-pais-argentina');
         
         $distritoFederal = new DivisionAdministrativa('Capital Federal', $tipoDivisionAdministrativa);
         $distritoFederal->setParent($argentina);
@@ -249,10 +249,10 @@ class LoadDivisionesAdministrativas extends AbstractFixture implements FixtureIn
     {
         $manager = $this->getManager();
         
-        $espania = $this->getReference('pronit-geographic-país-españa');
+        $espania = $this->getReference('pronit-geographic-pais-españa');
         $tipoDivisionAdministrativaComunidadAutonoma = $this->getReference('pronit-geographic-tipodivisionadministrativa-comunidad autonoma');
         
-        $comunidadesAutonomas = array( 'Andalucía', 'Islas Canarias', 'Castilla y León', 'Comunidad de Madrid', 'País Vasco' );        
+        $comunidadesAutonomas = array( 'Andalucía', 'Islas Canarias', 'Castilla y León', 'Comunidad de Madrid', 'Pais Vasco' );        
         
         foreach( $comunidadesAutonomas as $nombreComunidadAutonoma )
         {
@@ -277,7 +277,7 @@ class LoadDivisionesAdministrativas extends AbstractFixture implements FixtureIn
             array( 'nombre' => 'Madrid', 'comunidadAutonoma' => $comunidadDeMadrid),
         );
 
-        $comunidadPaisVasco = $this->getReference('pronit-geographic-comunidadautonoma-país vasco');
+        $comunidadPaisVasco = $this->getReference('pronit-geographic-comunidadautonoma-pais vasco');
         
         $provinciasPaisVasco = array( 
             array( 'nombre' => 'Alavá', 'comunidadAutonoma' => $comunidadPaisVasco),

@@ -26,7 +26,7 @@ class LoadTipoDivisionesAdministrativas extends AbstractFixture implements Fixtu
             $tipo = new TipoDivisionAdministrativa($t);
             $manager->persist($tipo);       
             
-            $this->addReference('pronit-geographic-tipodivisionadministrativa-' . strtolower( $t ), $tipo);
+            $this->addReference('pronit-geographic-tipodivisionadministrativa-' . iconv('UTF-8', 'US-ASCII//TRANSLIT', strtolower( $t )), $tipo);
         }                    
 
         $manager->flush();
