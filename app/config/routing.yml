@@ -1,3 +1,7 @@
+pronit_automatizacion:
+    resource: "@PronitAutomatizacionBundle/Resources/config/routing.yml"
+    prefix:   /
+
 pronit_geographic_core:
     resource: "@PronitGeographicCoreBundle/Resources/config/routing.yml"
     prefix:   /

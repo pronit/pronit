@@ -1,0 +1,7 @@
+parameters:
+#    pronit_automatizacion.example.class: Pronit\AutomatizacionBundle\Example
+
+services:
+#    pronit_automatizacion.example:
+#        class: %pronit_automatizacion.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

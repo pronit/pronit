@@ -23,7 +23,9 @@
         "sonata-project/doctrine-orm-admin-bundle": "2.3.x-dev",
         "sonata-project/user-bundle": "2.3.x-dev",
         "doctrine/doctrine-fixtures-bundle": "2.2.*",
-        "bluegrass/metadata": "dev-master"
+        "bluegrass/metadata": "dev-master",
+        "fieryprophet/php-sandbox": "dev-master@dev",
+        "jeremeamia/functionparser": "dev-master@dev"
     },
     "scripts": {
         "post-install-cmd": [
