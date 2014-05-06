@@ -1,3 +1,11 @@
+pronit_gestion_materiales:
+    resource: "@PronitGestionMaterialesBundle/Resources/config/routing.yml"
+    prefix:   /
+
+pronit_compras:
+    resource: "@PronitComprasBundle/Resources/config/routing.yml"
+    prefix:   /
+
 pronit_geographic_core:
     resource: "@PronitGeographicCoreBundle/Resources/config/routing.yml"
     prefix:   /
