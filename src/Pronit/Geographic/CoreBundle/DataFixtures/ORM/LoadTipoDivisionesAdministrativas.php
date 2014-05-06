@@ -19,14 +19,20 @@ class LoadTipoDivisionesAdministrativas extends AbstractFixture implements Fixtu
      */
     public function load(ObjectManager $manager)
     {
-        $tipos = array( 'País', 'Distrito Federal', 'Comunidad Autonoma', 'Provincia', 'Partido', 'Ciudad', 'Barrio' );
+        $tipos = array( 'pais' => 'País', 
+                                    'distritofederal' => 'Distrito Federal', 
+                                    'comunidadautonoma' => 'Comunidad Autonoma', 
+                                    'provincia' => 'Provincia', 
+                                    'partido' => 'Partido', 
+                                    'ciudad' => 'Ciudad', 
+                                    'barrio' => 'Barrio' );
         
-        foreach( $tipos as $t )
+        foreach( $tipos as $clave => $valor )
         {
-            $tipo = new TipoDivisionAdministrativa($t);
+            $tipo = new TipoDivisionAdministrativa($valor);
             $manager->persist($tipo);       
             
-            $this->addReference('pronit-geographic-tipodivisionadministrativa-' . mb_strtolower( $t ), $tipo);
+            $this->addReference('pronit-geographic-tipodivisionadministrativa-' . $clave, $tipo);
         }                    
 
         $manager->flush();
@@ -34,6 +40,6 @@ class LoadTipoDivisionesAdministrativas extends AbstractFixture implements Fixtu
 
     function getOrder()
     {
-        return 1; 
+        return 30; 
     }
 }
