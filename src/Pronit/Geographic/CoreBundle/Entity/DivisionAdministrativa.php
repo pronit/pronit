@@ -39,6 +39,7 @@ class DivisionAdministrativa implements IMetadataEntity
 
     /**
      * @ORM\ManyToOne(targetEntity="Pronit\Geographic\CoreBundle\Entity\DivisionAdministrativa")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     protected $parent;
     
