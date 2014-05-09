@@ -5,7 +5,14 @@ use Pronit\AutomatizacionBundle\Entity\Funcion;
 use Pronit\AutomatizacionBundle\Model\Funciones\Contexto;
 
 /**
- * Description of EvaluadorFuncion
+ * Clase encargada de ejecutar una funcion de Scripting.
+ * 
+ * Para evitar que un script declare mas de una vez las mismas clases/funciones
+ * se utiliza un registro que almacena aquellos scripts que ya han sido 
+ * ejecutados.
+ * 
+ * Esta clase utiliza el patrón Singleton para asegurar que el registro de
+ * scripts ejecutados sea único.
  *
  * @author gcaseres
  */
@@ -36,7 +43,7 @@ class EvaluadorFuncion {
         $sandbox->define_alias('Pronit\AutomatizacionBundle\Model\Scripting', 'Scripting');
         $sandbox->whitelist_class('Scripting\Script');
         $sandbox->whitelist_class('Scripting\Contexto');                
-        
+        $sandbox->whitelist_func('get_class');
         return $sandbox;
     }
 
