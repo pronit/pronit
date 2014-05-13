@@ -39,7 +39,13 @@ class EvaluadorFuncionTest extends \PHPUnit_Framework_TestCase
         if ($nombre == null) {
             $nombre = "prueba";
         }
-        return new Funcion($nombre, $nombreClase, $script);
+        
+        $funcion = new Funcion();
+        $funcion->setNombre($nombre);
+        $funcion->setNombreClase($nombreClase);
+        $funcion->setScript($script);
+        
+        return $funcion;
     }
     
     public function testEjecutar()  {               
@@ -47,7 +53,7 @@ class EvaluadorFuncionTest extends \PHPUnit_Framework_TestCase
         $contexto = new Contexto();
         
         $result = $evaluador->ejecutar(EvaluadorFuncionTest::createFuncionValida("script_1"), $contexto);
-
+        
         $this->assertTrue($result == 10);
     }
     

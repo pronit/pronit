@@ -1,6 +1,9 @@
 <?php
 namespace Pronit\AutomatizacionBundle\Entity;
 
+use Pronit\AutomatizacionBundle\Model\Funciones\Contexto;
+use Pronit\AutomatizacionBundle\Model\Funciones\EvaluadorFuncion;
+
 
 
 /**
@@ -12,12 +15,16 @@ class Funcion {
     protected $script;
     protected $nombre;
     protected $nombreClase;
+       
+    public function __construct() {
+    }
     
+    public function setScript($value) {
+        $this->script = $value;
+    }
     
-    public function __construct($nombre, $nombreClase, $script) {
-        $this->nombre = $nombre;
-        $this->nombreClase = $nombreClase;
-        $this->script = $script;
+    public function getScript() {
+        return $this->script;
     }
     
     public function setNombre($value) {
@@ -35,13 +42,9 @@ class Funcion {
     public function getNombreClase() {
         return $this->nombreClase;
     }
-    
-    public function setScript($value) {
-        $this->script = $value;
+       
+    public function ejecutar(Contexto $contexto) {
+        return EvaluadorFuncion::getInstance()->ejecutar($this, $contexto);
     }
-    
-    public function getScript() {
-        return $this->script;
-    }
-    
 }
+
