@@ -41,6 +41,15 @@ class LoadSistemaMedicion extends AbstractFixture implements FixtureInterface , 
         $this->manager = $manager;
     }
     
+    protected function createEscala( $nombre, $abreviatura, $factor )
+    {
+        $escala = new Escala();
+        $escala->setNombre($nombre);
+        $escala->setAbreviatura($abreviatura);
+        $escala->setFactor($factor);
+        return $escala;
+    }
+    
     /**
      * {@inheritDoc}
      */       
@@ -48,27 +57,47 @@ class LoadSistemaMedicion extends AbstractFixture implements FixtureInterface , 
     {
         $this->setManager($manager);        
                 
-        $escalaMetro = new Escala('Metro', 'm', 1 );
+        $escalaMetro = $this->createEscala('Metro', 'm', 1 );
         $this->addReference('pronit-parametrizaciongeneral-escala-metro', $escalaMetro);
         
-        $sistemaMedicionME = new SistemaMedicion( 'Sistema Métrico', 'S-ME' );
-        $sistemaMedicionME->addEscala( $escalaMetro );
-        $sistemaMedicionME->addEscala( new Escala('Decímetro', 'dm', 0.1 ) );
-        $sistemaMedicionME->addEscala( new Escala('Centímetro', 'cm', 0.01 ) );
-        $sistemaMedicionME->addEscala( new Escala('Milímetro', 'mm', 0.001 ) );
+        $sistemaMetrico = new SistemaMedicion();
+        $sistemaMetrico->setNombre('Sistema Métrico');
+        $sistemaMetrico->setAbreviatura('S-ME');
+        $sistemaMetrico->addEscala( $escalaMetro );
+        $sistemaMetrico->addEscala( $this->createEscala('Decímetro', 'dm', 0.1 ) );
+        $sistemaMetrico->addEscala( $this->createEscala('Centímetro', 'cm', 0.01 ) );
+        $sistemaMetrico->addEscala( $this->createEscala('Milímetro', 'mm', 0.001 ) );
         
-        $manager->persist($sistemaMedicionME);
+        $manager->persist($sistemaMetrico);
         
-        $sistemaMedicionMI = new SistemaMedicion( 'Sistema Millas', 'S-MI' );                
-        $sistemaMedicionMI->addEscala( new Escala('Milla', 'mi', 1 ) );
-        $sistemaMedicionMI->addEscala( new Escala('Yarda', 'yd', 0.000568182 ) );
-        $sistemaMedicionMI->addEscala( new Escala('Pie', 'ft', 0.000189394 ) );
-        $sistemaMedicionMI->addEscala( new Escala('Pulgada', 'in', 0.000015783 ) );
+        $sistemaMillas = new SistemaMedicion();                
+        $sistemaMillas->setNombre('Sistema Millas');
+        $sistemaMillas->setAbreviatura('S-MI');
+        $sistemaMillas->addEscala( $this->createEscala('Milla', 'mi', 1 ) );
+        $sistemaMillas->addEscala( $this->createEscala('Yarda', 'yd', 0.000568182 ) );
+        $sistemaMillas->addEscala( $this->createEscala('Pie', 'ft', 0.000189394 ) );
+        $sistemaMillas->addEscala( $this->createEscala('Pulgada', 'in', 0.000015783 ) );
         
-        $manager->persist($sistemaMedicionMI);
+        $manager->persist($sistemaMillas);
         
-        $conversion = new ConversionSistemaMedicion($sistemaMedicionME, $sistemaMedicionMI, 1.6);
+        $conversion = new ConversionSistemaMedicion();
+        $conversion->setDesde($sistemaMetrico);
+        $conversion->setHasta($sistemaMillas);
+        $conversion->setFactor(1.6);
+        
         $manager->persist($conversion);
+
+        $sistemaLitros = new SistemaMedicion();                
+        $sistemaLitros->setNombre('Sistema Volúmen Líquido Litros');
+        $sistemaLitros->setAbreviatura('S-VL');
+        $sistemaLitros->addEscala( $this->createEscala('Litro', 'l', 1 ) );
+        $sistemaLitros->addEscala( $this->createEscala('Decilitro', 'dl', 0.1 ) );
+        $sistemaLitros->addEscala( $this->createEscala('Centilitro', 'cl', 0.01 ) );
+        $sistemaLitros->addEscala( $this->createEscala('Mililitro', 'ml', 0.001 ) );
+        
+        $this->addReference('pronit-parametrizaciongeneral-sistemamedicion-litro', $sistemaLitros);
+        
+        $manager->persist($sistemaLitros);
         
         $manager->flush();
     }

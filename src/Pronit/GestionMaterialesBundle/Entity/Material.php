@@ -3,6 +3,7 @@
 namespace Pronit\GestionMaterialesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Pronit\ParametrizacionGeneralBundle\Entity\SistemaMedicion;
 
 /**
  * 
@@ -32,10 +33,20 @@ class Material
      */    
     protected $nombre;
     
-    public function __construct($codigo, $nombre)
+    /**
+     * @ORM\ManyToOne(targetEntity="Pronit\GestionMaterialesBundle\Entity\CategoriaValoracion")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    protected $categoriaValoracion;    
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Pronit\ParametrizacionGeneralBundle\Entity\SistemaMedicion")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    protected $sistemaMedicion;    
+    
+    public function __construct()
     {
-        $this->setCodigo($codigo);
-        $this->setNombre($nombre);
     }
     
     public function getId()
@@ -61,6 +72,26 @@ class Material
     public function setCodigo($codigo)
     {
         $this->codigo = $codigo;
+    }    
+
+    public function getCategoriaValoracion()
+    {
+        return $this->categoriaValoracion;
+    }
+
+    public function setCategoriaValoracion(CategoriaValoracion $categoriaValoracion)
+    {
+        $this->categoriaValoracion = $categoriaValoracion;
+    }
+    
+    public function getSistemaMedicion()
+    {
+        return $this->sistemaMedicion;
+    }
+
+    public function setSistemaMedicion(SistemaMedicion $sistemaMedicion)
+    {
+        $this->sistemaMedicion = $sistemaMedicion;
     }    
 }
 

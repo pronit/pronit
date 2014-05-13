@@ -40,11 +40,8 @@ class ConversionSistemaMedicion
      */    
     protected $factor;     
     
-    public function __construct( SistemaMedicion $desde, SistemaMedicion $hasta, $factor)
+    public function __construct()
     {
-        $this->setDesde($desde);
-        $this->setHasta($hasta);
-        $this->setFactor($factor);
     }
     
     public function getId()
@@ -67,12 +64,12 @@ class ConversionSistemaMedicion
         return $this->factor;
     }
 
-    public function setDesde($desde)
+    public function setDesde(SistemaMedicion $desde)
     {
         $this->desde = $desde;
     }
 
-    public function setHasta($hasta)
+    public function setHasta(SistemaMedicion $hasta)
     {
         $this->hasta = $hasta;
     }

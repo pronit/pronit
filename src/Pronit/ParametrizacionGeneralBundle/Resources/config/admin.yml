@@ -42,3 +42,36 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [PronitParametrizacionGeneralBundle]]                                    
+            
+    sonata.admin.sistemamedicion:
+        class: Pronit\ParametrizacionGeneralBundle\Admin\SistemaMedicionAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Parametrización General", label: "Sistema de Medición" }
+        arguments:
+            - ~
+            - Pronit\ParametrizacionGeneralBundle\Entity\SistemaMedicion
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitParametrizacionGeneralBundle]]
+            
+    sonata.admin.escala:
+        class: Pronit\ParametrizacionGeneralBundle\Admin\EscalaAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, show_in_dashboard: false }
+        arguments:
+            - ~
+            - Pronit\ParametrizacionGeneralBundle\Entity\Escala
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitParametrizacionGeneralBundle]]                                    
+
+    sonata.admin.conversionsistemamedicion:
+        class: Pronit\ParametrizacionGeneralBundle\Admin\ConversionSistemaMedicionAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Parametrización General", label: "Conversión Sistema de Medición" }
+        arguments:
+            - ~
+            - Pronit\ParametrizacionGeneralBundle\Entity\ConversionSistemaMedicion
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitParametrizacionGeneralBundle]]

@@ -38,10 +38,8 @@ class SistemaMedicion
      */    
     protected $escalas;
     
-    public function __construct($nombre, $abreviatura)
+    public function __construct()
     {
-        $this->setNombre($nombre);
-        $this->setAbreviatura($abreviatura);
         $this->setEscalas( new \Doctrine\Common\Collections\ArrayCollection() );
     }
     
@@ -85,6 +83,16 @@ class SistemaMedicion
     {
         $escala->setSistemaMedicion($this);
         $this->escalas[] = $escala;
+    }
+
+    public function removeEscala( Escala $escala )
+    {
+        $this->escalas->removeElement( $escala );
+    }
+    
+    public function __toString()
+    {
+        return $this->getNombre();
     }
 }
 

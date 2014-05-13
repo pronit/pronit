@@ -26,9 +26,8 @@ class TipoDivisionAdministrativa
      */
     protected $nombre;
 
-    public function __construct( $nombre )
+    public function __construct()
     {
-        $this->setNombre($nombre);
     }
 
     public function getNombre()
@@ -36,7 +35,7 @@ class TipoDivisionAdministrativa
         return $this->nombre;
     }
 
-    protected function setNombre($nombre)
+    public function setNombre($nombre)
     {
         $this->nombre = $nombre;
     }
@@ -45,6 +44,11 @@ class TipoDivisionAdministrativa
     {
         return $this->id;
     }    
+    
+    public function __toString()
+    {
+        return $this->getNombre();
+    }
     
 }
 

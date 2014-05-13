@@ -6,6 +6,7 @@
     "autoload": {
         "psr-0": { "": "src/" }
     },
+    "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.3",
         "symfony/symfony": "~2.4",
@@ -21,7 +22,7 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "sonata-project/admin-bundle": "2.3.x-dev",
         "sonata-project/doctrine-orm-admin-bundle": "2.3.x-dev",
-        "sonata-project/user-bundle": "2.3.x-dev",
+        "sonata-project/user-bundle": "2.3.*@dev",        
         "doctrine/doctrine-fixtures-bundle": "2.2.*",
         "bluegrass/metadata": "dev-master",
         "fieryprophet/php-sandbox": "dev-master@dev",

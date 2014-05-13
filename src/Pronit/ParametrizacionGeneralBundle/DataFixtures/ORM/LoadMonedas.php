@@ -47,7 +47,11 @@ class LoadMonedas extends AbstractFixture implements FixtureInterface , OrderedF
     {
         $this->setManager($manager);        
         
-        $moneda = new Moneda( "Peso" , "Peso", "$", "ARS" );
+        $moneda = new Moneda();
+        $moneda->setNombre("Peso");
+        $moneda->setCodigoISO("ARS");
+        $moneda->setAbreviatura("Peso");
+        $moneda->setSignoMonetario("$");
                 
         $manager->persist($moneda);
         

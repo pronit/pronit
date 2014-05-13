@@ -40,11 +40,8 @@ class Escala
      */    
     private $factor;    
     
-    public function __construct($nombre, $abreviatura, $factor)
+    public function __construct()
     {
-        $this->setNombre($nombre);
-        $this->setAbreviatura($abreviatura);
-        $this->setFactor($factor);
     }
     
     public function getId()

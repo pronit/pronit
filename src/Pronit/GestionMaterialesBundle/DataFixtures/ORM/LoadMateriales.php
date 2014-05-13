@@ -47,7 +47,14 @@ class LoadMateriales extends AbstractFixture implements FixtureInterface , Order
     {
         $this->setManager($manager);        
 
-        $materialMM001 = new Material("MM001", "Aditivo A1SW");
+        $categoriaValoracion = $this->getReference('pronit-gestionmateriales-categoriavaloracion-3006');
+        $sistemaMedicionLitro = $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-litro');
+        
+        $materialMM001 = new Material();
+        $materialMM001->setCodigo("MM001");
+        $materialMM001->setNombre("Aditivo A1SW");
+        $materialMM001->setCategoriaValoracion($categoriaValoracion);
+        $materialMM001->setSistemaMedicion($sistemaMedicionLitro);
         
         $manager->persist($materialMM001);
         
@@ -58,6 +65,6 @@ class LoadMateriales extends AbstractFixture implements FixtureInterface , Order
     
     function getOrder()
     {
-        return 40; 
+        return 41; 
     }
 }

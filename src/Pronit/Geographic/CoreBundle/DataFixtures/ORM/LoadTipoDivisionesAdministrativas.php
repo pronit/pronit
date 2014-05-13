@@ -29,7 +29,9 @@ class LoadTipoDivisionesAdministrativas extends AbstractFixture implements Fixtu
         
         foreach( $tipos as $clave => $valor )
         {
-            $tipo = new TipoDivisionAdministrativa($valor);
+            $tipo = new TipoDivisionAdministrativa();
+            $tipo->setNombre($valor);
+            
             $manager->persist($tipo);       
             
             $this->addReference('pronit-geographic-tipodivisionadministrativa-' . $clave, $tipo);

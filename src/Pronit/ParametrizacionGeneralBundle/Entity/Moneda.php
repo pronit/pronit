@@ -42,12 +42,8 @@ class Moneda
      */                
     private $codigoISO;
     
-    public function __construct($nombre, $abreviatura,$signoMonetario, $codigoISO)
+    public function __construct()
     {
-        $this->setNombre($nombre);
-        $this->setAbreviatura($abreviatura);
-        $this->setSignoMonetario($signoMonetario);
-        $this->setCodigoISO($codigoISO);
     }
     
     public function getId()

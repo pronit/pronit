@@ -48,14 +48,12 @@ class DivisionAdministrativa implements IMetadataEntity
      */
     private $metadataValues;
     
-    public function __construct( $nombre, $tipo )
+    public function __construct()
     {
-        $this->setNombre($nombre);
-        $this->setTipo($tipo);
         $this->metadataValues = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
-     public function getId()
+    public function getId()
     {
         return $this->id;
     }    
@@ -65,7 +63,7 @@ class DivisionAdministrativa implements IMetadataEntity
         return $this->nombre;
     }
 
-    protected function setNombre($nombre)
+    public function setNombre($nombre)
     {
         $this->nombre = $nombre;
     }

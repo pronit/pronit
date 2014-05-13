@@ -89,7 +89,10 @@ class LoadDivisionesAdministrativas extends AbstractFixture implements FixtureIn
         
         foreach( $paises as $clave => $valor )
         {
-            $pais = new DivisionAdministrativa($valor, $tipoDivisionAdministrativaPais);
+            $pais = new DivisionAdministrativa();
+            $pais->setNombre($valor);
+            $pais->setTipo($tipoDivisionAdministrativaPais);
+            
             $manager->persist($pais);       
             
             $this->addReference('pronit-geographic-pais-' . $clave, $pais);
@@ -108,7 +111,9 @@ class LoadDivisionesAdministrativas extends AbstractFixture implements FixtureIn
         
         foreach( $provincias as $nombreProvincia )
         {
-            $provincia = new DivisionAdministrativa($nombreProvincia, $tipoDivisionAdministrativaProvincia);
+            $provincia = new DivisionAdministrativa();
+            $provincia->setNombre($nombreProvincia);
+            $provincia->setTipo($tipoDivisionAdministrativaProvincia);            
             $provincia->setParent($argentina);
             
             $manager->persist($provincia);       
@@ -134,7 +139,9 @@ class LoadDivisionesAdministrativas extends AbstractFixture implements FixtureIn
         
         foreach( $data as $d )
         {
-            $partido = new DivisionAdministrativa($d['nombre'], $tipoDivisionAdministrativaPartido);
+            $partido = new DivisionAdministrativa();
+            $partido->setNombre($d['nombre']);
+            $partido->setTipo($tipoDivisionAdministrativaPartido);
             $partido->setParent($buenosaires);
             
             $manager->persist($partido);       
@@ -173,7 +180,9 @@ class LoadDivisionesAdministrativas extends AbstractFixture implements FixtureIn
         
         foreach( $data as $d )
         {
-            $ciudad = new DivisionAdministrativa($d['nombre'], $tipoDivisionAdministrativa);
+            $ciudad = new DivisionAdministrativa();
+            $ciudad->setNombre($d['nombre']);
+            $ciudad->setTipo($tipoDivisionAdministrativa);
             $ciudad->setParent($d['partido']);
             
             $manager->persist($ciudad);       
@@ -190,7 +199,9 @@ class LoadDivisionesAdministrativas extends AbstractFixture implements FixtureIn
         
         $argentina = $this->getReference('pronit-geographic-pais-argentina');
         
-        $distritoFederal = new DivisionAdministrativa('Capital Federal', $tipoDivisionAdministrativa);
+        $distritoFederal = new DivisionAdministrativa();
+        $distritoFederal->setNombre('Capital Federal');
+        $distritoFederal->setTipo($tipoDivisionAdministrativa);
         $distritoFederal->setParent($argentina);
 
         $manager->persist($distritoFederal);       
@@ -217,7 +228,9 @@ class LoadDivisionesAdministrativas extends AbstractFixture implements FixtureIn
         
         foreach( $data as $d )
         {
-            $barrio = new DivisionAdministrativa($d['nombre'], $tipoDivisionAdministrativa);
+            $barrio = new DivisionAdministrativa();
+            $barrio->setNombre($d['nombre']);
+            $barrio->setTipo($tipoDivisionAdministrativa);
             $barrio->setParent($d['parent']);
             
             $manager->persist($barrio);       
@@ -237,7 +250,9 @@ class LoadDivisionesAdministrativas extends AbstractFixture implements FixtureIn
         
         foreach( $comunidadesAutonomas as $clave => $valor )
         {
-            $comunidadAutonoma = new DivisionAdministrativa($valor, $tipoDivisionAdministrativaComunidadAutonoma);
+            $comunidadAutonoma = new DivisionAdministrativa();
+            $comunidadAutonoma->setNombre($valor);
+            $comunidadAutonoma->setTipo($tipoDivisionAdministrativaComunidadAutonoma);
             $comunidadAutonoma->setParent($espania);
             
             $manager->persist($comunidadAutonoma);       
@@ -284,7 +299,9 @@ class LoadDivisionesAdministrativas extends AbstractFixture implements FixtureIn
         
         foreach( $provincias as $provinciaInfo ){
             
-            $provincia = new DivisionAdministrativa( $provinciaInfo['nombre'], $tipoDivisionAdministrativaProvincia );
+            $provincia = new DivisionAdministrativa();
+            $provincia->setNombre($provinciaInfo['nombre']);
+            $provincia->setTipo($tipoDivisionAdministrativaProvincia);
             $provincia->setParent($provinciaInfo['comunidadAutonoma']);
             
             $manager->persist($provincia);       

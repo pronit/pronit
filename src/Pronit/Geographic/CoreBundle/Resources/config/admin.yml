@@ -1,0 +1,22 @@
+services:
+    sonata.admin.tipodivisionadministrativa:
+        class: Pronit\Geographic\CoreBundle\Admin\TipoDivisionAdministrativaAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Parametrización General", label: "Tipo de División Administrativa" }
+        arguments:
+            - ~
+            - Pronit\Geographic\CoreBundle\Entity\TipoDivisionAdministrativa
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitGeographicCoreBundle]]
+            
+    sonata.admin.divisionadministrativa:
+        class: Pronit\Geographic\CoreBundle\Admin\DivisionAdministrativaAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Parametrización General", label: "División Administrativa" }
+        arguments:
+            - ~
+            - Pronit\Geographic\CoreBundle\Entity\DivisionAdministrativa
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitGeographicCoreBundle]]

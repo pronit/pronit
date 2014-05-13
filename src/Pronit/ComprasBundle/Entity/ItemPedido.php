@@ -47,6 +47,8 @@ class ItemPedido extends Item
         $this->setCantidad($cantidad);
         $this->setEscala($escala);
         $this->setImporte($importe);
+
+        /** @todo validar que $escala sea parte de $material->getSistemaMedicion() */
     }    
     
     public function getCantidad()
