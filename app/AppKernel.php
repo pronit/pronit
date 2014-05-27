@@ -41,6 +41,8 @@ class AppKernel extends Kernel
             new Pronit\AutomatizacionBundle\PronitAutomatizacionBundle(),
             new Pronit\ComprasBundle\PronitComprasBundle(),
             new Pronit\GestionMaterialesBundle\PronitGestionMaterialesBundle(),
+            new Pronit\ContabilidadBundle\PronitContabilidadBundle(),
+            new Pronit\CustomizingBundle\PronitCustomizingBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

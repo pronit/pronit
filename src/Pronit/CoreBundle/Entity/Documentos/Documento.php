@@ -1,6 +1,6 @@
 <?php
 
-namespace Pronit\CoreBundle\Entity;
+namespace Pronit\CoreBundle\Entity\Documentos;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -39,7 +39,7 @@ abstract class Documento
     protected $fecha;    
     
     /**
-     * @ORM\OneToMany(targetEntity="Pronit\CoreBundle\Entity\Item", mappedBy="documento", cascade={"ALL"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Pronit\CoreBundle\Entity\Documentos\Item", mappedBy="documento", cascade={"ALL"}, orphanRemoval=true)
      */
     private $items;    
     

@@ -74,6 +74,6 @@ class LoadCategoriaValoracion extends AbstractFixture implements FixtureInterfac
     
     function getOrder()
     {
-        return 40; 
+        return 70; 
     }
 }

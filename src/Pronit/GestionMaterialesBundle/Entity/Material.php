@@ -9,10 +9,8 @@ use Pronit\ParametrizacionGeneralBundle\Entity\SistemaMedicion;
  * 
  *
  * @author ldelia
- */
-/** 
  * @ORM\Entity
-  * @ORM\Table(name="gmateriales_material")
+ * @ORM\Table(name="gmateriales_material")
  */
 class Material
 {    

@@ -1,3 +1,11 @@
+pronit_customizing:
+    resource: "@PronitCustomizingBundle/Resources/config/routing.yml"
+    prefix:   /
+
+pronit_contabilidad:
+    resource: "@PronitContabilidadBundle/Resources/config/routing.yml"
+    prefix:   /
+
 pronit_gestion_materiales:
     resource: "@PronitGestionMaterialesBundle/Resources/config/routing.yml"
     prefix:   /

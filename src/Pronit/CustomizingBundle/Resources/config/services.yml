@@ -1,0 +1,7 @@
+parameters:
+#    pronit_customizing.example.class: Pronit\CustomizingBundle\Example
+
+services:
+#    pronit_customizing.example:
+#        class: %pronit_customizing.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

@@ -7,17 +7,41 @@ use Pronit\AutomatizacionBundle\Entity\Funcion;
 use Pronit\CoreBundle\Model\Automatizacion\Scripting\Contexto as ContextoScript;
 use Pronit\CoreBundle\Model\Operaciones\Contexto;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * 
  *
  * @author gcaseres
+ * @ORM\Entity
+ * @ORM\Table(name="core_operacion")
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="discr", type="string")
+ * @ORM\DiscriminatorMap({"OperacionContableValue" = "Pronit\CoreBundle\Entity\Contabilidad\OperacionContable"})
  */
 abstract class Operacion {
 
+   /**
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */    
     protected $id;
+    
+    /** 
+     * @ORM\Column(type="string", length=5)
+     */    
     protected $codigo;
+    
+    /** 
+     * @ORM\Column(type="string") 
+     */    
     protected $nombre;
+
+    /** @todo */
     protected $funcion;
+    
+    /** @todo */
     protected $contextosAceptados;
     
     

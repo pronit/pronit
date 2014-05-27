@@ -1,0 +1,3 @@
+pronit_customizing_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: PronitCustomizingBundle:Default:index }

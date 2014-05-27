@@ -4,16 +4,15 @@ namespace Pronit\ComprasBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-use Pronit\CoreBundle\Entity\Documento;
+use Pronit\CoreBundle\Entity\Documentos\Documento;
 use Pronit\ParametrizacionGeneralBundle\Entity\Moneda;
 use Pronit\EstructuraEmpresaBundle\Entity\SociedadFI;
+
 /**
  *
  * @author ldelia
- */
-/** 
  * @ORM\Entity
-*/
+ */
 class Pedido extends Documento
 {
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Pronit\CoreBundle\Entity;
+namespace Pronit\CoreBundle\Entity\Documentos;
 
 use Doctrine\ORM\Mapping as ORM;
 

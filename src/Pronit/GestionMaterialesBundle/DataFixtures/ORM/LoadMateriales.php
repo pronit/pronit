@@ -65,6 +65,6 @@ class LoadMateriales extends AbstractFixture implements FixtureInterface , Order
     
     function getOrder()
     {
-        return 41; 
+        return 71; 
     }
 }

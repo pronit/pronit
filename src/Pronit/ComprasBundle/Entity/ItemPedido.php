@@ -4,7 +4,7 @@ namespace Pronit\ComprasBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-use Pronit\CoreBundle\Entity\Item;
+use Pronit\CoreBundle\Entity\Documentos\Item;
 use Pronit\ParametrizacionGeneralBundle\Entity\Escala;
 use Pronit\GestionMaterialesBundle\Entity\Material;
 
