@@ -9,13 +9,13 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-use Pronit\ComprasBundle\Entity\Pedidos\Pedido;
-use Pronit\ComprasBundle\Entity\Pedidos\ItemPedido;
+use Pronit\ComprasBundle\Entity\EntradasMercancias\EntradaMercancias;
+use Pronit\ComprasBundle\Entity\EntradasMercancias\ItemEntradaMercancias;
 
 /**
  * @author ldelia
  */
-class LoadPedidos extends AbstractFixture implements FixtureInterface , OrderedFixtureInterface, ContainerAwareInterface
+class LoadEntradaMercancias extends AbstractFixture implements FixtureInterface , OrderedFixtureInterface, ContainerAwareInterface
 {
     /**
      * @var ContainerInterface
@@ -51,27 +51,25 @@ class LoadPedidos extends AbstractFixture implements FixtureInterface , OrderedF
         $sociedad = $this->getReference('pronit-estructuraempresa-sociedadfi');
         $moneda = $this->getReference('pronit-parametrizaciongeneral-moneda-pesos');
         
-        $clasificador = $this->getReference('pronit-documentos-clasificadoritem-100');
-        $escalaMetro = $this->getReference('pronit-parametrizaciongeneral-escala-metro');
-        $material = $this->getReference('pronit-gestionmateriales-material-MM001');
-
-        $itemPedido = new ItemPedido();
-        $itemPedido->setClasificador($clasificador);
-        $itemPedido->setCantidad(4);
-        $itemPedido->setMaterial($material);
-        $itemPedido->setEscala($escalaMetro);
-        $itemPedido->setImporte(9.9);        
+        $clasificador = $this->getReference('pronit-documentos-clasificadoritem-101');
+        $material = $this->getReference('pronit-gestionmateriales-material-610615008');
         
-        $pedido = new Pedido($sociedad, "3445/5", new \DateTime(), $moneda);
-        $pedido->addItemPedido( $itemPedido );
-                
-        $manager->persist($pedido);
+        $item = new ItemEntradaMercancias();
+        $item->setClasificador($clasificador);        
+        $item->setCantidad(4);        
+        $item->setMaterial($material);
+        $item->setPrecioUnitario(5.5);
+        
+        $entradaMercancias = new EntradaMercancias($sociedad, "0001/1", new \DateTime(), $moneda);
+        $entradaMercancias->addItemEntradaMercancias($item);
+        
+        $manager->persist($entradaMercancias);
         
         $manager->flush();
     }
     
     function getOrder()
     {
-        return 80; 
+        return 81; 
     }
 }

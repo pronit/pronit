@@ -77,6 +77,6 @@ class LoadClaveContabilizacion extends AbstractFixture implements FixtureInterfa
     
     function getOrder()
     {
-        return 40; 
+        return 10; 
     }
 }

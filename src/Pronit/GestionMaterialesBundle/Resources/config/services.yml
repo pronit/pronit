@@ -1,7 +1,7 @@
 parameters:
-#    pronit_gestion_materiales.example.class: Pronit\GestionMaterialesBundle\Example
+    pronit_gestion_materiales_customizing_contabilidad.imputaciones_manager.class: Pronit\GestionMaterialesBundle\Model\Customizing\Contabilidad\ImputacionesCustomizingManager
 
 services:
-#    pronit_gestion_materiales.example:
-#        class: %pronit_gestion_materiales.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    pronit_gestion_materiales_customizing_contabilidad.imputaciones_manager:
+        class: %pronit_gestion_materiales_customizing_contabilidad.imputaciones_manager.class%
+        arguments: [@doctrine.orm.entity_manager]

@@ -1,6 +1,6 @@
 <?php
 
-namespace Pronit\CoreBundle\Model\Operaciones;
+namespace Pronit\CoreBundle\Model\Operaciones\Contextos;
 
 /**
  *

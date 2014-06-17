@@ -54,8 +54,9 @@ class EvaluadorFuncion {
         $sandbox->append('return new ' . $funcion->getNombreClase() . '();');
         
         if (isset($this->registroFunciones[$funcion->getNombre()])) {
-            $nombreClase = $funcion->getNombreClase();
-            $script = new $nombreClase();
+            $namespace = $funcion->getNombre();
+            $nombreClase = $namespace . '\\' . $funcion->getNombreClase();
+            $script = new  $nombreClase();
         } else {
             $this->registroFunciones[$funcion->getNombre()] = true;            
             $script = $sandbox->execute($funcion->getScript());

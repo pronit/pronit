@@ -104,6 +104,6 @@ class LoadSistemaMedicion extends AbstractFixture implements FixtureInterface , 
     
     function getOrder()
     {
-        return 11; 
+        return 41; 
     }
 }

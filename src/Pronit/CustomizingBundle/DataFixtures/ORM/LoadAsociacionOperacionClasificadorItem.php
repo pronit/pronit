@@ -1,6 +1,6 @@
 <?php
 
-namespace Pronit\CoreBundle\DataFixtures\ORM;
+namespace Pronit\CustomizingBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
@@ -49,6 +49,7 @@ class LoadAsociacionOperacionClasificadorItem extends AbstractFixture implements
 
         $values =  array(
             array( "codigo" => "101", "operacion" => "BSX"),
+            array( "codigo" => "101", "operacion" => "WRX"),
             array( "codigo" => "122", "operacion" => "BSX"),
         );
         

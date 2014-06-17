@@ -1,6 +1,6 @@
 <?php
 
-namespace Pronit\ComprasBundle\Entity;
+namespace Pronit\ComprasBundle\Entity\Pedidos;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -18,7 +18,6 @@ class Pedido extends Documento
 
     /**
      * @ORM\ManyToOne(targetEntity="Pronit\ParametrizacionGeneralBundle\Entity\Moneda")
-     * @ORM\JoinColumn(nullable=false)
      */
     protected $moneda;
     

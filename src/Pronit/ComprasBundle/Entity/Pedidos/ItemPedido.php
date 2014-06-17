@@ -1,6 +1,6 @@
 <?php
 
-namespace Pronit\ComprasBundle\Entity;
+namespace Pronit\ComprasBundle\Entity\Pedidos;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -19,7 +19,6 @@ class ItemPedido extends Item
 {
     /**
      * @ORM\ManyToOne(targetEntity="Pronit\GestionMaterialesBundle\Entity\Material")
-     * @ORM\JoinColumn(nullable=false)
      */    
     protected $material;    
     
@@ -30,7 +29,6 @@ class ItemPedido extends Item
     
     /**
      * @ORM\ManyToOne(targetEntity="Pronit\ParametrizacionGeneralBundle\Entity\Escala")
-     * @ORM\JoinColumn(nullable=false)
      */    
     protected $escala;    
     
@@ -38,18 +36,6 @@ class ItemPedido extends Item
      * @ORM\Column(type="float")
      */    
     protected $importe;    
-    
-    public function __construct(Material $material, $cantidad, Escala $escala, $importe)
-    {
-        parent::__construct();
-        
-        $this->setMaterial($material);
-        $this->setCantidad($cantidad);
-        $this->setEscala($escala);
-        $this->setImporte($importe);
-
-        /** @todo validar que $escala sea parte de $material->getSistemaMedicion() */
-    }    
     
     public function getCantidad()
     {
@@ -73,6 +59,7 @@ class ItemPedido extends Item
 
     public function setEscala(Escala $escala)
     {
+        /** @todo validar que $escala sea parte de $material->getSistemaMedicion() */        
         $this->escala = $escala;
     }
 

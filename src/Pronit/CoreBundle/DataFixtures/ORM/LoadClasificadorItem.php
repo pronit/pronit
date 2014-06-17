@@ -76,6 +76,6 @@ class LoadClasificadorItem extends AbstractFixture implements FixtureInterface ,
     
     function getOrder()
     {
-        return 42; 
+        return 12; 
     }
 }

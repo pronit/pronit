@@ -2,7 +2,7 @@
 
 namespace Pronit\CoreBundle\Tests\Entity\Operaciones;
 
-use Pronit\CoreBundle\Model\Operaciones\Contexto;
+use Pronit\CoreBundle\Model\Operaciones\Contextos\Contexto;
 
 /**
  * Description of ContextoPrueba

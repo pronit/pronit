@@ -31,7 +31,6 @@ class OperacionContable extends Operacion
     
     protected function procesar($returnValue) 
     {
-        /** @todo implementar método procesar */
-        return $this->procesarException(new \Exception("Método procesar en OperacionContable no implementada"));
+        return $returnValue;
     }    
 }

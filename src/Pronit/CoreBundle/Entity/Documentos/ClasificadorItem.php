@@ -5,7 +5,6 @@ namespace Pronit\CoreBundle\Entity\Documentos;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @todo Mover (junto a el fixture al lugar adecuado )
  * @author ldelia
  * @ORM\Entity
  * @ORM\Table(name="core_clasificadoritem")

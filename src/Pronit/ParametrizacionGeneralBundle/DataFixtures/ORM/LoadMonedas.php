@@ -62,6 +62,6 @@ class LoadMonedas extends AbstractFixture implements FixtureInterface , OrderedF
     
     function getOrder()
     {
-        return 10; 
+        return 40; 
     }
 }

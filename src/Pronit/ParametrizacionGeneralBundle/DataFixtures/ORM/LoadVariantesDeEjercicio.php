@@ -69,6 +69,6 @@ class LoadVariantesDeEjercicio extends AbstractFixture implements FixtureInterfa
     
     function getOrder()
     {
-        return 12; 
+        return 42; 
     }
 }

@@ -47,20 +47,35 @@ class LoadMateriales extends AbstractFixture implements FixtureInterface , Order
     {
         $this->setManager($manager);        
 
-        $categoriaValoracion = $this->getReference('pronit-gestionmateriales-categoriavaloracion-3006');
         $sistemaMedicionLitro = $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-litro');
+
+        $values = array(
+            array('codigo' => "MM001", 
+                    "nombre" => "Aditivo A1SW", 
+                    'categoria' => $this->getReference('pronit-gestionmateriales-categoriavaloracion-3006'), 
+                    "sistemaMedicion" => $sistemaMedicionLitro),
+            array('codigo' => "610615008", 
+                    "nombre" => "Caja Telescopica I 3 90 Libras", 
+                    'categoria' => $this->getReference('pronit-gestionmateriales-categoriavaloracion-3001'), 
+                    "sistemaMedicion" => $sistemaMedicionLitro),
+        );
         
-        $materialMM001 = new Material();
-        $materialMM001->setCodigo("MM001");
-        $materialMM001->setNombre("Aditivo A1SW");
-        $materialMM001->setCategoriaValoracion($categoriaValoracion);
-        $materialMM001->setSistemaMedicion($sistemaMedicionLitro);
+        foreach( $values as $v ){
+            
+            $material = new Material();
+            $material->setCodigo( $v['codigo'] );
+            $material->setNombre( $v['nombre'] );
+            $material->setCategoriaValoracion( $v['categoria'] );
+            $material->setSistemaMedicion( $v['sistemaMedicion'] );
         
-        $manager->persist($materialMM001);
+            $manager->persist($material);
+            
+            $this->addReference('pronit-gestionmateriales-material-' . $v['codigo'], $material);        
+        }
         
         $manager->flush();
         
-        $this->addReference('pronit-gestionmateriales-materialmm001', $materialMM001);        
+        
     }
     
     function getOrder()

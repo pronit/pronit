@@ -11,7 +11,7 @@ use Pronit\EstructuraEmpresaBundle\Entity\SociedadFI;
  * @ORM\Table(name="core_documento")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"PedidoValue" = "Pronit\ComprasBundle\Entity\Pedido"})
+ * @ORM\DiscriminatorMap({"PedidoValue" = "Pronit\ComprasBundle\Entity\Pedidos\Pedido","EntradaMercanciasValue" = "Pronit\ComprasBundle\Entity\EntradasMercancias\EntradaMercancias"})
  */
 abstract class Documento
 {

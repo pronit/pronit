@@ -57,7 +57,7 @@ class EvaluadorFuncionTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($result == 10);
     }
     
-    public function TestEjecutarVariasFunciones() {
+    public function testEjecutarVariasFunciones() {
         $evaluador = EvaluadorFuncionTest::createEvaluadorFuncion();
         $contexto = new Contexto();
         

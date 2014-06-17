@@ -11,7 +11,7 @@ class Contexto extends \Pronit\AutomatizacionBundle\Model\Scripting\Contexto {
     
     protected $contextoOperacion;
     
-    public function __construct(\Pronit\CoreBundle\Model\Operaciones\Contexto $contextoOperacion) {
+    public function __construct(\Pronit\CoreBundle\Model\Operaciones\Contextos\Contexto $contextoOperacion) {
         $this->contextoOperacion = $contextoOperacion;
     }
     

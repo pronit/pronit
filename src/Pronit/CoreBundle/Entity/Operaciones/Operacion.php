@@ -5,7 +5,7 @@ namespace Pronit\CoreBundle\Entity\Operaciones;
 use Exception;
 use Pronit\AutomatizacionBundle\Entity\Funcion;
 use Pronit\CoreBundle\Model\Automatizacion\Scripting\Contexto as ContextoScript;
-use Pronit\CoreBundle\Model\Operaciones\Contexto;
+use Pronit\CoreBundle\Model\Operaciones\Contextos\Contexto;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -38,10 +38,15 @@ abstract class Operacion {
      */    
     protected $nombre;
 
-    /** @todo */
+    /**
+     * @ORM\ManyToOne(targetEntity="Pronit\AutomatizacionBundle\Entity\Funcion")
+     * @ORM\JoinColumn(nullable=false)
+     */
     protected $funcion;
     
-    /** @todo */
+    /** 
+     * @ORM\Column(type="array") 
+     */    
     protected $contextosAceptados;
     
     
@@ -95,10 +100,9 @@ abstract class Operacion {
 
         try {
             $returnValue = $this->funcion->ejecutar($contextoScript);
-        } catch (Exception $e) {
+        } catch (Exception $e) {            
             return $this->procesarException($e);
         }
-
         return $this->procesar($returnValue);
     }
 

@@ -4,16 +4,37 @@ namespace Pronit\AutomatizacionBundle\Entity;
 use Pronit\AutomatizacionBundle\Model\Funciones\Contexto;
 use Pronit\AutomatizacionBundle\Model\Funciones\EvaluadorFuncion;
 
-
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Description of Funcion
  *
  * @author gcaseres
+ * @ORM\Entity
+ * @ORM\Table(name="autom_funcion")
  */
 class Funcion {
+    
+   /**
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */    
+    protected $id;
+    
+    /** 
+     * @ORM\Column(type="text")
+     */        
     protected $script;
+
+    /** 
+     * @ORM\Column(type="string", length=30)
+     */
     protected $nombre;
+    
+    /** 
+     * @ORM\Column(type="string", length=30)
+     */
     protected $nombreClase;
        
     public function __construct() {

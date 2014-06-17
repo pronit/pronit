@@ -1,7 +1,7 @@
 parameters:
-#    pronit_compras.example.class: Pronit\ComprasBundle\Example
+    pronit_compras_contabilidad_esquemas_entradasmercancias.generador_esquema_contable.class: Pronit\ComprasBundle\Model\Contabilidad\Esquemas\EntradasMercancias\GeneradorEsquemaContable
 
 services:
-#    pronit_compras.example:
-#        class: %pronit_compras.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    pronit_compras_contabilidad_esquemas_entradasmercancias.generador_esquema_contable:
+        class: %pronit_compras_contabilidad_esquemas_entradasmercancias.generador_esquema_contable.class%
+        arguments: [@pronit_customizing.operaciones_customizing_manager, @pronit_gestion_materiales_customizing_contabilidad.imputaciones_manager, @pronit_contabilidad_customizing.imputaciones_manager]

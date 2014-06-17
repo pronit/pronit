@@ -2,6 +2,6 @@ parameters:
 #    pronit_customizing.example.class: Pronit\CustomizingBundle\Example
 
 services:
-#    pronit_customizing.example:
-#        class: %pronit_customizing.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    pronit_customizing.operaciones_customizing_manager:
+        class: Pronit\CustomizingBundle\Model\Operaciones\OperacionesCustomizingManager
+        arguments: [ @doctrine.orm.entity_manager ]
