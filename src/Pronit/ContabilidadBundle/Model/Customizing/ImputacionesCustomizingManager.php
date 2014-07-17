@@ -2,7 +2,7 @@
 
 namespace Pronit\ContabilidadBundle\Model\Customizing;
 
-use Pronit\CoreBundle\Entity\Contabilidad\OperacionContable;
+use Pronit\CoreBundle\Entity\Operaciones\OperacionContable;
 
 use Doctrine\ORM\EntityManager;
 
@@ -20,7 +20,7 @@ class ImputacionesCustomizingManager implements IImputacionesCustomizingManager
     
     /**
      * 
-     * @param \Pronit\CoreBundle\Entity\Contabilidad\OperacionContable $operacionContable
+     * @param \Pronit\CoreBundle\Entity\Operaciones\OperacionContable $operacionContable
      * @return \Pronit\ContabilidadBundle\Entity\CuentasContables\Cuenta cuenta a imputar
      */
     public function getCuenta(OperacionContable $operacionContable)

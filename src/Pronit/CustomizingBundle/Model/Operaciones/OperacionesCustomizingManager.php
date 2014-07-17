@@ -25,7 +25,7 @@ class OperacionesCustomizingManager implements IOperacionesCustomizingManager
         
         $qb = $this->em->createQueryBuilder();
         $qb->select('oc')
-            ->from('Pronit\CoreBundle\Entity\Contabilidad\OperacionContable', 'oc')
+            ->from('Pronit\CoreBundle\Entity\Operaciones\OperacionContable', 'oc')
             ->where(
                 $qb->expr()->in(
                    'oc.id',

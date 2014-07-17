@@ -1,0 +1,55 @@
+services:
+    sonata.admin.material:
+        class: Pronit\GestionBienesYServiciosBundle\Admin\MaterialAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Bienes y Servicios", label: "Materiales" }
+        arguments:
+            - ~
+            - Pronit\GestionBienesYServiciosBundle\Entity\Material
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitGestionBienesYServiciosBundle]]            
+
+    sonata.admin.servicio:
+        class: Pronit\GestionBienesYServiciosBundle\Admin\ServicioAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Bienes y Servicios", label: "Servicios" }
+        arguments:
+            - ~
+            - Pronit\GestionBienesYServiciosBundle\Entity\Servicio
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitGestionBienesYServiciosBundle]]            
+            
+    sonata.admin.tipomaterial:
+        class: Pronit\GestionBienesYServiciosBundle\Admin\TipoMaterialAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Bienes y Servicios", label: "Tipos de Material" }
+        arguments:
+            - ~
+            - Pronit\GestionBienesYServiciosBundle\Entity\TipoMaterial
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitGestionBienesYServiciosBundle]]                        
+            
+    sonata.admin.tiposervicio:
+        class: Pronit\GestionBienesYServiciosBundle\Admin\TipoServicioAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Bienes y Servicios", label: "Tipos de Servicio" }
+        arguments:
+            - ~
+            - Pronit\GestionBienesYServiciosBundle\Entity\TipoServicio
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitGestionBienesYServiciosBundle]]                                    
+            
+    sonata.admin.bienserviciosociedadfi:
+        class: Pronit\GestionBienesYServiciosBundle\Admin\Customizing\EstructuraEmpresa\BienServicioSociedadFIAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Customizing Sociedad FI", label: "Gestión de Bienes y Servicios" }
+        arguments:
+            - ~
+            - Pronit\GestionBienesYServiciosBundle\Entity\Customizing\EstructuraEmpresa\BienServicioSociedadFI
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitGestionBienesYServiciosBundle]]                                                

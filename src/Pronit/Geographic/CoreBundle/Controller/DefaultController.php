@@ -32,62 +32,137 @@ class DefaultController extends Controller
         }
         die("");
     }   
-    
-    public function metadataProviderAction()
+
+    protected function testSetMetadata()
     {
-/*
-        $queryBuilder = $this->getDoctrine()
-                                            ->getRepository('Pronit\Geographic\CoreBundle\Entity\DivisionAdministrativa')
-                                            ->createQueryBuilder('da');
-        $queryBuilder->join('da.metadataValues', 'mv')
-                                ->where("mv.metadataName = 'himno'")
-                                ->andWhere('mv.value LIKE ?1')
-                                ->setParameter(1, '%mor%');
-        
-        $result = $queryBuilder->getQuery()->getResult();
-        
-        die( "Resultados: " . count($result) );
-*/        
-        $divisionAdministrativaMetadataProvider = $this->get('bluegrass.metadata_provider_factory')->getProviderFor( 'Pronit\Geographic\CoreBundle\Entity\DivisionAdministrativa' );
-        
+        /**
+         * Obtengo la entidad que acepta metadatos
+         */
         /* @var $divisionAdministrativa \Pronit\Geographic\CoreBundle\Entity\DivisionAdministrativa  */
 
         $divisionAdministrativa = $this->getDoctrine()->getManager()
-                                                                    ->getRepository('Pronit\Geographic\CoreBundle\Entity\DivisionAdministrativa')
-                                                                    ->findOneByNombre( 'Argentina' );                        
+                                        ->getRepository('Pronit\Geographic\CoreBundle\Entity\DivisionAdministrativa')
+                                        ->findOneByNombre( 'Argentina' );                        
+
         
-        /*
-         * Prueba de getter de metadatos 
-         * 
-         */   
-/*         
+        /**
+         * Obtengo el provider de metadatos de la entidad 
+         */
+        /* @var $divisionAdministrativaMetadataProvider \Bluegrass\Metadata\Bundle\MetadataBundle\Model\MetadataProvider\IMetadataProvider */
+        
+        $divisionAdministrativaMetadataProvider = $this->get('bluegrass.metadata_provider_factory')->getProviderFor( 'Pronit\Geographic\CoreBundle\Entity\DivisionAdministrativa' );
+        
+
+        /**
+         * Se setea el valor de un metadato en la entidad (string)
+         */
+
+        $divisionAdministrativa->setMetadata($divisionAdministrativaMetadataProvider->getMetadata("himno"), 'Oid mortales el grito sagrado');
+        $divisionAdministrativa->setMetadata($divisionAdministrativaMetadataProvider->getMetadata("gentilicio"), 'Argentinos');
+
+        /**
+         * Se setea el valor de un metadato en la entidad (object)
+         */
+        
+        $moneda = $this->getDoctrine()->getManager()
+                                    ->getRepository('Pronit\ParametrizacionGeneralBundle\Entity\Moneda')
+                                    ->findOneByNombre( 'Peso' );        
+        
+        $divisionAdministrativa->setMetadata($divisionAdministrativaMetadataProvider->getMetadata("moneda"), $moneda);
+
+        /**
+         * Se persiste la entidad
+         */        
+        $em = $this->getDoctrine()->getEntityManager();
+        
+        
+        
+        echo "Se guardaron los metadatos correctamente";
+        
+        /**
+         * Obtengo la entidad que acepta metadatos
+         */
+        /* @var $divisionAdministrativa \Pronit\Geographic\CoreBundle\Entity\DivisionAdministrativa  */
+
+        $divisionAdministrativa = $this->getDoctrine()->getManager()
+                                        ->getRepository('Pronit\Geographic\CoreBundle\Entity\DivisionAdministrativa')
+                                        ->findOneByNombre( 'España' );                                
+        $divisionAdministrativa->setMetadata($divisionAdministrativaMetadataProvider->getMetadata("himno"), 'Otro himno');
+        $divisionAdministrativa->setMetadata($divisionAdministrativaMetadataProvider->getMetadata("gentilicio"), 'Argentinos');
+        
+        $em->flush();
+    }
+
+    protected function testGetMetadata()
+    {
+        /**
+         * Obtengo la entidad que acepta metadatos
+         */
+        /* @var $divisionAdministrativa \Pronit\Geographic\CoreBundle\Entity\DivisionAdministrativa  */
+
+        $divisionAdministrativa = $this->getDoctrine()->getManager()
+                                        ->getRepository('Pronit\Geographic\CoreBundle\Entity\DivisionAdministrativa')
+                                        ->findOneByNombre( 'Argentina' );                        
+
+        
+        /**
+         * Obtengo el provider de metadatos de la entidad 
+         */
+        /* @var $divisionAdministrativaMetadataProvider \Bluegrass\Metadata\Bundle\MetadataBundle\Model\MetadataProvider\IMetadataProvider */
+        
+        $divisionAdministrativaMetadataProvider = $this->get('bluegrass.metadata_provider_factory')->getProviderFor( 'Pronit\Geographic\CoreBundle\Entity\DivisionAdministrativa' );
+        
+        echo "<br>";
+        echo "<br>";
+        echo "Recuperar valores de metadato:";
+        echo "<br>";
+        
+        /**
+         * Se recupera el valor de un metadato en la entidad (string)
+         */
         echo $divisionAdministrativa->getMetadata($divisionAdministrativaMetadataProvider->getMetadata("himno"));
         
         echo "<br>";
         
-        $moneda = $divisionAdministrativa->getMetadata($divisionAdministrativaMetadataProvider->getMetadata("moneda"));
-        echo $moneda -> getNombre();
+        echo $divisionAdministrativa->getMetadata($divisionAdministrativaMetadataProvider->getMetadata("gentilicio"));
         
-        die( '' );
-   */           
-        /*
-         * Prueba de setter de metadatos 
-         * 
-         * 
+        echo "<br>";
+
+        /**
+         * Se recupera el valor de un metadato en la entidad (object)
          */        
-
-        $moneda = $this->getDoctrine()->getManager()
-                                                                    ->getRepository('Pronit\ParametrizacionGeneralBundle\Entity\Moneda')
-                                                                    ->findOneByNombre( 'Pesos' );
-
+        $moneda = $divisionAdministrativa->getMetadata($divisionAdministrativaMetadataProvider->getMetadata("moneda"));
+        echo $moneda -> getNombre();        
+    }
+    
+    protected function testQueryMetadata()
+    {
+        $em = $this->getDoctrine()->getManager();
         
-        $divisionAdministrativa->setMetadata($divisionAdministrativaMetadataProvider->getMetadata("himno"), 'Oid ');
-        $divisionAdministrativa->setMetadata($divisionAdministrativaMetadataProvider->getMetadata("moneda"), $moneda);
+        $mer = new \Bluegrass\Metadata\Bundle\MetadataBundle\Model\MetadataEntityRepository\MetadataEntityRepository();
+        $r2 = $mer->find($em, array( 
+                'himno' => 'Oid mortales el grito sagrado',
+                'gentilicio' => 'Argentinos',
+        ));        
         
-        $em = $this->getDoctrine()->getEntityManager();
-        $em->persist($divisionAdministrativa);
-        $em->flush();
-        die("test");
+        echo "<br>";
+        echo "<br>";
+        echo "Se encontraron: " . count($r2) . " divisiones administrativas según varias condiciones";
         
+        foreach($r2 as $r)
+        {
+            echo "<br>";
+            echo $r->getNombre();
+        }                
+    }    
+    
+    public function metadataProviderAction()
+    {
+        $this->testSetMetadata();
+        
+        $this->testGetMetadata();
+        
+        $this->testQueryMetadata();
+        die();
     }
 }

@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 use Pronit\CoreBundle\Entity\Documentos\Item;
 use Pronit\ComprasBundle\Entity\Pedidos\ItemPedido;
-use Pronit\GestionMaterialesBundle\Entity\Material;
+use Pronit\GestionBienesYServiciosBundle\Entity\Material;
 
 /**
  *
@@ -16,8 +16,7 @@ use Pronit\GestionMaterialesBundle\Entity\Material;
 class ItemEntradaMercancias extends Item
 {
     /**
-     * @ORM\ManyToOne(targetEntity="Pronit\GestionMaterialesBundle\Entity\Material")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="Pronit\GestionBienesYServiciosBundle\Entity\Material")
      */    
     protected $material;    
     
@@ -48,7 +47,7 @@ class ItemEntradaMercancias extends Item
     
     /**
      * 
-     * @return \Pronit\GestionMaterialesBundle\Entity\Material
+     * @return \Pronit\GestionBienesYServiciosBundle\Entity\Material
      */
     public function getMaterial()
     {

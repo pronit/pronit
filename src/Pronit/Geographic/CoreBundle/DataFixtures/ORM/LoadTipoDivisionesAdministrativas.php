@@ -19,13 +19,18 @@ class LoadTipoDivisionesAdministrativas extends AbstractFixture implements Fixtu
      */
     public function load(ObjectManager $manager)
     {
-        $tipos = array( 'pais' => 'País', 
-                                    'distritofederal' => 'Distrito Federal', 
-                                    'comunidadautonoma' => 'Comunidad Autonoma', 
-                                    'provincia' => 'Provincia', 
-                                    'partido' => 'Partido', 
-                                    'ciudad' => 'Ciudad', 
-                                    'barrio' => 'Barrio' );
+        $tipos = array( 
+                'pais' => 'País', 
+                'distritofederal' => 'Distrito Federal', 
+                'comunidadautonoma' => 'Comunidad Autonoma', 
+                'provincia' => 'Provincia', 
+                'partido' => 'Partido', 
+                'ciudad' => 'Ciudad', 
+                'barrio' => 'Barrio',
+
+                'departamento' => 'Departamento',             
+                'pedania' => 'Pedanía' // En Córdoba Argentina
+            );
         
         foreach( $tipos as $clave => $valor )
         {
@@ -42,6 +47,6 @@ class LoadTipoDivisionesAdministrativas extends AbstractFixture implements Fixtu
 
     function getOrder()
     {
-        return 30; 
+        return 20; 
     }
 }

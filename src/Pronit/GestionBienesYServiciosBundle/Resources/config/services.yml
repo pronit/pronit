@@ -1,0 +1,7 @@
+parameters:
+    pronit_gestion_bienesyservicios_customizing_contabilidad.imputaciones_manager.class: Pronit\GestionBienesYServiciosBundle\Model\Customizing\Contabilidad\ImputacionesCustomizingManager
+
+services:
+    pronit_gestion_bienesyservicios_customizing_contabilidad.imputaciones_manager:
+        class: %pronit_gestion_bienesyservicios_customizing_contabilidad.imputaciones_manager.class%
+        arguments: [@doctrine.orm.entity_manager]

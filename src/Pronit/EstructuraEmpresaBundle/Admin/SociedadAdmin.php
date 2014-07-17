@@ -64,7 +64,7 @@ abstract class SociedadAdmin extends Admin {
                 ->add('_action', 'actions', array(
                     'actions' => array(
                         'edit' => array(),
-                        'test' => array('template' => 'PronitEstructuraEmpresaBundle:SociedadFI:list_action_1.html.twig'),
+//                        'test' => array('template' => 'PronitEstructuraEmpresaBundle:SociedadFI:list_action_1.html.twig'),
                     ),
                     'translation_domain' => 'SonataAdminBundle'
                         )

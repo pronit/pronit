@@ -17,6 +17,18 @@ class SociedadFI extends Sociedad
      */
     private $sociedadGL;        
 
+    /**
+     * @ORM\OneToMany(targetEntity="Pronit\EstructuraEmpresaBundle\Entity\CentroLogistico", mappedBy="sociedadFI", cascade={"ALL"})
+     */
+    private $centrosLogisticos;    
+    
+    public function __construct()
+    {
+        parent::__construct();
+        
+        $this->centrosLogisticos = new \Doctrine\Common\Collections\ArrayCollection();
+    }    
+    
     public function getSociedadGL()
     {
         return $this->sociedadGL;
@@ -26,5 +38,16 @@ class SociedadFI extends Sociedad
     {
         $this->sociedadGL = $sociedadGL;
     }    
+    
+    public function getCentrosLogisticos()
+    {
+        return $this->centrosLogisticos;
+    }
+    
+    public function addCentroLogistico( CentroLogistico $centro )
+    {
+        $centro->setSociedadFI($this);
+        $this->centrosLogisticos[] = $centro;
+    }
 }
 

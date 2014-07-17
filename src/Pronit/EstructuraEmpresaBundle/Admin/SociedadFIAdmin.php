@@ -19,12 +19,18 @@ class SociedadFIAdmin extends SociedadAdmin
             ->with('Datos generales')
             ->add('sociedadGL', 'sonata_type_model_list', array(
                     'btn_add'       => 'Crear Sociedad GL',
-                    'btn_list'      => 'button.list',
+                    'btn_list'      => 'Listar Sociedades GL',
                     'btn_delete'    => false,
                     'btn_catalogue' => 'SonataAdminBundle'
                 ), array(
                     'placeholder' => 'Ninguna Sociedad GL seleccionada'
                 ))
+            ->with('Centros Logísticos')
+                ->add('centrosLogisticos', 'sonata_type_collection', array('cascade_validation' => true, 'by_reference' => false), array(
+                    'edit' => 'inline',
+                    'inline' => 'table',                    
+                ))
+            ->end()                
         ;
         
         parent::configureFormFields($formMapper);

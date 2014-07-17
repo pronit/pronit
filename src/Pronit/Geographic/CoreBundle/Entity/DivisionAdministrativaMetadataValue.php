@@ -18,7 +18,7 @@ class DivisionAdministrativaMetadataValue extends MetadataValue
 {
     
     /** @ORM\ManyToOne(targetEntity="DivisionAdministrativa", inversedBy="atributos") */
-    private $divisionadministrativa;
+    private $divisionAdministrativa;
 
     public function __construct( DivisionAdministrativa $divisionAdministrativa, $metadataName, $value)
     {
@@ -32,7 +32,7 @@ class DivisionAdministrativaMetadataValue extends MetadataValue
      */
     public function getDivisionAdministrativa()
     {
-        return $this->divisionadministrativa;
+        return $this->divisionAdministrativa;
     }
 
     /**
@@ -41,7 +41,7 @@ class DivisionAdministrativaMetadataValue extends MetadataValue
      */
     public function setDivisionAdministrativa($divisionadministrativa)
     {
-        $this->divisionadministrativa = $divisionadministrativa;
+        $this->divisionAdministrativa = $divisionadministrativa;
     }    
 }
 

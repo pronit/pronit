@@ -2,7 +2,7 @@
 
 namespace Pronit\ContabilidadBundle\Model\Customizing;
 
-use Pronit\CoreBundle\Entity\Contabilidad\OperacionContable;
+use Pronit\CoreBundle\Entity\Operaciones\OperacionContable;
 
 /**
  * @author ldelia

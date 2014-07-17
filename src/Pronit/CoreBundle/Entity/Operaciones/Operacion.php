@@ -17,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="core_operacion")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"OperacionContableValue" = "Pronit\CoreBundle\Entity\Contabilidad\OperacionContable"})
+ * @ORM\DiscriminatorMap({"OperacionContableValue" = "Pronit\CoreBundle\Entity\Operaciones\OperacionContable"})
  */
 abstract class Operacion {
 

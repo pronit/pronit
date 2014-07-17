@@ -15,7 +15,7 @@ use Bluegrass\Metadata\Bundle\MetadataBundle\Model\IMetadataValue;
  * @ORM\Table(name="core_metadatavalue")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"DivisionAdministrativaMetadataValue" = "Pronit\Geographic\CoreBundle\Entity\DivisionAdministrativaMetadataValue"})
+ * @ORM\DiscriminatorMap({"DivisionAdministrativaMetadataValue" = "Pronit\Geographic\CoreBundle\Entity\DivisionAdministrativaMetadataValue", "TablaCondicionMetadataValue" = "Pronit\CoreBundle\Entity\Automatizacion\Secuencias\TablaCondicionMetadataValue"})
  */
 abstract class MetadataValue implements IMetadataValue
 {

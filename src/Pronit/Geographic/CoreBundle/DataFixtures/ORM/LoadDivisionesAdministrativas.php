@@ -62,6 +62,8 @@ class LoadDivisionesAdministrativas extends AbstractFixture implements FixtureIn
         $this->loadPartidosArgentina();
         $this->loadCiudadesArgentina();
         $this->loadBarriosArgentina();
+        
+        $this->loadConfiguracionCordobaArgentina();        
 
         $this->loadMetadata(); // Borrame
         $manager->flush();
@@ -73,6 +75,7 @@ class LoadDivisionesAdministrativas extends AbstractFixture implements FixtureIn
 
         $entity = new EntityTableMetadata( '\Pronit\Geographic\CoreBundle\Entity\DivisionAdministrativa' );
         $entity->addAttribute(new AttributeMetadata("himno", "string"));
+        $entity->addAttribute(new AttributeMetadata("gentilicio", "string"));
         $entity->addAttribute(new AttributeMetadata("moneda", "object", array('entityType'=>'\Pronit\ParametrizacionGeneralBundle\Entity\Moneda') ));
                 
         $manager->persist($entity);       
@@ -107,9 +110,9 @@ class LoadDivisionesAdministrativas extends AbstractFixture implements FixtureIn
         
         $argentina = $this->getReference('pronit-geographic-pais-argentina');        
         
-        $provincias = array( 'Buenos Aires', 'San Luis');        
+        $provincias = array( 'buenos aires' => 'Buenos Aires', 'cordoba' => 'Córdoba', 'san luis' => 'San Luis', 'santa fe' => 'Santa Fé');        
         
-        foreach( $provincias as $nombreProvincia )
+        foreach( $provincias as $claveProvincia => $nombreProvincia )
         {
             $provincia = new DivisionAdministrativa();
             $provincia->setNombre($nombreProvincia);
@@ -118,7 +121,7 @@ class LoadDivisionesAdministrativas extends AbstractFixture implements FixtureIn
             
             $manager->persist($provincia);       
             
-            $this->addReference('pronit-geographic-provincia-' . mb_strtolower( $provincia->getNombre() ), $provincia);
+            $this->addReference('pronit-geographic-provincia-' . $claveProvincia, $provincia);
         }                    
     }
 
@@ -149,6 +152,74 @@ class LoadDivisionesAdministrativas extends AbstractFixture implements FixtureIn
             $this->addReference('pronit-geographic-partido-' . mb_strtolower( $partido->getNombre() ), $partido);
         }                    
     }
+    
+    public function loadConfiguracionCordobaArgentina()
+    {        
+        $manager = $this->getManager();
+        
+        $provincia = $this->getReference('pronit-geographic-provincia-cordoba');
+        
+        $tipoDivisionAdministrativaDepartamento = $this->getReference('pronit-geographic-tipodivisionadministrativa-departamento');                
+        
+        /** Departamentos **/
+        $data= array( 
+            array( "nombre" => "Capital", ),
+            array( "nombre" => "Punilla", ),
+        );
+        
+        foreach( $data as $d )
+        {
+            $departamento = new DivisionAdministrativa();
+            $departamento->setNombre($d['nombre']);
+            $departamento->setTipo($tipoDivisionAdministrativaDepartamento);
+            $departamento->setParent($provincia);
+            
+            $manager->persist($departamento);       
+            
+            $this->addReference('pronit-geographic-departamento-' . mb_strtolower( $departamento->getNombre() ), $departamento);
+        }                    
+        
+        /** Pedanías **/
+        
+        $tipoDivisionAdministrativaPedania = $this->getReference('pronit-geographic-tipodivisionadministrativa-pedania');
+        
+        $data = array(
+            array( 'nombre' => 'San Roque', 'departamento' => 'punilla' ),
+        );
+        
+        foreach( $data as $d )
+        {
+            $pedania = new DivisionAdministrativa();
+            $pedania->setNombre($d['nombre']);
+            $pedania->setTipo($tipoDivisionAdministrativaPedania);
+            $pedania->setParent($this->getReference('pronit-geographic-departamento-'.$d['departamento']));
+            
+            $manager->persist($pedania);       
+            
+            $this->addReference('pronit-geographic-pedania-' . mb_strtolower( $pedania->getNombre() ), $pedania);
+        }                
+        
+        /** Ciudades **/
+
+        $tipoDivisionAdministrativaCiudad = $this->getReference('pronit-geographic-tipodivisionadministrativa-ciudad');
+        
+        $data = array(
+            array( 'nombre' => 'Villa Carlos Paz', 'pedania' => 'san roque' ),
+        );
+        
+        foreach( $data as $d )
+        {
+            $ciudad = new DivisionAdministrativa();
+            $ciudad->setNombre($d['nombre']);
+            $ciudad->setTipo($tipoDivisionAdministrativaCiudad);
+            $ciudad->setParent($this->getReference('pronit-geographic-pedania-'.$d['pedania']));
+            
+            $manager->persist($ciudad);       
+            
+            $this->addReference('pronit-geographic-ciudad-' . mb_strtolower( $ciudad->getNombre() ), $ciudad);
+        }                
+        
+    }    
 
     public function loadCiudadesArgentina()
     {        
@@ -311,6 +382,6 @@ class LoadDivisionesAdministrativas extends AbstractFixture implements FixtureIn
     
     function getOrder()
     {
-        return 31; 
+        return 21; 
     }
 }

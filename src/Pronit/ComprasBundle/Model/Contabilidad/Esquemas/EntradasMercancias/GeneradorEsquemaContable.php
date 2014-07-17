@@ -6,7 +6,7 @@ use Pronit\ContabilidadBundle\Model\Esquemas\IGeneradorEsquemaContable;
 
 use Pronit\CoreBundle\Entity\Documentos\Documento;
 use Pronit\CustomizingBundle\Model\Operaciones\IOperacionesCustomizingManager;
-use Pronit\GestionMaterialesBundle\Model\Customizing\Contabilidad\IImputacionesCustomizingManager as MMIImputacionesCustomizingManager;
+use Pronit\GestionBienesYServiciosBundle\Model\Customizing\Contabilidad\IImputacionesCustomizingManager as MMIImputacionesCustomizingManager;
 use Pronit\ContabilidadBundle\Model\Customizing\IImputacionesCustomizingManager as FIIImputacionesCustomizingManager;
 
 use Pronit\ComprasBundle\Entity\EntradasMercancias\EntradaMercancias;
@@ -15,9 +15,9 @@ use Pronit\ComprasBundle\Entity\EntradasMercancias\ItemEntradaMercancias;
 use Pronit\ContabilidadBundle\Model\Esquemas\EsquemaContable;
 use Pronit\ContabilidadBundle\Model\Esquemas\ItemEsquemaContable;
 
-use Pronit\CoreBundle\Entity\Contabilidad\OperacionContable;
+use Pronit\CoreBundle\Entity\Operaciones\OperacionContable;
 use Pronit\CoreBundle\Entity\Documentos\ClasificadorItem;
-use Pronit\GestionMaterialesBundle\Entity\CategoriaValoracion;
+use Pronit\GestionBienesYServiciosBundle\Entity\CategoriaValoracion;
 
 use Pronit\CoreBundle\Model\Operaciones\Contextos\Documentos\ContextoItemDocumentoEntradaMercancias;
 
@@ -85,7 +85,7 @@ class GeneradorEsquemaContable implements IGeneradorEsquemaContable
                 
         $operacionesContables = $this->getOperacionesCustomizingManager()->getOperacionesContablesByClasificadorItem($clasificador);
         
-        /* @var $operacionContable \Pronit\CoreBundle\Entity\Contabilidad\OperacionContable */        
+        /* @var $operacionContable \Pronit\CoreBundle\Entity\Operaciones\OperacionContable */        
         foreach( $operacionesContables as $operacionContable ){
             
             $cuenta = $this->getCuentaAImputar($operacionContable, $clasificador, $categoriaValoracion);
@@ -134,7 +134,7 @@ class GeneradorEsquemaContable implements IGeneradorEsquemaContable
     
     /**
      * 
-     * @return \Pronit\GestionMaterialesBundle\Model\Customizing\Contabilidad\IImputacionesCustomizingManager
+     * @return \Pronit\GestionBienesYServiciosBundle\Model\Customizing\Contabilidad\IImputacionesCustomizingManager
      */
     protected function getMmImputacionesCustomizingManager()
     {

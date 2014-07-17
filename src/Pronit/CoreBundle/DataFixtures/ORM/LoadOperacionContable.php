@@ -9,7 +9,7 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-use Pronit\CoreBundle\Entity\Contabilidad\OperacionContable;
+use Pronit\CoreBundle\Entity\Operaciones\OperacionContable;
 
 /**
  * @author ldelia

@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 use Pronit\CoreBundle\Entity\Documentos\Item;
 use Pronit\ParametrizacionGeneralBundle\Entity\Escala;
-use Pronit\GestionMaterialesBundle\Entity\Material;
+use Pronit\GestionBienesYServiciosBundle\Entity\BienServicio;
 
 /**
  *
@@ -18,9 +18,9 @@ use Pronit\GestionMaterialesBundle\Entity\Material;
 class ItemPedido extends Item
 {
     /**
-     * @ORM\ManyToOne(targetEntity="Pronit\GestionMaterialesBundle\Entity\Material")
+     * @ORM\ManyToOne(targetEntity="Pronit\GestionBienesYServiciosBundle\Entity\BienServicio")
      */    
-    protected $material;    
+    protected $bienservicio;    
     
     /**
      * @ORM\Column(type="float")
@@ -68,14 +68,14 @@ class ItemPedido extends Item
         $this->importe = $importe;
     }
     
-    public function getMaterial()
+    public function getBienServicio()
     {
-        return $this->material;
+        return $this->bienservicio;
     }
 
-    public function setMaterial(Material $material)
+    public function setBienServicio(BienServicio $bienServicio)
     {
-        $this->material = $material;
+        $this->bienservicio = $bienServicio;
     }    
 }
 

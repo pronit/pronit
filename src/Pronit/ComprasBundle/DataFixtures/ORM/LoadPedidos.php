@@ -53,12 +53,12 @@ class LoadPedidos extends AbstractFixture implements FixtureInterface , OrderedF
         
         $clasificador = $this->getReference('pronit-documentos-clasificadoritem-100');
         $escalaMetro = $this->getReference('pronit-parametrizaciongeneral-escala-metro');
-        $material = $this->getReference('pronit-gestionmateriales-material-MM001');
+        $bienServicio = $this->getReference('pronit-gestionbienesyservicios-bienservicio-MM001');
 
         $itemPedido = new ItemPedido();
         $itemPedido->setClasificador($clasificador);
         $itemPedido->setCantidad(4);
-        $itemPedido->setMaterial($material);
+        $itemPedido->setBienServicio($bienServicio);
         $itemPedido->setEscala($escalaMetro);
         $itemPedido->setImporte(9.9);        
         

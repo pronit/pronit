@@ -98,6 +98,16 @@ class LoadSistemaMedicion extends AbstractFixture implements FixtureInterface , 
         $this->addReference('pronit-parametrizaciongeneral-sistemamedicion-litro', $sistemaLitros);
         
         $manager->persist($sistemaLitros);
+
+        $sistemaTiempo = new SistemaMedicion();                
+        $sistemaTiempo->setNombre('Sistema Tiempo');
+        $sistemaTiempo->setAbreviatura('S-HS');
+        $sistemaTiempo->addEscala( $this->createEscala('Hora', 'h', 1 ) );
+        $sistemaTiempo->addEscala( $this->createEscala('Minutos', 'm', 0,016666667 ) );
+        
+        $this->addReference('pronit-parametrizaciongeneral-sistemamedicion-tiempo', $sistemaTiempo);
+        
+        $manager->persist($sistemaTiempo);
         
         $manager->flush();
     }

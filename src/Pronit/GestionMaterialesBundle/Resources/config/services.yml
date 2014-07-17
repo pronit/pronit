@@ -1,7 +1,0 @@
-parameters:
-    pronit_gestion_materiales_customizing_contabilidad.imputaciones_manager.class: Pronit\GestionMaterialesBundle\Model\Customizing\Contabilidad\ImputacionesCustomizingManager
-
-services:
-    pronit_gestion_materiales_customizing_contabilidad.imputaciones_manager:
-        class: %pronit_gestion_materiales_customizing_contabilidad.imputaciones_manager.class%
-        arguments: [@doctrine.orm.entity_manager]

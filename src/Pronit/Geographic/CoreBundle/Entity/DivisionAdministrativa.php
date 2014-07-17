@@ -44,7 +44,7 @@ class DivisionAdministrativa implements IMetadataEntity
     protected $parent;
     
     /**
-     * @ORM\OneToMany(targetEntity="Pronit\Geographic\CoreBundle\Entity\DivisionAdministrativaMetadataValue", mappedBy="divisionadministrativa", cascade={"ALL"}, indexBy="metadataName",  orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Pronit\Geographic\CoreBundle\Entity\DivisionAdministrativaMetadataValue", mappedBy="divisionAdministrativa", cascade={"ALL"}, indexBy="metadataName",  orphanRemoval=true)
      */
     private $metadataValues;
     
@@ -90,7 +90,7 @@ class DivisionAdministrativa implements IMetadataEntity
 
     /**
      * Determina si la División Administrativa tiene un metadato asociado
-     * @param \Pronit\Metadata\Model\Metadata $metadata
+     * @param Bluegrass\Metadata\Bundle\MetadataBundle\Model\Metadata $metadata
      * @return boolean
      */
     public function hasMetadata( Metadata $metadata )
@@ -101,8 +101,8 @@ class DivisionAdministrativa implements IMetadataEntity
     
     /**
      * Obtiene el valor asociado a un metadato de una división administrativa
-     * @param \Pronit\Metadata\Model\Metadata $metadata
-     * @return Pronit\Geographic\CoreBundle\Entity\MetadataValue
+     * @param \Bluegrass\Metadata\Bundle\MetadataBundle\Model\Metadata $metadata
+     * @return \Pronit\Geographic\CoreBundle\Entity\DivisionAdministrativaMetadataValue
      * @throws \Exception
      */
     public function getMetadata( Metadata $metadata )
@@ -116,7 +116,7 @@ class DivisionAdministrativa implements IMetadataEntity
 
     /**
      * Agrega el valor asociado a un metadato de una división administrativa
-     * @param \Pronit\Metadata\Model\Metadata $metadata
+     * @param Bluegrass\Metadata\Bundle\MetadataBundle\Model\Metadata $metadata
      * @param type $value
      */
     public function setMetadata( Metadata $metadata, $value )

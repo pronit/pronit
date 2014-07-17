@@ -64,3 +64,25 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [PronitParametrizacionGeneralBundle]]                                                
+
+    sonata.admin.centrologistico:
+        class: Pronit\EstructuraEmpresaBundle\Admin\CentroLogisticoAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, show_in_dashboard: true, group: "Estructura de empresa", label: "Centro Logístico" }
+        arguments:
+            - ~
+            - Pronit\EstructuraEmpresaBundle\Entity\CentroLogistico
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitEstructuraEmpresaBundle]]   
+
+    sonata.admin.almacen:
+        class: Pronit\EstructuraEmpresaBundle\Admin\AlmacenAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, show_in_dashboard: true, group: "Estructura de empresa", label: "Almacén" }
+        arguments:
+            - ~
+            - Pronit\EstructuraEmpresaBundle\Entity\Almacen
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitEstructuraEmpresaBundle]]   
