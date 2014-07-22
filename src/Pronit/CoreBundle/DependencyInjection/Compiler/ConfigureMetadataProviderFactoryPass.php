@@ -15,7 +15,8 @@ class ConfigureMetadataProviderFactoryPass implements CompilerPassInterface
     {
         if ($container->hasDefinition('bluegrass.metadata_provider_factory'))
         {
-            $container->getDefinition('bluegrass.metadata_provider_factory')->addMethodCall('setProvider', array( '\Pronit\CoreBundle\Entity\Automatizacion\Secuencias\TablaCondicion', '\Pronit\CoreBundle\Metadata\TablaCondicionMetadataProvider' ));
+            
+//            $container->getDefinition('bluegrass.metadata_provider_factory')->addMethodCall('setProvider', array( '\Pronit\CoreBundle\Entity\Automatizacion\Secuencias\TablaCondicion', '\Pronit\CoreBundle\Metadata\TablaCondicionMetadataProvider' ));
         }
     }    
 }

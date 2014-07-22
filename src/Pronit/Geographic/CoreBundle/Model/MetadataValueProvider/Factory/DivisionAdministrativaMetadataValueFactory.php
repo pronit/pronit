@@ -1,6 +1,6 @@
 <?php
 
-namespace Pronit\Geographic\CoreBundle\Metadata;
+namespace Pronit\Geographic\CoreBundle\Model\MetadataValueProvider\Factory;
 
 use \Pronit\Geographic\CoreBundle\Entity\DivisionAdministrativa;
 use \Pronit\Geographic\CoreBundle\Entity\DivisionAdministrativaMetadataValue;

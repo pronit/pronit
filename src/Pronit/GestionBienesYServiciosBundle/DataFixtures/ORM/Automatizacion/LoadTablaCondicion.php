@@ -11,7 +11,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 use Pronit\CoreBundle\Entity\Automatizacion\Secuencias\TablaCondicion;
 
-use Bluegrass\Metadata\Bundle\MetadataBundle\Entity\EntityTableMetadata;
+use Bluegrass\Metadata\Bundle\MetadataBundle\Entity\LogicTableMetadata;
 use Bluegrass\Metadata\Bundle\MetadataBundle\Entity\AttributeMetadata;
 
 
@@ -51,10 +51,16 @@ class LoadTablaCondicion extends AbstractFixture implements FixtureInterface , O
     {
         $this->setManager($manager);        
 
-        $entity = new EntityTableMetadata( '\Pronit\CoreBundle\Entity\Automatizacion\Secuencias\TablaCondicion' );
-        $entity->addAttribute(new AttributeMetadata("material", "object", array('entityType'=>'\Pronit\GestionBienesYServiciosBundle\Entity\Material') ));
+        $logicTableMetadata1 = new LogicTableMetadata( 'TablaCondicion.1' );
+        $logicTableMetadata1->addAttribute(new AttributeMetadata("material", "object", array('entityType'=>'\Pronit\GestionBienesYServiciosBundle\Entity\Material') ));
                 
-        $manager->persist($entity);       
+        $manager->persist($logicTableMetadata1);       
+
+        $logicTableMetadata2 = new LogicTableMetadata( 'TablaCondicion.2' );
+        $logicTableMetadata2->addAttribute(new AttributeMetadata("material", "object", array('entityType'=>'\Pronit\GestionBienesYServiciosBundle\Entity\Material') ));
+        $logicTableMetadata2->addAttribute(new AttributeMetadata("proveedor", "string") );
+                
+        $manager->persist($logicTableMetadata2);       
         
         $manager->flush();
         
@@ -63,16 +69,17 @@ class LoadTablaCondicion extends AbstractFixture implements FixtureInterface , O
          */
         /* @var $tablaDeCondicionMetadataProvider \Bluegrass\Metadata\Bundle\MetadataBundle\Model\MetadataProvider\IMetadataProvider */
         
-        $tablaDeCondicionMetadataProvider = $this->container->get('bluegrass.metadata_provider_factory')->getProviderFor( '\Pronit\CoreBundle\Entity\Automatizacion\Secuencias\TablaCondicion' );        
+//        $tablaDeCondicionMetadataProvider = $this->container->get('bluegrass.metadata_provider_factory')->getProviderFor( '\Pronit\CoreBundle\Entity\Automatizacion\Secuencias\TablaCondicion' );        
         
         /********************************** **/
         /** Definición Tabla de Condición 1 **/
         /*************************************/
         $tablaCondicion = new TablaCondicion();
         $tablaCondicion->setCodigo('T1');
-        $tablaCondicion->setDescripcion('Tabla de Condición 1');
+        $tablaCondicion->setDescripcion('Material');
+        $tablaCondicion->setTableMetadata($logicTableMetadata1);
         
-        $tablaCondicion->setMetadata($tablaDeCondicionMetadataProvider->getMetadata("material"), $this->getReference('pronit-gestionbienesyservicios-bienservicio-SS002'));        
+  //      $tablaCondicion->setMetadata($tablaDeCondicionMetadataProvider->getMetadata("material"), $this->getReference('pronit-gestionbienesyservicios-bienservicio-SS002'));        
         
         $manager->persist($tablaCondicion);
 
@@ -80,13 +87,14 @@ class LoadTablaCondicion extends AbstractFixture implements FixtureInterface , O
                 
         /***************************/
         
-        $obj = new TablaCondicion();
-        $obj->setCodigo('T2');
-        $obj->setDescripcion('Tabla de Condición 2');
+        $tablaCondicion2 = new TablaCondicion();
+        $tablaCondicion2->setCodigo('T2');
+        $tablaCondicion2->setDescripcion('Material/Proveedor');
+        $tablaCondicion2->setTableMetadata($logicTableMetadata2);
 
-        $manager->persist($obj);
+        $manager->persist($tablaCondicion2);
         
-        $this->addReference('pronit-core-tablacondicion-' . $obj->getCodigo(), $obj);        
+        $this->addReference('pronit-core-tablacondicion-' . $tablaCondicion2->getCodigo(), $tablaCondicion2);        
                 
         $manager->flush();
     }

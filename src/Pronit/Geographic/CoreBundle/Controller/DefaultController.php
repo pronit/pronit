@@ -3,6 +3,7 @@
 namespace Pronit\Geographic\CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Bluegrass\Metadata\Bundle\MetadataBundle\Model\MetadataProvider\Factory\MetadataProviderFactory;
 
 class DefaultController extends Controller
 {
@@ -43,7 +44,6 @@ class DefaultController extends Controller
         $divisionAdministrativa = $this->getDoctrine()->getManager()
                                         ->getRepository('Pronit\Geographic\CoreBundle\Entity\DivisionAdministrativa')
                                         ->findOneByNombre( 'Argentina' );                        
-
         
         /**
          * Obtengo el provider de metadatos de la entidad 
@@ -139,7 +139,7 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         
-        $mer = new \Bluegrass\Metadata\Bundle\MetadataBundle\Model\MetadataEntityRepository\MetadataEntityRepository();
+        $mer = new \Pronit\Geographic\CoreBundle\Model\MetadataEntityRepository\MetadataEntityRepository();
         $r2 = $mer->find($em, array( 
                 'himno' => 'Oid mortales el grito sagrado',
                 'gentilicio' => 'Argentinos',

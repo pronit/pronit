@@ -2,10 +2,7 @@
 namespace Pronit\CoreBundle\Entity\Automatizacion\Secuencias;
 
 use Doctrine\ORM\Mapping as ORM;
-
-use Bluegrass\Metadata\Bundle\MetadataBundle\Model\Metadata;
-use Bluegrass\Metadata\Bundle\MetadataBundle\Model\IMetadataEntity;
-
+use Bluegrass\Metadata\Bundle\MetadataBundle\Entity\LogicTableMetadata;
 
 /**
  *
@@ -13,7 +10,7 @@ use Bluegrass\Metadata\Bundle\MetadataBundle\Model\IMetadataEntity;
  * @ORM\Entity
  * @ORM\Table(name="core_tablascondicion")
  */
-class TablaCondicion implements IMetadataEntity{
+class TablaCondicion {
     
    /**
      * @ORM\Column(type="integer")
@@ -32,15 +29,12 @@ class TablaCondicion implements IMetadataEntity{
      */
     protected $descripcion;
     
-    /**
-     * @ORM\OneToMany(targetEntity="Pronit\CoreBundle\Entity\Automatizacion\Secuencias\TablaCondicionMetadataValue", mappedBy="tablaCondicion", cascade={"ALL"}, indexBy="metadataName",  orphanRemoval=true)
-     */
-    private $metadataValues;
+    /** @ORM\ManyToOne(targetEntity="Bluegrass\Metadata\Bundle\MetadataBundle\Entity\LogicTableMetadata") */
+    private $tableMetadata;
     
        
     public function __construct() 
     {
-        $this->metadataValues = new \Doctrine\Common\Collections\ArrayCollection();        
     }
     
     public function getId()
@@ -67,51 +61,15 @@ class TablaCondicion implements IMetadataEntity{
     {
         $this->descripcion = $descripcion;
     }
-
-    /**
-     * Determina si la entidad tiene un metadato asociado
-     * @param \Bluegrass\Metadata\Bundle\MetadataBundle\Model\Metadata $metadata
-     * @return boolean
-     */
-    public function hasMetadata( Metadata $metadata )
-    {
-        /* Nota: El indice está dado por la annotation indexBy del mapping */
-        return isset(  $this->metadataValues[ $metadata->getName() ] );
-    }
     
-    /**
-     * Obtiene el valor asociado a un metadato de la entidad
-     * @param \Bluegrass\Metadata\Bundle\MetadataBundle\Model\Metadata $metadata
-     * @return \Pronit\CoreBundle\Entity\Automatizacion\Secuencias\TablaCondicionMetadataValue
-     * @throws \Exception
-     */
-    public function getMetadata( Metadata $metadata )
+    public function getTableMetadata()
     {
-        if ( ! $this->hasMetadata($metadata) ){
-            throw new \Exception("La tabla condición '{$this}' no tiene definido el metadato '{$metadata}'");
-        }
-        
-        return $metadata->getValue( $this->metadataValues[ $metadata->getName() ] );        
+        return $this->tableMetadata;
     }
 
-    /**
-     * Agrega el valor asociado a un metadato de la entidad
-     * @param \Bluegrass\Metadata\Bundle\MetadataBundle\Model\Metadata $metadata
-     * @param type $value
-     */
-    public function setMetadata( Metadata $metadata, $value )
+    public function setTableMetadata(LogicTableMetadata $tableMetadata)
     {
-        if ( $this->hasMetadata($metadata) ){
-            // Como se va a generar un nuevo MetadataValue, al antiguo lo descarto ( orphanremoval )
-            // Todo analizar esto...
-            unset( $this->metadataValues[$metadata->getName()] );
-        } 
-        
-        /* @var $metadataValue  \Pronit\CoreBundle\Entity\Automatizacion\Secuencias\TablaCondicionMetadataValue */
-        $metadataValue = $metadata->createValue($this, $value);
-        
-        $this->metadataValues[$metadata->getName()] = $metadataValue;
-    }    
-    
+        $this->tableMetadata = $tableMetadata;
+    }
 }
 

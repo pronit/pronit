@@ -4,6 +4,7 @@ namespace Pronit\Geographic\CoreBundle\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Reference;
 
 /**
  *
@@ -14,8 +15,8 @@ class ConfigureMetadataProviderFactoryPass implements CompilerPassInterface
     public function process(ContainerBuilder $container)
     {
         if ($container->hasDefinition('bluegrass.metadata_provider_factory'))
-        {
-            $container->getDefinition('bluegrass.metadata_provider_factory')->addMethodCall('setProvider', array( 'Pronit\Geographic\CoreBundle\Entity\DivisionAdministrativa', '\Pronit\Geographic\CoreBundle\Metadata\DivisionAdministrativaMetadataProvider' ));
+        {            
+            $container->getDefinition('bluegrass.metadata_provider_factory')->addMethodCall('setProvider', array( 'Pronit\Geographic\CoreBundle\Entity\DivisionAdministrativa', new Reference("pronit_geographic.divisionadministrativa_metadata_provider_factory") ));
         }
     }    
 }
