@@ -4,6 +4,7 @@ imports:
     - { resource: @PronitEstructuraEmpresaBundle/Resources/config/admin.yml }
     - { resource: @PronitParametrizacionGeneralBundle/Resources/config/admin.yml }
     - { resource: @PronitGeographicCoreBundle/Resources/config/admin.yml }
+    - { resource: @PronitGestionBienesYServiciosBundle/Resources/config/admin.yml }
     
 framework:
     #esi:             ~

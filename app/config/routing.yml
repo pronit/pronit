@@ -7,7 +7,7 @@ pronit_contabilidad:
     prefix:   /
 
 pronit_gestion_materiales:
-    resource: "@PronitGestionMaterialesBundle/Resources/config/routing.yml"
+    resource: "@PronitGestionBienesYServiciosBundle/Resources/config/routing.yml"
     prefix:   /
 
 pronit_compras:

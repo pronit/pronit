@@ -40,7 +40,7 @@ class AppKernel extends Kernel
             new Pronit\Geographic\CoreBundle\PronitGeographicCoreBundle(),
             new Pronit\AutomatizacionBundle\PronitAutomatizacionBundle(),
             new Pronit\ComprasBundle\PronitComprasBundle(),
-            new Pronit\GestionMaterialesBundle\PronitGestionMaterialesBundle(),
+            new Pronit\GestionBienesYServiciosBundle\PronitGestionBienesYServiciosBundle(),
             new Pronit\ContabilidadBundle\PronitContabilidadBundle(),
             new Pronit\CustomizingBundle\PronitCustomizingBundle(),
         );
