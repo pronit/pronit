@@ -14,9 +14,9 @@ class ConfigureMetadataProviderFactoryPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)
     {
-        if ($container->hasDefinition('bluegrass.metadata_provider_factory'))
+        if ($container->hasDefinition('bluegrass.metadata_provider_factory_default_locator'))
         {            
-            $container->getDefinition('bluegrass.metadata_provider_factory')->addMethodCall('setProvider', array( 'Pronit\Geographic\CoreBundle\Entity\DivisionAdministrativa', new Reference("pronit_geographic.divisionadministrativa_metadata_provider_factory") ));
+            $container->getDefinition('bluegrass.metadata_provider_factory_default_locator')->addMethodCall('setMetadataProviderFactory', array( '\Pronit\Geographic\CoreBundle\Entity\DivisionAdministrativa', new Reference("pronit_geographic.divisionadministrativa_metadata_provider_factory") ));
         }
     }    
 }

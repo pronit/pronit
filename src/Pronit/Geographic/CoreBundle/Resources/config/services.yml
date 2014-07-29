@@ -4,10 +4,6 @@ services:
         class: Pronit\Geographic\CoreBundle\Model\MetadataValueProvider\Factory\DivisionAdministrativaMetadataValueFactory
         arguments: []
 
-    pronit_geographic.divisionadministrativa_metadata_provider:
-        class: Bluegrass\Metadata\Bundle\MetadataBundle\Model\MetadataProvider\EntityTableMetadataProvider
-        arguments: [@doctrine.orm.entity_manager, '\Pronit\Geographic\CoreBundle\Entity\DivisionAdministrativa', @pronit_geographic.divisionadministrativa_metadatavalue_factory]
-
     pronit_geographic.divisionadministrativa_metadata_provider_factory:
         class: Bluegrass\Metadata\Bundle\MetadataBundle\Model\MetadataProvider\Factory\EntityTableMetadataProviderFactory
-        arguments: [@pronit_geographic.divisionadministrativa_metadata_provider]
+        arguments: [@doctrine.orm.entity_manager, '\Pronit\Geographic\CoreBundle\Entity\DivisionAdministrativa', @pronit_geographic.divisionadministrativa_metadatavalue_factory]

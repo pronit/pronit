@@ -36,6 +36,10 @@ class DefaultController extends Controller
 
     protected function testSetMetadata()
     {
+        /* @var $tableMetadata \Bluegrass\Metadata\Bundle\MetadataBundle\Entity\EntityTableMetadata  */        
+        $tableMetadata = $this->getDoctrine()->getManager()->getRepository('\Bluegrass\Metadata\Bundle\MetadataBundle\Entity\EntityTableMetadata')
+                                                            ->findOneByEntityType('\Pronit\Geographic\CoreBundle\Entity\DivisionAdministrativa');        
+        
         /**
          * Obtengo la entidad que acepta metadatos
          */
@@ -43,14 +47,14 @@ class DefaultController extends Controller
 
         $divisionAdministrativa = $this->getDoctrine()->getManager()
                                         ->getRepository('Pronit\Geographic\CoreBundle\Entity\DivisionAdministrativa')
-                                        ->findOneByNombre( 'Argentina' );                        
+                                        ->findOneByNombre( 'Argentina' );       
         
         /**
          * Obtengo el provider de metadatos de la entidad 
          */
         /* @var $divisionAdministrativaMetadataProvider \Bluegrass\Metadata\Bundle\MetadataBundle\Model\MetadataProvider\IMetadataProvider */
         
-        $divisionAdministrativaMetadataProvider = $this->get('bluegrass.metadata_provider_factory')->getProviderFor( 'Pronit\Geographic\CoreBundle\Entity\DivisionAdministrativa' );
+        $divisionAdministrativaMetadataProvider = $this->get('bluegrass.metadata_provider_factory')->getMetadataProviderFor( $tableMetadata );
         
 
         /**
@@ -73,9 +77,7 @@ class DefaultController extends Controller
         /**
          * Se persiste la entidad
          */        
-        $em = $this->getDoctrine()->getEntityManager();
-        
-        
+        $em = $this->getDoctrine()->getEntityManager();                
         
         echo "Se guardaron los metadatos correctamente";
         
@@ -95,6 +97,11 @@ class DefaultController extends Controller
 
     protected function testGetMetadata()
     {
+        /* @var $tableMetadata \Bluegrass\Metadata\Bundle\MetadataBundle\Entity\EntityTableMetadata  */        
+        $tableMetadata = $this->getDoctrine()->getManager()->getRepository('\Bluegrass\Metadata\Bundle\MetadataBundle\Entity\EntityTableMetadata')
+                                                            ->findOneByEntityType('\Pronit\Geographic\CoreBundle\Entity\DivisionAdministrativa');        
+        
+        
         /**
          * Obtengo la entidad que acepta metadatos
          */
@@ -110,7 +117,7 @@ class DefaultController extends Controller
          */
         /* @var $divisionAdministrativaMetadataProvider \Bluegrass\Metadata\Bundle\MetadataBundle\Model\MetadataProvider\IMetadataProvider */
         
-        $divisionAdministrativaMetadataProvider = $this->get('bluegrass.metadata_provider_factory')->getProviderFor( 'Pronit\Geographic\CoreBundle\Entity\DivisionAdministrativa' );
+        $divisionAdministrativaMetadataProvider = $this->get('bluegrass.metadata_provider_factory')->getMetadataProviderFor( $tableMetadata );
         
         echo "<br>";
         echo "<br>";
