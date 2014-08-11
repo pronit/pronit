@@ -1,3 +1,12 @@
 parameters:
 
 services:
+    
+    pronit_core.registro_condicion_metadatavalue_factory:
+        class: Pronit\CoreBundle\Model\Automatizacion\Secuencias\MetadataValueProvider\Factory\RegistroCondicionMetadataValueFactory
+        arguments: []
+    
+    pronit_core.tablacondicion_metadata_provider_factory_locator:
+        class: Pronit\CoreBundle\Model\Automatizacion\Secuencias\MetadataValue\Factory\Locator\TablaCondicionMetadataProviderFactoryLocator
+        arguments: [@doctrine.orm.entity_manager, @pronit_core.registro_condicion_metadatavalue_factory]    
+        

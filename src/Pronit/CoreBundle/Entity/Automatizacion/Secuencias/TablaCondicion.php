@@ -3,6 +3,7 @@ namespace Pronit\CoreBundle\Entity\Automatizacion\Secuencias;
 
 use Doctrine\ORM\Mapping as ORM;
 use Bluegrass\Metadata\Bundle\MetadataBundle\Entity\LogicTableMetadata;
+use Pronit\CoreBundle\Entity\Automatizacion\Secuencias\RegistroCondicion;
 
 /**
  *
@@ -30,11 +31,16 @@ class TablaCondicion {
     protected $descripcion;
     
     /** @ORM\ManyToOne(targetEntity="Bluegrass\Metadata\Bundle\MetadataBundle\Entity\LogicTableMetadata") */
-    private $tableMetadata;
+    protected $tableMetadata;
     
+    /**
+     * @ORM\OneToMany(targetEntity="Pronit\CoreBundle\Entity\Automatizacion\Secuencias\RegistroCondicion", mappedBy="tablaCondicion", cascade={"ALL"}, orphanRemoval=true)
+     */
+    protected $registrosCondicion;    
        
     public function __construct() 
     {
+        $this->registrosCondicion = new \Doctrine\Common\Collections\ArrayCollection();        
     }
     
     public function getId()
@@ -70,6 +76,17 @@ class TablaCondicion {
     public function setTableMetadata(LogicTableMetadata $tableMetadata)
     {
         $this->tableMetadata = $tableMetadata;
+    }
+    
+    public function getRegistrosCondicion()
+    {
+        return $this->registrosCondicion;
+    }
+
+    public function addRegistroCondicion( RegistroCondicion $registroCondicion )
+    {
+        $registroCondicion->setTablaCondicion($this);
+        $this->registrosCondicion[] = $registroCondicion;
     }
 }
 
