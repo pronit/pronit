@@ -40,6 +40,11 @@ class RegistroCondicion implements IMetadataEntity
         $this->claves = new \Doctrine\Common\Collections\ArrayCollection();                
     }
     
+    public function getId()
+    {
+        return $this->id;
+    }
+    
     public function getTablaCondicion()
     {
         return $this->tablaCondicion;
@@ -90,7 +95,6 @@ class RegistroCondicion implements IMetadataEntity
     {
         if ( $this->hasMetadata($metadata) ){
             // Como se va a generar un nuevo MetadataValue, al antiguo lo descarto ( orphanremoval )
-            // Todo analizar esto...
             unset( $this->claves[$metadata->getName()] );
         } 
         

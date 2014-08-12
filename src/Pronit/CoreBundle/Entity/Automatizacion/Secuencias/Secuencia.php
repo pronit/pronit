@@ -4,14 +4,18 @@ namespace Pronit\CoreBundle\Entity\Automatizacion\Secuencias;
 use Doctrine\ORM\Mapping as ORM;
 
 use Pronit\CoreBundle\Entity\Automatizacion\Secuencias\Acceso;
+use Pronit\CoreBundle\Model\Automatizacion\Secuencias\IBuscadorRegistroCondicion;
+use Doctrine\Common\Collections\ArrayCollection;
 
+use ArrayIterator;
+use IteratorAggregate;
 /**
  *
  * @author ldelia
  * @ORM\Entity
  * @ORM\Table(name="core_secuencias")
  */
-class Secuencia {
+class Secuencia implements IteratorAggregate{
     
    /**
      * @ORM\Column(type="integer")
@@ -38,7 +42,7 @@ class Secuencia {
        
     public function __construct() 
     {
-        $this->setAccesos(new \Doctrine\Common\Collections\ArrayCollection() );        
+        $this->setAccesos(new ArrayCollection() );        
     }
     
     public function getId()
@@ -65,12 +69,21 @@ class Secuencia {
     {
         $this->descripcion = $descripcion;
     }
+
+    public function getIterator()
+    {
+        $iterator = $this->getAccesos()->getIterator();
+        $iterator->uasort(function (Acceso $a, Acceso $b) {
+            return $a->compare($b);
+        });
+        return new ArrayIterator(iterator_to_array($iterator));
+    }
     
-    public function getAccesos()
+    protected function getAccesos()
     {
         return $this->accesos;
     }
-
+    
     protected function setAccesos($accesos)
     {
         $this->accesos = $accesos;
@@ -81,5 +94,30 @@ class Secuencia {
         $acceso->setSecuencia($this);
         $this->accesos[] = $acceso;
     }    
-}
+    
+    /**
+     * 
+     * @param type $keyValues
+     * @return \Pronit\CoreBundle\Entity\Automatizacion\Secuencias\RegistroCondicion | null
+     */    
+    public function buscar( $keyValues, IBuscadorRegistroCondicion $buscadorRegistroCondicion)
+    {    
+        $iterator = $this->getIterator();
+        $iterator->rewind();
 
+        $registroCondicion = null;
+        while ( $iterator->valid() && is_null($registroCondicion) )
+        {
+            $key = $iterator->key();
+            
+            /* @var $acceso  \Pronit\CoreBundle\Entity\Automatizacion\Secuencias\Acceso  */
+            $acceso = $iterator->current();
+
+            $registroCondicion = $acceso->buscar($keyValues, $buscadorRegistroCondicion);            
+
+            $iterator->next();
+        }        
+
+        return $registroCondicion;                
+    }
+}

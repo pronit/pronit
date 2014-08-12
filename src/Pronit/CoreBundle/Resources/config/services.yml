@@ -1,6 +1,10 @@
 parameters:
 
 services:
+
+    pronit_core.buscador_registro_condicion:
+        class: Pronit\CoreBundle\Model\Automatizacion\Secuencias\BuscadorRegistroCondicion
+        arguments: [@doctrine.orm.entity_manager, @bluegrass.metadata_provider_factory]
     
     pronit_core.registro_condicion_metadatavalue_factory:
         class: Pronit\CoreBundle\Model\Automatizacion\Secuencias\MetadataValueProvider\Factory\RegistroCondicionMetadataValueFactory

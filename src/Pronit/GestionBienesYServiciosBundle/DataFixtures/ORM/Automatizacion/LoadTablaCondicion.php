@@ -140,6 +140,11 @@ class LoadTablaCondicion extends AbstractFixture implements FixtureInterface , O
         $registroCondicion->setClave( $registroCondicionMetadataProvider2->getMetadata('material'), $this->getReference('pronit-gestionbienesyservicios-bienservicio-610615008'));        
         $registroCondicion->setClave( $registroCondicionMetadataProvider2->getMetadata('proveedor'), 'lycho');
         $tablaCondicion2->addRegistroCondicion($registroCondicion);
+
+        $registroCondicion = new RegistroCondicion();        
+        $registroCondicion->setClave( $registroCondicionMetadataProvider2->getMetadata('material'), $this->getReference('pronit-gestionbienesyservicios-bienservicio-SS001'));        
+        $registroCondicion->setClave( $registroCondicionMetadataProvider2->getMetadata('proveedor'), 'lycho');
+        $tablaCondicion2->addRegistroCondicion($registroCondicion);
         
         $manager->flush();
         
