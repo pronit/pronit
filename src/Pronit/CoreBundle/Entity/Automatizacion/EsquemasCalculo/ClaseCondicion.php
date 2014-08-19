@@ -2,38 +2,62 @@
 
 namespace Pronit\CoreBundle\Entity\Automatizacion\EsquemasCalculo;
 
-use Pronit\CoreBundle\Entity\Automatizacion\Estrategias\EstrategiaCalculo;
+use Doctrine\ORM\Mapping as ORM;
+use Pronit\CoreBundle\Entity\Automatizacion\EsquemasCalculo\Estrategias\EstrategiaCalculo;
 use Pronit\CoreBundle\Model\Automatizacion\EsquemasCalculo\Contextos\ContextoItemEsquemaCalculo;
 
 /**
  * Description of ClaseCondicion
  *
  * @author gcaseres
+ * @ORM\Entity
+ * @ORM\Table(name="core_clasescondicion")
  */
-class ClaseCondicion {
+class ClaseCondicion
+{
 
-    /** @var string */
+    /**
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     * @ORM\Column(type="string", length=8)
+     */
     protected $codigo;
 
-    /** @var string */
+    /**
+     * @ORM\Column(type="string", length=60)
+     */
     protected $nombre;
 
     /** @var EstrategiaCalculo */
     protected $estrategiaCalculo;
 
-    public function setCodigo($value) {
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setCodigo($value)
+    {
         $this->codigo = $value;
     }
 
-    public function getCodigo() {
+    public function getCodigo()
+    {
         return $this->codigo;
     }
 
-    public function setNombre($value) {
+    public function setNombre($value)
+    {
         $this->nombre = $value;
     }
 
-    public function getNombre() {
+    public function getNombre()
+    {
         return $this->nombre;
     }
 
@@ -41,7 +65,8 @@ class ClaseCondicion {
      * 
      * @param EstrategiaCalculo $value
      */
-    public function setEstrategiaCalculo(EstrategiaCalculo $value) {
+    public function setEstrategiaCalculo(EstrategiaCalculo $value)
+    {
         $this->estrategiaCalculo = $value;
     }
 
@@ -49,7 +74,8 @@ class ClaseCondicion {
      * 
      * @return EstrategiaCalculo
      */
-    public function getEstrategiaCalculo() {
+    public function getEstrategiaCalculo()
+    {
         return $this->estrategiaCalculo;
     }
 
@@ -57,7 +83,8 @@ class ClaseCondicion {
      * 
      * @param ContextoItemEsquemaCalculo $contexto
      */
-    public function calcular(ContextoItemEsquemaCalculo $contexto, ResultadoCalculo $parcial) {
+    public function calcular(ContextoItemEsquemaCalculo $contexto, ResultadoCalculo $parcial)
+    {
         $descripcion = $contexto->getItemEsquemaCalculo()->getDescripcion();
 
         $valor = $this->estrategiaCalculo->calcular($contexto);

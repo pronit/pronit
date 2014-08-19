@@ -49,6 +49,15 @@ class BuscadorRegistroCondicionTest extends KernelTestCase
         ;        
         return $secuencia;
     }
+
+    protected function getClaseCondicion( $codigo )
+    {
+        $claseCondicion = $this->em
+            ->getRepository('Pronit\CoreBundle\Entity\Automatizacion\EsquemasCalculo\ClaseCondicion')
+            ->findOneByCodigo($codigo)
+        ;        
+        return $claseCondicion;
+    }
     
     protected function getTablaCondicion( $codigo )
     {
@@ -81,33 +90,35 @@ class BuscadorRegistroCondicionTest extends KernelTestCase
     {        
         $tablaCondicion1 = $this->getTablaCondicion('T1');
         
+        $claseCondicion = $this->getClaseCondicion('PR00');
+        
         $materialMM001 = $this->getMaterial('MM001');
         $servicioSS002 = $this->getServicio('SS002');
         
         // Verifico que encuentre un registrocondicion según un valor existente
-        $resultado = $this->buscadorRegistroCondicion->buscarPorTablaCondicion(array('material' => $materialMM001), $tablaCondicion1);        
+        $resultado = $this->buscadorRegistroCondicion->buscarPorTablaCondicion(array('material' => $materialMM001), $claseCondicion, $tablaCondicion1);        
         $this->assertNotNull($resultado);
         
         // Verifico que NO encuentre un registrocondicion según un valor inexistente
-        $resultado = $this->buscadorRegistroCondicion->buscarPorTablaCondicion(array('material' => $servicioSS002), $tablaCondicion1);        
+        $resultado = $this->buscadorRegistroCondicion->buscarPorTablaCondicion(array('material' => $servicioSS002), $claseCondicion, $tablaCondicion1);        
         $this->assertNull($resultado);
 
         $tablaCondicion2 = $this->getTablaCondicion('T2');
 
         // Verifico que encuentre un registrocondicion según un valor existente
-        $resultado = $this->buscadorRegistroCondicion->buscarPorTablaCondicion(array('material' => $materialMM001), $tablaCondicion2);        
+        $resultado = $this->buscadorRegistroCondicion->buscarPorTablaCondicion(array('material' => $materialMM001), $claseCondicion, $tablaCondicion2);        
         $this->assertNotNull($resultado);
         
         // Verifico que NO encuentre un registrocondicion según un valor inexistente
-        $resultado = $this->buscadorRegistroCondicion->buscarPorTablaCondicion(array('material' => $servicioSS002), $tablaCondicion2);        
+        $resultado = $this->buscadorRegistroCondicion->buscarPorTablaCondicion(array('material' => $servicioSS002), $claseCondicion, $tablaCondicion2);        
         $this->assertNull($resultado);
 
         // Verifico que encuentre un registrocondicion según múltiples valores existente
-        $resultado = $this->buscadorRegistroCondicion->buscarPorTablaCondicion(array('material' => $materialMM001, 'proveedor' => 'colo'), $tablaCondicion2);        
+        $resultado = $this->buscadorRegistroCondicion->buscarPorTablaCondicion(array('material' => $materialMM001, 'proveedor' => 'colo'), $claseCondicion, $tablaCondicion2);        
         $this->assertNotNull($resultado);
         
         // Verifico que no encuentre un registrocondicion según múltiples valores existente
-        $resultado = $this->buscadorRegistroCondicion->buscarPorTablaCondicion(array('material' => $materialMM001, 'proveedor' => 'lycho'), $tablaCondicion2);        
+        $resultado = $this->buscadorRegistroCondicion->buscarPorTablaCondicion(array('material' => $materialMM001, 'proveedor' => 'lycho'), $claseCondicion, $tablaCondicion2);        
         $this->assertNull($resultado);
         
     }
@@ -116,12 +127,14 @@ class BuscadorRegistroCondicionTest extends KernelTestCase
     {        
         $secuencia = $this->getSecuencia('PR-01');
         
+        $claseCondicion = $this->getClaseCondicion('PR00');
+        
         $materialMM001 = $this->getMaterial('MM001');
         $servicioSS001 = $this->getServicio('SS001');
         $servicioSS002 = $this->getServicio('SS002');
         
         // Verifico que encuentre un registrocondicion según un valor existente
-        $resultado = $this->buscadorRegistroCondicion->buscarPorSecuenciaAcceso(array('material' => $materialMM001), $secuencia);        
+        $resultado = $this->buscadorRegistroCondicion->buscarPorSecuenciaAcceso(array('material' => $materialMM001), $claseCondicion, $secuencia);        
         $this->assertNotNull($resultado);
         
         // Verifico que el registroCondición encontrado esté en la tabla de condición 1 (primera en aparecer en la secuencia)
@@ -129,7 +142,7 @@ class BuscadorRegistroCondicionTest extends KernelTestCase
         $this->assertEquals($registroCondicion->getTablaCondicion()->getCodigo() , 'T1');
 
         // Verifico que encuentre un registrocondicion según un valor existente
-        $resultado = $this->buscadorRegistroCondicion->buscarPorSecuenciaAcceso(array('material' => $servicioSS001), $secuencia);        
+        $resultado = $this->buscadorRegistroCondicion->buscarPorSecuenciaAcceso(array('material' => $servicioSS001), $claseCondicion, $secuencia);        
         $this->assertNotNull($resultado);
         
         // Verifico que el registroCondición encontrado esté en la tabla de condición 2 (segunda en aparecer en la secuencia)
@@ -137,18 +150,19 @@ class BuscadorRegistroCondicionTest extends KernelTestCase
         $this->assertEquals($registroCondicion->getTablaCondicion()->getCodigo() , 'T2');
         
         // Verifico que NO encuentre un registrocondicion según un valor inexistente
-        $resultado = $this->buscadorRegistroCondicion->buscarPorSecuenciaAcceso(array('material' => $servicioSS002), $secuencia);        
+        $resultado = $this->buscadorRegistroCondicion->buscarPorSecuenciaAcceso(array('material' => $servicioSS002), $claseCondicion, $secuencia);        
         $this->assertNull($resultado);        
     }
     
     public function testBuscarPorSecuenciaExcepcion()
     {
         $this->setExpectedException('Exception');
-        
-        $secuencia = $this->getSecuencia('PR-01');        
+
+        $claseCondicion = $this->getClaseCondicion('PR00');
+        $secuencia = $this->getSecuencia('PR-01');
         
         // Verifico que encuentre un registrocondicion según un valor existente
-        $resultado = $this->buscadorRegistroCondicion->buscarPorSecuenciaAcceso(array('proveedor' => 'colo'), $secuencia);        
+        $resultado = $this->buscadorRegistroCondicion->buscarPorSecuenciaAcceso(array('proveedor' => 'colo'), $claseCondicion, $secuencia);        
     }
     
     /**
