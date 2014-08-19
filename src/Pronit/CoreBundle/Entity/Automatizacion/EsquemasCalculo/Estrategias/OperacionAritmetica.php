@@ -3,7 +3,6 @@
 namespace Pronit\CoreBundle\Entity\Automatizacion\EsquemasCalculo\Estrategias;
 
 use InvalidArgumentException;
-use Pronit\CoreBundle\Entity\Automatizacion\Estrategias\EstrategiaCalculo;
 use Pronit\CoreBundle\Model\Automatizacion\EsquemasCalculo\Contextos\ContextoItemEsquemaCalculo;
 use Pronit\CoreBundle\Model\Automatizacion\EsquemasCalculo\DeterminadoresValor\DeterminadorValor;
 use Pronit\CoreBundle\Model\Automatizacion\EsquemasCalculo\Estrategias\OperacionAritmetica\Operacion;
