@@ -8,6 +8,7 @@ use Bluegrass\Metadata\Bundle\MetadataBundle\Model\MetadataProvider\IMetadataPro
 use Bluegrass\Metadata\Bundle\MetadataBundle\Model\MetadataProvider\Factory\IMetadataProviderFactory;
 
 use Pronit\CoreBundle\Entity\Automatizacion\Secuencias\TablaCondicion;
+use Pronit\CoreBundle\Entity\Automatizacion\EsquemasCalculo\ClaseCondicion;
 use Pronit\CoreBundle\Entity\Automatizacion\Secuencias\Secuencia;
 use Pronit\CoreBundle\Model\Automatizacion\Secuencias\IBuscadorRegistroCondicion;
 
@@ -31,21 +32,23 @@ class BuscadorRegistroCondicion implements IBuscadorRegistroCondicion
     /**
      * 
      * @param type $keyValues
+     * @param \Pronit\CoreBundle\Entity\Automatizacion\EsquemasCalculo\ClaseCondicion $claseCondicion
      * @param \Pronit\CoreBundle\Entity\Automatizacion\Secuencias\Secuencia $secuencia
      * @return \Pronit\CoreBundle\Entity\Automatizacion\Secuencias\RegistroCondicion | null
      */
-    public function buscarPorSecuenciaAcceso($keyValues, Secuencia $secuencia)
+    public function buscarPorSecuenciaAcceso($keyValues, ClaseCondicion $claseCondicion, Secuencia $secuencia)
     {        
-        return $secuencia->buscar( $keyValues, $this );
+        return $secuencia->buscar( $keyValues, $claseCondicion, $this );
     }
 
     /**
      * 
      * @param type $keyValues
+     * @param \Pronit\CoreBundle\Entity\Automatizacion\EsquemasCalculo\ClaseCondicion $claseCondicion
      * @param \Pronit\CoreBundle\Entity\Automatizacion\Secuencias\TablaCondicion $tablaCondicion
      * @return \Pronit\CoreBundle\Entity\Automatizacion\Secuencias\RegistroCondicion | null
      */
-    public function buscarPorTablaCondicion( $keyValues, TablaCondicion $tablaCondicion)
+    public function buscarPorTablaCondicion( $keyValues, ClaseCondicion $claseCondicion, TablaCondicion $tablaCondicion)
     {
         $qbCondiciones = $this->em->createQueryBuilder();
         $i=1;
@@ -58,8 +61,10 @@ class BuscadorRegistroCondicion implements IBuscadorRegistroCondicion
                     ->select( 'subrc.id' )
                     ->from('Pronit\CoreBundle\Entity\Automatizacion\Secuencias\RegistroCondicionMetadataValue','rcmv')
                     ->join('rcmv.registroCondicion','subrc')
+                    ->join('subrc.claseCondicion','subc')
                     ->join('subrc.tablaCondicion','subt')
                     ->where('subt.id = ' . $tablaCondicion->getId())
+                    ->andWhere('subc.id = ' . $claseCondicion->getId())
                     ->andWhere( $qbCondiciones->getDQLPart('where') )
                     ->groupBy('rcmv.registroCondicion')
                     ->having('count(rcmv.id) = ' . count( $keyValues ));        

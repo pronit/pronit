@@ -5,6 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 use Pronit\CoreBundle\Entity\Automatizacion\Secuencias\Acceso;
 use Pronit\CoreBundle\Model\Automatizacion\Secuencias\IBuscadorRegistroCondicion;
+use Pronit\CoreBundle\Entity\Automatizacion\EsquemasCalculo\ClaseCondicion;
 use Doctrine\Common\Collections\ArrayCollection;
 
 use ArrayIterator;
@@ -98,9 +99,10 @@ class Secuencia implements IteratorAggregate{
     /**
      * 
      * @param type $keyValues
+     * @param \Pronit\CoreBundle\Entity\Automatizacion\EsquemasCalculo\ClaseCondicion $claseCondicion
      * @return \Pronit\CoreBundle\Entity\Automatizacion\Secuencias\RegistroCondicion | null
      */    
-    public function buscar( $keyValues, IBuscadorRegistroCondicion $buscadorRegistroCondicion)
+    public function buscar( $keyValues, ClaseCondicion $claseCondicion, IBuscadorRegistroCondicion $buscadorRegistroCondicion)
     {    
         $iterator = $this->getIterator();
         $iterator->rewind();
@@ -113,7 +115,7 @@ class Secuencia implements IteratorAggregate{
             /* @var $acceso  \Pronit\CoreBundle\Entity\Automatizacion\Secuencias\Acceso  */
             $acceso = $iterator->current();
 
-            $registroCondicion = $acceso->buscar($keyValues, $buscadorRegistroCondicion);            
+            $registroCondicion = $acceso->buscar($keyValues, $claseCondicion, $buscadorRegistroCondicion);            
 
             $iterator->next();
         }        

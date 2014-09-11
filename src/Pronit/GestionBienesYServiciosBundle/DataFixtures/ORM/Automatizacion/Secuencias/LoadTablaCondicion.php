@@ -1,6 +1,6 @@
 <?php
 
-namespace Pronit\GestionBienesYServiciosBundle\DataFixtures\ORM\Automatizacion;
+namespace Pronit\GestionBienesYServiciosBundle\DataFixtures\ORM\Automatizacion\Secuencias;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
@@ -83,12 +83,12 @@ class LoadTablaCondicion extends AbstractFixture implements FixtureInterface , O
         $registroCondicionMetadataProvider1 = $this->container->get('bluegrass.metadata_provider_factory')->getMetadataProviderFor($logicTableMetadata1);        
         
         /* @var $registroCondicion \Pronit\CoreBundle\Entity\Automatizacion\Secuencias\RegistroCondicion  */                                  
-        $registroCondicion = new RegistroCondicion();        
+        $registroCondicion = new RegistroCondicion( $this->getReference('pronit-core-clasecondicion-PR00') );
         $registroCondicion->setClave( $registroCondicionMetadataProvider1->getMetadata('material'), $this->getReference('pronit-gestionbienesyservicios-bienservicio-MM001'));
                 
         $tablaCondicion1->addRegistroCondicion($registroCondicion);
         
-        $registroCondicion = new RegistroCondicion();        
+        $registroCondicion = new RegistroCondicion( $this->getReference('pronit-core-clasecondicion-PR00') );
         $registroCondicion->setClave( $registroCondicionMetadataProvider1->getMetadata('material'), $this->getReference('pronit-gestionbienesyservicios-bienservicio-610615008'));        
         $tablaCondicion1->addRegistroCondicion($registroCondicion);
         
@@ -130,18 +130,18 @@ class LoadTablaCondicion extends AbstractFixture implements FixtureInterface , O
         
         /* @var $registroCondicion \Pronit\CoreBundle\Entity\Automatizacion\Secuencias\RegistroCondicion  */
         
-        $registroCondicion = new RegistroCondicion();        
+        $registroCondicion = new RegistroCondicion( $this->getReference('pronit-core-clasecondicion-PR00') );
         $registroCondicion->setClave( $registroCondicionMetadataProvider2->getMetadata('material') , $this->getReference('pronit-gestionbienesyservicios-bienservicio-MM001'));
         $registroCondicion->setClave( $registroCondicionMetadataProvider2->getMetadata('proveedor'), 'colo');
                 
         $tablaCondicion2->addRegistroCondicion($registroCondicion);
         
-        $registroCondicion = new RegistroCondicion();        
+        $registroCondicion = new RegistroCondicion( $this->getReference('pronit-core-clasecondicion-PR00') );
         $registroCondicion->setClave( $registroCondicionMetadataProvider2->getMetadata('material'), $this->getReference('pronit-gestionbienesyservicios-bienservicio-610615008'));        
         $registroCondicion->setClave( $registroCondicionMetadataProvider2->getMetadata('proveedor'), 'lycho');
         $tablaCondicion2->addRegistroCondicion($registroCondicion);
 
-        $registroCondicion = new RegistroCondicion();        
+        $registroCondicion = new RegistroCondicion( $this->getReference('pronit-core-clasecondicion-PR00') );
         $registroCondicion->setClave( $registroCondicionMetadataProvider2->getMetadata('material'), $this->getReference('pronit-gestionbienesyservicios-bienservicio-SS001'));        
         $registroCondicion->setClave( $registroCondicionMetadataProvider2->getMetadata('proveedor'), 'lycho');
         $tablaCondicion2->addRegistroCondicion($registroCondicion);
@@ -152,6 +152,6 @@ class LoadTablaCondicion extends AbstractFixture implements FixtureInterface , O
     
     function getOrder()
     {
-        return 74; 
+        return 75; 
     }
 }

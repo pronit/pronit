@@ -5,6 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 use Pronit\CoreBundle\Entity\Automatizacion\Secuencias\Secuencia;
 use Pronit\CoreBundle\Entity\Automatizacion\Secuencias\TablaCondicion;
+use Pronit\CoreBundle\Entity\Automatizacion\EsquemasCalculo\ClaseCondicion;
 
 use Pronit\CoreBundle\Model\Automatizacion\Secuencias\IBuscadorRegistroCondicion;
 
@@ -97,13 +98,14 @@ class Acceso {
     /**
      * 
      * @param type $keyValues
+     * @param \Pronit\CoreBundle\Entity\Automatizacion\EsquemasCalculo\ClaseCondicion $claseCondicion
      * @return \Pronit\CoreBundle\Entity\Automatizacion\Secuencias\RegistroCondicion | null
      */        
-    public function buscar( $keyValues, IBuscadorRegistroCondicion $buscadorRegistroCondicion)
+    public function buscar( $keyValues, ClaseCondicion $claseCondicion, IBuscadorRegistroCondicion $buscadorRegistroCondicion)
     {
         $tablaCondicion = $this->getTablaCondicion();
         
-        return $buscadorRegistroCondicion->buscarPorTablaCondicion($keyValues, $tablaCondicion);
+        return $buscadorRegistroCondicion->buscarPorTablaCondicion($keyValues, $claseCondicion, $tablaCondicion);
     }    
 }
 

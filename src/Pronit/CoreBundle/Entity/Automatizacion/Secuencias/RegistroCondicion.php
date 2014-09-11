@@ -3,6 +3,7 @@ namespace Pronit\CoreBundle\Entity\Automatizacion\Secuencias;
 
 use Doctrine\ORM\Mapping as ORM;
 use Pronit\CoreBundle\Entity\Automatizacion\Secuencias\TablaCondicion;
+use Pronit\CoreBundle\Entity\Automatizacion\EsquemasCalculo\ClaseCondicion;
 
 use Pronit\CoreBundle\Entity\Automatizacion\Secuencias\RegistroCondicionMetadataValue;
 
@@ -26,6 +27,11 @@ class RegistroCondicion implements IMetadataEntity
     protected $id;    
     
     /** 
+     * @ORM\ManyToOne(targetEntity="Pronit\CoreBundle\Entity\Automatizacion\EsquemasCalculo\ClaseCondicion") 
+     */
+    protected $claseCondicion;
+
+    /** 
      * @ORM\ManyToOne(targetEntity="Pronit\CoreBundle\Entity\Automatizacion\Secuencias\TablaCondicion") 
      */
     protected $tablaCondicion;
@@ -35,9 +41,10 @@ class RegistroCondicion implements IMetadataEntity
      */
     protected $claves;    
             
-    public function __construct() 
+    public function __construct(ClaseCondicion $claseCondicion) 
     {
         $this->claves = new \Doctrine\Common\Collections\ArrayCollection();                
+        $this->claseCondicion = $claseCondicion;
     }
     
     public function getId()
@@ -49,6 +56,11 @@ class RegistroCondicion implements IMetadataEntity
     {
         return $this->tablaCondicion;
     }
+    
+    public function getClaseCondicion()
+    {
+        return $this->claseCondicion;
+    }    
 
     public function setTablaCondicion(TablaCondicion $tablaCondicion)
     {

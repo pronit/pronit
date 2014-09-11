@@ -1,6 +1,6 @@
 <?php
 
-namespace Pronit\GestionBienesYServiciosBundle\DataFixtures\ORM\Automatizacion;
+namespace Pronit\GestionBienesYServiciosBundle\DataFixtures\ORM\Automatizacion\Secuencias;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
@@ -89,6 +89,6 @@ class LoadSecuencia extends AbstractFixture implements FixtureInterface , Ordere
     
     function getOrder()
     {
-        return 75; 
+        return 76; 
     }
 }
