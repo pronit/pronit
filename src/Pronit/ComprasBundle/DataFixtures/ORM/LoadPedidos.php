@@ -2,15 +2,15 @@
 
 namespace Pronit\ComprasBundle\DataFixtures\ORM;
 
+use DateTime;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+use Doctrine\Common\Persistence\ObjectManager;
+use Pronit\ComprasBundle\Entity\Documentos\Pedidos\ItemPedido;
+use Pronit\ComprasBundle\Entity\Documentos\Pedidos\Pedido;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-
-use Pronit\ComprasBundle\Entity\Pedidos\Pedido;
-use Pronit\ComprasBundle\Entity\Pedidos\ItemPedido;
 
 /**
  * @author ldelia
@@ -50,6 +50,8 @@ class LoadPedidos extends AbstractFixture implements FixtureInterface , OrderedF
         
         $sociedad = $this->getReference('pronit-estructuraempresa-sociedadfi');
         $moneda = $this->getReference('pronit-parametrizaciongeneral-moneda-pesos');
+        $proveedorSociedad = $this->getReference('pronit-compras-customizing-acreedor-proveedorsociedadfi-delía');
+        $centroLogistico = $this->getReference('pronit-estructuraempresa-centroLogistico-3000');
         
         $clasificador = $this->getReference('pronit-documentos-clasificadoritem-100');
         $escalaMetro = $this->getReference('pronit-parametrizaciongeneral-escala-metro');
@@ -60,10 +62,17 @@ class LoadPedidos extends AbstractFixture implements FixtureInterface , OrderedF
         $itemPedido->setCantidad(4);
         $itemPedido->setBienServicio($bienServicio);
         $itemPedido->setEscala($escalaMetro);
-        $itemPedido->setImporte(9.9);        
+        $itemPedido->setPrecioUnitario(9.9);        
         
-        $pedido = new Pedido($sociedad, "3445/5", new \DateTime(), $moneda);
-        $pedido->addItemPedido( $itemPedido );
+        $pedido = new Pedido();
+        $pedido->setSociedad($sociedad);
+        $pedido->setNumero("3444/5");
+        $pedido->setFecha(new DateTime());
+        $pedido->setProveedorSociedad($proveedorSociedad);
+        $pedido->setCentroLogistico($centroLogistico);
+        $pedido->setMoneda($moneda);
+        $pedido->setTextoCabecera('Pedido de compra.... ');
+        $pedido->addItem( $itemPedido );
                 
         $manager->persist($pedido);
         
@@ -72,6 +81,6 @@ class LoadPedidos extends AbstractFixture implements FixtureInterface , OrderedF
     
     function getOrder()
     {
-        return 80; 
+        return 81; 
     }
 }

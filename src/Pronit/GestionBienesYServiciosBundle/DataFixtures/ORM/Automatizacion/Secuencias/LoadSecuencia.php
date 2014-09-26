@@ -84,7 +84,7 @@ class LoadSecuencia extends AbstractFixture implements FixtureInterface , Ordere
             $manager->persist($obj);
         }
         
-        $manager->flush();
+        $manager->flush();               
     }
     
     function getOrder()

@@ -104,7 +104,9 @@ class LoadSociedades extends AbstractFixture implements FixtureInterface , Order
                 $centroLogistico->addAlmacen($almacen);
             }
             
-            $sociedadFI->addCentroLogistico($centroLogistico);
+            $this->addReference('pronit-estructuraempresa-centroLogistico-' . $centroData['codigo'], $centroLogistico);                
+            
+            $sociedadFI->addCentroLogistico($centroLogistico);            
         }
         
         $manager->persist($sociedadFI);

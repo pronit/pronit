@@ -1,0 +1,24 @@
+<td>
+{% block field %}   
+    <table class="table table-bordered">
+        <thead>
+            <th>Clasificador</th>
+            <th>Bien/Servicio</th>
+            <th>Escala</th>
+            <th>Cantidad</th>            
+            <th>Importe</th>
+        </thead>
+        <tbody>
+            {% for itemPedido in value %}
+            <tr>
+                <td>{{ itemPedido.clasificador }}</td>
+                <td>{{ itemPedido.bienServicio }}</td>
+                <td>{{ itemPedido.escala }}</td>
+                <td>{{ itemPedido.cantidad }}</td>
+                <td>{{ itemPedido.precioUnitario }}</td>
+            </tr>
+            {% endfor %}            
+        </tbody>
+    </table>
+{% endblock %}
+</td>

@@ -1,6 +1,6 @@
 <?php
 
-namespace Pronit\ComprasBundle\Entity\Pedidos;
+namespace Pronit\ComprasBundle\Entity\Documentos;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,20 +8,8 @@ use Pronit\CoreBundle\Entity\Documentos\Item;
 use Pronit\ParametrizacionGeneralBundle\Entity\Escala;
 use Pronit\GestionBienesYServiciosBundle\Entity\BienServicio;
 
-/**
- *
- * @author ldelia
- */
-/** 
- * @ORM\Entity
-*/
-class ItemPedido extends Item
+abstract class ItemCompras extends Item
 {
-    /**
-     * @ORM\ManyToOne(targetEntity="Pronit\GestionBienesYServiciosBundle\Entity\BienServicio")
-     */    
-    protected $bienservicio;    
-    
     /**
      * @ORM\Column(type="float")
      */    
@@ -33,9 +21,19 @@ class ItemPedido extends Item
     protected $escala;    
     
     /**
-     * @ORM\Column(type="float")
+     * @ORM\ManyToOne(targetEntity="Pronit\GestionBienesYServiciosBundle\Entity\BienServicio")
      */    
-    protected $importe;    
+    protected $bienServicio;    
+            
+    public function getBienServicio()
+    {
+        return $this->bienServicio;
+    }
+
+    public function setBienServicio(BienServicio $bienServicio)
+    {
+        $this->bienServicio = $bienServicio;
+    }    
     
     public function getCantidad()
     {
@@ -52,30 +50,11 @@ class ItemPedido extends Item
         return $this->escala;
     }
 
-    public function getImporte()
-    {
-        return $this->importe;
-    }
-
     public function setEscala(Escala $escala)
     {
         /** @todo validar que $escala sea parte de $material->getSistemaMedicion() */        
         $this->escala = $escala;
     }
-
-    public function setImporte($importe)
-    {
-        $this->importe = $importe;
-    }
     
-    public function getBienServicio()
-    {
-        return $this->bienservicio;
-    }
-
-    public function setBienServicio(BienServicio $bienServicio)
-    {
-        $this->bienservicio = $bienServicio;
-    }    
 }
 

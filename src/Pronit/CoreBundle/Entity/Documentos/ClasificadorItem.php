@@ -52,4 +52,9 @@ class ClasificadorItem
     {
         $this->codigo = $codigo;
     }
+    
+    public function __toString()
+    {
+        return $this->getNombre() . "(" . $this->getCodigo() . ")";
+    }
 }

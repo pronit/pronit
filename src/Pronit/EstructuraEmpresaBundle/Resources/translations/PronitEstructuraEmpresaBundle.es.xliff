@@ -18,7 +18,14 @@
                 <source>Sociedad F I List</source>
                 <target>Sociedades FI</target>
             </trans-unit>
-            
+            <trans-unit id="Centro Logistico List">
+                <source>Centro Logistico List</source>
+                <target>Centros Logísticos</target>
+            </trans-unit>            
+            <trans-unit id="Bien Servicio Sociedad F I List">
+                <source>Bien Servicio Sociedad F I List</source>
+                <target>Gestión de Bienes y Servicios</target>
+            </trans-unit>                        
         </body>
     </file>
 </xliff>

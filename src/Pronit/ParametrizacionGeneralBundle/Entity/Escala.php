@@ -89,5 +89,10 @@ class Escala
     {
         $this->factor = $factor;
     }    
+    
+    public function __toString()
+    {
+        return $this->getNombre();
+    }
 }
 

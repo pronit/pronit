@@ -2,8 +2,8 @@
 
 namespace Pronit\CoreBundle\Model\Operaciones\Contextos\Documentos;
 
+use Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\ItemEntradaMercancias;
 use Pronit\CoreBundle\Model\Operaciones\Contextos\Contexto;
-use Pronit\ComprasBundle\Entity\EntradasMercancias\ItemEntradaMercancias;
 
 /**
  *
@@ -21,7 +21,7 @@ class ContextoItemDocumentoEntradaMercancias extends Contexto {
     
     /**
      * 
-     * @return \Pronit\ComprasBundle\Entity\EntradasMercancias\ItemEntradaMercancias
+     * @return \Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\ItemEntradaMercancias
      */
     public function getItem(){
         return $this->item;

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="" >
+        <body>
+            <trans-unit id="Persona Fisica List">
+                <source>Persona Fisica List</source>
+                <target>Personas Físicas</target>
+            </trans-unit>
+            <trans-unit id="Persona Juridica List">
+                <source>Persona Juridica List</source>
+                <target>Personas Jurídicas</target>
+            </trans-unit>
+            <trans-unit id="Proveedor List">
+                <source>Proveedor List</source>
+                <target>Proveedores</target>
+            </trans-unit>            
+        </body>
+    </file>
+</xliff>

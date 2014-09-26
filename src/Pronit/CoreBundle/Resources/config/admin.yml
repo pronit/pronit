@@ -1,0 +1,33 @@
+services:
+    pronit.core.personas.personafisica:
+        class: Pronit\CoreBundle\Admin\Personas\PersonaFisicaAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Terceros", label: "Persona Física" }
+        arguments:
+            - ~
+            - Pronit\CoreBundle\Entity\Personas\PersonaFisica
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitCoreBundle]]            
+            
+    pronit.core.personas.personajuridica:
+        class: Pronit\CoreBundle\Admin\Personas\PersonaJuridicaAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Terceros", label: "Persona Jurídica" }
+        arguments:
+            - ~
+            - Pronit\CoreBundle\Entity\Personas\PersonaJuridica
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitCoreBundle]]                        
+            
+    pronit.core.personas.proveedor:
+        class: Pronit\CoreBundle\Admin\Personas\ProveedorAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Terceros", label: "Proveedor" }
+        arguments:
+            - ~
+            - Pronit\CoreBundle\Entity\Personas\Proveedor
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitCoreBundle]]                                    

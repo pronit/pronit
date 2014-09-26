@@ -59,20 +59,29 @@ class LoadBienesYServicios extends AbstractFixture implements FixtureInterface ,
     
     protected function loadMateriales()
     {
-        $sistemaMedicionLitro = $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-litro');
+        $valuesDummies = array();
+        
+        for( $i=1; $i<100; $i++){
+            $values[] = array('codigo' => "BS-$i", 
+                                "nombre" => "Bien Servicio $i", 
+                                'categoria' => $this->getReference('pronit-gestionbienesyservicios-categoriavaloracion-3006'), 
+                                'tipo' => $this->getReference('pronit-gestionbienesyservicios-tipobienservicio-productoelaborado'),
+                                "sistemaMedicion" => $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-litro')
+                );
+        }
 
-        $values = array(
-            array('codigo' => "MM001", 
+        $values[] = array('codigo' => "MM001", 
                     "nombre" => "Aditivo A1SW", 
                     'categoria' => $this->getReference('pronit-gestionbienesyservicios-categoriavaloracion-3006'), 
                     'tipo' => $this->getReference('pronit-gestionbienesyservicios-tipobienservicio-productoelaborado'),
-                    "sistemaMedicion" => $sistemaMedicionLitro),
-            array('codigo' => "610615008", 
+                    "sistemaMedicion" => $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-litro')
+        );
+        $values[] = array('codigo' => "610615008", 
                     "nombre" => "Caja Telescopica I 3 90 Libras", 
                     'categoria' => $this->getReference('pronit-gestionbienesyservicios-categoriavaloracion-3001'), 
                     'tipo' => $this->getReference('pronit-gestionbienesyservicios-tipobienservicio-productoelaborado'),
-                    "sistemaMedicion" => $sistemaMedicionLitro),
-        );
+                    "sistemaMedicion" => $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-litro'),
+        );       
         
         foreach( $values as $v ){
             

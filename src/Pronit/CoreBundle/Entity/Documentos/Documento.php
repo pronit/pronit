@@ -11,7 +11,7 @@ use Pronit\EstructuraEmpresaBundle\Entity\SociedadFI;
  * @ORM\Table(name="core_documento")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"PedidoValue" = "Pronit\ComprasBundle\Entity\Pedidos\Pedido","EntradaMercanciasValue" = "Pronit\ComprasBundle\Entity\EntradasMercancias\EntradaMercancias"})
+ * @ORM\DiscriminatorMap({"PedidoValue" = "Pronit\ComprasBundle\Entity\Documentos\Pedidos\Pedido","EntradaMercanciasValue" = "Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\EntradaMercancias"})
  */
 abstract class Documento
 {
@@ -43,12 +43,10 @@ abstract class Documento
      */
     private $items;    
     
-    public function __construct(SociedadFI $sociedad, $numero, $fecha)
+    public function __construct()
     {
-        $this->setSociedad($sociedad);
-        $this->setNumero($numero);
-        $this->setFecha($fecha);        
         $this->setItems(new \Doctrine\Common\Collections\ArrayCollection() );
+        $this->setFecha( new \DateTime() );
     }
     
     public function getId()
@@ -85,11 +83,16 @@ abstract class Documento
         $this->items = $items;
     }    
     
-    protected function addItem(Item $item)
+    public function addItem(Item $item)
     {
         $item->setDocumento($this);
         $this->items[] = $item;
     }
+    
+    public function removeItem( Item $item )
+    {
+        $this->items->removeElement( $item );
+    }    
 
     public function getFecha()
     {
@@ -105,4 +108,9 @@ abstract class Documento
     {
         $this->fecha = $fecha;
     }    
+    
+    public function __toString()
+    {
+        return (string) $this->getNumero();
+    }
 }

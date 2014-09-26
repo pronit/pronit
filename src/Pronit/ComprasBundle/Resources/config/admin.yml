@@ -1,0 +1,66 @@
+services:
+    pronit.admin.compras.pedido:
+        class: Pronit\ComprasBundle\Admin\Documentos\Pedidos\PedidoAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Compras", label: "Pedido de Compra" }
+        arguments:
+            - ~
+            - Pronit\ComprasBundle\Entity\Documentos\Pedidos\Pedido
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitComprasBundle]]
+            
+    pronit.admin.compras.itempedido:
+        class: Pronit\ComprasBundle\Admin\Documentos\Pedidos\ItemPedidoAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, show_in_dashboard: false, group: null }
+        arguments:
+            - ~
+            - Pronit\ComprasBundle\Entity\Documentos\Pedidos\ItemPedido
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitComprasBundle]]
+            
+    pronit.admin.compras.customizing.acreedores.proveedor_sociedadfi:
+        class: Pronit\ComprasBundle\Admin\Customizing\Acreedores\ProveedorSociedadFIAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Customizing Sociedad FI", label: "Gestión de Proveedores" }
+        arguments:
+            - ~
+            - Pronit\ComprasBundle\Entity\Customizing\Acreedores\ProveedorSociedadFI
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitComprasBundle]]   
+
+    pronit.admin.compras.entradasmercancias.seleccion_pedido:
+        class: Pronit\ComprasBundle\Admin\Documentos\EntradasMercancias\SeleccionPedidoAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Compras", label: "Crear Entrada de Mercancia desde Pedido de Compra" }
+        arguments:
+            - ~
+            - Pronit\ComprasBundle\Entity\Documentos\Pedidos\Pedido
+            - 'PronitComprasBundle:Documentos\EntradasMercancias\SeleccionPedidoCRUD'
+        calls:
+            - [ setTranslationDomain, [PronitComprasBundle]]
+
+    pronit.admin.compras.entradasmercancias.entradamercancias:
+        class: Pronit\ComprasBundle\Admin\Documentos\EntradasMercancias\EntradaMercanciasAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Compras", label: "Entrada de Mercancías" }
+        arguments:
+            - ~
+            - Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\EntradaMercancias
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitComprasBundle]]
+            
+    pronit.admin.compras.entradasmercancias.itementradamercancias:
+        class: Pronit\ComprasBundle\Admin\Documentos\EntradasMercancias\ItemEntradaMercanciasAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, show_in_dashboard: false, group: null }
+        arguments:
+            - ~
+            - Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\ItemEntradaMercancias
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitComprasBundle]]

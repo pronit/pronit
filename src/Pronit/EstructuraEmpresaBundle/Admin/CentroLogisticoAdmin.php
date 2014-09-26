@@ -5,7 +5,7 @@ use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-
+use Sonata\AdminBundle\Show\ShowMapper;
 /**
  *
  * @author ldelia
@@ -55,6 +55,24 @@ class CentroLogisticoAdmin extends Admin
                 
         ;
     }
+    
+    protected function configureShowFields(ShowMapper $showMapper)
+    {
+        // Here we set the fields of the ShowMapper variable, $showMapper (but this can be called anything)
+        $showMapper
+            ->add('sociedadFI')                
+            ->add('codigo')
+            ->add('nombre')
+            ->add('divisionAdministrativa')
+            ->with('Almacenes')
+                ->add('almacenes','sonata_type_collection', array('cascade_validation' => true, 'by_reference' => false), array(
+                    
+                    'inline' => 'table',                    
+                ))
+            ->end();  
+        
+    }    
+    
 }
 
 

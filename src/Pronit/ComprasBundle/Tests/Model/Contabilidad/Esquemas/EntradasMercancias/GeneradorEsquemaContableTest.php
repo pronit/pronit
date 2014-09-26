@@ -24,7 +24,7 @@ class GeneradorEsquemaContableTest extends KernelTestCase
     
     public function testGenerar()
     {
-        $entradaMercancias = $this->em->getRepository('Pronit\ComprasBundle\Entity\EntradasMercancias\EntradaMercancias')->findOneByNumero("0001/1");
+        $entradaMercancias = $this->em->getRepository('Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\EntradaMercancias')->findOneByNumero("0001/1");
         if( ! $entradaMercancias ){
             throw new \Exception("Para testear el GeneradorEsquemaContable se necesita ");
         }

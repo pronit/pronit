@@ -9,8 +9,8 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-use Pronit\ComprasBundle\Entity\EntradasMercancias\EntradaMercancias;
-use Pronit\ComprasBundle\Entity\EntradasMercancias\ItemEntradaMercancias;
+use Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\EntradaMercancias;
+use Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\ItemEntradaMercancias;
 
 /**
  * @author ldelia
@@ -57,11 +57,16 @@ class LoadEntradaMercancias extends AbstractFixture implements FixtureInterface 
         $item = new ItemEntradaMercancias();
         $item->setClasificador($clasificador);        
         $item->setCantidad(4);        
-        $item->setMaterial($material);
+        $item->setBienServicio($material);
         $item->setPrecioUnitario(5.5);
         
-        $entradaMercancias = new EntradaMercancias($sociedad, "0001/1", new \DateTime(), $moneda);
-        $entradaMercancias->addItemEntradaMercancias($item);
+        $entradaMercancias = new EntradaMercancias();
+        $entradaMercancias->setSociedad($sociedad);
+        $entradaMercancias->setNumero("0001/1");
+        $entradaMercancias->setFecha(new \DateTime());
+        $entradaMercancias->setMoneda($moneda);
+        $entradaMercancias->setTextoCabecera('Entrada de Mercancias.... ');
+        $entradaMercancias->addItem($item);
         
         $manager->persist($entradaMercancias);
         
@@ -70,6 +75,6 @@ class LoadEntradaMercancias extends AbstractFixture implements FixtureInterface 
     
     function getOrder()
     {
-        return 81; 
+        return 82; 
     }
 }

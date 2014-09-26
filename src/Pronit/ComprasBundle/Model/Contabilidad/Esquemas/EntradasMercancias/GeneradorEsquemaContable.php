@@ -9,8 +9,8 @@ use Pronit\CustomizingBundle\Model\Operaciones\IOperacionesCustomizingManager;
 use Pronit\GestionBienesYServiciosBundle\Model\Customizing\Contabilidad\IImputacionesCustomizingManager as MMIImputacionesCustomizingManager;
 use Pronit\ContabilidadBundle\Model\Customizing\IImputacionesCustomizingManager as FIIImputacionesCustomizingManager;
 
-use Pronit\ComprasBundle\Entity\EntradasMercancias\EntradaMercancias;
-use Pronit\ComprasBundle\Entity\EntradasMercancias\ItemEntradaMercancias;
+use Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\EntradaMercancias;
+use Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\ItemEntradaMercancias;
 
 use Pronit\ContabilidadBundle\Model\Esquemas\EsquemaContable;
 use Pronit\ContabilidadBundle\Model\Esquemas\ItemEsquemaContable;
@@ -51,7 +51,7 @@ class GeneradorEsquemaContable implements IGeneradorEsquemaContable
     
     /**
      * 
-     * @param \Pronit\ComprasBundle\Entity\EntradasMercancias\EntradaMercancias $entradaMercancias
+     * @param \Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\EntradaMercancias $entradaMercancias
      */
     protected function generarDeEntradaMercancia(EntradaMercancias $entradaMercancias)
     {
@@ -71,7 +71,7 @@ class GeneradorEsquemaContable implements IGeneradorEsquemaContable
     
     /**
      * 
-     * @param \Pronit\ComprasBundle\Entity\EntradasMercancias\ItemEntradaMercancias $item
+     * @param \Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\ItemEntradaMercancias $item
      * @return \Pronit\ContabilidadBundle\Model\Esquemas\ItemEsquemaContable[]
      */
     protected function generarItemsEsquema(ItemEntradaMercancias $item)
@@ -81,7 +81,7 @@ class GeneradorEsquemaContable implements IGeneradorEsquemaContable
         $items = array();
 
         $clasificador = $item->getClasificador();
-        $categoriaValoracion = $item->getMaterial()->getCategoriaValoracion();        
+        $categoriaValoracion = $item->getBienServicio()->getCategoriaValoracion();        
                 
         $operacionesContables = $this->getOperacionesCustomizingManager()->getOperacionesContablesByClasificadorItem($clasificador);
         
