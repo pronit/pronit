@@ -64,3 +64,25 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [PronitComprasBundle]]
+
+    pronit.admin.compras.factura:
+        class: Pronit\ComprasBundle\Admin\Documentos\Facturas\FacturaAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Compras", label: "Factura" }
+        arguments:
+            - ~
+            - Pronit\ComprasBundle\Entity\Documentos\Facturas\Factura
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitComprasBundle]]
+            
+    pronit.admin.compras.facturas.itemfactura:
+        class: Pronit\ComprasBundle\Admin\Documentos\Facturas\ItemFacturaAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, show_in_dashboard: false, group: null }
+        arguments:
+            - ~
+            - Pronit\ComprasBundle\Entity\Documentos\Facturas\ItemFactura
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitComprasBundle]]
