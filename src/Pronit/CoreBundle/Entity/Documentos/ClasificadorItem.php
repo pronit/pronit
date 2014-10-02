@@ -8,8 +8,15 @@ use Doctrine\ORM\Mapping as ORM;
  * @author ldelia
  * @ORM\Entity
  * @ORM\Table(name="core_clasificadoritem")
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="discr", type="string")
+ * @ORM\DiscriminatorMap({
+        "ItemPedidoValue" = "Pronit\ComprasBundle\Entity\Documentos\Pedidos\ClasificadorItemPedido",
+        "ItemEntradaMercanciasValue" = "Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\ClasificadorItemEntradaMercancias",
+        "ItemFacturaValue" = "Pronit\ComprasBundle\Entity\Documentos\Facturas\ClasificadorItemFactura"
+    })
  */
-class ClasificadorItem
+abstract class ClasificadorItem
 {
     /**
      * @ORM\Column(type="integer")

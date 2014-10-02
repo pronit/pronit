@@ -78,6 +78,17 @@ class EntradaMercanciasAdmin extends Admin
         
         $pedido_id = $this->request->query->get('pedido_id');
         
+        /* 
+         * Obtener clasificador item por defecto para EntradaMercancias
+         * TODO: Debería definirse como customizing.
+         */        
+        $clasificadores = $this->getConfigurationPool()->getContainer()->get('doctrine')
+                ->getRepository('Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\ClasificadorItemEntradaMercancias')
+                ->createQueryBuilder('q')
+                ->setMaxResults(1)
+                ->getQuery()->getResult();
+        $clasificador = $clasificadores[0];
+        
         /* @var $pedido \Pronit\ComprasBundle\Entity\Documentos\Pedidos\Pedido  */
         $pedido = $this->getModelManager()->find('Pronit\ComprasBundle\Entity\Documentos\Pedidos\Pedido', $pedido_id);        
         
@@ -93,7 +104,7 @@ class EntradaMercanciasAdmin extends Admin
                 /* @var $itemPedido \Pronit\ComprasBundle\Entity\Documentos\Pedidos\ItemPedido  */
 
                 $item = new ItemEntradaMercancias();
-                $item->setClasificador($itemPedido->getClasificador());        
+                $item->setClasificador($clasificador);       
                 $item->setBienServicio($itemPedido->getBienServicio());
                 $item->setPrecioUnitario($itemPedido->getPrecioUnitario());
                 $item->setCantidad($itemPedido->getCantidad());        
