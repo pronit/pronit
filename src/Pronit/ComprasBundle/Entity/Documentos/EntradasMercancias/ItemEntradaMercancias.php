@@ -4,6 +4,8 @@ namespace Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias;
 
 use Doctrine\ORM\Mapping as ORM;
 use Pronit\ComprasBundle\Entity\Documentos\ItemAbastecimientoExterno;
+use Pronit\CoreBundle\Entity\Documentos\ClasificadorItem;
+use Symfony\Component\Serializer\Exception\Exception;
 use Pronit\ComprasBundle\Entity\Documentos\Pedidos\ItemPedido;
 
 use Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\Estados\EstadoEntradaMercancias;
@@ -32,7 +34,14 @@ class ItemEntradaMercancias extends ItemAbastecimientoExterno
         parent::__construct();
         $this->setEstado( new SinFacturar() );        
     }
-    
+
+    public function setClasificador(ClasificadorItem $clasificador) {
+        if (!$clasificador instanceof ClasificadorItemEntradaMercancias) {
+            throw new Exception("Los items de entrada de mercancias solo admiten clasificadores de items de entrada de mercancias.");
+        }
+        parent::setClasificador($clasificador);
+    }
+
     public function getEstado()
     {
         return $this->estado;
