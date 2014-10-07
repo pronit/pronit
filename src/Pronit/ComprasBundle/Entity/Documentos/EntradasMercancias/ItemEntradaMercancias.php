@@ -3,7 +3,6 @@
 namespace Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias;
 
 use Doctrine\ORM\Mapping as ORM;
-
 use Pronit\ComprasBundle\Entity\Documentos\ItemAbastecimientoExterno;
 use Pronit\ComprasBundle\Entity\Documentos\Pedidos\ItemPedido;
 

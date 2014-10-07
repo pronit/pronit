@@ -12,9 +12,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Pronit\CustomizingBundle\Entity\Operaciones\AsociacionOperacionClasificadorItem;
 
 /**
- * @author ldelia
+ * @author gcaseres
  */
-class LoadAsociacionOperacionClasificadorItem extends AbstractFixture implements FixtureInterface , OrderedFixtureInterface, ContainerAwareInterface
+class LoadAsociacionOperacionClasificadorItemEntradaMercancias extends AbstractFixture implements FixtureInterface , OrderedFixtureInterface, ContainerAwareInterface
 {
     /**
      * @var ContainerInterface
@@ -49,16 +49,14 @@ class LoadAsociacionOperacionClasificadorItem extends AbstractFixture implements
 
         
         $values =  array(
-        /*
             array( "codigo" => "101", "operacion" => "BSX"),         
             array( "codigo" => "101", "operacion" => "WRX"),
-            array( "codigo" => "122", "operacion" => "BSX"),
-         */
+            //array( "codigo" => "122", "operacion" => "BSX"),
         );
         
         foreach( $values as $value ){
             
-            $clasificador = $this->getReference('pronit-documentos-clasificadoritem-' . $value['codigo']);
+            $clasificador = $this->getReference('pronit-documentos-clasificadoritementradamercancias-' . $value['codigo']);
             $operacion = $this->getReference('pronit-core-operacion-' . $value['operacion'] );
             
             $obj = new AsociacionOperacionClasificadorItem();
@@ -75,6 +73,6 @@ class LoadAsociacionOperacionClasificadorItem extends AbstractFixture implements
     
     function getOrder()
     {
-        return 60; 
+        return 61; 
     }
 }
