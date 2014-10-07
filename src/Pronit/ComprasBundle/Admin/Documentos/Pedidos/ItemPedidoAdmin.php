@@ -5,6 +5,7 @@ use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Show\ShowMapper;
 
 /**
  *
@@ -23,8 +24,7 @@ class ItemPedidoAdmin extends Admin
             ->add('escala')                
             ->add('cantidad')
             ->add('precioUnitario')
-        ;
-        
+        ;        
     }
 
     // Fields to be shown on lists
@@ -37,6 +37,18 @@ class ItemPedidoAdmin extends Admin
             ->add('precioUnitario')                
         ;
     }
+    
+    protected function configureShowFields(ShowMapper $showMapper)
+    {
+        // Here we set the fields of the ShowMapper variable, $showMapper (but this can be called anything)
+        $showMapper
+            ->add('bienServicio')                
+            ->add('escala')                
+            ->add('cantidad')
+            ->add('precioUnitario')
+        ;
+    }    
+    
 }
 
 

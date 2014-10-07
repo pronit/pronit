@@ -45,7 +45,7 @@ class Pedido extends AbastecimientoExterno
         return $this->estado;
     }
 
-    public function setEstado(EstadoPedido $estado)
+    protected function setEstado(EstadoPedido $estado)
     {
         $this->estado = $estado;
     }    

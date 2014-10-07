@@ -6,7 +6,7 @@ services:
         arguments:
             - ~
             - Pronit\ComprasBundle\Entity\Documentos\Pedidos\Pedido
-            - ~
+            - 'PronitComprasBundle:Documentos\Pedidos\Pedido'
         calls:
             - [ setTranslationDomain, [PronitComprasBundle]]
             
@@ -32,17 +32,6 @@ services:
         calls:
             - [ setTranslationDomain, [PronitComprasBundle]]   
 
-    pronit.admin.compras.entradasmercancias.seleccion_pedido:
-        class: Pronit\ComprasBundle\Admin\Documentos\EntradasMercancias\SeleccionPedidoAdmin
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: "Compras", label: "Crear Entrada de Mercancia desde Pedido de Compra" }
-        arguments:
-            - ~
-            - Pronit\ComprasBundle\Entity\Documentos\Pedidos\Pedido
-            - 'PronitComprasBundle:Documentos\EntradasMercancias\SeleccionPedidoCRUD'
-        calls:
-            - [ setTranslationDomain, [PronitComprasBundle]]
-
     pronit.admin.compras.entradasmercancias.entradamercancias:
         class: Pronit\ComprasBundle\Admin\Documentos\EntradasMercancias\EntradaMercanciasAdmin
         tags:
@@ -50,7 +39,7 @@ services:
         arguments:
             - ~
             - Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\EntradaMercancias
-            - ~
+            - 'PronitComprasBundle:Documentos\EntradasMercancias\EntradaMercancias'
         calls:
             - [ setTranslationDomain, [PronitComprasBundle]]
             

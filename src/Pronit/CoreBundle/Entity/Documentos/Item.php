@@ -45,7 +45,7 @@ abstract class Item
         return $this->documento;
     }
 
-    public function setDocumento($documento)
+    public function setDocumento(Documento $documento)
     {
         $this->documento = $documento;
     }

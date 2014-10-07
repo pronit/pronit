@@ -2,6 +2,7 @@
 {% block field %}   
     <table class="table table-bordered">
         <thead>
+            <th>Estado</th>
             <th>Clasificador</th>
             <th>Bien/Servicio</th>
             <th>Escala</th>
@@ -11,6 +12,7 @@
         <tbody>
             {% for itemPedido in value %}
             <tr>
+                <td>{{ itemPedido.estado }}</td>
                 <td>{{ itemPedido.clasificador }}</td>
                 <td>{{ itemPedido.bienServicio }}</td>
                 <td>{{ itemPedido.escala }}</td>

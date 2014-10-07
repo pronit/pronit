@@ -1,3 +1,0 @@
-pronit_compras_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: PronitComprasBundle:Default:index }
