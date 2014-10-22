@@ -5,7 +5,7 @@ parameters:
 services:
     pronit_compras_contabilidad_esquemas_entradasmercancias.generador_esquema_contable:
         class: %pronit_compras_contabilidad_esquemas_entradasmercancias.generador_esquema_contable.class%
-        arguments: [@pronit_customizing.operaciones_customizing_manager, @pronit_gestion_bienesyservicios_customizing_contabilidad.imputaciones_manager, @pronit_contabilidad_customizing.imputaciones_manager]        
+        arguments: [@doctrine.orm.entity_manager, @pronit_customizing.operaciones_customizing_manager, @pronit_gestion_bienesyservicios_customizing_contabilidad.imputaciones_manager, @pronit_contabilidad_customizing.imputaciones_manager]        
         
     pronit_compras_transaccion.entradamercancias:
         class: %pronit_compras_transaccion.entradamercancias.class%

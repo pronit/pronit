@@ -3,9 +3,8 @@
 namespace Pronit\CoreBundle\Entity\Operaciones;
 
 use Doctrine\ORM\Mapping as ORM;
-
-use Pronit\CoreBundle\Entity\Operaciones\Operacion;
 use Pronit\CoreBundle\Entity\Contabilidad\ClaveContabilizacion;
+use Pronit\CoreBundle\Entity\Operaciones\Operacion;
 /**
  *
  * @author ldelia
@@ -19,6 +18,11 @@ class OperacionContable extends Operacion
      */
     protected $claveContabilizacion;    
     
+    
+    /**
+     * 
+     * @return ClaveContabilizacion
+     */
     public function getClaveContabilizacion()
     {
         return $this->claveContabilizacion;

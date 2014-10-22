@@ -28,5 +28,5 @@ class EsquemaContable
     protected function setItems($items)
     {
         $this->items = $items;
-    }    
+    }
 }

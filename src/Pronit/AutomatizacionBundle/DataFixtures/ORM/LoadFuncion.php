@@ -78,6 +78,130 @@ class LoadFuncion extends AbstractFixture implements FixtureInterface , OrderedF
                         }
                     ' 
             ),
+            array( 
+                    "nombre" => "OP_PRD_Positive", 
+                    "nombreClase" => "Script_OP_PRD_Positive", 
+                    "script" => '
+                         class Script_OP_PRD_Positive extends Scripting\Script {
+                             public function ejecutar(Scripting\Contexto $contexto) {
+                                 $contextoOperacion = $contexto->getContextoOperacion();
+                                 
+                                 $em = $contextoOperacion->getEntityManager();
+                                 $itemDocumentoEntradaMercancias = $contextoOperacion->getItem();
+                                
+                                 $precioItemML = $itemDocumentoEntradaMercancias->getCantidad() * $itemDocumentoEntradaMercancias->getPrecioUnitario();
+                                 $bienServicio = $itemDocumentoEntradaMercancias->getBienServicio();
+				 $sociedadFI = $itemDocumentoEntradaMercancias->getDocumento()->getSociedad();
+                                 
+                                 $bienServicioSociedadFI = $em->getRepository("Pronit\GestionBienesYServiciosBundle\Entity\Customizing\EstructuraEmpresa\BienServicioSociedadFI")->findOneBy(array("sociedadFI" => $sociedadFI->getId(), "bienServicio" => $bienServicio->getId()));
+                                 $precioValoracionBienServicio = $bienServicioSociedadFI->getPrecioValoracionEstandar();
+                                 
+                                 $precioValoracionItem = $itemDocumentoEntradaMercancias->getCantidad() * $precioValoracionBienServicio;
+                                 
+                                 $result = $precioValoracionItem - $precioItemML;
+                                 
+                                 if ($result > 0) {
+                                    return $result;
+                                 } else {
+                                    return 0;
+                                 }
+                             }
+                         }                     
+                    ' 
+            ),
+            array( 
+                    "nombre" => "OP_PRD_Negative", 
+                    "nombreClase" => "Script_OP_PRD_Negative", 
+                    "script" => '
+                         class Script_OP_PRD_Negative extends Scripting\Script {
+                             public function ejecutar(Scripting\Contexto $contexto) {
+                                 $contextoOperacion = $contexto->getContextoOperacion();
+                                 
+                                 $em = $contextoOperacion->getEntityManager();
+                                 $itemDocumentoEntradaMercancias = $contextoOperacion->getItem();
+                                
+                                 $precioItemML = $itemDocumentoEntradaMercancias->getCantidad() * $itemDocumentoEntradaMercancias->getPrecioUnitario();
+                                 $bienServicio = $itemDocumentoEntradaMercancias->getBienServicio();
+				 $sociedadFI = $itemDocumentoEntradaMercancias->getDocumento()->getSociedad();
+                                 
+                                 $bienServicioSociedadFI = $em->getRepository("Pronit\GestionBienesYServiciosBundle\Entity\Customizing\EstructuraEmpresa\BienServicioSociedadFI")->findOneBy(array("sociedadFI" => $sociedadFI->getId(), "bienServicio" => $bienServicio->getId()));
+                                 $precioValoracionBienServicio = $bienServicioSociedadFI->getPrecioValoracionEstandar();
+                                 
+                                 $precioValoracionItem = $itemDocumentoEntradaMercancias->getCantidad() * $precioValoracionBienServicio;
+                                 
+                                 $result = $precioValoracionItem - $precioItemML;
+                                 
+                                 if ($result < 0) {
+                                    return -$result;
+                                 } else {
+                                    return 0;
+                                 }
+                             }
+                         }                     
+                    ' 
+            ),
+            array( 
+                    "nombre" => "OP_BSD_Positive", 
+                    "nombreClase" => "Script_OP_BSD_Positive", 
+                    "script" => '
+                         class Script_OP_BSD_Positive extends Scripting\Script {
+                             public function ejecutar(Scripting\Contexto $contexto) {
+                                 $contextoOperacion = $contexto->getContextoOperacion();
+                                 
+                                 $em = $contextoOperacion->getEntityManager();
+                                 $itemDocumentoEntradaMercancias = $contextoOperacion->getItem();
+                                
+                                 $precioItemML = $itemDocumentoEntradaMercancias->getCantidad() * $itemDocumentoEntradaMercancias->getPrecioUnitario();
+                                 $bienServicio = $itemDocumentoEntradaMercancias->getBienServicio();
+				 $sociedadFI = $itemDocumentoEntradaMercancias->getDocumento()->getSociedad();
+                                 
+                                 $bienServicioSociedadFI = $em->getRepository("Pronit\GestionBienesYServiciosBundle\Entity\Customizing\EstructuraEmpresa\BienServicioSociedadFI")->findOneBy(array("sociedadFI" => $sociedadFI->getId(), "bienServicio" => $bienServicio->getId()));
+                                 $precioValoracionBienServicio = $bienServicioSociedadFI->getPrecioValoracionEstandar();
+                                 
+                                 $precioValoracionItem = $itemDocumentoEntradaMercancias->getCantidad() * $precioValoracionBienServicio;
+                                 
+                                 $result = $precioValoracionItem - $precioItemML;
+                                 
+                                 if ($result > 0) {
+                                    return $result;
+                                 } else {
+                                    return 0;
+                                 }
+                             }
+                         }                     
+                    ' 
+            ),
+            array( 
+                    "nombre" => "OP_BSD_Negative", 
+                    "nombreClase" => "Script_OP_BSD_Negative", 
+                    "script" => '
+                         class Script_OP_BSD_Negative extends Scripting\Script {
+                             public function ejecutar(Scripting\Contexto $contexto) {
+                                 $contextoOperacion = $contexto->getContextoOperacion();
+                                 
+                                 $em = $contextoOperacion->getEntityManager();
+                                 $itemDocumentoEntradaMercancias = $contextoOperacion->getItem();
+                                
+                                 $precioItemML = $itemDocumentoEntradaMercancias->getCantidad() * $itemDocumentoEntradaMercancias->getPrecioUnitario();
+                                 $bienServicio = $itemDocumentoEntradaMercancias->getBienServicio();
+				 $sociedadFI = $itemDocumentoEntradaMercancias->getDocumento()->getSociedad();
+                                 
+                                 $bienServicioSociedadFI = $em->getRepository("Pronit\GestionBienesYServiciosBundle\Entity\Customizing\EstructuraEmpresa\BienServicioSociedadFI")->findOneBy(array("sociedadFI" => $sociedadFI->getId(), "bienServicio" => $bienServicio->getId()));
+                                 $precioValoracionBienServicio = $bienServicioSociedadFI->getPrecioValoracionEstandar();
+                                 
+                                 $precioValoracionItem = $itemDocumentoEntradaMercancias->getCantidad() * $precioValoracionBienServicio;
+                                 
+                                 $result = $precioValoracionItem - $precioItemML;
+                                 
+                                 if ($result < 0) {
+                                    return -$result;
+                                 } else {
+                                    return 0;
+                                 }
+                             }
+                         }                     
+                    ' 
+            ),                        
         );
                 
         foreach( $values as $value ){

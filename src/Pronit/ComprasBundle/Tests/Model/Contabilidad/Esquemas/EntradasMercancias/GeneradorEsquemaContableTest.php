@@ -35,6 +35,21 @@ class GeneradorEsquemaContableTest extends KernelTestCase
         /* @var $esquemaContable \Pronit\ContabilidadBundle\Model\Esquemas\EsquemaContable */        
         $esquemaContable = $generadorEsquemaContable->generar( $entradaMercancias );
         
-        $this->assertEquals( 2,  $esquemaContable->getItems()->count() );        
+        $this->assertEquals( 12,  $esquemaContable->getItems()->count() );
+        
+        
+        /*
+        echo "\n";
+        foreach ($esquemaContable->getItems() as $item) {            
+            echo $item->getOperacion()->getCodigo() . ' - ' . $item->getItemDocumento()->getBienServicio()->getCodigo() . " - " . $item->getCuenta()->getNombre() . " - " . $item->getMonto() * $item->getOperacion()->getClaveContabilizacion()->getSigno() . "\n";
+        }
+         */
+        
+        $saldo = 0;
+        foreach ($esquemaContable->getItems() as $item) {            
+            $saldo += $item->getMonto() * $item->getOperacion()->getClaveContabilizacion()->getSigno();
+        }
+        
+        $this->assertEquals(0, $saldo, "El saldo de un esquema contable debe dar cero. Verificar funcionamiento correcto de los scripts asociados a las operaciones y del customizing de las mismas.");
     }
 }

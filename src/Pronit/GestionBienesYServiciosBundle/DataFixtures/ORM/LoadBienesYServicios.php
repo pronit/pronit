@@ -8,154 +8,153 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-
 use Pronit\GestionBienesYServiciosBundle\Entity\Material;
 use Pronit\GestionBienesYServiciosBundle\Entity\Servicio;
-
 use Pronit\GestionBienesYServiciosBundle\Entity\Customizing\EstructuraEmpresa\BienServicioSociedadFI;
 
 /**
  * @author ldelia
  */
-class LoadBienesYServicios extends AbstractFixture implements FixtureInterface , OrderedFixtureInterface, ContainerAwareInterface
-{
+class LoadBienesYServicios extends AbstractFixture implements FixtureInterface, OrderedFixtureInterface, ContainerAwareInterface {
+
     /**
      * @var ContainerInterface
      */
-    private $container;    
+    private $container;
     private $manager;
 
     /**
      * {@inheritDoc}
      */
-    public function setContainer(ContainerInterface $container = null)
-    {
+    public function setContainer(ContainerInterface $container = null) {
         $this->container = $container;
     }
-    
-    public function getManager()
-    {
+
+    public function getManager() {
         return $this->manager;
     }
 
-    public function setManager(ObjectManager $manager)
-    {
+    public function setManager(ObjectManager $manager) {
         $this->manager = $manager;
     }
-    
+
     /**
      * {@inheritDoc}
-     */       
-    public function load(ObjectManager $manager)
-    {
-        $this->setManager($manager);        
+     */
+    public function load(ObjectManager $manager) {
+        $this->setManager($manager);
 
         $this->loadMateriales();
         $this->loadServicios();
-        
-        $manager->flush();        
-        
-    }   
-    
-    protected function loadMateriales()
-    {
+
+        $manager->flush();
+    }
+
+    protected function loadMateriales() {
         $valuesDummies = array();
-        
-        for( $i=1; $i<100; $i++){
-            $values[] = array('codigo' => "BS-$i", 
-                                "nombre" => "Bien Servicio $i", 
-                                'categoria' => $this->getReference('pronit-gestionbienesyservicios-categoriavaloracion-3006'), 
-                                'tipo' => $this->getReference('pronit-gestionbienesyservicios-tipobienservicio-productoelaborado'),
-                                "sistemaMedicion" => $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-litro')
-                );
+
+        for ($i = 1; $i < 100; $i++) {
+            $values[] = array('codigo' => "BS-$i",
+                "nombre" => "Bien Servicio $i",
+                'categoria' => $this->getReference('pronit-gestionbienesyservicios-categoriavaloracion-3006'),
+                'tipo' => $this->getReference('pronit-gestionbienesyservicios-tipobienservicio-productoelaborado'),
+                "sistemaMedicion" => $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-litro')
+            );
         }
 
-        $values[] = array('codigo' => "MM001", 
-                    "nombre" => "Aditivo A1SW", 
-                    'categoria' => $this->getReference('pronit-gestionbienesyservicios-categoriavaloracion-3006'), 
-                    'tipo' => $this->getReference('pronit-gestionbienesyservicios-tipobienservicio-productoelaborado'),
-                    "sistemaMedicion" => $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-litro')
+        $values[] = array('codigo' => "MM001",
+            "nombre" => "Aditivo A1SW",
+            'categoria' => $this->getReference('pronit-gestionbienesyservicios-categoriavaloracion-3006'),
+            'tipo' => $this->getReference('pronit-gestionbienesyservicios-tipobienservicio-productoelaborado'),
+            "sistemaMedicion" => $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-litro')
         );
-        $values[] = array('codigo' => "610615008", 
-                    "nombre" => "Caja Telescopica I 3 90 Libras", 
-                    'categoria' => $this->getReference('pronit-gestionbienesyservicios-categoriavaloracion-3001'), 
-                    'tipo' => $this->getReference('pronit-gestionbienesyservicios-tipobienservicio-productoelaborado'),
-                    "sistemaMedicion" => $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-litro'),
-        );       
-        
-        foreach( $values as $v ){
-            
+        $values[] = array('codigo' => "610615008",
+            "nombre" => "Caja Telescopica I 3 90 Libras",
+            'categoria' => $this->getReference('pronit-gestionbienesyservicios-categoriavaloracion-3001'),
+            'tipo' => $this->getReference('pronit-gestionbienesyservicios-tipobienservicio-productoelaborado'),
+            "sistemaMedicion" => $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-litro'),
+            "sociedadFI_precioValoracionEstandar" => 24.0
+        );
+        $values[] = array('codigo' => "610612011",
+            "nombre" => "Caja Telescopica K 90 Libras",
+            'categoria' => $this->getReference('pronit-gestionbienesyservicios-categoriavaloracion-3001'),
+            'tipo' => $this->getReference('pronit-gestionbienesyservicios-tipobienservicio-productoelaborado'),
+            "sistemaMedicion" => $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-litro'),
+            "sociedadFI_precioValoracionEstandar" => 4
+        );
+
+        foreach ($values as $v) {
+
             $bienServicio = new Material();
-            $bienServicio->setCodigo( $v['codigo'] );
-            $bienServicio->setNombre( $v['nombre'] );
-            $bienServicio->setCategoriaValoracion( $v['categoria'] );
-            $bienServicio->setTipo( $v['tipo'] );
-            $bienServicio->setSistemaMedicion( $v['sistemaMedicion'] );
-        
+            $bienServicio->setCodigo($v['codigo']);
+            $bienServicio->setNombre($v['nombre']);
+            $bienServicio->setCategoriaValoracion($v['categoria']);
+            $bienServicio->setTipo($v['tipo']);
+            $bienServicio->setSistemaMedicion($v['sistemaMedicion']);
+
             $this->manager->persist($bienServicio);
-            
-            $this->addReference('pronit-gestionbienesyservicios-bienservicio-' . $v['codigo'], $bienServicio);        
-            
+
+            $this->addReference('pronit-gestionbienesyservicios-bienservicio-' . $v['codigo'], $bienServicio);
+
             /**
              * Por defecto, todos los bienes y servicios corresponden a la única sociedad fi
              */
             $bienServicioSociedadFI = new BienServicioSociedadFI();
             $bienServicioSociedadFI->setBienServicio($bienServicio);
             $bienServicioSociedadFI->setCodigo($bienServicio->getCodigo());
-            $bienServicioSociedadFI->setPrecioValoracionEstandar( null ); /** @todo */
-            $bienServicioSociedadFI->setPrecioValoracionPromedio( null ); /** @todo */
-            $bienServicioSociedadFI->setSociedadFI( $this->getReference('pronit-estructuraempresa-sociedadfi') );
-            
+            $bienServicioSociedadFI->setPrecioValoracionEstandar(isset($v["sociedadFI_precioValoracionEstandar"]) ? $v["sociedadFI_precioValoracionEstandar"] : rand(10, 1000) / 10 );
+            $bienServicioSociedadFI->setPrecioValoracionPromedio(null);/** @todo */
+            $bienServicioSociedadFI->setSociedadFI($this->getReference('pronit-estructuraempresa-sociedadfi'));
+
             $this->manager->persist($bienServicioSociedadFI);
-        }        
+        }
     }
 
-    protected function loadServicios()
-    {
+    protected function loadServicios() {
         $sistemaMedicionLitro = $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-tiempo');
 
         $values = array(
-            array('codigo' => "SS001", 
-                    "nombre" => "Clean Fast", 
-                    'categoria' => $this->getReference('pronit-gestionbienesyservicios-categoriavaloracion-3006'), 
-                    'tipo' => $this->getReference('pronit-gestionbienesyservicios-tipobienservicio-limpieza'),
-                    "sistemaMedicion" => $sistemaMedicionLitro),
-            array('codigo' => "SS002", 
-                    "nombre" => "KZN", 
-                    'categoria' => $this->getReference('pronit-gestionbienesyservicios-categoriavaloracion-3001'), 
-                    'tipo' => $this->getReference('pronit-gestionbienesyservicios-tipobienservicio-consultoria'),
-                    "sistemaMedicion" => $sistemaMedicionLitro),
+            array('codigo' => "SS001",
+                "nombre" => "Clean Fast",
+                'categoria' => $this->getReference('pronit-gestionbienesyservicios-categoriavaloracion-3006'),
+                'tipo' => $this->getReference('pronit-gestionbienesyservicios-tipobienservicio-limpieza'),
+                "sistemaMedicion" => $sistemaMedicionLitro),
+            array('codigo' => "SS002",
+                "nombre" => "KZN",
+                'categoria' => $this->getReference('pronit-gestionbienesyservicios-categoriavaloracion-3001'),
+                'tipo' => $this->getReference('pronit-gestionbienesyservicios-tipobienservicio-consultoria'),
+                "sistemaMedicion" => $sistemaMedicionLitro),
         );
-        
-        foreach( $values as $v ){
-            
+
+        foreach ($values as $v) {
+
             $bienServicio = new Servicio();
-            $bienServicio->setCodigo( $v['codigo'] );
-            $bienServicio->setNombre( $v['nombre'] );
-            $bienServicio->setCategoriaValoracion( $v['categoria'] );
-            $bienServicio->setTipo( $v['tipo'] );
-            $bienServicio->setSistemaMedicion( $v['sistemaMedicion'] );
-        
+            $bienServicio->setCodigo($v['codigo']);
+            $bienServicio->setNombre($v['nombre']);
+            $bienServicio->setCategoriaValoracion($v['categoria']);
+            $bienServicio->setTipo($v['tipo']);
+            $bienServicio->setSistemaMedicion($v['sistemaMedicion']);
+
             $this->manager->persist($bienServicio);
-            
-            $this->addReference('pronit-gestionbienesyservicios-bienservicio-' . $v['codigo'], $bienServicio);        
-            
+
+            $this->addReference('pronit-gestionbienesyservicios-bienservicio-' . $v['codigo'], $bienServicio);
+
             /**
              * Por defecto, todos los bienes y servicios corresponden a la única sociedad fi
              */
             $bienServicioSociedadFI = new BienServicioSociedadFI();
             $bienServicioSociedadFI->setBienServicio($bienServicio);
             $bienServicioSociedadFI->setCodigo($bienServicio->getCodigo());
-            $bienServicioSociedadFI->setPrecioValoracionEstandar( null ); /** @todo */
-            $bienServicioSociedadFI->setPrecioValoracionPromedio( null ); /** @todo */
-            $bienServicioSociedadFI->setSociedadFI( $this->getReference('pronit-estructuraempresa-sociedadfi') );
-            
-            $this->manager->persist($bienServicioSociedadFI);            
-        }        
+            $bienServicioSociedadFI->setPrecioValoracionEstandar(rand(10, 1000) / 10);
+            $bienServicioSociedadFI->setPrecioValoracionPromedio(null);
+            $bienServicioSociedadFI->setSociedadFI($this->getReference('pronit-estructuraempresa-sociedadfi'));
+
+            $this->manager->persist($bienServicioSociedadFI);
+        }
     }
-    
-    function getOrder()
-    {
-        return 72; 
+
+    function getOrder() {
+        return 72;
     }
+
 }

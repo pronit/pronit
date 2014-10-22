@@ -51,7 +51,10 @@ class LoadAsociacionOperacionClasificadorItemEntradaMercancias extends AbstractF
         $values =  array(
             array( "codigo" => "101", "operacion" => "BSX"),         
             array( "codigo" => "101", "operacion" => "WRX"),
-            //array( "codigo" => "122", "operacion" => "BSX"),
+            array( "codigo" => "101", "operacion" => "PRD+"),
+            array( "codigo" => "101", "operacion" => "PRD-"),
+            array( "codigo" => "101", "operacion" => "BSD+"),
+            array( "codigo" => "101", "operacion" => "BSD-"),
         );
         
         foreach( $values as $value ){

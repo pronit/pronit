@@ -54,8 +54,10 @@ class LoadOperacionContable extends AbstractFixture implements FixtureInterface 
             array( "codigo" => "J1A1", "nombre" => "IVA soportado", "claveContabilizacion" => 40, "nombreFuncion" => "OP_BSX" ),
             array( "codigo" => "PRM", "nombre" => "Dif. de cambio R-", "claveContabilizacion" => 40, "nombreFuncion" => "OP_BSX" ),
             array( "codigo" => "PRG", "nombre" => "Dif. de cambio R+", "claveContabilizacion" => 50, "nombreFuncion" => "OP_BSX" ),
-            array( "codigo" => "PRD-", "nombre" => "Dif. de precio negat", "claveContabilizacion" => 83, "nombreFuncion" => "OP_BSX" ),
-            array( "codigo" => "PRD+", "nombre" => "Dif. de precio posit", "claveContabilizacion" => 93, "nombreFuncion" => "OP_BSX" ),
+            array( "codigo" => "PRD-", "nombre" => "Dif. de precio negat", "claveContabilizacion" => 83, "nombreFuncion" => "OP_PRD_Negative" ),
+            array( "codigo" => "PRD+", "nombre" => "Dif. de precio posit", "claveContabilizacion" => 93, "nombreFuncion" => "OP_PRD_Positive" ),
+            array( "codigo" => "BSD-", "nombre" => "Revalúo inventario en menos", "claveContabilizacion" => 50, "nombreFuncion" => "OP_BSD_Negative" ),
+            array( "codigo" => "BSD+", "nombre" => "Revalúo inventario en mas", "claveContabilizacion" => 40, "nombreFuncion" => "OP_BSD_Positive" ),
         );
         
         foreach( $values as $value ){

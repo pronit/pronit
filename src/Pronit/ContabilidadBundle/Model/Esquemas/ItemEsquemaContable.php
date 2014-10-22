@@ -2,18 +2,26 @@
 
 namespace Pronit\ContabilidadBundle\Model\Esquemas;
 
-use Pronit\CoreBundle\Entity\Operaciones\Operacion;
 use Pronit\ContabilidadBundle\Entity\CuentasContables\Cuenta;
 use Pronit\CoreBundle\Entity\Documentos\Item;
+use Pronit\CoreBundle\Entity\Operaciones\OperacionContable;
+
 
 class ItemEsquemaContable
 {
+    /** @var Item */
     protected $itemDocumento;
+    
+    /** @var OperacionContable */
     protected $operacion;
-    protected $cuenta;    
+    
+    /** @var Cuenta */
+    protected $cuenta;
+    
+    /** @var float */
     protected $monto;
     
-    public function __construct( Item $itemDocumento, Operacion $operacion, Cuenta $cuenta, $monto )
+    public function __construct( Item $itemDocumento, OperacionContable $operacion, Cuenta $cuenta, $monto )
     {
         $this->setCuenta($cuenta);
         $this->setItemDocumento($itemDocumento);
@@ -21,16 +29,29 @@ class ItemEsquemaContable
         $this->setOperacion($operacion);
     }
     
+    /**
+     * 
+     * @return Item
+     */
     public function getItemDocumento()
     {
         return $this->itemDocumento;
     }
 
+    /**
+     * 
+     * @return OperacionContable
+     */
     public function getOperacion()
     {
         return $this->operacion;
     }
 
+    
+    /**
+     * 
+     * @return Cuenta
+     */
     public function getCuenta()
     {
         return $this->cuenta;

@@ -55,6 +55,8 @@ class LoadAsignacionOperacionCuenta extends AbstractFixture implements FixtureIn
             array( "cuenta" => "510192", "operacion" => "PRG" ),
             array( "cuenta" => "190102", "operacion" => "PRD-" ),
             array( "cuenta" => "510193", "operacion" => "PRD+" ),
+            array( "cuenta" => "150102", "operacion" => "BSD-" ),
+            array( "cuenta" => "150102", "operacion" => "BSD+" ),
         );
                 
         /** @todo Crear plan de cuentas */

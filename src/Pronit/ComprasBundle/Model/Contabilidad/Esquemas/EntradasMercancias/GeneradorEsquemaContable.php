@@ -2,161 +2,149 @@
 
 namespace Pronit\ComprasBundle\Model\Contabilidad\Esquemas\EntradasMercancias;
 
-use Pronit\ContabilidadBundle\Model\Esquemas\IGeneradorEsquemaContable;
-
-use Pronit\CoreBundle\Entity\Documentos\Documento;
-use Pronit\CustomizingBundle\Model\Operaciones\IOperacionesCustomizingManager;
-use Pronit\GestionBienesYServiciosBundle\Model\Customizing\Contabilidad\IImputacionesCustomizingManager as MMIImputacionesCustomizingManager;
-use Pronit\ContabilidadBundle\Model\Customizing\IImputacionesCustomizingManager as FIIImputacionesCustomizingManager;
-
+use Doctrine\ORM\EntityManager;
+use Exception;
 use Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\EntradaMercancias;
 use Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\ItemEntradaMercancias;
-
+use Pronit\ContabilidadBundle\Model\Customizing\IImputacionesCustomizingManager;
+use Pronit\ContabilidadBundle\Model\Customizing\IImputacionesCustomizingManager as FIIImputacionesCustomizingManager;
 use Pronit\ContabilidadBundle\Model\Esquemas\EsquemaContable;
+use Pronit\ContabilidadBundle\Model\Esquemas\IGeneradorEsquemaContable;
 use Pronit\ContabilidadBundle\Model\Esquemas\ItemEsquemaContable;
-
-use Pronit\CoreBundle\Entity\Operaciones\OperacionContable;
 use Pronit\CoreBundle\Entity\Documentos\ClasificadorItem;
-use Pronit\GestionBienesYServiciosBundle\Entity\CategoriaValoracion;
-
+use Pronit\CoreBundle\Entity\Documentos\Documento;
+use Pronit\CoreBundle\Entity\Operaciones\OperacionContable;
 use Pronit\CoreBundle\Model\Operaciones\Contextos\Documentos\ContextoItemDocumentoEntradaMercancias;
+use Pronit\CustomizingBundle\Model\Operaciones\IOperacionesCustomizingManager;
+use Pronit\GestionBienesYServiciosBundle\Entity\CategoriaValoracion;
+use Pronit\GestionBienesYServiciosBundle\Model\Customizing\Contabilidad\IImputacionesCustomizingManager as IImputacionesCustomizingManager2;
+use Pronit\GestionBienesYServiciosBundle\Model\Customizing\Contabilidad\IImputacionesCustomizingManager as MMIImputacionesCustomizingManager;
 
 /**
  * Description of GeneradorEsquemaContable
  *
  * @author ldelia
  */
-class GeneradorEsquemaContable implements IGeneradorEsquemaContable
-{
+class GeneradorEsquemaContable implements IGeneradorEsquemaContable {
+
     protected $operacionesCustomizingManager;
     protected $mmImputacionesCustomizingManager;
     protected $fiImputacionesCustomizingManager;
-    
-    public function __construct(IOperacionesCustomizingManager $operacionesCustomizingManager, MMIImputacionesCustomizingManager $mmImputacionesCustomizingManager, FIIImputacionesCustomizingManager $fiImputacionesCustomizingManager )
-    {
+    protected $entityManager;
+
+    public function __construct(EntityManager $em, IOperacionesCustomizingManager $operacionesCustomizingManager, MMIImputacionesCustomizingManager $mmImputacionesCustomizingManager, FIIImputacionesCustomizingManager $fiImputacionesCustomizingManager) {
+        $this->entityManager = $em;
         $this->setOperacionesCustomizingManager($operacionesCustomizingManager);
         $this->setMmImputacionesCustomizingManager($mmImputacionesCustomizingManager);
         $this->setFiImputacionesCustomizingManager($fiImputacionesCustomizingManager);
     }
-    
+
     /**
      * 
-     * @param \Pronit\CoreBundle\Entity\Documentos\Documento $documento
-     * @return \Pronit\ContabilidadBundle\Model\Esquemas\EsquemaContable
+     * @param Documento $documento
+     * @return EsquemaContable
      */
-    public function generar(Documento $documento)
-    {
+    public function generar(Documento $documento) {
         return $this->generarDeEntradaMercancia($documento);
     }
-    
+
     /**
      * 
-     * @param \Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\EntradaMercancias $entradaMercancias
+     * @param EntradaMercancias $entradaMercancias
      */
-    protected function generarDeEntradaMercancia(EntradaMercancias $entradaMercancias)
-    {
-        $esquema = new EsquemaContable();        
-        
-        foreach( $entradaMercancias->getItems() as $item )
-        {
+    protected function generarDeEntradaMercancia(EntradaMercancias $entradaMercancias) {
+        $esquema = new EsquemaContable();
+
+        foreach ($entradaMercancias->getItems() as $item) {
             $itemsEsquema = $this->generarItemsEsquema($item);
-            foreach ($itemsEsquema as $itemEsquema )
-            {
+            foreach ($itemsEsquema as $itemEsquema) {
                 $esquema->addItem($itemEsquema);
             }
         }
-        
+
         return $esquema;
     }
-    
+
     /**
      * 
-     * @param \Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\ItemEntradaMercancias $item
-     * @return \Pronit\ContabilidadBundle\Model\Esquemas\ItemEsquemaContable[]
+     * @param ItemEntradaMercancias $item
+     * @return ItemEsquemaContable[]
      */
-    protected function generarItemsEsquema(ItemEntradaMercancias $item)
-    {
-        $contexto = new ContextoItemDocumentoEntradaMercancias( $item );
-        
+    protected function generarItemsEsquema(ItemEntradaMercancias $item) {
+        $contexto = new ContextoItemDocumentoEntradaMercancias($item, $this->entityManager);
+
         $items = array();
 
         $clasificador = $item->getClasificador();
-        $categoriaValoracion = $item->getBienServicio()->getCategoriaValoracion();        
-                
+        $categoriaValoracion = $item->getBienServicio()->getCategoriaValoracion();
+
         $operacionesContables = $this->getOperacionesCustomizingManager()->getOperacionesContablesByClasificadorItem($clasificador);
-        
-        /* @var $operacionContable \Pronit\CoreBundle\Entity\Operaciones\OperacionContable */        
-        foreach( $operacionesContables as $operacionContable ){
-            
+
+        /* @var $operacionContable OperacionContable */
+        foreach ($operacionesContables as $operacionContable) {
+
             $cuenta = $this->getCuentaAImputar($operacionContable, $clasificador, $categoriaValoracion);
-            
-            if( $operacionContable->aceptaContexto($contexto) ){
+
+            if ($operacionContable->aceptaContexto($contexto)) {
                 $monto = $operacionContable->ejecutar($contexto);
-            }            
-            
-            $items[] = new ItemEsquemaContable( $item, $operacionContable, $cuenta, $monto );
-        }                
+            }
+
+            $items[] = new ItemEsquemaContable($item, $operacionContable, $cuenta, $monto);
+        }
         return $items;
     }
-    
-    protected function getCuentaAImputar(OperacionContable $operacionContable, ClasificadorItem $clasificador, CategoriaValoracion $categoriaValoracion)
-    {        
+
+    protected function getCuentaAImputar(OperacionContable $operacionContable, ClasificadorItem $clasificador, CategoriaValoracion $categoriaValoracion) {
         $cuenta = $this->getMmImputacionesCustomizingManager()->getCuenta($clasificador, $operacionContable, $categoriaValoracion);
-        
-        if( is_null($cuenta) ){
-            
+
+        if (is_null($cuenta)) {
+
             $cuenta = $this->getFiImputacionesCustomizingManager()->getCuenta($operacionContable);
-      
-            if( is_null($cuenta) ){
-                throw new \Exception('No se ha definido una imputación contable para la operacion ' . $operacionContable->getNombre());
-            }else{
-                return $cuenta;    
+
+            if (is_null($cuenta)) {
+                throw new Exception('No se ha definido una imputación contable para la operacion ' . $operacionContable->getNombre());
+            } else {
+                return $cuenta;
             }
-            
-        }else{
+        } else {
             return $cuenta;
         }
     }
-    
+
     /**
      * 
-     * @return \Pronit\CustomizingBundle\Model\Operaciones\IOperacionesCustomizingManager
+     * @return IOperacionesCustomizingManager
      */
-    protected function getOperacionesCustomizingManager()
-    {
+    protected function getOperacionesCustomizingManager() {
         return $this->operacionesCustomizingManager;
     }
 
-    protected function setOperacionesCustomizingManager(IOperacionesCustomizingManager $operacionesCustomizingManager)
-    {
+    protected function setOperacionesCustomizingManager(IOperacionesCustomizingManager $operacionesCustomizingManager) {
         $this->operacionesCustomizingManager = $operacionesCustomizingManager;
-    }    
-    
+    }
+
     /**
      * 
-     * @return \Pronit\GestionBienesYServiciosBundle\Model\Customizing\Contabilidad\IImputacionesCustomizingManager
+     * @return IImputacionesCustomizingManager2
      */
-    protected function getMmImputacionesCustomizingManager()
-    {
+    protected function getMmImputacionesCustomizingManager() {
         return $this->mmImputacionesCustomizingManager;
     }
 
-    protected function setMmImputacionesCustomizingManager(MMIImputacionesCustomizingManager $mmImputacionesCustomizingManager)
-    {
+    protected function setMmImputacionesCustomizingManager(MMIImputacionesCustomizingManager $mmImputacionesCustomizingManager) {
         $this->mmImputacionesCustomizingManager = $mmImputacionesCustomizingManager;
-    }    
-    
+    }
+
     /**
      * 
-     * @return \Pronit\ContabilidadBundle\Model\Customizing\IImputacionesCustomizingManager
+     * @return IImputacionesCustomizingManager
      */
-    protected function getFiImputacionesCustomizingManager()
-    {
+    protected function getFiImputacionesCustomizingManager() {
         return $this->fiImputacionesCustomizingManager;
     }
 
-    protected function setFiImputacionesCustomizingManager(FIIImputacionesCustomizingManager $fiImputacionesCustomizingManager)
-    {
+    protected function setFiImputacionesCustomizingManager(FIIImputacionesCustomizingManager $fiImputacionesCustomizingManager) {
         $this->fiImputacionesCustomizingManager = $fiImputacionesCustomizingManager;
-    }    
+    }
+
 }
