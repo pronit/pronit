@@ -26,7 +26,7 @@ class EntradaMercanciasAdmin extends Admin
         $listMapper
             ->addIdentifier('numero', null, array('route' => array('name' => 'show')))
             ->add('estadoCompras')
-            ->add('estado')
+            ->add('estadoFacturacion')
             ->add('sociedad')
             ->add('fecha', 'date', array( 'format' => 'd/m/Y' ))
             ->add('proveedorSociedad', null, array('label'=>'Proveedor') ) 
@@ -42,7 +42,7 @@ class EntradaMercanciasAdmin extends Admin
             ->with('Cabecera')
                 ->add('numero')
                 ->add('estadoCompras')
-                ->add('estado')
+                ->add('estadoFacturacion')
                 ->add('sociedad')                
                 ->add('fecha', 'date', array( 'format' => 'd/m/Y' ))                                                
                 ->add('proveedorSociedad', null, array('label'=>'Proveedor') )                  
@@ -51,7 +51,7 @@ class EntradaMercanciasAdmin extends Admin
                 ->add('textoCabecera')
             ->end()      
             ->with('Items')
-                ->add('items', null, array('template' => 'PronitComprasBundle:Documentos\Pedidos\show:items.html.twig')) /* todo fixme */
+                ->add('items', null, array('template' => 'PronitComprasBundle:Documentos\EntradaMercancias\show:items.html.twig')) /* todo fixme */
             ->end()  
 
         ;

@@ -52,7 +52,7 @@ class LoadUsuarios extends AbstractFixture implements FixtureInterface , Ordered
         $user->setEmail('lisandro.delia@gmail.com');
         $user->setPlainPassword('admin');
         $user->setEnabled(true);
-        $user->setRoles(array('ROLE_ADMIN'));
+        $user->setRoles(array('ROLE_SUPER_ADMIN'));
  
         $manager->persist($user);
         $manager->flush();

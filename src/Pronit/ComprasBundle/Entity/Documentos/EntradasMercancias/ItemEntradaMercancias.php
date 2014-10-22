@@ -8,9 +8,8 @@ use Pronit\CoreBundle\Entity\Documentos\ClasificadorItem;
 use Symfony\Component\Serializer\Exception\Exception;
 use Pronit\ComprasBundle\Entity\Documentos\Pedidos\ItemPedido;
 
-use Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\Estados\EstadoEntradaMercancias;
-use Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\Estados\SinFacturar;
-
+use Pronit\ComprasBundle\Entity\Documentos\Estados\Facturacion\EstadoFacturacion;
+use Pronit\ComprasBundle\Entity\Documentos\Estados\Facturacion\SinFacturar;
 
 /**
  *
@@ -20,9 +19,9 @@ use Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\Estados\SinFactura
 class ItemEntradaMercancias extends ItemAbastecimientoExterno
 {
     /**
-     * @ORM\OneToOne(targetEntity="Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\Estados\EstadoEntradaMercancias", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToOne(targetEntity="Pronit\ComprasBundle\Entity\Documentos\Estados\Facturacion\EstadoFacturacion", cascade={"persist", "remove"}, orphanRemoval=true)
      **/    
-    protected $estado;
+    protected $estadoFacturacion;
     
     /**
      * @ORM\ManyToOne(targetEntity="Pronit\ComprasBundle\Entity\Documentos\Pedidos\ItemPedido")
@@ -32,7 +31,7 @@ class ItemEntradaMercancias extends ItemAbastecimientoExterno
     public function __construct()
     {
         parent::__construct();
-        $this->setEstado( new SinFacturar() );        
+        $this->setEstadoFacturacion( new SinFacturar() );        
     }
 
     public function setClasificador(ClasificadorItem $clasificador) {
@@ -42,16 +41,16 @@ class ItemEntradaMercancias extends ItemAbastecimientoExterno
         parent::setClasificador($clasificador);
     }
 
-    public function getEstado()
+    function getEstadoFacturacion()
     {
-        return $this->estado;
+        return $this->estadoFacturacion;
     }
 
-    protected function setEstado(EstadoEntradaMercancias $estado)
+    protected function setEstadoFacturacion(EstadoFacturacion $estadoFacturacion)
     {
-        $this->estado = $estado;
-    }    
-    
+        $this->estadoFacturacion = $estadoFacturacion;
+    }
+
     public function __toString()
     {
         return $this->getId();

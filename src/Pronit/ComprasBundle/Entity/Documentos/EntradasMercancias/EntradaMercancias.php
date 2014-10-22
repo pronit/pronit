@@ -10,8 +10,9 @@ use Pronit\ComprasBundle\Entity\Documentos\AbastecimientoExterno;
 use Pronit\CoreBundle\Entity\Documentos\Item;
 use Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\ItemEntradaMercancias;
 
-use Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\Estados\EstadoEntradaMercancias;
-use Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\Estados\SinFacturar;
+use Pronit\ComprasBundle\Entity\Documentos\Estados\Facturacion\EstadoFacturacion;
+use Pronit\ComprasBundle\Entity\Documentos\Estados\Facturacion\SinFacturar;
+
 /**
  *
  * @author ldelia
@@ -20,14 +21,15 @@ use Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\Estados\SinFactura
 class EntradaMercancias extends AbastecimientoExterno
 {
     /**
-     * @ORM\OneToOne(targetEntity="Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\Estados\EstadoEntradaMercancias", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToOne(targetEntity="Pronit\ComprasBundle\Entity\Documentos\Estados\Facturacion\EstadoFacturacion", cascade={"persist", "remove"}, orphanRemoval=true)
      **/    
-    protected $estado;
+    protected $estadoFacturacion;
     
     public function __construct()
     {
         parent::__construct();
-        $this->setEstado( new SinFacturar() );
+        
+        $this->setEstadoFacturacion( new SinFacturar() );
     }    
     
     public function addItem(Item $item)
@@ -38,16 +40,16 @@ class EntradaMercancias extends AbastecimientoExterno
         }
         parent::addItem($item);
     }
-    
-    public function getEstado()
+
+    function getEstadoFacturacion()
     {
-        return $this->estado;
+        return $this->estadoFacturacion;
     }
 
-    protected function setEstado(EstadoEntradaMercancias $estado)
+    protected function setEstadoFacturacion(EstadoFacturacion $estadoFacturacion)
     {
-        $this->estado = $estado;
-    }    
+        $this->estadoFacturacion = $estadoFacturacion;
+    }
     
     public function contabilizar()
     {

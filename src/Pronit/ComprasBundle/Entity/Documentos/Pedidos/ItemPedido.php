@@ -9,10 +9,14 @@ use Symfony\Component\Serializer\Exception\Exception;
 use Pronit\ComprasBundle\Entity\Documentos\ItemAbastecimientoExterno;
 use Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\ItemEntradaMercancias;
 
-use Pronit\ComprasBundle\Entity\Documentos\Pedidos\Estados\EstadoPedido;
-use Pronit\ComprasBundle\Entity\Documentos\Pedidos\Estados\SinEntregar;
-use Pronit\ComprasBundle\Entity\Documentos\Pedidos\Estados\Finalizado;
-use Pronit\ComprasBundle\Entity\Documentos\Pedidos\Estados\EntregadoParcialmente;
+use Pronit\ComprasBundle\Entity\Documentos\Estados\Entregas\EstadoEntrega;
+use Pronit\ComprasBundle\Entity\Documentos\Estados\Entregas\SinEntregar;
+use Pronit\ComprasBundle\Entity\Documentos\Estados\Entregas\Finalizado;
+use Pronit\ComprasBundle\Entity\Documentos\Estados\Entregas\EntregadoParcialmente;
+
+use Pronit\ComprasBundle\Entity\Documentos\Estados\Facturacion\EstadoFacturacion;
+use Pronit\ComprasBundle\Entity\Documentos\Estados\Facturacion\SinFacturar;
+
 
 /**
  *
@@ -22,9 +26,14 @@ use Pronit\ComprasBundle\Entity\Documentos\Pedidos\Estados\EntregadoParcialmente
 class ItemPedido extends ItemAbastecimientoExterno
 {
     /**
-     * @ORM\OneToOne(targetEntity="Pronit\ComprasBundle\Entity\Documentos\Pedidos\Estados\EstadoPedido", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToOne(targetEntity="Pronit\ComprasBundle\Entity\Documentos\Estados\Entregas\EstadoEntrega", cascade={"persist", "remove"}, orphanRemoval=true)
      **/    
-    protected $estado;
+    protected $estadoEntrega;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Pronit\ComprasBundle\Entity\Documentos\Estados\Facturacion\EstadoFacturacion", cascade={"all"}, orphanRemoval=true)
+     **/    
+    protected $estadoFacturacion;    
     
     /**
      * @ORM\OneToMany(targetEntity="Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\ItemEntradaMercancias", mappedBy="referenciaItemPedido", cascade={"ALL"})
@@ -36,7 +45,9 @@ class ItemPedido extends ItemAbastecimientoExterno
         parent::__construct();
         
         $this->referenciasItemEntradaMercancias = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->setEstado( new SinEntregar() );
+        
+        $this->setEstadoEntrega( new SinEntregar() );
+        $this->setEstadoFacturacion( new SinFacturar() );
     }
     
     public function __toString()
@@ -44,14 +55,24 @@ class ItemPedido extends ItemAbastecimientoExterno
         return (string) $this->getId();
     }
 
-    public function getEstado()
+    public function getEstadoEntrega()
     {
-        return $this->estado;
+        return $this->estadoEntrega;
     }
 
-    protected function setEstado(EstadoPedido $estado)
+    protected function setEstadoEntrega(EstadoEntrega $estado)
     {
-        $this->estado = $estado;
+        $this->estadoEntrega = $estado;
+    }    
+
+    function getEstadoFacturacion()
+    {
+        return $this->estadoFacturacion;
+    }
+
+    protected function setEstadoFacturacion(EstadoFacturacion $estadoFacturacion)
+    {
+        $this->estadoFacturacion = $estadoFacturacion;
     }    
     
     function getReferenciasItemEntradaMercancias()
@@ -64,13 +85,24 @@ class ItemPedido extends ItemAbastecimientoExterno
         $this->referenciasItemEntradaMercancias[] = $itemEntradaMercancias;
     }
     
+    public function isEntregaFinalizada()
+    {
+        return $this->getEstadoEntrega() instanceof Finalizado;
+    }    
+    
+    public function isEntregadoParcialmente()
+    {
+        return $this->getEstadoEntrega() instanceof EntregadoParcialmente;
+    }        
+    
     public function registrarEntradaMercancias( ItemEntradaMercancias $itemEntradaMercancias )
     {
         if( $this->getCantidadPendienteDeEntrega() > 0 ){
-            $this->setEstado( new EntregadoParcialmente() );
+            $this->setEstadoEntrega( new EntregadoParcialmente() );
         }else{
-            $this->setEstado( new Finalizado() );
-        }        
+            $this->setEstadoEntrega( new Finalizado() );
+        }
+        $this->getDocumento()->update();
     }
     
     public function getCantidadPendienteDeEntrega()

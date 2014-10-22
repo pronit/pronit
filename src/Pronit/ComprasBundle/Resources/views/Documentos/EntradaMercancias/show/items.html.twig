@@ -2,7 +2,6 @@
 {% block field %}   
     <table class="table table-bordered">
         <thead>
-            <th>Estado Entrega</th>
             <th>Estado Facturación</th>
             <th>Clasificador</th>
             <th>Bien/Servicio</th>
@@ -13,7 +12,6 @@
         <tbody>
             {% for itemPedido in value %}
             <tr>
-                <td>{{ itemPedido.estadoEntrega }}</td>
                 <td>{{ itemPedido.estadoFacturacion }}</td>
                 <td>{{ itemPedido.clasificador }}</td>
                 <td>{{ itemPedido.bienServicio }}</td>

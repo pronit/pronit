@@ -26,7 +26,8 @@ class PedidoAdmin extends Admin
         $listMapper
             ->addIdentifier('numero', null, array('route' => array('name' => 'show')))
             ->add('estadoCompras')
-            ->add('estado')
+            ->add('estadoEntrega')
+            ->add('estadoFacturacion')
             ->add('sociedad')
             ->add('fecha', 'date', array( 'format' => 'd/m/Y' ))
             ->add('proveedorSociedad', null, array('label'=>'Proveedor') ) 
@@ -42,7 +43,8 @@ class PedidoAdmin extends Admin
             ->with('Cabecera')
                 ->add('numero')
                 ->add('estadoCompras')
-                ->add('estado')
+                ->add('estadoEntrega')
+                ->add('estadoFacturacion')
                 ->add('sociedad')                
                 ->add('fecha', 'date', array( 'format' => 'd/m/Y' ))                                                
                 ->add('proveedorSociedad', null, array('label'=>'Proveedor') )                  
@@ -64,7 +66,33 @@ class PedidoAdmin extends Admin
             ->add('numero')
             ->add('sociedad')                             
             ->add('fecha')
-            ->add('estadoCompras')
+            ->add('estadoEntrega', 'doctrine_orm_callback',
+                  array(
+                      'callback' => function($queryBuilder, $alias, $field, $value) {
+                        if (!$value['value']) {
+                            return;
+                        }                                                
+                        
+                        $queryBuilder->join($alias .'.estadoEntrega', 'e');
+                        $queryBuilder->andWhere( $queryBuilder->expr()->in(                                  
+                                   'e.id',                                  
+                                    'SELECT e2.id '
+                                    . ' FROM '.$value['value'].' e2 '                                
+                               ) 
+                        );                        
+
+                        return true;
+                    },
+                    'field_type' => 'choice',
+                    'field_options' => array(
+                        'choices' => array( 
+                            'Pronit\ComprasBundle\Entity\Documentos\Estados\Entregas\SinEntregar' => 'Sin Entregar',
+                            'Pronit\ComprasBundle\Entity\Documentos\Estados\Entregas\EntregadoParcialmente' => 'Entregado Parcialmente',
+                            'Pronit\ComprasBundle\Entity\Documentos\Estados\Entregas\Finalizado' => 'Finalizado',
+                        ),
+                    )
+                )
+            )            
             ->add('proveedorSociedad', null, array('label'=>'Proveedor') )  
             ->add('centroLogistico')
             ->add('textoCabecera')
@@ -123,13 +151,13 @@ class PedidoAdmin extends Admin
                 $menu->addChild( 'Contabilizar', array('uri' => $admin->generateUrl('contabilizar', array('id' => $id))) )
                         ->setLinkAttribute('class', 'glyphicon glyphicon-ok');            
                 
-            }         
-            
-            // Agregar otras condiciones
-            if( $pedido->isContabilizado() ){
-                $menu->addChild( 'Crear Entrada de Mercancias', array('uri' => $admin->generateUrl('crearEntradaMercanciasDesdePedido', array('id' => $id))) )
-                        ->setLinkAttribute('class', 'glyphicon glyphicon-import');                
-            }
+            }else{
+                
+                if(! $pedido->isEntregaFinalizada() ){
+                    $menu->addChild( 'Crear Entrada de Mercancias', array('uri' => $admin->generateUrl('crearEntradaMercanciasDesdePedido', array('id' => $id))) )
+                            ->setLinkAttribute('class', 'glyphicon glyphicon-import');                
+                }                
+            }            
         }
     }
     

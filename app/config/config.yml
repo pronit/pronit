@@ -89,6 +89,8 @@ sonata_block:
 sonata_admin:
     title: PronIT
     title_logo: bundles/pronitcore/img/logo.png
+    security:
+        handler: sonata.admin.security.handler.role
     
 fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'

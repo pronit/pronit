@@ -1,17 +1,17 @@
 <?php
 
-namespace Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\Estados;
+namespace Pronit\ComprasBundle\Entity\Documentos\Estados\Entregas;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /** 
  * @ORM\Entity
- * @ORM\Table(name="compras_estadoentradamercancias")
+ * @ORM\Table(name="compras_estadoentrega")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"SinFacturarValue" = "Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\Estados\SinFacturar","FacturadoParcialmenteValue" = "Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\Estados\FacturadoParcialmente","FacturadoValue" = "Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\Estados\Facturado"})
+ * @ORM\DiscriminatorMap({"SinEntregarValue" = "Pronit\ComprasBundle\Entity\Documentos\Estados\Entregas\SinEntregar","EntregadoParcialmenteValue" = "Pronit\ComprasBundle\Entity\Documentos\Estados\Entregas\EntregadoParcialmente","FinalizadoValue" = "Pronit\ComprasBundle\Entity\Documentos\Estados\Entregas\Finalizado"})
  */
-abstract class EstadoEntradaMercancias
+abstract class EstadoEntrega
 {
    /**
      * @ORM\Column(type="integer")

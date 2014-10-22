@@ -1,13 +1,13 @@
 <?php
 
-namespace Pronit\ComprasBundle\Entity\Documentos\Pedidos\Estados;
+namespace Pronit\ComprasBundle\Entity\Documentos\Estados\Entregas;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
  */
-class EntregadoParcialmente extends EstadoPedido
+class EntregadoParcialmente extends EstadoEntrega
 {
     public function __toString()
     {
