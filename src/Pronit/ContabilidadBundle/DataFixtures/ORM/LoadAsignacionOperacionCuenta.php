@@ -48,6 +48,7 @@ class LoadAsignacionOperacionCuenta extends AbstractFixture implements FixtureIn
         $this->setManager($manager);        
 
         $values =  array(
+            array( "cuenta" => "150102", "operacion" => "BSX" ),
             array( "cuenta" => "210102", "operacion" => "WRX" ),
             array( "cuenta" => "210102", "operacion" => "WRZ" ),
             array( "cuenta" => "140108", "operacion" => "J1A1" ),

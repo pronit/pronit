@@ -1,7 +1,12 @@
 parameters:
     pronit_contabilidad_customizing.imputaciones_manager.class: Pronit\ContabilidadBundle\Model\Customizing\ImputacionesCustomizingManager
+    pronit_contabilidad_customizing.generador_asientos_contables.class: Pronit\ContabilidadBundle\Model\Movimientos\GeneradorAsientosContables
 
 services:
     pronit_contabilidad_customizing.imputaciones_manager:
         class: %pronit_contabilidad_customizing.imputaciones_manager.class%
         arguments: [@doctrine.orm.entity_manager]
+
+    pronit_contabilidad_customizing.generador_asientos_contables:
+        class: %pronit_contabilidad_customizing.generador_asientos_contables.class%
+        
