@@ -31,6 +31,7 @@ class Movimiento
     
     /**
      * @ORM\ManyToOne(targetEntity="Pronit\ContabilidadBundle\Entity\CuentasContables\Cuenta")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $cuenta;
     
