@@ -23,6 +23,7 @@ class ItemFacturaAdmin extends Admin
             ->add('escala')                
             ->add('cantidad')
             ->add('precioUnitario')
+            ->add('itemEntradaMercanciasFacturado','sonata_type_model_hidden', array('attr'=> array( 'hidden' => 'true') ))                
         ;
         
     }

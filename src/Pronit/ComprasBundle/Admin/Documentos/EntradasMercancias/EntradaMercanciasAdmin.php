@@ -4,6 +4,7 @@ namespace Pronit\ComprasBundle\Admin\Documentos\EntradasMercancias;
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
+use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Knp\Menu\ItemInterface as MenuItemInterface;
 use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Route\RouteCollection;
@@ -34,10 +35,48 @@ class EntradaMercanciasAdmin extends Admin
             ->add('moneda')
         ;
     }
+
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
+    {
+        $datagridMapper
+            ->add('numero')
+            ->add('sociedad')                             
+            ->add('fecha')
+            /*->add('estadoEntrega', 'doctrine_orm_callback',
+                  array(
+                      'callback' => function($queryBuilder, $alias, $field, $value) {
+                        if (!$value['value']) {
+                            return;
+                        }                                                
+                        
+                        $queryBuilder->join($alias .'.estadoEntrega', 'e');
+                        $queryBuilder->andWhere( $queryBuilder->expr()->in(                                  
+                                   'e.id',                                  
+                                    'SELECT e2.id '
+                                    . ' FROM '.$value['value'].' e2 '                                
+                               ) 
+                        );                        
+
+                        return true;
+                    },
+                    'field_type' => 'choice',
+                    'field_options' => array(
+                        'choices' => array( 
+                            'Pronit\ComprasBundle\Entity\Documentos\Estados\Entregas\SinEntregar' => 'Sin Entregar',
+                            'Pronit\ComprasBundle\Entity\Documentos\Estados\Entregas\EntregadoParcialmente' => 'Entregado Parcialmente',
+                            'Pronit\ComprasBundle\Entity\Documentos\Estados\Entregas\Finalizado' => 'Finalizado',
+                        ),
+                    )
+                )
+            ) */           
+            ->add('proveedorSociedad', null, array('label'=>'Proveedor') )  
+            ->add('centroLogistico')
+            ->add('textoCabecera')
+        ;
+    }
     
     protected function configureShowFields(ShowMapper $showMapper)
     {
-        // Here we set the fields of the ShowMapper variable, $showMapper (but this can be called anything)
         $showMapper
             ->with('Cabecera')
                 ->add('numero')
@@ -51,7 +90,7 @@ class EntradaMercanciasAdmin extends Admin
                 ->add('textoCabecera')
             ->end()      
             ->with('Items')
-                ->add('items', null, array('template' => 'PronitComprasBundle:Documentos\EntradaMercancias\show:items.html.twig')) /* todo fixme */
+                ->add('items', null, array('template' => 'PronitComprasBundle:Documentos\EntradaMercancias\show:items.html.twig'))
             ->end()  
 
         ;
@@ -134,7 +173,7 @@ class EntradaMercanciasAdmin extends Admin
                 $item->setPrecioUnitario($itemPedido->getPrecioUnitario());
                 $item->setCantidad($itemPedido->getCantidadPendienteDeEntrega());        
                 $item->setEscala($itemPedido->getEscala());
-                $item->setReferenciaItemPedido( $itemPedido );
+                $item->setItemPedidoEntregado( $itemPedido );
 
                 $entradaMercancia->addItem($item);
             }
@@ -156,7 +195,14 @@ class EntradaMercanciasAdmin extends Admin
                 
                 $menu->addChild( 'Contabilizar', array('uri' => $admin->generateUrl('contabilizar', array('id' => $id))) )
                         ->setLinkAttribute('class', 'glyphicon glyphicon-ok');                
+            }else{
+                
+                if(! $entradaMercancias->isFacturacionFinalizada() ){
+                    $menu->addChild( 'Crear Factura', array('uri' => $admin->generateUrl('crearFacturaDesdeEntradaMercancias', array('id' => $id))) )
+                            ->setLinkAttribute('class', 'glyphicon glyphicon-import');                
+                }                
             }            
+  
         }
     }
     
@@ -174,5 +220,6 @@ class EntradaMercanciasAdmin extends Admin
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection->add('contabilizar', $this->getRouterIdParameter() . '/contabilizar');
+        $collection->add('crearFacturaDesdeEntradaMercancias', $this->getRouterIdParameter() . '/new');
     }        
 }

@@ -20,5 +20,17 @@ class Factura extends AbastecimientoExterno {
         }
         parent::addItem($item);
     }
+    
+    public function contabilizar()
+    {
+        parent::contabilizar();
 
+        /* Cuando la factura se contabiliza se "contabilizan" su items */
+        
+        /* @var $itemFactura \Pronit\ComprasBundle\Entity\Documentos\Facturas\ItemFactura  */
+        foreach( $this->getItems() as $itemFactura ){
+            
+            $itemFactura->contabilizar();
+        }        
+    }   
 }

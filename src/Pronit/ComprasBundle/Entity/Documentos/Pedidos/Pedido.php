@@ -14,6 +14,8 @@ use Pronit\ComprasBundle\Entity\Documentos\Estados\Entregas\Finalizado;
 
 use Pronit\ComprasBundle\Entity\Documentos\Estados\Facturacion\EstadoFacturacion;
 use Pronit\ComprasBundle\Entity\Documentos\Estados\Facturacion\SinFacturar;
+use Pronit\ComprasBundle\Entity\Documentos\Estados\Facturacion\FacturadoParcialmente;
+use Pronit\ComprasBundle\Entity\Documentos\Estados\Facturacion\Finalizado as FacturacionFinalizada;
 
 use Pronit\CoreBundle\Entity\Documentos\Item;
 use Pronit\ComprasBundle\Entity\Documentos\Pedidos\ItemPedido;
@@ -69,7 +71,7 @@ class Pedido extends AbastecimientoExterno
         return $this->estadoFacturacion;
     }
 
-    protected function setEstadoFacturacion(EstadoFacturacion $estadoFacturacion)
+    protected function setEstadoFacturacion(EstadoFacturacion $estadoFacturacion = null)
     {
         $this->estadoFacturacion = $estadoFacturacion;
     }    
@@ -84,6 +86,8 @@ class Pedido extends AbastecimientoExterno
          * En cambio, se limpia el estado, y por lo tanto, se modifica el documento.
          * Esta modificación lleva a que se ejecute el método refrescarEstados mediante HasLifecycleCallbacks */
         $this->setEstadoEntrega( null );
+        
+        $this->setEstadoFacturacion( null );
     }
     
     /**
@@ -93,13 +97,20 @@ class Pedido extends AbastecimientoExterno
     public function _prePersist()
     {
         /**
-         * Al dar de alta un Pedido se va a intentar ejecutar este metodo. 
+         * Al actualizar un pedido Pedido se va a intentar ejecutar este metodo. 
          * Solo aplica cuando ya está contabilizado
          */        
         if( ! $this->isContabilizado() ){
             return;
         }            
             
+        $this->updateEstadoEntrega();
+        
+        $this->updateEstadoFactura();
+    }    
+    
+    protected function updateEstadoEntrega()
+    {
         $itemsEntregadosParcialmente = 0;
         $itemsFinalizados = 0;
                 
@@ -129,7 +140,41 @@ class Pedido extends AbastecimientoExterno
             $this->setEstadoEntrega( new Finalizado() );
         }else{
             $this->setEstadoEntrega( new SinEntregar() );
-        }        
+        }                
+    }
+    
+    protected function updateEstadoFactura()
+    {
+        $itemsFacturadosParcialmente = 0;
+        $itemsFinalizados = 0;
+                
+        $itemsPedido = $this->getItems()->getIterator();
+                
+        $itemsPedido->rewind();                                
+        
+        /* Itero por cada item para verificar su estado. Si ya encontré uno parcialmente facturado
+         * no tiene sentido continuar: el pedido estará parcialmente facturado */
+        while( ( $itemsFacturadosParcialmente == 0 ) && $itemsPedido->valid() ){            
+            
+            /* @var $itemPedido \Pronit\ComprasBundle\Entity\Documentos\Pedidos\ItemPedido */
+            $itemPedido = $itemsPedido->current();   
+            
+            if ( $itemPedido->isFacturacionFinalizada() ){
+                $itemsFinalizados++;
+            }elseif( $itemPedido->isFacturadoParcialmente() ){
+                $itemsFacturadosParcialmente++;
+            }
+            
+            $itemsPedido->next();            
+        }
+        
+        if (( $itemsFacturadosParcialmente ) || (  $itemsFinalizados > 0 && $itemsFinalizados < count( $itemsPedido ) ) ){
+            $this->setEstadoFacturacion( new FacturadoParcialmente() );
+        }elseif ( $itemsFinalizados == count( $itemsPedido ) ) {
+            $this->setEstadoFacturacion( new FacturacionFinalizada() );
+        }else{
+            $this->setEstadoFacturacion( new SinFacturar() );
+        }                
     }    
     
     public function isEntregaFinalizada()

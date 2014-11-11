@@ -1,6 +1,7 @@
 parameters:
     pronit_compras_contabilidad_esquemas_entradasmercancias.generador_esquema_contable.class: Pronit\ComprasBundle\Model\Contabilidad\Esquemas\EntradasMercancias\GeneradorEsquemaContable
     pronit_compras_transaccion.entradamercancias.class: Pronit\ComprasBundle\Model\Transacciones\EntradasMercancias\TransaccionEntradaMercancias
+    pronit_compras_transaccion.factura.class: Pronit\ComprasBundle\Model\Transacciones\Facturas\TransaccionFactura
 
 services:
     pronit_compras_contabilidad_esquemas_entradasmercancias.generador_esquema_contable:
@@ -10,3 +11,7 @@ services:
     pronit_compras_transaccion.entradamercancias:
         class: %pronit_compras_transaccion.entradamercancias.class%
         arguments: [@doctrine.orm.entity_manager]
+        
+    pronit_compras_transaccion.factura:
+        class: %pronit_compras_transaccion.factura.class%
+        arguments: [@doctrine.orm.entity_manager]        

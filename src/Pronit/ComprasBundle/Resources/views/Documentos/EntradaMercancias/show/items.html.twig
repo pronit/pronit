@@ -10,14 +10,14 @@
             <th>Importe</th>
         </thead>
         <tbody>
-            {% for itemPedido in value %}
+            {% for itemEntrada in value %}
             <tr>
-                <td>{{ itemPedido.estadoFacturacion }}</td>
-                <td>{{ itemPedido.clasificador }}</td>
-                <td>{{ itemPedido.bienServicio }}</td>
-                <td>{{ itemPedido.escala }}</td>
-                <td>{{ itemPedido.cantidad }}</td>
-                <td>{{ itemPedido.precioUnitario }}</td>
+                <td>{{ itemEntrada.estadoFacturacion }}</td>
+                <td>{{ itemEntrada.clasificador }}</td>
+                <td>{{ itemEntrada.bienServicio }}</td>
+                <td>{{ itemEntrada.escala }}</td>
+                <td>{{ itemEntrada.cantidad }}</td>
+                <td>{{ itemEntrada.precioUnitario }}</td>
             </tr>
             {% endfor %}            
         </tbody>

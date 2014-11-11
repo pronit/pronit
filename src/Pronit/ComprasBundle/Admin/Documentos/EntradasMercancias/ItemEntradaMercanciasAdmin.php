@@ -28,7 +28,7 @@ class ItemEntradaMercanciasAdmin extends Admin
             ->add('escala')                
             ->add('cantidad')
             ->add('precioUnitario')
-            ->add('referenciaItemPedido','sonata_type_model_hidden', array('attr'=> array( 'hidden' => 'true') ))
+            ->add('itemPedidoEntregado','sonata_type_model_hidden', array('attr'=> array( 'hidden' => 'true') ))
         ;
         
     }

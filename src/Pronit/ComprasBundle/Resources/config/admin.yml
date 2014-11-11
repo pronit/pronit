@@ -61,7 +61,7 @@ services:
         arguments:
             - ~
             - Pronit\ComprasBundle\Entity\Documentos\Facturas\Factura
-            - ~
+            - 'PronitComprasBundle:Documentos\Facturas\Factura'
         calls:
             - [ setTranslationDomain, [PronitComprasBundle]]
             

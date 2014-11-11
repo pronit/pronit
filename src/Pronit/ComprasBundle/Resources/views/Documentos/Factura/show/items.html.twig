@@ -1,0 +1,24 @@
+<td>
+{% block field %}   
+    <table class="table table-bordered">
+        <thead>
+            <th>Clasificador</th>
+            <th>Bien/Servicio</th>
+            <th>Escala</th>
+            <th>Cantidad</th>            
+            <th>Importe</th>
+        </thead>
+        <tbody>
+            {% for itemFactura in value %}
+            <tr>
+                <td>{{ itemFactura.clasificador }}</td>
+                <td>{{ itemFactura.bienServicio }}</td>
+                <td>{{ itemFactura.escala }}</td>
+                <td>{{ itemFactura.cantidad }}</td>
+                <td>{{ itemFactura.precioUnitario }}</td>
+            </tr>
+            {% endfor %}            
+        </tbody>
+    </table>
+{% endblock %}
+</td>

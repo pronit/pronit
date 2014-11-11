@@ -7,7 +7,9 @@ use Pronit\CoreBundle\Entity\Documentos\ClasificadorItem;
 use Symfony\Component\Serializer\Exception\Exception;
 
 use Pronit\ComprasBundle\Entity\Documentos\ItemAbastecimientoExterno;
+
 use Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\ItemEntradaMercancias;
+use Pronit\ComprasBundle\Entity\Documentos\Facturas\ItemFactura;
 
 use Pronit\ComprasBundle\Entity\Documentos\Estados\Entregas\EstadoEntrega;
 use Pronit\ComprasBundle\Entity\Documentos\Estados\Entregas\SinEntregar;
@@ -16,6 +18,8 @@ use Pronit\ComprasBundle\Entity\Documentos\Estados\Entregas\EntregadoParcialment
 
 use Pronit\ComprasBundle\Entity\Documentos\Estados\Facturacion\EstadoFacturacion;
 use Pronit\ComprasBundle\Entity\Documentos\Estados\Facturacion\SinFacturar;
+use Pronit\ComprasBundle\Entity\Documentos\Estados\Facturacion\Finalizado as FacturacionFinalizada;
+use Pronit\ComprasBundle\Entity\Documentos\Estados\Facturacion\FacturadoParcialmente;
 
 
 /**
@@ -36,9 +40,9 @@ class ItemPedido extends ItemAbastecimientoExterno
     protected $estadoFacturacion;    
     
     /**
-     * @ORM\OneToMany(targetEntity="Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\ItemEntradaMercancias", mappedBy="referenciaItemPedido", cascade={"ALL"})
+     * @ORM\OneToMany(targetEntity="Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\ItemEntradaMercancias", mappedBy="itemPedidoEntregado", cascade={"ALL"})
      */
-    protected $referenciasItemEntradaMercancias;    
+    protected $referenciasItemEntradaMercancias;
     
     public function __construct()
     {
@@ -84,7 +88,7 @@ class ItemPedido extends ItemAbastecimientoExterno
     {
         $this->referenciasItemEntradaMercancias[] = $itemEntradaMercancias;
     }
-    
+        
     public function isEntregaFinalizada()
     {
         return $this->getEstadoEntrega() instanceof Finalizado;
@@ -116,9 +120,51 @@ class ItemPedido extends ItemAbastecimientoExterno
         }
         
         return $this->getCantidad() - $entregado;
+    }    
+    
+    public function isFacturacionFinalizada()
+    {
+        return $this->getEstadoFacturacion() instanceof FacturacionFinalizada;
+    }    
+    
+    public function isFacturadoParcialmente()
+    {
+        return $this->getEstadoFacturacion() instanceof FacturadoParcialmente;
+    }        
+    
+    public function registrarFacturacion( ItemFactura $itemFactura )
+    {
+        if( $this->getCantidadPendienteDeFacturacion() > 0 ){
+            $this->setEstadoFacturacion( new FacturadoParcialmente() );
+        }else{
+            $this->setEstadoFacturacion( new FacturacionFinalizada() );
+        }
+        $this->getDocumento()->update();
+    }   
+    
+    public function getCantidadPendienteDeFacturacion()
+    {
+        // El item pedido puede estar ligado 
+        // 1) a items factura ( proceso pedido - factura - entrada )
+        // 2) a items entrada ( proceso pedido - entrada - factura )
+        // 
+        // Si está ligado a items entrada ...
+        if ( $this->getReferenciasItemEntradaMercancias()->count() ){
+            
+            $cantidadFacturada = 0;
+
+            /* @var $itemEntradaMercancias \Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\ItemEntradaMercancias */
+            foreach( $this->getReferenciasItemEntradaMercancias() as $itemEntradaMercancias )
+            {
+                $cantidadFacturada = $cantidadFacturada + $itemEntradaMercancias->getCantidadFacturada();
+            }
+
+            return $this->getCantidad() - $cantidadFacturada;
+        }        
     }
-        
-    public function setClasificador(ClasificadorItem $clasificador) {
+  
+    public function setClasificador(ClasificadorItem $clasificador) 
+    {
         if (!$clasificador instanceof ClasificadorItemPedido) {
             throw new Exception("Los items de pedido solo admiten clasificadores de items de pedido.");
         }

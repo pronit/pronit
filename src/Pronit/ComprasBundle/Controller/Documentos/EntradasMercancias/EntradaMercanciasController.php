@@ -18,4 +18,9 @@ class EntradaMercanciasController extends Controller
         return $this->redirect( $this->generateUrl( 'pronit_entradas_mercancias_list' ) );
     }
     
+    public function crearFacturaDesdeEntradaMercanciasAction($id)
+    {
+        return $this->redirect($this->generateUrl('pronit_facturas_create', array( 'entradamercancias_id' => $id ) ));        
+    }    
+    
 }

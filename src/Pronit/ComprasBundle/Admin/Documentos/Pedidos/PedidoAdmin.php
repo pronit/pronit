@@ -59,7 +59,6 @@ class PedidoAdmin extends Admin
         ;
     }    
     
-    // Fields to be shown on filter forms
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper

@@ -7,6 +7,16 @@
                 <target>Pedidos de Compra</target>
             </trans-unit>
             
+            <trans-unit id="Entrada Mercancias List">
+                <source>Entrada Mercancias List</source>
+                <target>Entrada de Mercancías</target>
+            </trans-unit>
+
+            <trans-unit id="Factura List">
+                <source>Factura List</source>
+                <target>Facturas</target>
+            </trans-unit>
+                        
             <trans-unit id="Proveedor Sociedad F I List">
                 <source>Proveedor Sociedad F I List</source>
                 <target>Gestión de Proveedores</target>
@@ -20,11 +30,6 @@
             <trans-unit id="Action">
                 <source>Action</source>
                 <target>Acción</target>
-            </trans-unit>
-
-            <trans-unit id="Entrada Mercancias List">
-                <source>Entrada Mercancias List</source>
-                <target>Entrada de Mercancías</target>
             </trans-unit>
                         
         </body>

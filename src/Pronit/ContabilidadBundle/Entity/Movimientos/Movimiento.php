@@ -10,7 +10,8 @@ use Pronit\EstructuraEmpresaBundle\Entity\SociedadFI;
  *
  * @author gcaseres
  */
-class Movimiento {
+class Movimiento 
+{
     
     /** @var int */
     private $asiento;
@@ -30,7 +31,8 @@ class Movimiento {
     /** @var string */
     private $descripcion;
     
-    public function __construct($asiento, DateTime $fecha, $descripcion, Cuenta $cuenta, $importe) {
+    public function __construct($asiento, DateTime $fecha, $descripcion, Cuenta $cuenta, $importe) 
+    {
         $this->asiento = $asiento;
         $this->fecha = $fecha;
         $this->descripcion = $descripcion;
@@ -38,27 +40,33 @@ class Movimiento {
         $this->importe = $importe;
     }
         
-    public function getAsiento() {
+    public function getAsiento() 
+    {
         return $this->asiento;
     }
     
-    public function getSociedadFI() {
+    public function getSociedadFI() 
+    {
         return $this->sociedadFI;
     }
     
-    public function getCuenta() {
+    public function getCuenta() 
+    {
         return $this->cuenta;
     }
     
-    public function getFecha() {
+    public function getFecha() 
+    {
         return $this->fecha;
     }
     
-    public function getDescripcion() {
+    public function getDescripcion() 
+    {
         return $this->descripcion;
     }
     
-    public function getImporte() {
+    public function getImporte() 
+    {
         return $this->importe;
     }
 }
