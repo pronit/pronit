@@ -5,30 +5,48 @@ use DateTime;
 use Pronit\ContabilidadBundle\Entity\CuentasContables\Cuenta;
 use Pronit\EstructuraEmpresaBundle\Entity\SociedadFI;
 
-/**
- * Description of Movimiento
- *
- * @author gcaseres
+use Doctrine\ORM\Mapping as ORM;
+
+/** 
+ * @ORM\Entity
+ * @ORM\Table(name="conta_movimientos")
  */
 class Movimiento 
 {
     
-    /** @var int */
+    /**
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */    
+    private $id;
+    
+    /** 
+     * @ORM\Column(type="integer") 
+     */
     private $asiento;
     
     /** @var SociedadFI */
     private $sociedadFI;
     
-    /** @var Cuenta */
+    /**
+     * @ORM\ManyToOne(targetEntity="Pronit\ContabilidadBundle\Entity\CuentasContables\Cuenta")
+     */
     private $cuenta;
     
-    /** @var float */
+    /** 
+     * @ORM\Column(type="float") 
+     */
     private $importe;
     
-    /** @var DateTime */
+    /** 
+     * @ORM\Column(type="datetime") 
+     */
     private $fecha;
     
-    /** @var string */
+    /** 
+     * @ORM\Column(type="text") 
+     */
     private $descripcion;
     
     public function __construct($asiento, DateTime $fecha, $descripcion, Cuenta $cuenta, $importe) 

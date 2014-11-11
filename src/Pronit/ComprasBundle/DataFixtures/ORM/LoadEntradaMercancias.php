@@ -48,30 +48,28 @@ class LoadEntradaMercancias extends AbstractFixture implements FixtureInterface,
 
         $clasificador = $this->getReference('pronit-documentos-clasificadoritementradamercancias-101');        
 
+        $pedidoEntregado = $this->getReference('pronit-compras-pedido-3444/5');
 
         $entradaMercancias = new EntradaMercancias();
         $entradaMercancias->setSociedad($sociedad);
         $entradaMercancias->setNumero("0001/1");
         $entradaMercancias->setFecha(new \DateTime());
         $entradaMercancias->setMoneda($moneda);
-        $entradaMercancias->setTextoCabecera('Entrada de Mercancias.... ');
+        $entradaMercancias->setTextoCabecera('Entrada de Mercancias desde pedido. ');
 
-
-        $material = $this->getReference('pronit-gestionbienesyservicios-bienservicio-610615008');
-        $item = new ItemEntradaMercancias();
-        $item->setClasificador($clasificador);
-        $item->setCantidad(100);
-        $item->setBienServicio($material);
-        $item->setPrecioUnitario(25.5);
-        $entradaMercancias->addItem($item);
-
-        $material = $this->getReference('pronit-gestionbienesyservicios-bienservicio-610612011');
-        $item = new ItemEntradaMercancias();
-        $item->setClasificador($clasificador);
-        $item->setCantidad(2500);
-        $item->setBienServicio($material);
-        $item->setPrecioUnitario(3.825);
-        $entradaMercancias->addItem($item);
+        foreach( $pedidoEntregado->getItems() as $itemPedido  ){
+            
+            $material = $this->getReference('pronit-gestionbienesyservicios-bienservicio-610615008');
+            
+            $item = new ItemEntradaMercancias();
+            $item->setClasificador($clasificador);
+            $item->setCantidad( $itemPedido->getCantidad() );
+            $item->setBienServicio( $itemPedido->getBienServicio() );
+            $item->setPrecioUnitario(25.5);
+            $item->setItemPedidoEntregado( $itemPedido );
+            
+            $entradaMercancias->addItem($item);
+        }                
         
         $manager->persist($entradaMercancias);
 

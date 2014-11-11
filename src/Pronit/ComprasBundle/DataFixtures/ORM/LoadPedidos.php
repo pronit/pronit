@@ -73,6 +73,8 @@ class LoadPedidos extends AbstractFixture implements FixtureInterface , OrderedF
         $pedido->setMoneda($moneda);
         $pedido->setTextoCabecera('Pedido de compra.... ');
         $pedido->addItem( $itemPedido );
+        
+        $this->setReference('pronit-compras-pedido-3444/5', $pedido);
                 
         $manager->persist($pedido);
         
