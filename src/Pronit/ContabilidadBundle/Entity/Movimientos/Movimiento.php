@@ -88,4 +88,9 @@ class Movimiento
     {
         return $this->importe;
     }
+    
+    public function getId()
+    {
+        return $this->id;
+    }
 }

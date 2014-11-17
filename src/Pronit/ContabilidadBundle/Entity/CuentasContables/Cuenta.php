@@ -39,4 +39,9 @@ class Cuenta
     {
         $this->nombre = $nombre;
     }    
+    
+    public function __toString()
+    {
+        return (string) $this->getNombre();
+    }
 }
