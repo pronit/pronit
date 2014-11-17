@@ -14,7 +14,7 @@ use Pronit\ComprasBundle\Entity\Documentos\ItemAbastecimientoExterno;
 use Pronit\ComprasBundle\Entity\Documentos\Pedidos\ItemPedido;
 use Pronit\CoreBundle\Entity\Documentos\ClasificadorItem;
 
-use Symfony\Component\Serializer\Exception\Exception;
+use \Exception;
 
 
 /**

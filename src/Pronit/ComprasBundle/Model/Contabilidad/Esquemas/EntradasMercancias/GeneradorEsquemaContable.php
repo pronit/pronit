@@ -87,8 +87,10 @@ class GeneradorEsquemaContable implements IGeneradorEsquemaContable {
 
             if ($operacionContable->aceptaContexto($contexto)) {
                 $monto = $operacionContable->ejecutar($contexto);
+            } else {
+                throw new Exception('La operación no puede ejecutarse en el contexto provisto.');
             }
-
+            
             $items[] = new ItemEsquemaContable($item, $operacionContable, $cuenta, $monto);
         }
         return $items;

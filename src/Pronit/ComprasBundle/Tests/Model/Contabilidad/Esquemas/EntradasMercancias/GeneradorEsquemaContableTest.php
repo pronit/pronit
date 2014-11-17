@@ -35,15 +35,15 @@ class GeneradorEsquemaContableTest extends KernelTestCase
         /* @var $esquemaContable \Pronit\ContabilidadBundle\Model\Esquemas\EsquemaContable */        
         $esquemaContable = $generadorEsquemaContable->generar( $entradaMercancias );
         
-        $this->assertEquals( 12,  $esquemaContable->getItems()->count() );
+        $this->assertEquals( 12,  $esquemaContable->getItems()->count(), "Verificar los fixtures para asegurarse que se están utilizando las operaciones contables correctas.");
         
         
-        /*
+        
         echo "\n";
         foreach ($esquemaContable->getItems() as $item) {            
             echo $item->getOperacion()->getCodigo() . ' - ' . $item->getItemDocumento()->getBienServicio()->getCodigo() . " - " . $item->getCuenta()->getNombre() . " - " . $item->getMonto() * $item->getOperacion()->getClaveContabilizacion()->getSigno() . "\n";
         }
-         */
+         
         
         $saldo = 0;
         foreach ($esquemaContable->getItems() as $item) {            

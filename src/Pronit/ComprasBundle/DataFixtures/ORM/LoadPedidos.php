@@ -15,54 +15,43 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * @author ldelia
  */
-class LoadPedidos extends AbstractFixture implements FixtureInterface , OrderedFixtureInterface, ContainerAwareInterface
-{
+class LoadPedidos extends AbstractFixture implements FixtureInterface, OrderedFixtureInterface, ContainerAwareInterface {
+
     /**
      * @var ContainerInterface
      */
-    private $container;    
+    private $container;
     private $manager;
 
     /**
      * {@inheritDoc}
      */
-    public function setContainer(ContainerInterface $container = null)
-    {
+    public function setContainer(ContainerInterface $container = null) {
         $this->container = $container;
     }
-    
-    public function getManager()
-    {
+
+    public function getManager() {
         return $this->manager;
     }
 
-    public function setManager(ObjectManager $manager)
-    {
+    public function setManager(ObjectManager $manager) {
         $this->manager = $manager;
     }
-    
+
     /**
      * {@inheritDoc}
-     */       
-    public function load(ObjectManager $manager)
-    {
-        $this->setManager($manager);        
-        
+     */
+    public function load(ObjectManager $manager) {
+        $this->setManager($manager);
+
         $sociedad = $this->getReference('pronit-estructuraempresa-sociedadfi');
         $moneda = $this->getReference('pronit-parametrizaciongeneral-moneda-pesos');
         $proveedorSociedad = $this->getReference('pronit-compras-customizing-acreedor-proveedorsociedadfi-delía');
         $centroLogistico = $this->getReference('pronit-estructuraempresa-centroLogistico-3000');
-        
+
         $clasificador = $this->getReference('pronit-documentos-clasificadoritempedido-100');
         $escalaMetro = $this->getReference('pronit-parametrizaciongeneral-escala-metro');
-        $bienServicio = $this->getReference('pronit-gestionbienesyservicios-bienservicio-MM001');
 
-        $itemPedido = new ItemPedido();
-        $itemPedido->setClasificador($clasificador);
-        $itemPedido->setCantidad(4);
-        $itemPedido->setBienServicio($bienServicio);
-        $itemPedido->setEscala($escalaMetro);
-        $itemPedido->setPrecioUnitario(9.9);        
         
         $pedido = new Pedido();
         $pedido->setSociedad($sociedad);
@@ -72,17 +61,40 @@ class LoadPedidos extends AbstractFixture implements FixtureInterface , OrderedF
         $pedido->setCentroLogistico($centroLogistico);
         $pedido->setMoneda($moneda);
         $pedido->setTextoCabecera('Pedido de compra.... ');
-        $pedido->addItem( $itemPedido );
+
         
+        $bienServicio = $this->getReference('pronit-gestionbienesyservicios-bienservicio-610615008');
+        $itemPedido = new ItemPedido();
+        $itemPedido->setClasificador($clasificador);
+        $itemPedido->setCantidad(100);
+        $itemPedido->setBienServicio($bienServicio);
+        $itemPedido->setPrecioUnitario(25.5);
+        $itemPedido->setEscala($escalaMetro);
+        $pedido->addItem($itemPedido);
+
+        $bienServicio = $this->getReference('pronit-gestionbienesyservicios-bienservicio-610612011');
+        $itemPedido = new ItemPedido();
+        $itemPedido->setClasificador($clasificador);
+        $itemPedido->setCantidad(2500);
+        $itemPedido->setBienServicio($bienServicio);
+        $itemPedido->setPrecioUnitario(3.825);
+        $itemPedido->setEscala($escalaMetro);
+        $pedido->addItem($itemPedido);
+
+
+
+
+        
+
         $this->setReference('pronit-compras-pedido-3444/5', $pedido);
-                
+
         $manager->persist($pedido);
-        
+
         $manager->flush();
     }
-    
-    function getOrder()
-    {
-        return 81; 
+
+    function getOrder() {
+        return 81;
     }
+
 }
