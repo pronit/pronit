@@ -1,5 +1,5 @@
 <?php
-namespace pronit\automatizacionbundle\model\scripting;
+namespace Pronit\AutomatizacionBundle\Model\Scripting;
 
 
 /**

@@ -40,7 +40,7 @@ class EvaluadorFuncion {
         $sandbox->allow_classes = true;
         $sandbox->allow_namespaces = false;
         $sandbox->auto_whitelist_interfaces = true;
-        $sandbox->define_alias('pronit\automatizacionbundle\model\scripting', 'Scripting');
+        $sandbox->define_alias('Pronit\AutomatizacionBundle\Model\Scripting', 'Scripting');
         $sandbox->whitelist_class('Scripting\Script');
         $sandbox->whitelist_class('Scripting\Contexto');
         $sandbox->whitelist_func('get_class');
@@ -56,9 +56,11 @@ class EvaluadorFuncion {
 
         if (!isset($this->registroFunciones[$funcion->getNombre()])) {
             try {
+                
                 $sandbox->execute($funcion->getScript());
                 $this->registroFunciones[$funcion->getNombre()] = true;
             } catch (\Exception $e) {
+                echo $e->getMessage();
                 throw new \Exception("No se pudo generar la clase del script correctamente: (" . $e->getMessage() . ")");
             }            
         }
