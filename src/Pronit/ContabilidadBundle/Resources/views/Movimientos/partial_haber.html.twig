@@ -2,8 +2,8 @@
 
 {% block field %}
     <div>
-        {% if( object.importe > 0 ) %}
-            {{ object.importe }}
+        {% if( object.importe < 0 ) %}
+            {{ object.importe | abs }}
         {% endif %}
     </div>
 {% endblock %}

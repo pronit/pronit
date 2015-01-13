@@ -5,6 +5,8 @@ namespace Pronit\ComprasBundle\Model\Transacciones\Facturas;
 use Doctrine\ORM\EntityManager;
 
 use Pronit\ComprasBundle\Entity\Documentos\Facturas\Factura;
+use Pronit\ContabilidadBundle\Model\Esquemas\IGeneradorEsquemaContable;
+use Pronit\ContabilidadBundle\Model\Movimientos\IGeneradorAsientosContables;
 
 /**
  *
@@ -14,9 +16,18 @@ class TransaccionFactura
 {
     protected $em;
     
-    public function __construct( EntityManager $em )
+    /** @var IGeneradorEsquemaContable */
+    protected $generadorEsquemaContable;
+    
+    /** @var IGeneradorAsientosContables */
+    protected $generadorAsientosContables;
+    
+    
+    public function __construct( EntityManager $em, IGeneradorEsquemaContable $generadorEsquemaContable, IGeneradorAsientosContables $generadorAsientosContables )
     {
         $this->em = $em;
+        $this->generadorEsquemaContable = $generadorEsquemaContable;
+        $this->generadorAsientosContables = $generadorAsientosContables;        
     }
     
     public function ejecutar( Factura $factura )
@@ -25,6 +36,13 @@ class TransaccionFactura
             
             $factura->contabilizar();
 
+            $esquemaContable = $this->generadorEsquemaContable->generar($factura);
+            $movimientos = $this->generadorAsientosContables->generarDesdeEsquema($esquemaContable);
+
+            foreach ($movimientos as $movimiento) {
+                $this->em->persist($movimiento);
+            }
+            
             $this->em->persist($factura);
             $this->em->flush();
         }else{

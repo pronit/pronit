@@ -8,6 +8,7 @@ use Pronit\CoreBundle\Entity\Documentos\ClasificadorItem;
 use Pronit\ComprasBundle\Entity\Documentos\ItemAbastecimientoExterno;
 use Pronit\ComprasBundle\Entity\Documentos\Pedidos\ItemPedido;
 use Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\ItemEntradaMercancias;
+use Pronit\CoreBundle\Entity\Impuestos\IndicadorImpuestos;
 
 use \Exception;
 
@@ -22,8 +23,27 @@ class ItemFactura extends ItemAbastecimientoExterno {
      * @ORM\ManyToOne(targetEntity="Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\ItemEntradaMercancias")
      */    
     protected $itemEntradaMercanciasFacturado;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Pronit\CoreBundle\Entity\Impuestos\IndicadorImpuestos")
+     */    
+    protected $indicadorImpuestos;
+    
+    /**
+     * 
+     * @return IndicadorImpuestos
+     */
+    function getIndicadorImpuestos()
+    {
+        return $this->indicadorImpuestos;
+    }
+
+    function setIndicadorImpuestos(IndicadorImpuestos $indicadorImpuestos)
+    {
+        $this->indicadorImpuestos = $indicadorImpuestos;
+    }    
         
-    public function setClasificador(ClasificadorItem $clasificador) 
+    public function setClasificador(ClasificadorItem $clasificador)
     {
         if (!$clasificador instanceof ClasificadorItemFactura) {
             throw new Exception("Los items de facturas solo admiten clasificadores de items de facturas.");

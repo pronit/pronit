@@ -11,6 +11,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 use Pronit\CoreBundle\Entity\Operaciones\OperacionContable;
 
+use Pronit\CoreBundle\Model\Operaciones\Contextos\Impuestos\ContextoCalculoImpuesto;
+
 /**
  * @author ldelia
  */
@@ -48,16 +50,16 @@ class LoadOperacionContable extends AbstractFixture implements FixtureInterface 
         $this->setManager($manager);        
 
         $values =  array(
-            array( "codigo" => "BSX", "nombre" => "Contabilización de inventario", "claveContabilizacion" => 89, "nombreFuncion" => "OP_BSX" ),
-            array( "codigo" => "WRX", "nombre" => "EM/RF abierta", "claveContabilizacion" => 96, "nombreFuncion" => "OP_WRX" ),
-            array( "codigo" => "WRZ", "nombre" => "EM/RF concluida", "claveContabilizacion" => 86, "nombreFuncion" => "OP_BSX" ),
-            array( "codigo" => "J1A1", "nombre" => "IVA soportado", "claveContabilizacion" => 40, "nombreFuncion" => "OP_BSX" ),
-            array( "codigo" => "PRM", "nombre" => "Dif. de cambio R-", "claveContabilizacion" => 40, "nombreFuncion" => "OP_BSX" ),
-            array( "codigo" => "PRG", "nombre" => "Dif. de cambio R+", "claveContabilizacion" => 50, "nombreFuncion" => "OP_BSX" ),
-            array( "codigo" => "PRD-", "nombre" => "Dif. de precio negat", "claveContabilizacion" => 83, "nombreFuncion" => "OP_PRD_Negative" ),
-            array( "codigo" => "PRD+", "nombre" => "Dif. de precio posit", "claveContabilizacion" => 93, "nombreFuncion" => "OP_PRD_Positive" ),
-            array( "codigo" => "BSD-", "nombre" => "Revalúo inventario en menos", "claveContabilizacion" => 50, "nombreFuncion" => "OP_BSD_Negative" ),
-            array( "codigo" => "BSD+", "nombre" => "Revalúo inventario en mas", "claveContabilizacion" => 40, "nombreFuncion" => "OP_BSD_Positive" ),
+            array( "codigo" => "BSX", "nombre" => "Contabilización de inventario", "claveContabilizacion" => 89, "nombreFuncion" => "OP_BSX", "contextosAceptados" => array( 'Compras.ItemDocumentoEntradaMercancias' ) ),
+            array( "codigo" => "WRX", "nombre" => "EM/RF abierta", "claveContabilizacion" => 96, "nombreFuncion" => "OP_WRX", "contextosAceptados" => array( 'Compras.ItemDocumentoEntradaMercancias' ) ),
+            array( "codigo" => "WRZ", "nombre" => "EM/RF concluida", "claveContabilizacion" => 86, "nombreFuncion" => "OP_WRZ", "contextosAceptados" => array( 'Compras.ItemDocumentoFactura' ) ),            
+            array( "codigo" => "PRM", "nombre" => "Dif. de cambio R-", "claveContabilizacion" => 40, "nombreFuncion" => "OP_BSX", "contextosAceptados" => array( 'Compras.ItemDocumentoEntradaMercancias' ) ),
+            array( "codigo" => "PRG", "nombre" => "Dif. de cambio R+", "claveContabilizacion" => 50, "nombreFuncion" => "OP_BSX", "contextosAceptados" => array( 'Compras.ItemDocumentoEntradaMercancias' ) ),
+            array( "codigo" => "PRD-", "nombre" => "Dif. de precio negat", "claveContabilizacion" => 83, "nombreFuncion" => "OP_PRD_Negative", "contextosAceptados" => array( 'Compras.ItemDocumentoEntradaMercancias' ) ),
+            array( "codigo" => "PRD+", "nombre" => "Dif. de precio posit", "claveContabilizacion" => 93, "nombreFuncion" => "OP_PRD_Positive", "contextosAceptados" => array( 'Compras.ItemDocumentoEntradaMercancias' ) ),
+            array( "codigo" => "BSD-", "nombre" => "Revalúo inventario en menos", "claveContabilizacion" => 50, "nombreFuncion" => "OP_BSD_Negative", "contextosAceptados" => array( 'Compras.ItemDocumentoEntradaMercancias' ) ),
+            array( "codigo" => "BSD+", "nombre" => "Revalúo inventario en mas", "claveContabilizacion" => 40, "nombreFuncion" => "OP_BSD_Positive", "contextosAceptados" => array( 'Compras.ItemDocumentoEntradaMercancias' ) ),
+            array( "codigo" => "J1A1", "nombre" => "IVA soportado", "claveContabilizacion" => 40, "nombreFuncion" => "IMP_AXM", "contextosAceptados" => array( ContextoCalculoImpuesto::CODIGO ) ),
         );
         
         foreach( $values as $value ){
@@ -67,7 +69,7 @@ class LoadOperacionContable extends AbstractFixture implements FixtureInterface 
             $obj->setNombre($value['nombre']);
             $obj->setClaveContabilizacion( $this->getReference( 'pronit-core-clavecontabilizacion-' . $value["claveContabilizacion"] ) );
             $obj->setFuncion( $this->getReference( 'pronit-automatizacion-funcion-' . $value["nombreFuncion"] ) );
-            $obj->setContextosAceptados( array( 'Compras.ItemDocumentoEntradaMercancias' ) );
+            $obj->setContextosAceptados( $value[ 'contextosAceptados' ] );
         
             $manager->persist($obj);
             

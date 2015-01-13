@@ -20,5 +20,10 @@ abstract class ItemAbastecimientoExterno extends ItemCompras
     {
         $this->precioUnitario = $precioUnitario;
     }    
+    
+    public function getPrecioTotal()
+    {
+        return $this->getPrecioUnitario() * $this->getCantidad();
+    }
 }
 

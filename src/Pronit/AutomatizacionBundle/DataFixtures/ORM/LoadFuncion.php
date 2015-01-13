@@ -49,6 +49,19 @@ class LoadFuncion extends AbstractFixture implements FixtureInterface , OrderedF
 
         $values =  array(
             array( 
+                    "nombre" => "IMP_AXM", 
+                    "nombreClase" => "Script_IMP_AXM", 
+                    "script" => '
+                        class Script_IMP_AXM extends Scripting\Script {
+                            public function ejecutar(Scripting\Contexto $contexto) {
+                                $contextoOperacion = $contexto->getContextoOperacion();
+                                
+                                return $contextoOperacion->getMontoImponible() * $contextoOperacion->getAlicuota() / 100;
+                            }
+                        }
+                    ' 
+            ),            
+            array( 
                     "nombre" => "OP_BSX", 
                     "nombreClase" => "Script_OP_BSX", 
                     "script" => '
@@ -78,6 +91,21 @@ class LoadFuncion extends AbstractFixture implements FixtureInterface , OrderedF
                         }
                     ' 
             ),
+            array( 
+                    "nombre" => "OP_WRZ", 
+                    "nombreClase" => "Script_OP_WRZ", 
+                    "script" => '
+                        class Script_OP_WRZ extends Scripting\Script {
+                            public function ejecutar(Scripting\Contexto $contexto) {
+                                $contextoOperacion = $contexto->getContextoOperacion();
+                                
+                                $itemDocumentoFactura = $contextoOperacion->getItem();
+                               
+                                return $itemDocumentoFactura->getPrecioTotal();
+                            }
+                        }
+                    ' 
+            ),            
             array( 
                     "nombre" => "OP_PRD_Positive", 
                     "nombreClase" => "Script_OP_PRD_Positive", 
