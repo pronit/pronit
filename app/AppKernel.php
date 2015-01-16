@@ -41,7 +41,6 @@ class AppKernel extends Kernel
             new Pronit\AutomatizacionBundle\PronitAutomatizacionBundle(),
             new Pronit\ComprasBundle\PronitComprasBundle(),
             new Pronit\GestionBienesYServiciosBundle\PronitGestionBienesYServiciosBundle(),
-            new Pronit\ContabilidadBundle\PronitContabilidadBundle(),
             new Pronit\CustomizingBundle\PronitCustomizingBundle(),
         );
 

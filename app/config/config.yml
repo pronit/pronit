@@ -7,8 +7,7 @@ imports:
     - { resource: @PronitGeographicCoreBundle/Resources/config/admin.yml }
     - { resource: @PronitCustomizingBundle/Resources/config/admin.yml }
     - { resource: @PronitGestionBienesYServiciosBundle/Resources/config/admin.yml }
-    - { resource: @PronitComprasBundle/Resources/config/admin.yml }    
-    - { resource: @PronitContabilidadBundle/Resources/config/admin.yml }    
+    - { resource: @PronitComprasBundle/Resources/config/admin.yml }
     
 framework:
     #esi:             ~

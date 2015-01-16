@@ -5,8 +5,8 @@ namespace Pronit\ComprasBundle\Model\Transacciones\EntradasMercancias;
 use Doctrine\ORM\EntityManager;
 use Exception;
 use Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\EntradaMercancias;
-use Pronit\ContabilidadBundle\Model\Esquemas\IGeneradorEsquemaContable;
-use Pronit\ContabilidadBundle\Model\Movimientos\IGeneradorAsientosContables;
+use Pronit\CoreBundle\Model\Contabilidad\Esquemas\IGeneradorEsquemaContable;
+use Pronit\CoreBundle\Model\Contabilidad\Movimientos\IGeneradorAsientosContables;
 
 /**
  *

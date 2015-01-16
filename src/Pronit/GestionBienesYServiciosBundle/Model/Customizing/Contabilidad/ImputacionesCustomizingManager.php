@@ -25,7 +25,7 @@ class ImputacionesCustomizingManager implements IImputacionesCustomizingManager
      * @param \Pronit\CoreBundle\Entity\Documentos\ClasificadorItem $clasificador
      * @param \Pronit\CoreBundle\Entity\Operaciones\OperacionContable $operacionContable
      * @param \Pronit\GestionBienesYServiciosBundle\Entity\CategoriaValoracion $categoriaValoracion
-     * @return \Pronit\ContabilidadBundle\Entity\CuentasContables\Cuenta cuenta a imputar
+     * @return \Pronit\CoreBundle\Entity\Contabilidad\CuentasContables\Cuenta cuenta a imputar
      */
     public function getCuenta(ClasificadorItem $clasificador, OperacionContable $operacionContable, CategoriaValoracion $categoriaValoracion)
     {

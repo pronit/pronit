@@ -6,11 +6,11 @@ use Doctrine\ORM\EntityManager;
 use Exception;
 use Pronit\ComprasBundle\Entity\Documentos\Facturas\Factura;
 use Pronit\ComprasBundle\Entity\Documentos\Facturas\ItemFactura;
-use Pronit\ContabilidadBundle\Model\Customizing\IImputacionesCustomizingManager;
-use Pronit\ContabilidadBundle\Model\Customizing\IImputacionesCustomizingManager as FIIImputacionesCustomizingManager;
-use Pronit\ContabilidadBundle\Model\Esquemas\EsquemaContable;
-use Pronit\ContabilidadBundle\Model\Esquemas\IGeneradorEsquemaContable;
-use Pronit\ContabilidadBundle\Model\Esquemas\ItemEsquemaContable;
+use Pronit\CoreBundle\Model\Contabilidad\Customizing\IImputacionesCustomizingManager;
+use Pronit\CoreBundle\Model\Contabilidad\Customizing\IImputacionesCustomizingManager as FIIImputacionesCustomizingManager;
+use Pronit\CoreBundle\Model\Contabilidad\Esquemas\EsquemaContable;
+use Pronit\CoreBundle\Model\Contabilidad\Esquemas\IGeneradorEsquemaContable;
+use Pronit\CoreBundle\Model\Contabilidad\Esquemas\ItemEsquemaContable;
 use Pronit\CoreBundle\Entity\Documentos\ClasificadorItem;
 use Pronit\CoreBundle\Entity\Documentos\Documento;
 use Pronit\CoreBundle\Entity\Operaciones\OperacionContable;
@@ -90,11 +90,13 @@ class GeneradorEsquemaContable implements IGeneradorEsquemaContable {
 
             if ($operacionContable->aceptaContexto($contexto)) {
                 $monto = $operacionContable->ejecutar($contexto);
+                
+                if( $monto !== 0 ){
+                    $items[] = new ItemEsquemaContable($item, $operacionContable, $cuenta, $monto);                    
+                }                
             } else {
                 throw new Exception('La operación no puede ejecutarse en el contexto provisto.');
             }
-            
-            $items[] = new ItemEsquemaContable($item, $operacionContable, $cuenta, $monto);
         }
         
         /* Obtener esquema contable según indicador impuestos */

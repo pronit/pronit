@@ -31,3 +31,16 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [PronitCoreBundle]]                                    
+            
+    sonata.core.contabilidad.movimientos:
+        class: Pronit\CoreBundle\Admin\Contabilidad\Movimientos\MovimientoAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Contabilidad", label: "Libro diario" }
+        arguments:
+            - ~
+            - Pronit\CoreBundle\Entity\Contabilidad\Movimientos\Movimiento
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitCoreBundle]]
+            - [ setTemplate, [list, PronitCore:Movimientos:list.html.twig]]
+            

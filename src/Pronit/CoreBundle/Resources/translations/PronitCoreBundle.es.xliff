@@ -13,7 +13,11 @@
             <trans-unit id="Proveedor List">
                 <source>Proveedor List</source>
                 <target>Proveedores</target>
-            </trans-unit>            
+            </trans-unit>
+            <trans-unit id="Movimiento List">
+                <source>Movimiento List</source>
+                <target>Libro diario</target>
+            </trans-unit>                        
         </body>
     </file>
 </xliff>

@@ -1,3 +1,0 @@
-pronit_contabilidad_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: PronitContabilidadBundle:Default:index }

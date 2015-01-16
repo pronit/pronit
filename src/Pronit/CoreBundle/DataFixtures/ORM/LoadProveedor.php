@@ -48,12 +48,14 @@ class LoadProveedor extends AbstractFixture implements FixtureInterface , Ordere
         $this->setManager($manager);        
 
         $values =  array(
-            array( "apellido" => "Delía"),
+            array( "apellido" => "Delía", "cuenta" => "210101" ),
         );
         
         foreach( $values as $value ){
+            
             $obj = new Proveedor();
             $obj->setPersona( $this->getReference('pronit-core-personafisica-'. $value['apellido']) );
+            $obj->setCuenta( $this->getReference('pronit-contabilidad-cuenta-' . $value["cuenta"]) );
             
             $manager->persist($obj);
             

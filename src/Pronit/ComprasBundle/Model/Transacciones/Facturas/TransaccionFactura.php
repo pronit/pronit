@@ -5,8 +5,8 @@ namespace Pronit\ComprasBundle\Model\Transacciones\Facturas;
 use Doctrine\ORM\EntityManager;
 
 use Pronit\ComprasBundle\Entity\Documentos\Facturas\Factura;
-use Pronit\ContabilidadBundle\Model\Esquemas\IGeneradorEsquemaContable;
-use Pronit\ContabilidadBundle\Model\Movimientos\IGeneradorAsientosContables;
+use Pronit\CoreBundle\Model\Contabilidad\Esquemas\IGeneradorEsquemaContable;
+use Pronit\CoreBundle\Model\Contabilidad\Movimientos\IGeneradorAsientosContables;
 
 /**
  *

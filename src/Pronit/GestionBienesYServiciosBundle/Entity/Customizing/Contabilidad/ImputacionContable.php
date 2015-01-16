@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 use Pronit\CustomizingBundle\Entity\Operaciones\AsociacionOperacionClasificadorItem;
 use Pronit\GestionBienesYServiciosBundle\Entity\CategoriaValoracion;
-use Pronit\ContabilidadBundle\Entity\CuentasContables\Cuenta;
+use Pronit\CoreBundle\Entity\Contabilidad\CuentasContables\Cuenta;
 
 /**
  * 
@@ -38,7 +38,7 @@ class ImputacionContable
     protected $categoriaValoracion;    
     
     /**
-     * @ORM\ManyToOne(targetEntity="Pronit\ContabilidadBundle\Entity\CuentasContables\Cuenta")
+     * @ORM\ManyToOne(targetEntity="Pronit\CoreBundle\Entity\Contabilidad\CuentasContables\Cuenta")
      * @ORM\JoinColumn(nullable=false)
      */    
     protected $cuenta;    
