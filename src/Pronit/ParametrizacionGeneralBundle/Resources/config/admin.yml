@@ -75,3 +75,25 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [PronitParametrizacionGeneralBundle]]
+
+    sonata.admin.condicionpagos:
+        class: Pronit\ParametrizacionGeneralBundle\Admin\CondicionPagosAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Parametrización General", label: "Condiciones de pagos" }
+        arguments:
+            - ~
+            - Pronit\ParametrizacionGeneralBundle\Entity\CondicionPagos
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitParametrizacionGeneralBundle]]
+            
+    sonata.admin.itemcondicionpagos:
+        class: Pronit\ParametrizacionGeneralBundle\Admin\ItemCondicionPagosAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, show_in_dashboard: false }
+        arguments:
+            - ~
+            - Pronit\ParametrizacionGeneralBundle\Entity\ItemCondicionPagos
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitParametrizacionGeneralBundle]]                                    
