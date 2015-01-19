@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 use Pronit\CoreBundle\Entity\Contabilidad\CuentasContables\Cuenta;
 
+/** @ORM\MappedSuperclass */
 abstract class Acreedor extends RolPersona
 {
     /**

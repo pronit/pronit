@@ -21,7 +21,7 @@ abstract class ItemAbastecimientoExterno extends ItemCompras
         $this->precioUnitario = $precioUnitario;
     }    
     
-    public function getPrecioTotal()
+    public function getImporteNeto()
     {
         return $this->getPrecioUnitario() * $this->getCantidad();
     }

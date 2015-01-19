@@ -17,6 +17,7 @@ class ProveedorAdmin extends Admin
     {
         $formMapper
             ->add('persona', null, array('label' => 'Tercero'))
+            ->add('cuenta')
         ;
     }
 

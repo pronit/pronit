@@ -63,6 +63,11 @@ class GeneradorEsquemaContable implements IGeneradorEsquemaContable {
                 $esquema->addItem($itemEsquema);
             }
         }
+        
+        /* Se genera un nuevo ItemEsquemaContable según la cuenta del proveedor */
+        
+        $montoImporteNeto = $factura->getImporteNeto();
+        $montoTotal = $factura->getMontoTotal();
 
         return $esquema;
     }
@@ -92,7 +97,7 @@ class GeneradorEsquemaContable implements IGeneradorEsquemaContable {
                 $monto = $operacionContable->ejecutar($contexto);
                 
                 if( $monto !== 0 ){
-                    $items[] = new ItemEsquemaContable($item, $operacionContable, $cuenta, $monto);                    
+                    $items[] = new ItemEsquemaContable($item, $operacionContable, $cuenta, $monto);
                 }                
             } else {
                 throw new Exception('La operación no puede ejecutarse en el contexto provisto.');
@@ -104,7 +109,7 @@ class GeneradorEsquemaContable implements IGeneradorEsquemaContable {
         /* @var $itemIndicadorImpuesto \Pronit\CoreBundle\Entity\Impuestos\ItemIndicadorImpuestos */
         foreach( $item->getIndicadorImpuestos()->getItems() as $itemIndicadorImpuesto ){
             
-            $contexto = new ContextoCalculoImpuesto( $item->getPrecioTotal(), $itemIndicadorImpuesto->getAlicuota() );
+            $contexto = new ContextoCalculoImpuesto( $item->getImporteNeto(), $itemIndicadorImpuesto->getAlicuota() );
             
             $operacionContable = $itemIndicadorImpuesto->getOperacionContable();
             
@@ -118,6 +123,7 @@ class GeneradorEsquemaContable implements IGeneradorEsquemaContable {
     
             $items[] = new ItemEsquemaContable($item, $operacionContable, $cuenta, $monto);            
         }
+        
         return $items;
     }
 

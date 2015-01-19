@@ -42,5 +42,5 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [PronitCoreBundle]]
-            - [ setTemplate, [list, PronitCore:Movimientos:list.html.twig]]
+            - [ setTemplate, [list, PronitCoreBundle:Movimientos:list.html.twig]]
             

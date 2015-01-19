@@ -23,8 +23,8 @@ class ItemFacturaAdmin extends Admin
             ->add('escala')                
             ->add('cantidad')
             ->add('precioUnitario')
-            ->add('indicadorImpuestos')                
-            ->add('itemEntradaMercanciasFacturado','sonata_type_model_hidden', array('attr'=> array( 'hidden' => 'true') ))                
+            ->add('indicadorImpuestos', null, array('required' => true))
+            ->add('itemEntradaMercanciasFacturado','sonata_type_model_hidden', array('attr'=> array( 'hidden' => 'true')) )
         ;
         
     }

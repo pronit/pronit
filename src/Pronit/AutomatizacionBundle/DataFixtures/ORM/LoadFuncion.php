@@ -101,7 +101,7 @@ class LoadFuncion extends AbstractFixture implements FixtureInterface , OrderedF
                                 
                                 $itemDocumentoFactura = $contextoOperacion->getItem();
                                
-                                return $itemDocumentoFactura->getPrecioTotal();
+                                return $itemDocumentoFactura->getImporteNeto();
                             }
                         }
                     ' 

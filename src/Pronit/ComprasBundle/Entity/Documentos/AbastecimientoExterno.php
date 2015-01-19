@@ -54,4 +54,17 @@ abstract class AbastecimientoExterno extends Compras
     {
         $this->centroLogistico = $centroLogistico;
     }    
+    
+    public function getImporteNeto()
+    {
+        $importeNeto = 0;
+        
+        /* @var $item \Pronit\ComprasBundle\Entity\Documentos\ItemAbastecimientoExterno */
+        foreach ( $this->getItems() as $item ){
+            
+            $importeNeto = $importeNeto + $item->getImporteNeto();
+        }
+        
+        return $importeNeto;
+    }
 }
