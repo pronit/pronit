@@ -35,6 +35,10 @@ abstract class AbastecimientoExterno extends Compras
         $this->moneda = $moneda;
     } 
 
+    /**
+     * 
+     * @return ProveedorSociedadFI
+     */
     public function getProveedorSociedad()
     {
         return $this->proveedorSociedad;

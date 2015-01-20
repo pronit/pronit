@@ -10,6 +10,8 @@ use Pronit\ComprasBundle\Entity\Documentos\Pedidos\ItemPedido;
 use Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\ItemEntradaMercancias;
 use Pronit\CoreBundle\Entity\Impuestos\IndicadorImpuestos;
 
+use Pronit\CoreBundle\Model\Operaciones\Contextos\Impuestos\ContextoCalculoImpuesto;
+
 use \Exception;
 
 /**
@@ -76,6 +78,29 @@ class ItemFactura extends ItemAbastecimientoExterno {
         $this->getItemEntradaMercanciasFacturado()->registrarFacturacion($this);
         
         $this->getItemEntradaMercanciasFacturado()->getItemPedidoEntregado()->registrarFacturacion($this);
+    }
+    
+    public function getImporteTotal()
+    {
+        $importeTotal = $this->getImporteNeto();
+        
+        /* @var $itemIndicadorImpuesto \Pronit\CoreBundle\Entity\Impuestos\ItemIndicadorImpuestos */
+        foreach( $this->getIndicadorImpuestos()->getItems() as $itemIndicadorImpuesto ){
+            
+            $contexto = new ContextoCalculoImpuesto( $this->getImporteNeto(), $itemIndicadorImpuesto->getAlicuota() );
+            
+            $operacionContable = $itemIndicadorImpuesto->getOperacionContable();
+            
+            if ($operacionContable->aceptaContexto($contexto)) {
+                $monto = $operacionContable->ejecutar($contexto);
+                
+                $importeTotal = $importeTotal + $monto;
+            } else {
+                throw new Exception('La operación no puede ejecutarse en el contexto provisto.');
+            }
+        }
+        
+        return $importeTotal;
     }
     
     public function __toString() 

@@ -6,14 +6,17 @@ use Doctrine\ORM\EntityManager;
 use Exception;
 use Pronit\ComprasBundle\Entity\Documentos\Facturas\Factura;
 use Pronit\ComprasBundle\Entity\Documentos\Facturas\ItemFactura;
+use Pronit\CoreBundle\Entity\Documentos\ClasificadorItem;
+use Pronit\CoreBundle\Entity\Documentos\Documento;
+use Pronit\CoreBundle\Entity\Operaciones\OperacionContable;
+use Pronit\ParametrizacionGeneralBundle\Entity\ItemCondicionPagos;
+
 use Pronit\CoreBundle\Model\Contabilidad\Customizing\IImputacionesCustomizingManager;
 use Pronit\CoreBundle\Model\Contabilidad\Customizing\IImputacionesCustomizingManager as FIIImputacionesCustomizingManager;
 use Pronit\CoreBundle\Model\Contabilidad\Esquemas\EsquemaContable;
 use Pronit\CoreBundle\Model\Contabilidad\Esquemas\IGeneradorEsquemaContable;
 use Pronit\CoreBundle\Model\Contabilidad\Esquemas\ItemEsquemaContable;
-use Pronit\CoreBundle\Entity\Documentos\ClasificadorItem;
-use Pronit\CoreBundle\Entity\Documentos\Documento;
-use Pronit\CoreBundle\Entity\Operaciones\OperacionContable;
+
 use Pronit\CoreBundle\Model\Operaciones\Contextos\Documentos\Facturas\ContextoItemDocumentoFactura;
 use Pronit\CoreBundle\Model\Operaciones\Contextos\Impuestos\ContextoCalculoImpuesto;
 use Pronit\CustomizingBundle\Model\Operaciones\IOperacionesCustomizingManager;
@@ -58,26 +61,53 @@ class GeneradorEsquemaContable implements IGeneradorEsquemaContable {
         $esquema = new EsquemaContable();
 
         foreach ($factura->getItems() as $item) {
-            $itemsEsquema = $this->generarItemsEsquema($item);
+            $itemsEsquema = $this->generarItemsEsquemaSegunItemFactura($item);
             foreach ($itemsEsquema as $itemEsquema) {
                 $esquema->addItem($itemEsquema);
             }
+        }                
+        
+        /* Actualizar EsquemaContable según Condición de pagos */
+        
+        $itemsEsquema = $this->generarItemsEsquemaSegunCondicionPagosDeFactura($factura);
+        
+        foreach ($itemsEsquema as $itemEsquema) {
+            $esquema->addItem($itemEsquema);
         }
         
-        /* Se genera un nuevo ItemEsquemaContable según la cuenta del proveedor */
-        
-        $montoImporteNeto = $factura->getImporteNeto();
-        $montoTotal = $factura->getMontoTotal();
-
         return $esquema;
     }
 
     /**
      * 
+     * @param Factura $factura
+     * @return ItemEsquemaContable[]
+     */
+    protected function generarItemsEsquemaSegunCondicionPagosDeFactura(Factura $factura) 
+    {
+        $itemsEsquema = array();
+                
+        $operacionContable = $this->getOperacionCondicionPagos();
+        $cuenta = $factura->getProveedorSociedad()->getAcreedor()->getCuenta();
+        
+        foreach ( $factura->getCondicionPagos()->getItems() as /* @var $itemCondicionPagos ItemCondicionPagos */ $itemCondicionPagos ){
+                    
+            $montoCuota = $factura->getImporteTotal() / 100 * $itemCondicionPagos->getPorcentaje();
+            
+            if( $montoCuota !== 0 ){
+                $itemsEsquema[] = new ItemEsquemaContable($operacionContable, $cuenta, $montoCuota );
+            }
+        }
+        
+        return $itemsEsquema;
+    }
+    
+    /**
+     * 
      * @param ItemFactura $item
      * @return ItemEsquemaContable[]
      */
-    protected function generarItemsEsquema(ItemFactura $item) 
+    protected function generarItemsEsquemaSegunItemFactura(ItemFactura $item) 
     {
         $contexto = new ContextoItemDocumentoFactura($item, $this->entityManager);
 
@@ -97,8 +127,8 @@ class GeneradorEsquemaContable implements IGeneradorEsquemaContable {
                 $monto = $operacionContable->ejecutar($contexto);
                 
                 if( $monto !== 0 ){
-                    $items[] = new ItemEsquemaContable($item, $operacionContable, $cuenta, $monto);
-                }                
+                    $items[] = new ItemEsquemaContable($operacionContable, $cuenta, $monto);
+                }
             } else {
                 throw new Exception('La operación no puede ejecutarse en el contexto provisto.');
             }
@@ -121,7 +151,7 @@ class GeneradorEsquemaContable implements IGeneradorEsquemaContable {
                 throw new Exception('La operación no puede ejecutarse en el contexto provisto.');
             }
     
-            $items[] = new ItemEsquemaContable($item, $operacionContable, $cuenta, $monto);            
+            $items[] = new ItemEsquemaContable($operacionContable, $cuenta, $monto);            
         }
         
         return $items;
@@ -143,6 +173,15 @@ class GeneradorEsquemaContable implements IGeneradorEsquemaContable {
         } else {
             return $cuenta;
         }
+    }
+    
+    /**
+     * TODO: Refactorizar. Queda hardcodeada la operación KBS
+     */
+    protected function getOperacionCondicionPagos()
+    {
+        return $this->entityManager->getRepository('Pronit\CoreBundle\Entity\Operaciones\OperacionContable')
+                                    ->findOneByCodigo('KBS');
     }
 
     /**

@@ -89,7 +89,7 @@ class GeneradorEsquemaContable implements IGeneradorEsquemaContable {
                 
                 $monto = $operacionContable->ejecutar($contexto);
                 if( $monto !== 0 ){
-                    $items[] = new ItemEsquemaContable($item, $operacionContable, $cuenta, $monto);                    
+                    $items[] = new ItemEsquemaContable($operacionContable, $cuenta, $monto);                    
                 }
                 
             } else {

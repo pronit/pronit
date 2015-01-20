@@ -105,7 +105,22 @@ class LoadFuncion extends AbstractFixture implements FixtureInterface , OrderedF
                             }
                         }
                     ' 
-            ),            
+            ),
+            array( 
+                    "nombre" => "OP_KBS", 
+                    "nombreClase" => "Script_OP_KBS", 
+                    "script" => '
+                        class Script_OP_KBS extends Scripting\Script {
+                            public function ejecutar(Scripting\Contexto $contexto) {
+                                $contextoOperacion = $contexto->getContextoOperacion();
+                                
+                                $factura = $contextoOperacion->getFactura();
+                               
+                                return $factura->getImporteTotal();
+                            }
+                        }
+                    ' 
+            ),
             array( 
                     "nombre" => "OP_PRD_Positive", 
                     "nombreClase" => "Script_OP_PRD_Positive", 

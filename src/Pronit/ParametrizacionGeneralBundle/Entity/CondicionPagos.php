@@ -151,4 +151,9 @@ class CondicionPagos {
         
         return result;
     }
+    
+    public function __toString()
+    {
+        return (string) $this->getNombre();
+    }
 }

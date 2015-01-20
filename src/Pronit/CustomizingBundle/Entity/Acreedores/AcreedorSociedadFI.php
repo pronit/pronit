@@ -48,6 +48,10 @@ abstract class AcreedorSociedadFI
         return $this->id;
     }
 
+    /**
+     * 
+     * @return Acreedor
+     */
     public function getAcreedor()
     {
         return $this->acreedor;

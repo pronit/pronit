@@ -51,6 +51,7 @@ class LoadClaveContabilizacion extends AbstractFixture implements FixtureInterfa
             array( "key" => 1, "nombre" => "Factura Deudor", "signo" => 1 ),
             array( "key" => 2, "nombre" => "Anular abono", "signo" => 1 ),
             array( "key" => 3, "nombre" => "Gastos", "signo" => 1 ),
+            array( "key" => 31, "nombre" => "Factura", "signo" => -1 ),
             array( "key" => 40, "nombre" => "Contab.Debe", "signo" => 1 ),
             array( "key" => 50, "nombre" => "Contab.Haber", "signo" => -1 ),
             array( "key" => 83, "nombre" => "Diferencia de precio -", "signo" => 1 ),

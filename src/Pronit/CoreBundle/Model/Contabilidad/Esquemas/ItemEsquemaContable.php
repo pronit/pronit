@@ -9,8 +9,6 @@ use Pronit\CoreBundle\Entity\Operaciones\OperacionContable;
 
 class ItemEsquemaContable
 {
-    /** @var Item */
-    protected $itemDocumento;
     
     /** @var OperacionContable */
     protected $operacion;
@@ -21,23 +19,13 @@ class ItemEsquemaContable
     /** @var float */
     protected $monto;
     
-    public function __construct( Item $itemDocumento, OperacionContable $operacion, Cuenta $cuenta, $monto )
+    public function __construct( OperacionContable $operacion, Cuenta $cuenta, $monto )
     {
         $this->setCuenta($cuenta);
-        $this->setItemDocumento($itemDocumento);
         $this->setMonto($monto);
         $this->setOperacion($operacion);
     }
     
-    /**
-     * 
-     * @return Item
-     */
-    public function getItemDocumento()
-    {
-        return $this->itemDocumento;
-    }
-
     /**
      * 
      * @return OperacionContable
@@ -60,11 +48,6 @@ class ItemEsquemaContable
     public function getMonto()
     {
         return $this->monto;
-    }
-
-    public function setItemDocumento($itemDocumento)
-    {
-        $this->itemDocumento = $itemDocumento;
     }
 
     public function setOperacion($operacion)

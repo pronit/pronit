@@ -40,8 +40,8 @@ class GeneradorEsquemaContableTest extends KernelTestCase {
         $itemDocumento = $this->getMock('Pronit\CoreBundle\Entity\Documentos\Item');
         
         $esquema = new EsquemaContable();
-        $esquema->addItem(new ItemEsquemaContable($itemDocumento, $operacionContable1, $cuenta1, 100));
-        $esquema->addItem(new ItemEsquemaContable($itemDocumento, $operacionContable2, $cuenta2, 100));
+        $esquema->addItem(new ItemEsquemaContable($operacionContable1, $cuenta1, 100));
+        $esquema->addItem(new ItemEsquemaContable($operacionContable2, $cuenta2, 100));
         
         $generador = new GeneradorAsientosContables();
         $movimientos = $generador->generarDesdeEsquema($esquema);

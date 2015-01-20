@@ -12,6 +12,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Pronit\CoreBundle\Entity\Operaciones\OperacionContable;
 
 use Pronit\CoreBundle\Model\Operaciones\Contextos\Impuestos\ContextoCalculoImpuesto;
+use Pronit\CoreBundle\Model\Operaciones\Contextos\Documentos\Facturas\ContextoDocumentoFactura;
 
 /**
  * @author ldelia
@@ -53,6 +54,7 @@ class LoadOperacionContable extends AbstractFixture implements FixtureInterface 
             array( "codigo" => "BSX", "nombre" => "Contabilización de inventario", "claveContabilizacion" => 89, "nombreFuncion" => "OP_BSX", "contextosAceptados" => array( 'Compras.ItemDocumentoEntradaMercancias' ) ),
             array( "codigo" => "WRX", "nombre" => "EM/RF abierta", "claveContabilizacion" => 96, "nombreFuncion" => "OP_WRX", "contextosAceptados" => array( 'Compras.ItemDocumentoEntradaMercancias' ) ),
             array( "codigo" => "WRZ", "nombre" => "EM/RF concluida", "claveContabilizacion" => 86, "nombreFuncion" => "OP_WRZ", "contextosAceptados" => array( 'Compras.ItemDocumentoFactura' ) ),            
+            array( "codigo" => "KBS", "nombre" => "Pedido Imputado", "claveContabilizacion" => 31, "nombreFuncion" => "OP_KBS", "contextosAceptados" => array( ContextoDocumentoFactura::CODIGO ) ),            
             array( "codigo" => "PRM", "nombre" => "Dif. de cambio R-", "claveContabilizacion" => 40, "nombreFuncion" => "OP_BSX", "contextosAceptados" => array( 'Compras.ItemDocumentoEntradaMercancias' ) ),
             array( "codigo" => "PRG", "nombre" => "Dif. de cambio R+", "claveContabilizacion" => 50, "nombreFuncion" => "OP_BSX", "contextosAceptados" => array( 'Compras.ItemDocumentoEntradaMercancias' ) ),
             array( "codigo" => "PRD-", "nombre" => "Dif. de precio negat", "claveContabilizacion" => 83, "nombreFuncion" => "OP_PRD_Negative", "contextosAceptados" => array( 'Compras.ItemDocumentoEntradaMercancias' ) ),
