@@ -1,7 +1,8 @@
 parameters:
     pronit_contabilidad_customizing.imputaciones_manager.class: Pronit\CoreBundle\Model\Contabilidad\Customizing\ImputacionesCustomizingManager
     pronit_contabilidad_customizing.generador_asientos_contables.class: Pronit\CoreBundle\Model\Contabilidad\Movimientos\GeneradorAsientosContables
-
+    pronit_core.numeracion_sociedadfi_manager.class: Pronit\CoreBundle\Model\Numeraciones\NumeracionSociedadFIManager
+        
 services:
 
     pronit_core.buscador_registro_condicion:
@@ -16,10 +17,15 @@ services:
         class: Pronit\CoreBundle\Model\Automatizacion\Secuencias\MetadataValue\Factory\Locator\TablaCondicionMetadataProviderFactoryLocator
         arguments: [@doctrine.orm.entity_manager, @pronit_core.registro_condicion_metadatavalue_factory]    
         
+    pronit_core.numeracion_sociedadfi_manager:
+        class: %pronit_core.numeracion_sociedadfi_manager.class%
+        arguments: [@doctrine.orm.entity_manager]
+        
     pronit_contabilidad_customizing.imputaciones_manager:
         class: %pronit_contabilidad_customizing.imputaciones_manager.class%
         arguments: [@doctrine.orm.entity_manager]
 
     pronit_contabilidad_customizing.generador_asientos_contables:
         class: %pronit_contabilidad_customizing.generador_asientos_contables.class%
+        arguments: [@pronit_core.numeracion_sociedadfi_manager]
         

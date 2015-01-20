@@ -1,40 +1,35 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+namespace Pronit\CoreBundle\Entity\Numeraciones;
 
-namespace Pronit\CoreBundle\Entity\Contabilidad\Movimientos;
-
+use Pronit\EstructuraEmpresaBundle\Entity\SociedadFI;
 use Doctrine\ORM\Mapping as ORM;
 
-/** 
+/**
  * @ORM\Entity
- * @ORM\Table(name="conta_numeracionmovimientos")
+ * @ORM\Table(name="core_numeracionsociedadfi")
  */
-class NumeracionMovimientosSociedadFI {
-    
-    
-    /**
-     * @ORM\Column(type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */    
-    private $id;
-    
+class NumeracionSociedadFI {
+
+    /** 
+     * @ORM\Id    
+     * @ORM\OneToOne(targetEntity="Pronit\EstructuraEmpresaBundle\Entity\SociedadFI")
+     * @var SociedadFI 
+     */
+    private $sociedadFI;
+
     /**
      * 
      * @ORM\Column(type="integer") 
      * @var int 
      */
     private $ultimoNumeroAsiento;
-    
-    public function __construct() {
-        
+
+    public function __construct(SociedadFI $sociedadFI) {
+        $this->sociedadFI = $sociedadFI;
+        $this->ultimoNumeroAsiento = 0;
     }
-    
+
     /**
      * 
      * @param int $value
@@ -42,7 +37,7 @@ class NumeracionMovimientosSociedadFI {
     public function setUltimoNumeroAsiento($value) {
         $this->ultimoNumeroAsiento = $value;
     }
-    
+
     /**
      * 
      * @return int
@@ -50,8 +45,7 @@ class NumeracionMovimientosSociedadFI {
     public function getUltimoNumeroAsiento() {
         return $this->ultimoNumeroAsiento;
     }
-    
-    
+
     /**
      * Incrementa el valor del último número de asiento.
      * 
@@ -60,5 +54,10 @@ class NumeracionMovimientosSociedadFI {
     public function incrementarUltimoNumeroAsiento() {
         $this->ultimoNumeroAsiento++;
         return $this->ultimoNumeroAsiento;
+    }
+
+    
+    public function getId() {
+        return $this->id;
     }
 }

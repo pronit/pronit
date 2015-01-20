@@ -58,7 +58,7 @@ class GeneradorEsquemaContable implements IGeneradorEsquemaContable {
      */
     protected function generarDeFactura(Factura $factura) 
     {
-        $esquema = new EsquemaContable();
+        $esquema = new EsquemaContable($factura);
 
         foreach ($factura->getItems() as $item) {
             $itemsEsquema = $this->generarItemsEsquemaSegunItemFactura($item);

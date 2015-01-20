@@ -53,7 +53,7 @@ class GeneradorEsquemaContable implements IGeneradorEsquemaContable {
      * @param EntradaMercancias $entradaMercancias
      */
     protected function generarDeEntradaMercancia(EntradaMercancias $entradaMercancias) {
-        $esquema = new EsquemaContable();
+        $esquema = new EsquemaContable($entradaMercancias);
 
         foreach ($entradaMercancias->getItems() as $item) {
             $itemsEsquema = $this->generarItemsEsquema($item);

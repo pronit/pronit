@@ -2,13 +2,31 @@
 
 namespace Pronit\CoreBundle\Model\Contabilidad\Esquemas;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Pronit\CoreBundle\Entity\Documentos\Documento;
+
 class EsquemaContable
 {
     protected $items;
     
-    public function __construct()
+    /**
+     *
+     * @var Documento 
+     */
+    private $documento;
+    
+    public function __construct(Documento $documento)
     {
-        $this->setItems(new \Doctrine\Common\Collections\ArrayCollection());
+        $this->documento = $documento;
+        $this->setItems(new ArrayCollection());
+    }
+    
+    /**
+     * 
+     * @return Documento
+     */
+    public function getDocumento() {
+        return $this->documento;
     }
     
     public function addItem(ItemEsquemaContable $item)
@@ -18,7 +36,7 @@ class EsquemaContable
     
     /**
      * 
-     * @return \Doctrine\Common\Collections\ArrayCollection
+     * @return ArrayCollection
      */
     public function getItems()
     {
