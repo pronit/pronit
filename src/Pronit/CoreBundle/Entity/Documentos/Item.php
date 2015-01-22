@@ -40,6 +40,10 @@ abstract class Item
         return $this->id;
     }
 
+    /**
+     * 
+     * @return Documento
+     */
     public function getDocumento()
     {
         return $this->documento;

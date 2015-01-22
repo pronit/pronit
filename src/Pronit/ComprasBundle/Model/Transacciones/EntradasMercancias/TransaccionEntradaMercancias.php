@@ -5,46 +5,53 @@ namespace Pronit\ComprasBundle\Model\Transacciones\EntradasMercancias;
 use Doctrine\ORM\EntityManager;
 use Exception;
 use Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\EntradaMercancias;
-use Pronit\CoreBundle\Model\Contabilidad\Esquemas\IGeneradorEsquemaContable;
 use Pronit\CoreBundle\Model\Contabilidad\Movimientos\IGeneradorAsientosContables;
+use Pronit\CoreBundle\Model\Documentos\IGeneradorItemsFinanzas;
 
 /**
  *
  * @author ldelia
  */
 class TransaccionEntradaMercancias {
-    
+
     /** @var EntityManager */
     protected $em;
-    
-    /** @var IGeneradorEsquemaContable */
-    protected $generadorEsquemaContable;
-    
+
+    /** @var IGeneradorItemsFinanzas */
+    protected $generadorItemsFinanzas;
+
     /** @var IGeneradorAsientosContables */
     protected $generadorAsientosContables;
 
-    public function __construct(EntityManager $em, IGeneradorEsquemaContable $generadorEsquemaContable, IGeneradorAsientosContables $generadorAsientosContables) {
+    public function __construct(EntityManager $em, IGeneradorItemsFinanzas $generadorItemsFinanzas, IGeneradorAsientosContables $generadorAsientosContables) {
         $this->em = $em;
-        $this->generadorEsquemaContable = $generadorEsquemaContable;
+        $this->generadorItemsFinanzas = $generadorItemsFinanzas;
         $this->generadorAsientosContables = $generadorAsientosContables;
     }
 
     public function ejecutar(EntradaMercancias $entradaMercancias) {
-        if (!$entradaMercancias->isContabilizado()) {
+        if ($entradaMercancias->isContabilizado()) {
+            throw new Exception("La entrada de mercancias no puede ser contabilizada");
+        }
 
+        $this->em->getConnection()->beginTransaction();
+        try {
             $entradaMercancias->contabilizar();
-            
-            $esquemaContable = $this->generadorEsquemaContable->generar($entradaMercancias);
-            $movimientos = $this->generadorAsientosContables->generarDesdeEsquema($esquemaContable);
+
+            $this->generadorItemsFinanzas->generar($entradaMercancias);
+            $movimientos = $this->generadorAsientosContables->generarDesdeDocumento($entradaMercancias);
 
             foreach ($movimientos as $movimiento) {
                 $this->em->persist($movimiento);
             }
-            
+
             $this->em->persist($entradaMercancias);
             $this->em->flush();
-        } else {
-            throw new Exception("La entrada de mercancias no puede ser contabilizada");
+
+            $this->em->getConnection()->commit();
+        } catch (Exception $e) {
+            $this->em->getConnection()->rollback();
+            throw $e;
         }
     }
 

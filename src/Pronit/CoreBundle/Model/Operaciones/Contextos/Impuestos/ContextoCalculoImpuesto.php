@@ -2,6 +2,7 @@
 
 namespace Pronit\CoreBundle\Model\Operaciones\Contextos\Impuestos;
 
+use Pronit\CoreBundle\Entity\Operaciones\Operacion;
 use Pronit\CoreBundle\Model\Operaciones\Contextos\Contexto;
 
 /**
@@ -9,38 +10,34 @@ use Pronit\CoreBundle\Model\Operaciones\Contextos\Contexto;
  *
  * @author ldelia
  */
-class ContextoCalculoImpuesto extends Contexto 
-{
+class ContextoCalculoImpuesto extends Contexto {
+
     protected $montoImponible;
     protected $alicuota;
-    
+
     const CODIGO = "Impuestos.CalculoImpuesto";
-    
-    public function __construct($montoImponible, $alicuota) 
-    {
-        parent::__construct( self::CODIGO );
-        
-        $this->montoImponible = $montoImponible;        
+
+    public function __construct(Operacion $operacion, $montoImponible, $alicuota) {
+        parent::__construct(self::CODIGO, $operacion);
+
+        $this->montoImponible = $montoImponible;
         $this->alicuota = $alicuota;
     }
-    
-    function getMontoImponible()
-    {
+
+    function getMontoImponible() {
         return $this->montoImponible;
     }
 
-    function setMontoImponible($montoImponible)
-    {
+    function setMontoImponible($montoImponible) {
         $this->montoImponible = $montoImponible;
-    }      
-    
-    function getAlicuota()
-    {
+    }
+
+    function getAlicuota() {
         return $this->alicuota;
     }
 
-    function setAlicuota($alicuota)
-    {
+    function setAlicuota($alicuota) {
         $this->alicuota = $alicuota;
-    }    
+    }
+
 }

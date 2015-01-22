@@ -51,16 +51,17 @@ class LoadOperacionContable extends AbstractFixture implements FixtureInterface 
         $this->setManager($manager);        
 
         $values =  array(
-            array( "codigo" => "BSX", "nombre" => "Contabilización de inventario", "claveContabilizacion" => 89, "nombreFuncion" => "OP_BSX", "contextosAceptados" => array( 'Compras.ItemDocumentoEntradaMercancias' ) ),
-            array( "codigo" => "WRX", "nombre" => "EM/RF abierta", "claveContabilizacion" => 96, "nombreFuncion" => "OP_WRX", "contextosAceptados" => array( 'Compras.ItemDocumentoEntradaMercancias' ) ),
-            array( "codigo" => "WRZ", "nombre" => "EM/RF concluida", "claveContabilizacion" => 86, "nombreFuncion" => "OP_WRZ", "contextosAceptados" => array( 'Compras.ItemDocumentoFactura' ) ),            
-            array( "codigo" => "KBS", "nombre" => "Pedido Imputado", "claveContabilizacion" => 31, "nombreFuncion" => "OP_KBS", "contextosAceptados" => array( ContextoDocumentoFactura::CODIGO ) ),            
-            array( "codigo" => "PRM", "nombre" => "Dif. de cambio R-", "claveContabilizacion" => 40, "nombreFuncion" => "OP_BSX", "contextosAceptados" => array( 'Compras.ItemDocumentoEntradaMercancias' ) ),
-            array( "codigo" => "PRG", "nombre" => "Dif. de cambio R+", "claveContabilizacion" => 50, "nombreFuncion" => "OP_BSX", "contextosAceptados" => array( 'Compras.ItemDocumentoEntradaMercancias' ) ),
-            array( "codigo" => "PRD-", "nombre" => "Dif. de precio negat", "claveContabilizacion" => 83, "nombreFuncion" => "OP_PRD_Negative", "contextosAceptados" => array( 'Compras.ItemDocumentoEntradaMercancias' ) ),
-            array( "codigo" => "PRD+", "nombre" => "Dif. de precio posit", "claveContabilizacion" => 93, "nombreFuncion" => "OP_PRD_Positive", "contextosAceptados" => array( 'Compras.ItemDocumentoEntradaMercancias' ) ),
-            array( "codigo" => "BSD-", "nombre" => "Revalúo inventario en menos", "claveContabilizacion" => 50, "nombreFuncion" => "OP_BSD_Negative", "contextosAceptados" => array( 'Compras.ItemDocumentoEntradaMercancias' ) ),
-            array( "codigo" => "BSD+", "nombre" => "Revalúo inventario en mas", "claveContabilizacion" => 40, "nombreFuncion" => "OP_BSD_Positive", "contextosAceptados" => array( 'Compras.ItemDocumentoEntradaMercancias' ) ),
+            array( "codigo" => "BSX", "nombre" => "Contabilización de inventario", "claveContabilizacion" => 89, "nombreFuncion" => "DOC_EM_ITEM_MONTOTOTAL", "contextosAceptados" => array( 'Compras.ItemDocumentoEntradaMercancias' ) ),
+            array( "codigo" => "WRX", "nombre" => "EM/RF abierta", "claveContabilizacion" => 96, "nombreFuncion" => "DOC_EM_ITEM_MONTOTOTAL", "contextosAceptados" => array( 'Compras.ItemDocumentoEntradaMercancias' ) ),
+            array( "codigo" => "WRZ", "nombre" => "EM/RF concluida", "claveContabilizacion" => 86, "nombreFuncion" => "DOC_FC_ITEM_MONTOTOTAL", "contextosAceptados" => array( 'Compras.ItemDocumentoFactura' ) ),            
+            array( "codigo" => "KBS", "nombre" => "Pedido Imputado", "claveContabilizacion" => 31, "nombreFuncion" => "DOC_KR_PEDIDOIMPUTADO", "contextosAceptados" => array( ContextoDocumentoFactura::CODIGO ) ),
+            array( "codigo" => "PRM", "nombre" => "Dif. de cambio R-", "claveContabilizacion" => 40, "nombreFuncion" => "DOC_EM_ITEM_MONTOTOTAL", "contextosAceptados" => array( 'Compras.ItemDocumentoEntradaMercancias' ) ),
+            array( "codigo" => "PRG", "nombre" => "Dif. de cambio R+", "claveContabilizacion" => 50, "nombreFuncion" => "DOC_EM_ITEM_MONTOTOTAL", "contextosAceptados" => array( 'Compras.ItemDocumentoEntradaMercancias' ) ),
+            array( "codigo" => "PRD-", "nombre" => "Dif. de precio negat", "claveContabilizacion" => 83, "nombreFuncion" => "DOC_EM_ITEM_DIFFPRECIOVALORACION_NEGATIVE", "contextosAceptados" => array( 'Compras.ItemDocumentoEntradaMercancias' ) ),
+            array( "codigo" => "PRD+", "nombre" => "Dif. de precio posit", "claveContabilizacion" => 93, "nombreFuncion" => "DOC_EM_ITEM_DIFFPRECIOVALORACION_POSITIVE", "contextosAceptados" => array( 'Compras.ItemDocumentoEntradaMercancias' ) ),
+            array( "codigo" => "BSD-", "nombre" => "Revalúo inventario en menos", "claveContabilizacion" => 50, "nombreFuncion" => "DOC_EM_ITEM_REVALUOINVENTARIO_NEGATIVE", "contextosAceptados" => array( 'Compras.ItemDocumentoEntradaMercancias' ) ),
+            array( "codigo" => "BSD+", "nombre" => "Revalúo inventario en mas", "claveContabilizacion" => 40, "nombreFuncion" => "DOC_EM_ITEM_REVALUOINVENTARIO_POSITIVE", "contextosAceptados" => array( 'Compras.ItemDocumentoEntradaMercancias' ) ),
+            array( "codigo" => "IMP", "nombre" => "Cálculo de impuestos", "claveContabilizacion" => 40, "nombreFuncion" => "DOC_KR_ITEM_IMPUESTOS", "contextosAceptados" => array( 'Compras.ItemDocumentoFactura' ) ),
             array( "codigo" => "J1A1", "nombre" => "IVA soportado", "claveContabilizacion" => 40, "nombreFuncion" => "IMP_AXM", "contextosAceptados" => array( ContextoCalculoImpuesto::CODIGO ) ),
         );
         

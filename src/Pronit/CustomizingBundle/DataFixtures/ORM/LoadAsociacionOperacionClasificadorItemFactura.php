@@ -49,7 +49,8 @@ class LoadAsociacionOperacionClasificadorItemFactura extends AbstractFixture imp
 
         
         $values =  array(
-            array( "codigo" => "102", "operacion" => "WRZ"),         
+            array( "codigo" => "102", "operacion" => "WRZ"),  
+            array( "codigo" => "102", "operacion" => "IMP")
         );
         
         foreach( $values as $value ){

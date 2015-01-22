@@ -2,28 +2,30 @@
 
 namespace Pronit\CoreBundle\Model\Operaciones\Contextos\Documentos;
 
-use Pronit\CoreBundle\Model\Operaciones\Contextos\Contexto;
 use Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\EntradaMercancias;
+use Pronit\CoreBundle\Entity\Operaciones\Operacion;
+use Pronit\CoreBundle\Model\Operaciones\Contextos\Contexto;
 
 /**
  *
  * @author ldelia
  */
 class ContextoDocumentoEntradaMercancias extends Contexto {
-    
+
     protected $documento;
-    
-    public function __construct(EntradaMercancias $documento) {
-        parent::__construct("Compras.DocumentoEntradaMercancias");
-        
-        $this->documento = $documento;        
+
+    public function __construct(Operacion $operacion, EntradaMercancias $documento) {
+        parent::__construct("Compras.DocumentoEntradaMercancias", $operacion);
+
+        $this->documento = $documento;
     }
-    
+
     /**
      * 
-     * @return \Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\EntradaMercancias
+     * @return EntradaMercancias
      */
-    public function getDocumento(){
+    public function getDocumento() {
         return $this->documento;
     }
+
 }
