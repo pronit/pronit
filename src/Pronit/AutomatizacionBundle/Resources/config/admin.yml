@@ -1,0 +1,12 @@
+services:
+    pronit.admin.automatizacion.funcion:
+        class: Pronit\AutomatizacionBundle\Admin\FuncionAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Automatización", label: "Funciones" }
+        arguments:
+            - ~
+            - Pronit\AutomatizacionBundle\Entity\Funcion
+            - ~
+        #calls:
+        #    - [ setTranslationDomain, [PronitComprasBundle]]
+            
