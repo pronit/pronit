@@ -109,7 +109,7 @@ abstract class Operacion {
     protected abstract function procesar($returnValue);
     
     protected function procesarException(Exception $e) {
-        return null;
+        throw $e;
     }
     
     public function aceptaContexto(Contexto $contexto) {

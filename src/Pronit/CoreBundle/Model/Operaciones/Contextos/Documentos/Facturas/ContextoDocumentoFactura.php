@@ -4,41 +4,56 @@ namespace Pronit\CoreBundle\Model\Operaciones\Contextos\Documentos\Facturas;
 
 use Doctrine\ORM\EntityManager;
 use Pronit\ComprasBundle\Entity\Documentos\Facturas\Factura;
+use Pronit\CoreBundle\Entity\Operaciones\Operacion;
+use Pronit\CoreBundle\Model\Contabilidad\Customizing\IImputacionesCustomizingManager as FIIImputacionesCustomizingManager;
 use Pronit\CoreBundle\Model\Operaciones\Contextos\Contexto;
 
 /**
  *
  * @author ldelia
  */
-class ContextoDocumentoFactura extends Contexto 
-{    
+class ContextoDocumentoFactura extends Contexto {
+
     protected $factura;
     protected $entityManager;
-    
+
+    /**
+     *
+     * @var FIIImputacionesCustomizingManager 
+     */
+    protected $fiImputacionesCustomizingManager;
+
     const CODIGO = "Compras.DocumentoFactura";
-    
-    public function __construct( Factura $factura, EntityManager $em) 
-    {
-        parent::__construct( self::CODIGO );
+
+    public function __construct(Operacion $operacion, Factura $factura, FIIImputacionesCustomizingManager $fiImputacionesCustomizingManager, EntityManager $em) {
+        parent::__construct(self::CODIGO, $operacion);
         $this->entityManager = $em;
-        $this->factura = $factura;        
+        $this->factura = $factura;
+        $this->fiImputacionesCustomizingManager = $fiImputacionesCustomizingManager;
     }
-    
+
     /**
      * 
      * @return Factura
      */
-    public function getFactura()
-    {
+    public function getFactura() {
         return $this->factura;
     }
-    
+
     /**
      * 
      * @return EntityManager
      */
-    public function getEntityManager() 
-    {
+    public function getEntityManager() {
         return $this->entityManager;
     }
+
+    /**
+     * 
+     * @return FIIImputacionesCustomizingManager
+     */
+    public function getFIImputacionesCustomizingManager() {
+        return $this->fiImputacionesCustomizingManager;
+    }
+
 }

@@ -8,50 +8,68 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-
 use Pronit\AutomatizacionBundle\Entity\Funcion;
 
 /**
  * @author ldelia
  */
-class LoadFuncion extends AbstractFixture implements FixtureInterface , OrderedFixtureInterface, ContainerAwareInterface
-{
+class LoadFuncion extends AbstractFixture implements FixtureInterface, OrderedFixtureInterface, ContainerAwareInterface {
+
     /**
      * @var ContainerInterface
      */
-    private $container;    
+    private $container;
     private $manager;
 
     /**
      * {@inheritDoc}
      */
-    public function setContainer(ContainerInterface $container = null)
-    {
+    public function setContainer(ContainerInterface $container = null) {
         $this->container = $container;
     }
-    
-    public function getManager()
-    {
+
+    public function getManager() {
         return $this->manager;
     }
 
-    public function setManager(ObjectManager $manager)
-    {
+    public function setManager(ObjectManager $manager) {
         $this->manager = $manager;
     }
-    
+
     /**
      * {@inheritDoc}
-     */       
-    public function load(ObjectManager $manager)
-    {
-        $this->setManager($manager);        
+     */
+    public function load(ObjectManager $manager) {
+        $this->setManager($manager);
 
-        $values =  array(
-            array( 
-                    "nombre" => "IMP_AXM", 
-                    "nombreClase" => "Script_IMP_AXM", 
-                    "script" => '
+        $values = array(
+            array(
+                "nombre" => "DOC_KR_ITEM_IMPUESTOS",
+                "nombreClase" => "Script_DOC_KR_ITEM_IMPUESTOS",
+                "script" => '
+                        class Script_DOC_KR_ITEM_IMPUESTOS extends Scripting\Script {
+                            public function ejecutar(Scripting\Contexto $contexto) {
+                                $result = array();
+                                $contextoOperacion = $contexto->getContextoOperacion();
+                                
+                                $itemFactura = $contextoOperacion->getItem();
+                                
+                                foreach ($itemFactura->getIndicadorImpuestos()->getItems() as $item) {
+                                    $contextoCalculoImpuestos = new Core_Operaciones_Contextos\Impuestos\ContextoCalculoImpuesto($item->getOperacionContable(), $itemFactura->getImporteNeto(), $item->getAlicuota());
+                                    $cuenta = $contextoOperacion->getFIImputacionesCustomizingManager()->getCuenta($item->getOperacionContable());
+                                    $importe = $item->getOperacionContable()->ejecutar($contextoCalculoImpuestos);
+                                    $result[] = new Core_Scripting\ItemFinanzasDTO($cuenta, $importe);
+                                }
+
+                                return $result;
+                            }
+                        }
+                    '
+            ),
+            array(
+                "nombre" => "IMP_AXM",
+                "nombreClase" => "Script_IMP_AXM",
+                "script" => '
                         class Script_IMP_AXM extends Scripting\Script {
                             public function ejecutar(Scripting\Contexto $contexto) {
                                 $contextoOperacion = $contexto->getContextoOperacion();
@@ -59,80 +77,93 @@ class LoadFuncion extends AbstractFixture implements FixtureInterface , OrderedF
                                 return $contextoOperacion->getMontoImponible() * $contextoOperacion->getAlicuota() / 100;
                             }
                         }
-                    ' 
-            ),            
-            array( 
-                    "nombre" => "OP_BSX", 
-                    "nombreClase" => "Script_OP_BSX", 
-                    "script" => '
-                        class Script_OP_BSX extends Scripting\Script {
+                    '
+            ),
+            array(
+                "nombre" => "DOC_EM_ITEM_MONTOTOTAL",
+                "nombreClase" => "Script_DOC_EM_ITEM_MONTOTOTAL",
+                "script" => '
+                         class Script_DOC_EM_ITEM_MONTOTOTAL extends Scripting\Script {
+                             public function ejecutar(Scripting\Contexto $contexto) {
+                                 $contextoOperacion = $contexto->getContextoOperacion();
+
+                                 $item = $contextoOperacion->getItem();
+                                 $importe = $item->getImporteNeto();
+				 $clasificador = (object)$item->getClasificador();
+                                 
+                                 $cuenta = $contextoOperacion->getMMImputacionesCustomizingManager()->getCuenta($clasificador, $contextoOperacion->getOperacion(), $item->getBienServicio()->getCategoriaValoracion());
+                                 if ($cuenta == null) {
+                                     $cuenta = $contextoOperacion->getFIImputacionesCustomizingManager()->getCuenta($contextoOperacion->getOperacion());
+                                 }
+                                 if ($cuenta == null) {
+                                     throw new \Exception("No se especificó una cuenta contable para imputar.");
+                                 }
+                                 
+                                 return new Core_Scripting\ItemFinanzasDTO($cuenta, $importe);
+                             }
+                         }
+                '
+            ),
+            array(
+                "nombre" => "DOC_FC_ITEM_MONTOTOTAL",
+                "nombreClase" => "Script_DOC_FC_ITEM_MONTOTOTAL",
+                "script" => '
+                        class Script_DOC_FC_ITEM_MONTOTOTAL extends Scripting\Script {
                             public function ejecutar(Scripting\Contexto $contexto) {
                                 $contextoOperacion = $contexto->getContextoOperacion();
                                 
-                                $itemDocumentoEntradaMercancias = $contextoOperacion->getItem();
-                               
-                                return $itemDocumentoEntradaMercancias->getCantidad() * $itemDocumentoEntradaMercancias->getPrecioUnitario();
+                                $item = $contextoOperacion->getItem();
+                                $importe = $item->getImporteNeto();
+                                
+                                $cuenta = $contextoOperacion->getFIImputacionesCustomizingManager()->getCuenta($contextoOperacion->getOperacion());
+                                if ($cuenta == null) {
+                                    throw new \Exception("No se especificó una cuenta contable para imputar.");
+                                }
+                                
+                                return new Core_Scripting\ItemFinanzasDTO($cuenta, $importe);
                             }
+
                         }
-                    ' 
+                    '
             ),
-            array( 
-                    "nombre" => "OP_WRX", 
-                    "nombreClase" => "Script_OP_WRX", 
-                    "script" => '
-                        class Script_OP_WRX extends Scripting\Script {
+            array(
+                "nombre" => "DOC_KR_PEDIDOIMPUTADO",
+                "nombreClase" => "Script_DOC_KR_PEDIDOIMPUTADO",
+                "script" => '
+                        class Script_DOC_KR_PEDIDOIMPUTADO extends Scripting\Script {
                             public function ejecutar(Scripting\Contexto $contexto) {
                                 $contextoOperacion = $contexto->getContextoOperacion();
                                 
-                                $itemDocumentoEntradaMercancias = $contextoOperacion->getItem();
-                               
-                                return $itemDocumentoEntradaMercancias->getCantidad() * $itemDocumentoEntradaMercancias->getPrecioUnitario();
-                            }
-                        }
-                    ' 
-            ),
-            array( 
-                    "nombre" => "OP_WRZ", 
-                    "nombreClase" => "Script_OP_WRZ", 
-                    "script" => '
-                        class Script_OP_WRZ extends Scripting\Script {
-                            public function ejecutar(Scripting\Contexto $contexto) {
-                                $contextoOperacion = $contexto->getContextoOperacion();
+                                $result = array();
+
+                                $factura = $contextoOperacion->getFactura();                                
+                                $cuenta = $factura->getProveedorSociedad()->getAcreedor()->getCuenta();
                                 
-                                $itemDocumentoFactura = $contextoOperacion->getItem();
+                                foreach ($factura->getCondicionPagos()->getItems() as $itemCondicionPagos){
+                                    $montoCuota = $factura->getImporteTotal() / 100 * $itemCondicionPagos->getPorcentaje();
+                                    
+                                    if ($montoCuota !== 0){
+                                        $result[] =  new Core_Scripting\ItemFinanzasDTO($cuenta, $montoCuota);
+                                    }
+                                }
                                
-                                return $itemDocumentoFactura->getImporteNeto();
+                                return $result;
                             }
                         }
-                    ' 
+                    '
             ),
-            array( 
-                    "nombre" => "OP_KBS", 
-                    "nombreClase" => "Script_OP_KBS", 
-                    "script" => '
-                        class Script_OP_KBS extends Scripting\Script {
-                            public function ejecutar(Scripting\Contexto $contexto) {
-                                $contextoOperacion = $contexto->getContextoOperacion();
-                                
-                                $factura = $contextoOperacion->getFactura();
-                               
-                                return $factura->getImporteTotal();
-                            }
-                        }
-                    ' 
-            ),
-            array( 
-                    "nombre" => "OP_PRD_Positive", 
-                    "nombreClase" => "Script_OP_PRD_Positive", 
-                    "script" => '
-                         class Script_OP_PRD_Positive extends Scripting\Script {
+            array(
+                "nombre" => "DOC_EM_ITEM_DIFFPRECIOVALORACION_POSITIVE",
+                "nombreClase" => "Script_DOC_EM_ITEM_DIFFPRECIOVALORACION_POSITIVE",
+                "script" => '
+                         class Script_DOC_EM_ITEM_DIFFPRECIOVALORACION_POSITIVE extends Scripting\Script {
                              public function ejecutar(Scripting\Contexto $contexto) {
                                  $contextoOperacion = $contexto->getContextoOperacion();
                                  
                                  $em = $contextoOperacion->getEntityManager();
                                  $itemDocumentoEntradaMercancias = $contextoOperacion->getItem();
                                 
-                                 $precioItemML = $itemDocumentoEntradaMercancias->getCantidad() * $itemDocumentoEntradaMercancias->getPrecioUnitario();
+                                 $precioItemML = $itemDocumentoEntradaMercancias->getImporteNeto(); 
                                  $bienServicio = $itemDocumentoEntradaMercancias->getBienServicio();
 				 $sociedadFI = $itemDocumentoEntradaMercancias->getDocumento()->getSociedad();
                                  
@@ -141,29 +172,30 @@ class LoadFuncion extends AbstractFixture implements FixtureInterface , OrderedF
                                  
                                  $precioValoracionItem = $itemDocumentoEntradaMercancias->getCantidad() * $precioValoracionBienServicio;
                                  
-                                 $result = $precioValoracionItem - $precioItemML;
+                                 $importe = $precioValoracionItem - $precioItemML;
                                  
-                                 if ($result > 0) {
-                                    return $result;
+                                 if ($importe > 0) {
+                                    $cuenta = $contextoOperacion->getFIImputacionesCustomizingManager()->getCuenta($contextoOperacion->getOperacion());
+                                    return new Core_Scripting\ItemFinanzasDTO($cuenta, $importe);
                                  } else {
-                                    return 0;
+                                    return null;
                                  }
                              }
                          }                     
-                    ' 
+                    '
             ),
-            array( 
-                    "nombre" => "OP_PRD_Negative", 
-                    "nombreClase" => "Script_OP_PRD_Negative", 
-                    "script" => '
-                         class Script_OP_PRD_Negative extends Scripting\Script {
+            array(
+                "nombre" => "DOC_EM_ITEM_DIFFPRECIOVALORACION_NEGATIVE",
+                "nombreClase" => "Script_DOC_EM_ITEM_DIFFPRECIOVALORACION_NEGATIVE",
+                "script" => '
+                         class Script_DOC_EM_ITEM_DIFFPRECIOVALORACION_NEGATIVE extends Scripting\Script {
                              public function ejecutar(Scripting\Contexto $contexto) {
                                  $contextoOperacion = $contexto->getContextoOperacion();
                                  
                                  $em = $contextoOperacion->getEntityManager();
                                  $itemDocumentoEntradaMercancias = $contextoOperacion->getItem();
                                 
-                                 $precioItemML = $itemDocumentoEntradaMercancias->getCantidad() * $itemDocumentoEntradaMercancias->getPrecioUnitario();
+                                 $precioItemML = $itemDocumentoEntradaMercancias->getImporteNeto(); 
                                  $bienServicio = $itemDocumentoEntradaMercancias->getBienServicio();
 				 $sociedadFI = $itemDocumentoEntradaMercancias->getDocumento()->getSociedad();
                                  
@@ -172,29 +204,30 @@ class LoadFuncion extends AbstractFixture implements FixtureInterface , OrderedF
                                  
                                  $precioValoracionItem = $itemDocumentoEntradaMercancias->getCantidad() * $precioValoracionBienServicio;
                                  
-                                 $result = $precioValoracionItem - $precioItemML;
+                                 $importe = $precioValoracionItem - $precioItemML;
                                  
-                                 if ($result < 0) {
-                                    return -$result;
+                                 if ($importe < 0) {
+                                    $cuenta = $contextoOperacion->getFIImputacionesCustomizingManager()->getCuenta($contextoOperacion->getOperacion());
+                                    return new Core_Scripting\ItemFinanzasDTO($cuenta, -$importe);
                                  } else {
-                                    return 0;
+                                    return null;
                                  }
                              }
                          }                     
-                    ' 
+                    '
             ),
-            array( 
-                    "nombre" => "OP_BSD_Positive", 
-                    "nombreClase" => "Script_OP_BSD_Positive", 
-                    "script" => '
-                         class Script_OP_BSD_Positive extends Scripting\Script {
+            array(
+                "nombre" => "DOC_EM_ITEM_REVALUOINVENTARIO_POSITIVE",
+                "nombreClase" => "Script_DOC_EM_ITEM_REVALUOINVENTARIO_POSITIVE",
+                "script" => '
+                         class Script_DOC_EM_ITEM_REVALUOINVENTARIO_POSITIVE extends Scripting\Script {
                              public function ejecutar(Scripting\Contexto $contexto) {
                                  $contextoOperacion = $contexto->getContextoOperacion();
                                  
                                  $em = $contextoOperacion->getEntityManager();
                                  $itemDocumentoEntradaMercancias = $contextoOperacion->getItem();
                                 
-                                 $precioItemML = $itemDocumentoEntradaMercancias->getCantidad() * $itemDocumentoEntradaMercancias->getPrecioUnitario();
+                                 $precioItemML = $itemDocumentoEntradaMercancias->getImporteNeto();
                                  $bienServicio = $itemDocumentoEntradaMercancias->getBienServicio();
 				 $sociedadFI = $itemDocumentoEntradaMercancias->getDocumento()->getSociedad();
                                  
@@ -203,29 +236,30 @@ class LoadFuncion extends AbstractFixture implements FixtureInterface , OrderedF
                                  
                                  $precioValoracionItem = $itemDocumentoEntradaMercancias->getCantidad() * $precioValoracionBienServicio;
                                  
-                                 $result = $precioValoracionItem - $precioItemML;
+                                 $importe = $precioValoracionItem - $precioItemML;
                                  
-                                 if ($result > 0) {
-                                    return $result;
+                                 if ($importe > 0) {
+                                    $cuenta = $contextoOperacion->getFIImputacionesCustomizingManager()->getCuenta($contextoOperacion->getOperacion());
+                                    return new Core_Scripting\ItemFinanzasDTO($cuenta, $importe);
                                  } else {
-                                    return 0;
+                                    return null;
                                  }
                              }
                          }                     
-                    ' 
+                    '
             ),
-            array( 
-                    "nombre" => "OP_BSD_Negative", 
-                    "nombreClase" => "Script_OP_BSD_Negative", 
-                    "script" => '
-                         class Script_OP_BSD_Negative extends Scripting\Script {
+            array(
+                "nombre" => "DOC_EM_ITEM_REVALUOINVENTARIO_NEGATIVE",
+                "nombreClase" => "Script_DOC_EM_ITEM_REVALUOINVENTARIO_NEGATIVE",
+                "script" => '
+                         class Script_DOC_EM_ITEM_REVALUOINVENTARIO_NEGATIVE extends Scripting\Script {
                              public function ejecutar(Scripting\Contexto $contexto) {
                                  $contextoOperacion = $contexto->getContextoOperacion();
                                  
                                  $em = $contextoOperacion->getEntityManager();
                                  $itemDocumentoEntradaMercancias = $contextoOperacion->getItem();
                                 
-                                 $precioItemML = $itemDocumentoEntradaMercancias->getCantidad() * $itemDocumentoEntradaMercancias->getPrecioUnitario();
+                                 $precioItemML = $itemDocumentoEntradaMercancias->getImporteNeto();
                                  $bienServicio = $itemDocumentoEntradaMercancias->getBienServicio();
 				 $sociedadFI = $itemDocumentoEntradaMercancias->getDocumento()->getSociedad();
                                  
@@ -234,36 +268,37 @@ class LoadFuncion extends AbstractFixture implements FixtureInterface , OrderedF
                                  
                                  $precioValoracionItem = $itemDocumentoEntradaMercancias->getCantidad() * $precioValoracionBienServicio;
                                  
-                                 $result = $precioValoracionItem - $precioItemML;
+                                 $importe = $precioValoracionItem - $precioItemML;
                                  
-                                 if ($result < 0) {
-                                    return -$result;
+                                 if ($importe < 0) {
+                                    $cuenta = $contextoOperacion->getFIImputacionesCustomizingManager()->getCuenta($contextoOperacion->getOperacion());
+                                    return new Core_Scripting\ItemFinanzasDTO($cuenta, -$importe);                                 
                                  } else {
                                     return 0;
                                  }
                              }
                          }                     
-                    ' 
-            ),                        
+                    '
+            ),
         );
-                
-        foreach( $values as $value ){
-            
+
+        foreach ($values as $value) {
+
             $obj = new Funcion();
             $obj->setNombre($value['nombre']);
             $obj->setNombreClase($value['nombreClase']);
             $obj->setScript($value['script']);
-        
+
             $manager->persist($obj);
-            
-            $this->addReference('pronit-automatizacion-funcion-' . $value["nombre"], $obj);        
+
+            $this->addReference('pronit-automatizacion-funcion-' . $value["nombre"], $obj);
         }
-        
+
         $manager->flush();
     }
-    
-    function getOrder()
-    {
-        return 0; 
+
+    function getOrder() {
+        return 0;
     }
+
 }

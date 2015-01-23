@@ -28,12 +28,12 @@ class Funcion {
     protected $script;
 
     /** 
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=100)
      */
     protected $nombre;
     
     /** 
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=100)
      */
     protected $nombreClase;
        

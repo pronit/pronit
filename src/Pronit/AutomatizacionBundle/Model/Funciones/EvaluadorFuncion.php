@@ -39,11 +39,24 @@ class EvaluadorFuncion {
         $sandbox->allow_functions = true;
         $sandbox->allow_classes = true;
         $sandbox->allow_namespaces = false;
+        $sandbox->allow_casting = true;
         $sandbox->auto_whitelist_interfaces = true;
         $sandbox->define_alias('Pronit\AutomatizacionBundle\Model\Scripting', 'Scripting');
+        $sandbox->define_alias('Pronit\CoreBundle\Model\Automatizacion\Scripting', 'Core_Scripting');
+        $sandbox->define_alias('Pronit\CoreBundle\Model\Operaciones\Contextos', 'Core_Operaciones_Contextos');
+        $sandbox->whitelist_type('Exception');
         $sandbox->whitelist_class('Scripting\Script');
         $sandbox->whitelist_class('Scripting\Contexto');
+        $sandbox->whitelist_type('Core_Scripting\ItemFinanzasDTO');
+        $sandbox->whitelist_type('Core_Operaciones_Contextos\Impuestos\ContextoCalculoImpuesto');
         $sandbox->whitelist_func('get_class');
+                
+        $sandbox->set_error_handler(function($errno, $errstr) {
+            throw new \Exception($errstr);
+        });
+        $sandbox->set_exception_handler(function($exception) {
+            throw $exception;
+        });
         return $sandbox;
     }
 
@@ -56,16 +69,14 @@ class EvaluadorFuncion {
 
         if (!isset($this->registroFunciones[$funcion->getNombre()])) {
             try {
-                
                 $sandbox->execute($funcion->getScript());
                 $this->registroFunciones[$funcion->getNombre()] = true;
             } catch (\Exception $e) {
-                echo $e->getMessage();
                 throw new \Exception("No se pudo generar la clase del script correctamente: (" . $e->getMessage() . ")");
-            }            
+            }
         }
 
-        $script = new $nombreClase();
+        $script = new $nombreClase();        
         return $script->ejecutar($contexto);
     }
 
