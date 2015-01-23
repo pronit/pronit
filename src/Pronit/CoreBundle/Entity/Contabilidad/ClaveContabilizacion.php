@@ -54,4 +54,8 @@ class ClaveContabilizacion
     {
         $this->signo = $signo;
     }    
+    
+    public function __toString() {
+        return $this->nombre;
+    }
 }

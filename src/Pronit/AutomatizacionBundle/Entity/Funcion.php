@@ -67,5 +67,9 @@ class Funcion {
     public function ejecutar(Contexto $contexto) {
         return EvaluadorFuncion::getInstance()->ejecutar($this, $contexto);
     }
+    
+    public function __toString() {
+        return $this->nombre;
+    }
 }
 

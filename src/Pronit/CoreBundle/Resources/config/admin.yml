@@ -66,4 +66,15 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [PronitCoreBundle]]
+
+    pronit.admin.core.operaciones.operacioncontable:
+        class: Pronit\CoreBundle\Admin\Operaciones\OperacionContableAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Finanzas", label: "Operaciones contables" }
+        arguments:
+            - ~
+            - Pronit\CoreBundle\Entity\Operaciones\OperacionContable
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitCoreBundle]]                        
         
