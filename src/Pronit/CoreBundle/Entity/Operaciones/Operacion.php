@@ -17,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="core_operacion")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"OperacionContableValue" = "Pronit\CoreBundle\Entity\Operaciones\OperacionContable"})
+ * @ORM\DiscriminatorMap({"OperacionContableValue" = "Pronit\CoreBundle\Entity\Operaciones\OperacionContable", "OperacionCalculoValue" = "Pronit\CoreBundle\Entity\Operaciones\OperacionCalculo"})
  */
 abstract class Operacion {
 
@@ -114,5 +114,9 @@ abstract class Operacion {
     
     public function aceptaContexto(Contexto $contexto) {
         return in_array($contexto->getCodigo(), $this->contextosAceptados);
+    }
+    
+    public function __toString() {
+        return '(' . $this->codigo . ') ' . $this->nombre;
     }
 }

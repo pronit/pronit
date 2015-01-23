@@ -43,4 +43,27 @@ services:
         calls:
             - [ setTranslationDomain, [PronitCoreBundle]]
             - [ setTemplate, [list, PronitCoreBundle:Movimientos:list.html.twig]]
+
+    pronit.admin.core.impuestos.indicadorimpuestos:
+        class: Pronit\CoreBundle\Admin\Impuestos\IndicadorImpuestosAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Finanzas", label: "Impuestos" }
+        arguments:
+            - ~
+            - Pronit\CoreBundle\Entity\Impuestos\IndicadorImpuestos
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitCoreBundle]]            
             
+            
+    pronit.admin.core.impuestos.itemindicadorimpuestos:
+        class: Pronit\CoreBundle\Admin\Impuestos\ItemIndicadorImpuestosAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, show_in_dashboard: false, group: null }
+        arguments:
+            - ~
+            - Pronit\CoreBundle\Entity\Impuestos\ItemIndicadorImpuestos
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitCoreBundle]]
+        

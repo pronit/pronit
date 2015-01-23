@@ -60,4 +60,13 @@ class ClaseDocumento {
         return $this->nombre();
     }
     
+    
+    /**
+     * 
+     * @return string
+     */
+    public function __toString() {
+        return '(' . $this->codigo . ') ' . $this->nombre;
+    }
+    
 }
