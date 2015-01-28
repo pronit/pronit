@@ -34,7 +34,7 @@ class TransaccionEntradaMercancias {
             throw new Exception("La entrada de mercancias no puede ser contabilizada");
         }
 
-        $this->em->getConnection()->beginTransaction();
+        $this->em->beginTransaction();
         try {
             $entradaMercancias->contabilizar();
 
@@ -48,9 +48,9 @@ class TransaccionEntradaMercancias {
             $this->em->persist($entradaMercancias);
             $this->em->flush();
 
-            $this->em->getConnection()->commit();
+            $this->em->commit();
         } catch (Exception $e) {
-            $this->em->getConnection()->rollback();
+            $this->em->rollback();
             throw $e;
         }
     }

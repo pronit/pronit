@@ -6,15 +6,14 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Pronit\CoreBundle\Entity\Documentos\ClaseDocumento;
-use Pronit\CustomizingBundle\Entity\Operaciones\AsociacionOperacionClaseDocumento;
+use Pronit\CustomizingBundle\Entity\Operaciones\MappingClasificadorItemOperacion;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * @author gcaseres
  */
-class LoadAsociacionOperacionClaseDocumentoFactura extends AbstractFixture implements FixtureInterface, OrderedFixtureInterface, ContainerAwareInterface {
+class LoadMappingClasificadorItemFacturaOperacion extends AbstractFixture implements FixtureInterface, OrderedFixtureInterface, ContainerAwareInterface {
 
     /**
      * @var ContainerInterface
@@ -44,20 +43,22 @@ class LoadAsociacionOperacionClaseDocumentoFactura extends AbstractFixture imple
         $this->setManager($manager);
 
 
-        $values = array(            
-            array("clase" => ClaseDocumento::CODIGO_FACTURAACREEDOR, "operacion" => "KBS"),            
+        $values = array(
+            array("codigo" => "102", "operacion" => "WRZ", "funcion" => "DOC_EM_ITEM_IMPORTENETO"),
         );
 
         foreach ($values as $value) {
 
-            $claseDocumento = $this->getReference('pronit-core-clasedocumento-' . $value['clase']);
+            $clasificador = $this->getReference('pronit-documentos-clasificadoritemfactura-' . $value['codigo']);
             $operacion = $this->getReference('pronit-core-operacion-' . $value['operacion']);
-
-            $obj = new AsociacionOperacionClaseDocumento();
-            $obj->setClaseDocumento($claseDocumento);
+            $funcion = $this->getReference('pronit-automatizacion-funcion-' . $value['funcion']);
+            
+            $obj = new MappingClasificadorItemOperacion();
+            $obj->setClasificador($clasificador);
             $obj->setOperacion($operacion);
-
-            $this->setReference('pronit-customizing-asociacionoperacionclasedocumento-' . $value['clase'] . $value['operacion'], $obj);
+            $obj->setFuncion($funcion);
+            
+            $this->setReference('pronit-customizing-mappingclasificadoritemoperacion-' . $value['codigo'] . $value['operacion'], $obj);
 
             $manager->persist($obj);
         }
@@ -66,7 +67,7 @@ class LoadAsociacionOperacionClaseDocumentoFactura extends AbstractFixture imple
     }
 
     function getOrder() {
-        return 62;
+        return 61;
     }
 
 }

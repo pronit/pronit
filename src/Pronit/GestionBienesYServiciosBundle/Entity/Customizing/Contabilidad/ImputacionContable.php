@@ -4,7 +4,7 @@ namespace Pronit\GestionBienesYServiciosBundle\Entity\Customizing\Contabilidad;
 
 use Doctrine\ORM\Mapping as ORM;
 
-use Pronit\CustomizingBundle\Entity\Operaciones\AsociacionOperacionClasificadorItem;
+use Pronit\CustomizingBundle\Entity\Operaciones\MappingClasificadorItemOperacion;
 use Pronit\GestionBienesYServiciosBundle\Entity\CategoriaValoracion;
 use Pronit\CoreBundle\Entity\Contabilidad\CuentasContables\Cuenta;
 
@@ -26,10 +26,10 @@ class ImputacionContable
     protected $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Pronit\CustomizingBundle\Entity\Operaciones\AsociacionOperacionClasificadorItem")
+     * @ORM\ManyToOne(targetEntity="Pronit\CustomizingBundle\Entity\Operaciones\MappingClasificadorItemOperacion")
      * @ORM\JoinColumn(nullable=false)
      */    
-    protected $asociacionOperacionClasificadorItem;    
+    protected $mappingClasificadorItemOperacion;    
     
     /**
      * @ORM\ManyToOne(targetEntity="Pronit\GestionBienesYServiciosBundle\Entity\CategoriaValoracion")
@@ -52,9 +52,9 @@ class ImputacionContable
         return $this->id;
     }
 
-    public function getAsociacionOperacionClasificadorItem()
+    public function getMappingClasificadorItemOperacion()
     {
-        return $this->asociacionOperacionClasificadorItem;
+        return $this->mappingClasificadorItemOperacion;
     }
 
     public function getCategoriaValoracion()
@@ -67,9 +67,9 @@ class ImputacionContable
         return $this->cuenta;
     }
 
-    public function setAsociacionOperacionClasificadorItem(AsociacionOperacionClasificadorItem $asociacionOperacionClasificadorItem)
+    public function setMappingClasificadorItemOperacion(MappingClasificadorItemOperacion $value)
     {
-        $this->asociacionOperacionClasificadorItem = $asociacionOperacionClasificadorItem;
+        $this->mappingClasificadorItemOperacion = $value;
     }
 
     public function setCategoriaValoracion(CategoriaValoracion $categoriaValoracion)

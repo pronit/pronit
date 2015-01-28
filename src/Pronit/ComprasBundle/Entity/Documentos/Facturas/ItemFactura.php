@@ -86,19 +86,19 @@ class ItemFactura extends ItemAbastecimientoExterno {
         
         /* @var $itemIndicadorImpuesto \Pronit\CoreBundle\Entity\Impuestos\ItemIndicadorImpuestos */
         foreach( $this->getIndicadorImpuestos()->getItems() as $itemIndicadorImpuesto ){
-            $operacionContable = $itemIndicadorImpuesto->getOperacionContable();
+            $funcion = $itemIndicadorImpuesto->getFuncion();
             
-            $contexto = new ContextoCalculoImpuesto($operacionContable, $this->getImporteNeto(), $itemIndicadorImpuesto->getAlicuota() );
+            $contexto = new ContextoCalculoImpuesto($this->getImporteNeto(), $itemIndicadorImpuesto->getAlicuota() );
             
             
             
-            if ($operacionContable->aceptaContexto($contexto)) {
-                $monto = $operacionContable->ejecutar($contexto);
+            //if ($operacionContable->aceptaContexto($contexto)) {
+                $monto = $funcion->ejecutar($contexto);
                 
                 $importeTotal = $importeTotal + $monto;
-            } else {
-                throw new Exception('La operación no puede ejecutarse en el contexto provisto.');
-            }
+            //} else {
+//                throw new Exception('La operación no puede ejecutarse en el contexto provisto.');
+//            }
         }
         
         return $importeTotal;

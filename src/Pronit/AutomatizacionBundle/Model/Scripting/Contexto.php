@@ -7,6 +7,6 @@ namespace Pronit\AutomatizacionBundle\Model\Scripting;
  *
  * @author gcaseres
  */
-class Contexto extends \Pronit\AutomatizacionBundle\Model\Funciones\Contexto {
+class Contexto {
     
 }

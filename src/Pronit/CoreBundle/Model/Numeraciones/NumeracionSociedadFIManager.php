@@ -41,6 +41,7 @@ class NumeracionSociedadFIManager implements INumeracionSociedadFIManager {
             return $result;
         } catch (Exception $e) {
             $this->em->getConnection()->rollback();
+            throw new \Exception("No se pudo generar el número de asiento: " . $e->getMessage());
         }
 
         throw new \Exception("No se pudo generar el número de asiento.");

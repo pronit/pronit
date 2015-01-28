@@ -1,22 +1,22 @@
 services:
-    pronit.admin.customizing.operaciones.asignacionoperacionclasedocumento:
-        class: Pronit\CustomizingBundle\Admin\Operaciones\AsociacionOperacionClaseDocumentoAdmin
+    pronit.admin.customizing.operaciones.mappingclasedocumentooperacion:
+        class: Pronit\CustomizingBundle\Admin\Operaciones\MappingClaseDocumentoOperacionAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: "Customizing Finanzas", label: "Asignar operaciones a clases de documento" }
         arguments:
             - ~
-            - Pronit\CustomizingBundle\Entity\Operaciones\AsociacionOperacionClaseDocumento
+            - Pronit\CustomizingBundle\Entity\Operaciones\MappingClaseDocumentoOperacion
             - ~
         calls:
             - [ setTranslationDomain, [PronitCustomizingBundle]]
     
-    pronit.admin.customizing.operaciones.asignacionoperacionclasificadoritem:
-        class: Pronit\CustomizingBundle\Admin\Operaciones\AsociacionOperacionClasificadorItemAdmin
+    pronit.admin.customizing.operaciones.mappingclasificadoritemoperacion:
+        class: Pronit\CustomizingBundle\Admin\Operaciones\MappingClasificadorItemOperacionAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: "Customizing Finanzas", label: "Asignar operaciones a clasificador de item" }
         arguments:
             - ~
-            - Pronit\CustomizingBundle\Entity\Operaciones\AsociacionOperacionClasificadorItem
+            - Pronit\CustomizingBundle\Entity\Operaciones\MappingClasificadorItemOperacion
             - ~
         calls:
             - [ setTranslationDomain, [PronitCustomizingBundle]]

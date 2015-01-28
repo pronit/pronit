@@ -32,7 +32,7 @@ class ImputacionesCustomizingManager implements IImputacionesCustomizingManager
         $qb = $this->em->createQueryBuilder();
         $qb->select('ic')
             ->from('Pronit\GestionBienesYServiciosBundle\Entity\Customizing\Contabilidad\ImputacionContable', 'ic')
-            ->join('ic.asociacionOperacionClasificadorItem', 'aoci')
+            ->join('ic.mappingClasificadorItemOperacion', 'aoci')
             ->where('ic.categoriaValoracion = :categoriaValoracion')
             ->andWhere('aoci.operacion = :operacion')
             ->andWhere('aoci.clasificador = :clasificador')

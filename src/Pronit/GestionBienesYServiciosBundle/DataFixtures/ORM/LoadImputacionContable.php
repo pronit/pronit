@@ -48,19 +48,19 @@ class LoadImputacionContable extends AbstractFixture implements FixtureInterface
         $this->setManager($manager);        
 
         $values =  array(
-            array( "asociacionOperacionClasificadorItem" => "101BSX", "categoriaValoracion" => "3000", "cuenta" => "150106"),
-            array( "asociacionOperacionClasificadorItem" => "101BSX", "categoriaValoracion" => "3001", "cuenta" => "150102"),
-            array( "asociacionOperacionClasificadorItem" => "101BSX", "categoriaValoracion" => "3002", "cuenta" => "150103"),
-            array( "asociacionOperacionClasificadorItem" => "101BSX", "categoriaValoracion" => "3003", "cuenta" => "150101"),
+            array( "mappingclasificadoritemoperacion" => "101BSX", "categoriaValoracion" => "3000", "cuenta" => "150106"),
+            array( "mappingclasificadoritemoperacion" => "101BSX", "categoriaValoracion" => "3001", "cuenta" => "150102"),
+            array( "mappingclasificadoritemoperacion" => "101BSX", "categoriaValoracion" => "3002", "cuenta" => "150103"),
+            array( "mappingclasificadoritemoperacion" => "101BSX", "categoriaValoracion" => "3003", "cuenta" => "150101"),
         );
         
         foreach( $values as $value ){
             $categoriaValoracion = $this->getReference('pronit-gestionbienesyservicios-categoriavaloracion-' . $value['categoriaValoracion']);
             $cuenta = $this->getReference('pronit-contabilidad-cuenta-' . $value['cuenta']);
-            $asociacionOperacionClasificadorItem = $this->getReference('pronit-customizing-asociacionoperacionclasificadoritem-' . $value['asociacionOperacionClasificadorItem']);
+            $mappingClasificadorItemOperacion = $this->getReference('pronit-customizing-mappingclasificadoritemoperacion-' . $value['mappingclasificadoritemoperacion']);
             
             $obj = new ImputacionContable();
-            $obj->setAsociacionOperacionClasificadorItem($asociacionOperacionClasificadorItem);
+            $obj->setMappingClasificadorItemOperacion($mappingClasificadorItemOperacion);
             $obj->setCategoriaValoracion($categoriaValoracion);
             $obj->setCuenta($cuenta);
             

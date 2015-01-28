@@ -4,6 +4,7 @@ namespace Pronit\CoreBundle\Entity\Impuestos;
 
 use Doctrine\ORM\Mapping as ORM;
 use Pronit\CoreBundle\Entity\Operaciones\OperacionContable;
+use Pronit\AutomatizacionBundle\Entity\Funcion;
 
 /** 
  * @ORM\Entity
@@ -26,16 +27,23 @@ class ItemIndicadorImpuestos
      * @ORM\JoinColumn(nullable=false)
      */    
     protected $operacionContable;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Pronit\AutomatizacionBundle\Entity\Funcion")
+     * @ORM\JoinColumn(nullable=false)
+     */    
+    protected $funcion;
     
     /**
      * @ORM\Column(type="float")
      */    
     protected $alicuota;
     
-    public function __construct(IndicadorImpuestos $indicadorImpuestos, OperacionContable $operacionContable, $alicuota )
+    public function __construct(IndicadorImpuestos $indicadorImpuestos, OperacionContable $operacionContable, Funcion $funcion, $alicuota )
     {
         $this->setIndicadorImpuestos($indicadorImpuestos);
         $this->setOperacionContable($operacionContable);
+        $this->setFuncion($funcion);
         $this->setAlicuota($alicuota);
     }
     
@@ -81,4 +89,14 @@ class ItemIndicadorImpuestos
     {
         $this->alicuota = $alicuota;
     }    
+    
+    public function setFuncion(Funcion $funcion)
+    {
+        $this->funcion = $funcion;
+    }    
+    
+    public function getFuncion() {
+        return $this->funcion;
+    }
+    
 }

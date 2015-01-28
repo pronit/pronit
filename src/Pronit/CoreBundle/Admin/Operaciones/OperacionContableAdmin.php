@@ -38,7 +38,6 @@ class OperacionContableAdmin extends Admin {
         $formMapper
                 ->add('codigo')
                 ->add('nombre')
-                ->add('funcion')
                 ->add('contextosAceptados')
                 ->add('claveContabilizacion')
         ;
@@ -48,7 +47,6 @@ class OperacionContableAdmin extends Admin {
         $showMapper
                 ->add('codigo')
                 ->add('nombre')
-                ->add('funcion')
                 ->add('contextosAceptados')
                 ->add('claveContabilizacion')
         ;

@@ -2,6 +2,8 @@
 
 namespace Pronit\AutomatizacionBundle\Model\Funciones;
 
+use Exception;
+use PHPSandbox\PHPSandbox;
 use Pronit\AutomatizacionBundle\Entity\Funcion;
 use Pronit\AutomatizacionBundle\Model\Funciones\Contexto;
 
@@ -35,7 +37,7 @@ class EvaluadorFuncion {
     }
 
     protected function createSandbox() {
-        $sandbox = \PHPSandbox\PHPSandbox::create();
+        $sandbox = PHPSandbox::create();
         $sandbox->allow_functions = true;
         $sandbox->allow_classes = true;
         $sandbox->allow_namespaces = false;
@@ -50,34 +52,43 @@ class EvaluadorFuncion {
         $sandbox->whitelist_type('Core_Scripting\ItemFinanzasDTO');
         $sandbox->whitelist_type('Core_Operaciones_Contextos\Impuestos\ContextoCalculoImpuesto');
         $sandbox->whitelist_func('get_class');
-                
-        $sandbox->set_error_handler(function($errno, $errstr) {
-            throw new \Exception($errstr);
-        });
+        $sandbox->convert_errors = true;
+
         $sandbox->set_exception_handler(function($exception) {
-            throw $exception;
+            throw new Exception($exception->getMessage());
         });
         return $sandbox;
     }
 
     public function ejecutar(Funcion $funcion, Contexto $contexto) {
 
-        $sandbox = $this->createSandbox();
-        $sandbox->define_namespace($funcion->getNombre());
+        $sandbox = $this->createSandbox();        
         $namespace = $funcion->getNombre();
         $nombreClase = $namespace . '\\' . $funcion->getNombreClase();
+        $sandbox->define_namespace($funcion->getNombre());
 
-        if (!isset($this->registroFunciones[$funcion->getNombre()])) {
+        if (!isset($this->registroFunciones[$funcion->getNombre()])) {            
             try {
                 $sandbox->execute($funcion->getScript());
                 $this->registroFunciones[$funcion->getNombre()] = true;
-            } catch (\Exception $e) {
-                throw new \Exception("No se pudo generar la clase del script correctamente: (" . $e->getMessage() . ")");
+            } catch (Exception $e) {
+                throw new Exception("No se pudo generar la clase del script correctamente: (" . $e->getMessage() . ")");
             }
         }
-
-        $script = new $nombreClase();        
-        return $script->ejecutar($contexto);
+        
+        /**
+         * TODO: El código se está definiendo en el Sandbox pero se ejecuta por
+         * fuera del mismo.
+         * Deberiá ejecutarse dentro del sandbox para controlar correctamente
+         * las excepciones producidas.
+         */
+        
+        try {            
+            $script = new $nombreClase();
+            return $script->ejecutar($contexto);            
+        } catch (Exception $e) {
+            throw new Exception("Error en script '" . $funcion->getNombre() . "': " . $e->getMessage());
+        }
     }
 
 }

@@ -50,13 +50,12 @@ class LoadFuncion extends AbstractFixture implements FixtureInterface, OrderedFi
                         class Script_DOC_KR_ITEM_IMPUESTOS extends Scripting\Script {
                             public function ejecutar(Scripting\Contexto $contexto) {
                                 $result = array();
-                                $contextoOperacion = $contexto->getContextoOperacion();
                                 
-                                $itemFactura = $contextoOperacion->getItem();
+                                $itemFactura = $contexto->getItem();
                                 
                                 foreach ($itemFactura->getIndicadorImpuestos()->getItems() as $item) {
                                     $contextoCalculoImpuestos = new Core_Operaciones_Contextos\Impuestos\ContextoCalculoImpuesto($item->getOperacionContable(), $itemFactura->getImporteNeto(), $item->getAlicuota());
-                                    $cuenta = $contextoOperacion->getFIImputacionesCustomizingManager()->getCuenta($item->getOperacionContable());
+                                    $cuenta = $contexto->getFIImputacionesCustomizingManager()->getCuenta($item->getOperacionContable());
                                     $importe = $item->getOperacionContable()->ejecutar($contextoCalculoImpuestos);
                                     $result[] = new Core_Scripting\ItemFinanzasDTO($cuenta, $importe);
                                 }
@@ -71,56 +70,37 @@ class LoadFuncion extends AbstractFixture implements FixtureInterface, OrderedFi
                 "nombreClase" => "Script_IMP_AXM",
                 "script" => '
                         class Script_IMP_AXM extends Scripting\Script {
-                            public function ejecutar(Scripting\Contexto $contexto) {
-                                $contextoOperacion = $contexto->getContextoOperacion();
-                                
-                                return $contextoOperacion->getMontoImponible() * $contextoOperacion->getAlicuota() / 100;
+                            public function ejecutar(Scripting\Contexto $contexto) {                                                                
+                                return $contexto->getMontoImponible() * $contexto->getAlicuota() / 100;
                             }
                         }
                     '
             ),
             array(
-                "nombre" => "DOC_EM_ITEM_MONTOTOTAL",
-                "nombreClase" => "Script_DOC_EM_ITEM_MONTOTOTAL",
+                "nombre" => "DOC_EM_ITEM_IMPORTENETO",
+                "nombreClase" => "Script_DOC_EM_ITEM_IMPORTENETO",
                 "script" => '
-                         class Script_DOC_EM_ITEM_MONTOTOTAL extends Scripting\Script {
+                         class Script_DOC_EM_ITEM_IMPORTENETO extends Scripting\Script {
                              public function ejecutar(Scripting\Contexto $contexto) {
-                                 $contextoOperacion = $contexto->getContextoOperacion();
 
-                                 $item = $contextoOperacion->getItem();
-                                 $importe = $item->getImporteNeto();
-				 $clasificador = (object)$item->getClasificador();
+                                 $item = $contexto->getItem();
                                  
-                                 $cuenta = $contextoOperacion->getMMImputacionesCustomizingManager()->getCuenta($clasificador, $contextoOperacion->getOperacion(), $item->getBienServicio()->getCategoriaValoracion());
-                                 if ($cuenta == null) {
-                                     $cuenta = $contextoOperacion->getFIImputacionesCustomizingManager()->getCuenta($contextoOperacion->getOperacion());
-                                 }
-                                 if ($cuenta == null) {
-                                     throw new \Exception("No se especificó una cuenta contable para imputar.");
-                                 }
-                                 
-                                 return new Core_Scripting\ItemFinanzasDTO($cuenta, $importe);
+                                 return $item->getImporteNeto();
                              }
                          }
                 '
             ),
             array(
-                "nombre" => "DOC_FC_ITEM_MONTOTOTAL",
-                "nombreClase" => "Script_DOC_FC_ITEM_MONTOTOTAL",
+                "nombre" => "DOC_FC_ITEM_IMPORTENETO",
+                "nombreClase" => "Script_DOC_FC_ITEM_IMPORTENETO",
                 "script" => '
-                        class Script_DOC_FC_ITEM_MONTOTOTAL extends Scripting\Script {
+                        class Script_DOC_FC_ITEM_IMPORTENETO extends Scripting\Script {
                             public function ejecutar(Scripting\Contexto $contexto) {
-                                $contextoOperacion = $contexto->getContextoOperacion();
                                 
-                                $item = $contextoOperacion->getItem();
+                                $item = $contexto->getItem();
                                 $importe = $item->getImporteNeto();
                                 
-                                $cuenta = $contextoOperacion->getFIImputacionesCustomizingManager()->getCuenta($contextoOperacion->getOperacion());
-                                if ($cuenta == null) {
-                                    throw new \Exception("No se especificó una cuenta contable para imputar.");
-                                }
-                                
-                                return new Core_Scripting\ItemFinanzasDTO($cuenta, $importe);
+                                return $importe;
                             }
 
                         }
@@ -132,11 +112,10 @@ class LoadFuncion extends AbstractFixture implements FixtureInterface, OrderedFi
                 "script" => '
                         class Script_DOC_KR_PEDIDOIMPUTADO extends Scripting\Script {
                             public function ejecutar(Scripting\Contexto $contexto) {
-                                $contextoOperacion = $contexto->getContextoOperacion();
                                 
                                 $result = array();
 
-                                $factura = $contextoOperacion->getFactura();                                
+                                $factura = $contexto->getFactura();                                
                                 $cuenta = $factura->getProveedorSociedad()->getAcreedor()->getCuenta();
                                 
                                 foreach ($factura->getCondicionPagos()->getItems() as $itemCondicionPagos){
@@ -158,10 +137,9 @@ class LoadFuncion extends AbstractFixture implements FixtureInterface, OrderedFi
                 "script" => '
                          class Script_DOC_EM_ITEM_DIFFPRECIOVALORACION_POSITIVE extends Scripting\Script {
                              public function ejecutar(Scripting\Contexto $contexto) {
-                                 $contextoOperacion = $contexto->getContextoOperacion();
                                  
-                                 $em = $contextoOperacion->getEntityManager();
-                                 $itemDocumentoEntradaMercancias = $contextoOperacion->getItem();
+                                 $em = $contexto->getEntityManager();
+                                 $itemDocumentoEntradaMercancias = $contexto->getItem();
                                 
                                  $precioItemML = $itemDocumentoEntradaMercancias->getImporteNeto(); 
                                  $bienServicio = $itemDocumentoEntradaMercancias->getBienServicio();
@@ -175,8 +153,7 @@ class LoadFuncion extends AbstractFixture implements FixtureInterface, OrderedFi
                                  $importe = $precioValoracionItem - $precioItemML;
                                  
                                  if ($importe > 0) {
-                                    $cuenta = $contextoOperacion->getFIImputacionesCustomizingManager()->getCuenta($contextoOperacion->getOperacion());
-                                    return new Core_Scripting\ItemFinanzasDTO($cuenta, $importe);
+                                    return $importe;
                                  } else {
                                     return null;
                                  }
@@ -190,10 +167,9 @@ class LoadFuncion extends AbstractFixture implements FixtureInterface, OrderedFi
                 "script" => '
                          class Script_DOC_EM_ITEM_DIFFPRECIOVALORACION_NEGATIVE extends Scripting\Script {
                              public function ejecutar(Scripting\Contexto $contexto) {
-                                 $contextoOperacion = $contexto->getContextoOperacion();
                                  
-                                 $em = $contextoOperacion->getEntityManager();
-                                 $itemDocumentoEntradaMercancias = $contextoOperacion->getItem();
+                                 $em = $contexto->getEntityManager();
+                                 $itemDocumentoEntradaMercancias = $contexto->getItem();
                                 
                                  $precioItemML = $itemDocumentoEntradaMercancias->getImporteNeto(); 
                                  $bienServicio = $itemDocumentoEntradaMercancias->getBienServicio();
@@ -207,8 +183,7 @@ class LoadFuncion extends AbstractFixture implements FixtureInterface, OrderedFi
                                  $importe = $precioValoracionItem - $precioItemML;
                                  
                                  if ($importe < 0) {
-                                    $cuenta = $contextoOperacion->getFIImputacionesCustomizingManager()->getCuenta($contextoOperacion->getOperacion());
-                                    return new Core_Scripting\ItemFinanzasDTO($cuenta, -$importe);
+                                    return -$importe;
                                  } else {
                                     return null;
                                  }
@@ -222,10 +197,9 @@ class LoadFuncion extends AbstractFixture implements FixtureInterface, OrderedFi
                 "script" => '
                          class Script_DOC_EM_ITEM_REVALUOINVENTARIO_POSITIVE extends Scripting\Script {
                              public function ejecutar(Scripting\Contexto $contexto) {
-                                 $contextoOperacion = $contexto->getContextoOperacion();
                                  
-                                 $em = $contextoOperacion->getEntityManager();
-                                 $itemDocumentoEntradaMercancias = $contextoOperacion->getItem();
+                                 $em = $contexto->getEntityManager();
+                                 $itemDocumentoEntradaMercancias = $contexto->getItem();
                                 
                                  $precioItemML = $itemDocumentoEntradaMercancias->getImporteNeto();
                                  $bienServicio = $itemDocumentoEntradaMercancias->getBienServicio();
@@ -239,8 +213,7 @@ class LoadFuncion extends AbstractFixture implements FixtureInterface, OrderedFi
                                  $importe = $precioValoracionItem - $precioItemML;
                                  
                                  if ($importe > 0) {
-                                    $cuenta = $contextoOperacion->getFIImputacionesCustomizingManager()->getCuenta($contextoOperacion->getOperacion());
-                                    return new Core_Scripting\ItemFinanzasDTO($cuenta, $importe);
+                                    return $importe;
                                  } else {
                                     return null;
                                  }
@@ -254,10 +227,9 @@ class LoadFuncion extends AbstractFixture implements FixtureInterface, OrderedFi
                 "script" => '
                          class Script_DOC_EM_ITEM_REVALUOINVENTARIO_NEGATIVE extends Scripting\Script {
                              public function ejecutar(Scripting\Contexto $contexto) {
-                                 $contextoOperacion = $contexto->getContextoOperacion();
                                  
-                                 $em = $contextoOperacion->getEntityManager();
-                                 $itemDocumentoEntradaMercancias = $contextoOperacion->getItem();
+                                 $em = $contexto->getEntityManager();
+                                 $itemDocumentoEntradaMercancias = $contexto->getItem();
                                 
                                  $precioItemML = $itemDocumentoEntradaMercancias->getImporteNeto();
                                  $bienServicio = $itemDocumentoEntradaMercancias->getBienServicio();
@@ -271,8 +243,7 @@ class LoadFuncion extends AbstractFixture implements FixtureInterface, OrderedFi
                                  $importe = $precioValoracionItem - $precioItemML;
                                  
                                  if ($importe < 0) {
-                                    $cuenta = $contextoOperacion->getFIImputacionesCustomizingManager()->getCuenta($contextoOperacion->getOperacion());
-                                    return new Core_Scripting\ItemFinanzasDTO($cuenta, -$importe);                                 
+                                    return -$importe;
                                  } else {
                                     return 0;
                                  }

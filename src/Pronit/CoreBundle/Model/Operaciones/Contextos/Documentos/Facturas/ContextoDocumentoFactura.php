@@ -3,10 +3,11 @@
 namespace Pronit\CoreBundle\Model\Operaciones\Contextos\Documentos\Facturas;
 
 use Doctrine\ORM\EntityManager;
+use Pronit\AutomatizacionBundle\Model\Funciones\Contexto;
 use Pronit\ComprasBundle\Entity\Documentos\Facturas\Factura;
 use Pronit\CoreBundle\Entity\Operaciones\Operacion;
 use Pronit\CoreBundle\Model\Contabilidad\Customizing\IImputacionesCustomizingManager as FIIImputacionesCustomizingManager;
-use Pronit\CoreBundle\Model\Operaciones\Contextos\Contexto;
+
 
 /**
  *

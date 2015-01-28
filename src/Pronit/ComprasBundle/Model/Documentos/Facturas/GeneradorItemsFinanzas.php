@@ -3,17 +3,19 @@
 namespace Pronit\ComprasBundle\Model\Documentos\Facturas;
 
 use Doctrine\ORM\EntityManager;
-use Exception;
+use Pronit\ComprasBundle\Entity\Documentos\Facturas\Factura;
+use Pronit\ComprasBundle\Entity\Documentos\Facturas\ItemFactura;
 use Pronit\CoreBundle\Entity\Documentos\ClaseDocumento;
 use Pronit\CoreBundle\Entity\Documentos\Documento;
-use Pronit\CoreBundle\Entity\Documentos\Item;
 use Pronit\CoreBundle\Entity\Documentos\ItemFinanzas;
-use Pronit\CoreBundle\Entity\Operaciones\Operacion;
 use Pronit\CoreBundle\Model\Contabilidad\Customizing\IImputacionesCustomizingManager as FIIImputacionesCustomizingManager;
 use Pronit\CoreBundle\Model\Documentos\IGeneradorItemsFinanzas;
-use Pronit\CoreBundle\Model\Operaciones\Contextos\Documentos\Facturas\ContextoDocumentoFactura;
 use Pronit\CoreBundle\Model\Operaciones\Contextos\Documentos\Facturas\ContextoItemDocumentoFactura;
+use Pronit\CoreBundle\Model\Operaciones\Contextos\Impuestos\ContextoCalculoImpuesto;
+use Pronit\CustomizingBundle\Entity\Operaciones\MappingClaseDocumentoOperacion;
+use Pronit\CustomizingBundle\Entity\Operaciones\MappingClasificadorItemOperacion;
 use Pronit\CustomizingBundle\Model\Operaciones\IOperacionesCustomizingManager;
+use Pronit\ParametrizacionGeneralBundle\Entity\ItemCondicionPagos;
 
 /**
  * Description of GeneradorItemsFinanzas
@@ -35,69 +37,97 @@ class GeneradorItemsFinanzas implements IGeneradorItemsFinanzas {
     public function generar(Documento $documento) {
 
         /*
-         * Generar items de finanzas a partir de los items del documento 
+         * Generar items de finanzas a partir de los items del documento.
          */
         foreach ($documento->getItems() as $item) {
             $this->generarDesdeItem($item);
         }
+        
+        $this->generarParaCondicionPagos($documento);
+    }
 
+    /**
+     * Genera los items de finanzas a partir de la condición de pagos.
+     * 
+     * 
+     * @param Factura $documento
+     */
+    protected function generarParaCondicionPagos(Factura $documento) {
         /*
-         * Generar items de finanzas a partir del documento
-         * 
-         * TODO: Utilizar servicios para obtener las operaciones de nivel documento
+         * Se obtiene la operación designada para la imputación a la cuenta de
+         * acreedor. Se generaran tantos items finanzas como pagos tenga la
+         * condición.
+         * Se asume que hay solo un mapping definido para procesar condición
+         * de pagos pues no tiene sentido que  exista mas de uno.
          */
-        $asociaciones = $this->em->getRepository("Pronit\CustomizingBundle\Entity\Operaciones\AsociacionOperacionClaseDocumento")->findByClaseDocumento(ClaseDocumento::CODIGO_FACTURAACREEDOR);
-        foreach ($asociaciones as $asociacion) {
-            $operacion = $asociacion->getOperacion();
-            $contexto = new ContextoDocumentoFactura($operacion, $documento, $this->fiImputacionesCustomizingManager, $this->em);
 
-            if ($operacion->aceptaContexto($contexto)) {
-                $itemFinanzasDTOs = $operacion->ejecutar($contexto);
-                $this->generarItemsFinanzasDesdeDTOs($operacion, $documento, $itemFinanzasDTOs);
-            } else {
-                throw new Exception('La operación no puede ejecutarse en el contexto provisto.');
-            }
-        }
-    }
 
-    protected function generarDesdeItem(Item $item) {
+        $claseDocumento = $this->em->getRepository('Pronit\CoreBundle\Entity\Documentos\ClaseDocumento')->find(ClaseDocumento::CODIGO_FACTURAACREEDOR);
+        /* @var $mappingCondicionPagos MappingClaseDocumentoOperacion */
+        $mappingCondicionPagos = $this->operacionesCustomizingManager->getMappingsCondicionPagosByClaseDocumento($claseDocumento);
 
-        $clasificador = $item->getClasificador();
-        $operacionesContables = $this->operacionesCustomizingManager->getOperacionesContablesByClasificadorItem($clasificador);
+        $operacion = $mappingCondicionPagos->getOperacion();
+        $cuenta = $documento->getProveedorSociedad()->getAcreedor()->getCuenta();
 
-        foreach ($operacionesContables as $operacion) {
-            $contexto = new ContextoItemDocumentoFactura($operacion, $item, $this->fiImputacionesCustomizingManager, $this->em);
+        $importeTotal = $documento->getImporteTotal();
 
-            if ($operacion->aceptaContexto($contexto)) {
-                $itemFinanzasDTOs = $operacion->ejecutar($contexto);
-                $this->generarItemsFinanzasDesdeDTOs($operacion, $item->getDocumento(), $itemFinanzasDTOs);
-            } else {
-                throw new Exception('La operación no puede ejecutarse en el contexto provisto.');
-            }
-        }
-    }
+        foreach ($documento->getCondicionPagos()->getItems() as /* @var $itemCondicionPagos ItemCondicionPagos */ $itemCondicionPagos) {
+            $importe = $importeTotal * $itemCondicionPagos->getPorcentaje() / 100;
 
-    protected function generarItemsFinanzasDesdeDTOs(Operacion $operacion, Documento $documento, $itemFinanzasDTOs) {
-        /**
-         * Permitir compatibilidad con respuestas vacías o respuestas
-         * con un único DTO.
-         * En todos los casos se normaliza a un arreglo de DTOs (o vacío).
-         */
-        if ($itemFinanzasDTOs == null) {
-            $itemFinanzasDTOs = array();
-        }
-        if (!is_array($itemFinanzasDTOs)) {
-            $itemFinanzasDTOs = array($itemFinanzasDTOs);
-        }
-
-        /**
-         * Por cada DTO generar el Item de finanzas correspondiente en el
-         * documento.
-         */
-        foreach ($itemFinanzasDTOs as $itemFinanzasDTO) {
-            $itemFinanzas = new ItemFinanzas($operacion, $itemFinanzasDTO->getCuenta());
-            $itemFinanzas->setImporte($itemFinanzasDTO->getImporte());
+            $itemFinanzas = new ItemFinanzas($operacion, $cuenta);
+            $itemFinanzas->setImporte($importe);
             $documento->addItemFinanzas($itemFinanzas);
+        }
+    }
+
+    protected function generarDesdeItem(ItemFactura $item) {
+        $documento = $item->getDocumento();
+
+        /**
+         * Obtener operaciones según el mapping:
+         * ClasificadorItemFactura -> (Operacion, Funcion)
+         */
+        $clasificador = $item->getClasificador();
+        $mappingsClasificadorItemOperacion = $this->operacionesCustomizingManager->getMappingsByClasificadorItem($clasificador);
+
+        foreach ($mappingsClasificadorItemOperacion as /* @var $mappingClasificadorItemOperacion MappingClasificadorItemOperacion */ $mappingClasificadorItemOperacion) {
+            $operacion = $mappingClasificadorItemOperacion->getOperacion();
+            $funcion = $mappingClasificadorItemOperacion->getFuncion();
+            $contexto = new ContextoItemDocumentoFactura($item, $this->em);
+            $cuenta = $this->fiImputacionesCustomizingManager->getCuenta($operacion);
+
+            $importe = $funcion->ejecutar($contexto);
+
+            if ($importe != 0) {
+                $itemFinanzas = new ItemFinanzas($operacion, $cuenta);
+                $itemFinanzas->setImporte($importe);
+                $documento->addItemFinanzas($itemFinanzas);
+            }
+        }
+        
+        $this->generarDesdeItemParaIndicadorImpuestos($item);
+    }
+
+    protected function generarDesdeItemParaIndicadorImpuestos(ItemFactura $item) {
+        $documento = $item->getDocumento();
+        /**
+         * Obtener operaciones según el customizing de Indicador de Impuestos
+         * TODO: Debería seguirse el concepto de mapping y obtenerlos desde un
+         * servicio.
+         */
+        foreach ($item->getIndicadorImpuestos()->getItems() as $itemIndicadorImpuestos) {
+            $operacion = $itemIndicadorImpuestos->getOperacionContable();
+            $funcion = $itemIndicadorImpuestos->getFuncion();
+            $contexto = new ContextoCalculoImpuesto($item->getImporteNeto(), $itemIndicadorImpuestos->getAlicuota());
+            $cuenta = $this->fiImputacionesCustomizingManager->getCuenta($operacion);
+
+            $importe = $funcion->ejecutar($contexto);
+
+            if ($importe != 0) {
+                $itemFinanzas = new ItemFinanzas($operacion, $cuenta);
+                $itemFinanzas->setImporte($importe);
+                $documento->addItemFinanzas($itemFinanzas);
+            }
         }
     }
 

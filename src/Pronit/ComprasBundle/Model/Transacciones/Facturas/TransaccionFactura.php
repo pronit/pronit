@@ -30,7 +30,11 @@ class TransaccionFactura {
 
     public function ejecutar(Factura $factura) {
         if (!$factura->isContabilizado()) {
+            throw new Exception("La factura ya está contabilizada y no puede ser contabilizada nuevamente.");
+        }
 
+        $this->em->beginTransaction();
+        try {
             $factura->contabilizar();
 
             $this->generadorItemsFinanzas->generar($factura);
@@ -42,8 +46,10 @@ class TransaccionFactura {
 
             $this->em->persist($factura);
             $this->em->flush();
-        } else {
-            throw new Exception("La factura no puede ser contabilizada");
+            $this->em->commit();
+        } catch (Exception $e) {
+            $this->em->rollback();
+            throw $e;
         }
     }
 

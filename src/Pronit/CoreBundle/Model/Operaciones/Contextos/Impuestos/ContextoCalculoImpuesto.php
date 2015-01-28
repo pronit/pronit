@@ -2,8 +2,7 @@
 
 namespace Pronit\CoreBundle\Model\Operaciones\Contextos\Impuestos;
 
-use Pronit\CoreBundle\Entity\Operaciones\Operacion;
-use Pronit\CoreBundle\Model\Operaciones\Contextos\Contexto;
+use Pronit\AutomatizacionBundle\Model\Funciones\Contexto;
 
 /**
  * Description of ContextoCalculoImpuesto
@@ -17,8 +16,8 @@ class ContextoCalculoImpuesto extends Contexto {
 
     const CODIGO = "Impuestos.CalculoImpuesto";
 
-    public function __construct(Operacion $operacion, $montoImponible, $alicuota) {
-        parent::__construct(self::CODIGO, $operacion);
+    public function __construct($montoImponible, $alicuota) {
+        parent::__construct(self::CODIGO);
 
         $this->montoImponible = $montoImponible;
         $this->alicuota = $alicuota;

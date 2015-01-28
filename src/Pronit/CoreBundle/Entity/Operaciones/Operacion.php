@@ -1,11 +1,8 @@
 <?php
 
 namespace Pronit\CoreBundle\Entity\Operaciones;
+//use Pronit\CoreBundle\Model\Automatizacion\Scripting\Contexto as ContextoScript;
 
-use Exception;
-use Pronit\AutomatizacionBundle\Entity\Funcion;
-use Pronit\CoreBundle\Model\Automatizacion\Scripting\Contexto as ContextoScript;
-use Pronit\CoreBundle\Model\Operaciones\Contextos\Contexto;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -17,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="core_operacion")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"OperacionContableValue" = "Pronit\CoreBundle\Entity\Operaciones\OperacionContable", "OperacionCalculoValue" = "Pronit\CoreBundle\Entity\Operaciones\OperacionCalculo"})
+ * @ORM\DiscriminatorMap({"OperacionContableValue" = "OperacionContable", "OperacionCalculoValue" = "OperacionCalculo"})
  */
 abstract class Operacion {
 
@@ -37,12 +34,6 @@ abstract class Operacion {
      * @ORM\Column(type="string") 
      */    
     protected $nombre;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Pronit\AutomatizacionBundle\Entity\Funcion")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    protected $funcion;
     
     /** 
      * @ORM\Column(type="array") 
@@ -73,15 +64,7 @@ abstract class Operacion {
     public function getNombre() {
         return $this->nombre;
     }
-
-    public function setFuncion(Funcion $value) {
-        $this->funcion = $value;
-    }
-
-    public function getFuncion() {
-        return $this->funcion;
-    }
-
+/*
     public function ejecutar(Contexto $contexto) {
 
         if ($contexto == null) {
@@ -115,7 +98,7 @@ abstract class Operacion {
     public function aceptaContexto(Contexto $contexto) {
         return in_array($contexto->getCodigo(), $this->contextosAceptados);
     }
-    
+  */  
     public function __toString() {
         return '(' . $this->codigo . ') ' . $this->nombre;
     }
