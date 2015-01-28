@@ -16,14 +16,18 @@ class SociedadGLAdmin extends SociedadAdmin
     {
         $formMapper
             ->with('Datos generales')
-            ->add('sociedadCO', 'sonata_type_model_list', array(
-                    'btn_add'       => 'Crear Sociedad CO',
-                    'btn_list'      => 'button.list',
-                    'btn_delete'    => false,
-                    'btn_catalogue' => 'SonataAdminBundle'
-                ), array(
-                    'placeholder' => 'Ninguna Sociedad CO seleccionada'
-                ))
+                ->add(
+                        'sociedadCO', 
+                        'sonata_type_model_list', 
+                        array(
+                            'btn_delete'    => false,
+                            'btn_catalogue' => 'SonataAdminBundle'
+                        ), 
+                        array(
+                            'placeholder' => 'Ninguna Sociedad CO seleccionada'
+                        )
+                )
+            ->end()
         ;
         
         parent::configureFormFields($formMapper);

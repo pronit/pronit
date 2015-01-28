@@ -80,11 +80,8 @@ class LoadPedidos extends AbstractFixture implements FixtureInterface, OrderedFi
         $itemPedido->setPrecioUnitario(3.825);
         $itemPedido->setEscala($escalaMetro);
         $pedido->addItem($itemPedido);
-
-
-
-
         
+        $pedido->contabilizar();
 
         $this->setReference('pronit-compras-pedido-3444/5', $pedido);
 

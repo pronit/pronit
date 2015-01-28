@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 
 namespace Pronit\ComprasBundle\Model\Transacciones\Facturas;
@@ -41,8 +42,19 @@ class TransaccionFactura {
             $movimientos = $this->generadorAsientosContables->generarDesdeDocumento($factura);
 
             foreach ($movimientos as $movimiento) {
+
+                // pedir su itemfi, itemfi get operacion. 
+                // if operación hasPartidasAbiertas then 
+                //      if acreedor de factura hasPartidadsAbiertas 
+                //          crear GestionPartidasAbiertas
+
                 $this->em->persist($movimiento);
+
+                $gestionMovimiento = new GestionMovimientoDeudor($movimiento);
+
+                $this->em->persist($gestionMovimiento);
             }
+
 
             $this->em->persist($factura);
             $this->em->flush();

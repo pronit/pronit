@@ -16,10 +16,12 @@ class CentroLogisticoAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('sociedadFI')                
-            ->add('codigo')
-            ->add('nombre')
-            ->add('divisionAdministrativa')
+            ->with('Datos Generales')
+                ->add('sociedadFI')                
+                ->add('codigo')
+                ->add('nombre')
+                ->add('divisionAdministrativa')
+            ->end()
             ->with('Almacenes')
                 ->add('almacenes', 'sonata_type_collection', array('cascade_validation' => true, 'by_reference' => false), array(
                     'edit' => 'inline',
