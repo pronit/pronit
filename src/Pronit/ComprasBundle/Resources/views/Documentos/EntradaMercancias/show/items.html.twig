@@ -7,7 +7,8 @@
             <th>Bien/Servicio</th>
             <th>Escala</th>
             <th>Cantidad</th>            
-            <th>Importe</th>
+            <th>Importe Unitario</th>
+            <th>Importe Neto</th>
         </thead>
         <tbody>
             {% for itemEntrada in value %}
@@ -16,10 +17,28 @@
                 <td>{{ itemEntrada.clasificador }}</td>
                 <td>{{ itemEntrada.bienServicio }}</td>
                 <td>{{ itemEntrada.escala }}</td>
-                <td>{{ itemEntrada.cantidad }}</td>
-                <td>{{ itemEntrada.precioUnitario }}</td>
+                <td class="text-right">
+                    {{ itemEntrada.cantidad }}
+                </td>
+                <td class="text-right">
+                    {{ itemEntrada.documento.moneda.signoMonetario }} {{ itemEntrada.precioUnitario|number_format(2, ',', '.') }}
+                </td>
+                <td class="text-right">
+                    {{ itemEntrada.documento.moneda.signoMonetario }} {{ itemEntrada.importeNeto|number_format(2, ',', '.') }}
+                </td>
             </tr>
-            {% endfor %}            
+            {% endfor %}   
+            
+            {% if( value|length >0 ) %}
+                {# Se imprimieron items, por lo tanto se imprime una última fila totalizadora #}
+                {% set documento = value[0].documento %}
+                
+                <tr>
+                    <td colspan="6"><strong>Importe Neto</strong></td>
+                    <td class="text-right"><strong>{{ documento.moneda.signoMonetario }} {{ documento.importeNeto|number_format(2, ',', '.') }}</strong></td>
+                </tr>
+            {% endif %}
+            
         </tbody>
     </table>
 {% endblock %}

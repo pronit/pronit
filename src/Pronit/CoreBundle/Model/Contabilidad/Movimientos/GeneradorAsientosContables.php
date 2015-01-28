@@ -30,7 +30,7 @@ class GeneradorAsientosContables implements IGeneradorAsientosContables {
         $date = new DateTime();
         
         foreach ($esquema->getItems() as /* @var $item ItemEsquemaContable */ $item) {
-            $movimiento = new Movimiento($numeroAsiento, $date, "", $item->getCuenta(), $item->getMonto() * $item->getOperacion()->getClaveContabilizacion()->getSigno());
+            $movimiento = new Movimiento($numeroAsiento, $date, "", $item, $item->getCuenta(), $item->getMonto() * $item->getOperacion()->getClaveContabilizacion()->getSigno());
             $result->append($movimiento);
         }
 
@@ -43,7 +43,7 @@ class GeneradorAsientosContables implements IGeneradorAsientosContables {
         $date = new DateTime();
         
         foreach ($documento->getItemsFinanzas() as /* @var $item ItemFinanzas */ $item) {
-            $movimiento = new Movimiento($numeroAsiento, $date, "", $item->getCuenta(), $item->getImporte() * $item->getOperacion()->getClaveContabilizacion()->getSigno());
+            $movimiento = new Movimiento($numeroAsiento, $date, "", $item, $item->getCuenta(), $item->getImporte() * $item->getOperacion()->getClaveContabilizacion()->getSigno());
             $result->append($movimiento);
         }
 

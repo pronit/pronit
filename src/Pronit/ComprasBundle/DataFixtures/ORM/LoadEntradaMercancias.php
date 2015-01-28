@@ -55,23 +55,28 @@ class LoadEntradaMercancias extends AbstractFixture implements FixtureInterface,
         $entradaMercancias->setNumero("0001/1");
         $entradaMercancias->setFecha(new \DateTime());
         $entradaMercancias->setMoneda($moneda);
+        $entradaMercancias->setCentroLogistico( $pedidoEntregado->getCentroLogistico() );
+        $entradaMercancias->setProveedorSociedad( $pedidoEntregado->getProveedorSociedad() );
         $entradaMercancias->setTextoCabecera('Entrada de Mercancias desde pedido. ');
 
         foreach( $pedidoEntregado->getItems() as $itemPedido  ){
             
-            $material = $this->getReference('pronit-gestionbienesyservicios-bienservicio-610615008');
-            
             $item = new ItemEntradaMercancias();
             $item->setClasificador($clasificador);
             $item->setCantidad( $itemPedido->getCantidad() );
+            $item->setEscala( $itemPedido->getEscala() );
             $item->setBienServicio( $itemPedido->getBienServicio() );
             $item->setPrecioUnitario($itemPedido->getPrecioUnitario());
             $item->setItemPedidoEntregado( $itemPedido );
             
             $entradaMercancias->addItem($item);
         }                
-        
+                
         $manager->persist($entradaMercancias);
+
+        /* @var $transaccionEntradaMercancias \Pronit\ComprasBundle\Model\Transacciones\EntradasMercancias\TransaccionEntradaMercancias  */
+        $transaccionEntradaMercancias = $this->container->get('pronit_compras_transaccion.entradamercancias');
+        $transaccionEntradaMercancias->ejecutar($entradaMercancias);        
 
         $manager->flush();
     }
