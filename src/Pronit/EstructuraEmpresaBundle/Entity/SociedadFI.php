@@ -44,6 +44,11 @@ class SociedadFI extends Sociedad
         return $this->centrosLogisticos;
     }
     
+    public function setCentrosLogisticos( $centrosLogisticos)
+    {
+        $this->centrosLogisticos = $centrosLogisticos;
+    }
+    
     public function addCentroLogistico( CentroLogistico $centro )
     {
         $centro->setSociedadFI($this);
