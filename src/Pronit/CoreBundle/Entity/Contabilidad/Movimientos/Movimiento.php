@@ -3,7 +3,7 @@ namespace Pronit\CoreBundle\Entity\Contabilidad\Movimientos;
 
 use DateTime;
 use Pronit\CoreBundle\Entity\Contabilidad\CuentasContables\Cuenta;
-use Pronit\EstructuraEmpresaBundle\Entity\SociedadFI;
+use Pronit\CoreBundle\Entity\Documentos\ItemFinanzas;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -26,8 +26,11 @@ class Movimiento
      */
     private $asiento;
     
-    /** @var SociedadFI */
-    private $sociedadFI;
+    /**
+     * @ORM\OneToOne(targetEntity="Pronit\CoreBundle\Entity\Documentos\ItemFinanzas")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $itemFinanzas;
     
     /**
      * @ORM\ManyToOne(targetEntity="Pronit\CoreBundle\Entity\Contabilidad\CuentasContables\Cuenta")
@@ -50,11 +53,12 @@ class Movimiento
      */
     private $descripcion;
     
-    public function __construct($asiento, DateTime $fecha, $descripcion, Cuenta $cuenta, $importe) 
+    public function __construct($asiento, DateTime $fecha, $descripcion, ItemFinanzas $itemFinanzas, Cuenta $cuenta, $importe) 
     {
         $this->asiento = $asiento;
         $this->fecha = $fecha;
         $this->descripcion = $descripcion;
+        $this->itemFinanzas = $itemFinanzas;        
         $this->cuenta = $cuenta;
         $this->importe = $importe;
     }
@@ -62,11 +66,6 @@ class Movimiento
     public function getAsiento() 
     {
         return $this->asiento;
-    }
-    
-    public function getSociedadFI() 
-    {
-        return $this->sociedadFI;
     }
     
     public function getCuenta() 
@@ -93,4 +92,13 @@ class Movimiento
     {
         return $this->id;
     }
+    
+    /**
+     * 
+     * @return ItemFinanzas
+     */
+    function getItemFinanzas()
+    {
+        return $this->itemFinanzas;
+    }    
 }
