@@ -10,7 +10,12 @@ use Pronit\CoreBundle\Entity\Documentos\ClasificadorItem;
  * @ORM\Table(name="core_documentoitem")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"ItemPedidoValue" = "Pronit\ComprasBundle\Entity\Documentos\Pedidos\ItemPedido", "ItemEntradaMercanciasValue" = "Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\ItemEntradaMercancias", "ItemFacturaValue" = "Pronit\ComprasBundle\Entity\Documentos\Facturas\ItemFactura"})
+ * @ORM\DiscriminatorMap({
+        "ItemPedidoValue" = "Pronit\ComprasBundle\Entity\Documentos\Pedidos\ItemPedido", 
+        "ItemEntradaMercanciasValue" = "Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\ItemEntradaMercancias", 
+        "ItemFacturaValue" = "Pronit\ComprasBundle\Entity\Documentos\Facturas\ItemFactura",
+        "ItemOrdenPagoValue" = "Pronit\ComprasBundle\Entity\Documentos\OrdenesPago\ItemOrdenPago"
+    })
  */
 abstract class Item
 {

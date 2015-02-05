@@ -3,6 +3,7 @@
 namespace Pronit\CoreBundle\Entity\Documentos;
 
 use Doctrine\ORM\Mapping as ORM;
+
 use Pronit\EstructuraEmpresaBundle\Entity\SociedadFI;
 
 /**
@@ -10,10 +11,15 @@ use Pronit\EstructuraEmpresaBundle\Entity\SociedadFI;
  * @ORM\Table(name="core_documento")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"PedidoValue" = "Pronit\ComprasBundle\Entity\Documentos\Pedidos\Pedido","EntradaMercanciasValue" = "Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\EntradaMercancias", "FacturaValue" = "Pronit\ComprasBundle\Entity\Documentos\Facturas\Factura"})
+ * @ORM\DiscriminatorMap({
+        "PedidoValue" = "Pronit\ComprasBundle\Entity\Documentos\Pedidos\Pedido",
+        "EntradaMercanciasValue" = "Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\EntradaMercancias", 
+        "FacturaValue" = "Pronit\ComprasBundle\Entity\Documentos\Facturas\Factura",
+        "OrdenPagoValue" = "Pronit\ComprasBundle\Entity\Documentos\OrdenesPago\OrdenPago",
+    })
  */
-abstract class Documento {
-
+abstract class Documento 
+{
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -37,6 +43,16 @@ abstract class Documento {
      */
     protected $fecha;
 
+    /** 
+     * @ORM\Column(type="string") 
+     */
+    protected $textoCabecera;    
+
+    /** 
+     * @ORM\Column(type="boolean") 
+     */
+    protected $contabilizado;    
+        
     /**
      * @ORM\OneToMany(targetEntity="Pronit\CoreBundle\Entity\Documentos\Item", mappedBy="documento", cascade={"ALL"}, orphanRemoval=true)
      */
@@ -47,13 +63,16 @@ abstract class Documento {
      */
     private $itemsFinanzas;
 
-    public function __construct() {
+    public function __construct() 
+    {
         $this->setItems(new \Doctrine\Common\Collections\ArrayCollection());
         $this->setFecha(new \DateTime());
         $this->itemsFinanzas = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+        $this->contabilizado = false;        
+    }        
 
-    public function getId() {
+    public function getId() 
+    {
         return $this->id;
     }
 
@@ -69,6 +88,16 @@ abstract class Documento {
         $this->sociedad = $sociedad;
     }
 
+    public function getTextoCabecera()
+    {
+        return $this->textoCabecera;
+    }
+
+    public function setTextoCabecera($textoCabecera)
+    {
+        $this->textoCabecera = $textoCabecera;
+    }    
+        
     public function getNumero() {
         return $this->numero;
     }
@@ -114,6 +143,16 @@ abstract class Documento {
     public function getItemsFinanzas() {
         return $this->itemsFinanzas;
     }
+    
+    public function contabilizar()
+    {
+        $this->contabilizado = true;        
+    }
+    
+    public function isContabilizado()
+    {
+        return $this->contabilizado;
+    }    
     
     public function __toString() {
         return (string) $this->getNumero();

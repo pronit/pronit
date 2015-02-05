@@ -1,13 +1,14 @@
-<<<<<<< HEAD
 <?php
 
 namespace Pronit\ComprasBundle\Model\Transacciones\Facturas;
 
 use Doctrine\ORM\EntityManager;
 use Exception;
+
 use Pronit\ComprasBundle\Entity\Documentos\Facturas\Factura;
 use Pronit\CoreBundle\Model\Contabilidad\Movimientos\IGeneradorAsientosContables;
 use Pronit\CoreBundle\Model\Documentos\IGeneradorItemsFinanzas;
+use Pronit\CoreBundle\Entity\Contabilidad\Movimientos\GestionMovimiento\GestionMovimientoDeudor;
 
 /**
  *
@@ -29,8 +30,9 @@ class TransaccionFactura {
         $this->generadorAsientosContables = $generadorAsientosContables;
     }
 
-    public function ejecutar(Factura $factura) {
-        if (!$factura->isContabilizado()) {
+    public function ejecutar(Factura $factura) 
+    {
+        if ($factura->isContabilizado()) {
             throw new Exception("La factura ya está contabilizada y no puede ser contabilizada nuevamente.");
         }
 

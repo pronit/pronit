@@ -75,3 +75,25 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [PronitComprasBundle]]
+
+    pronit.admin.compras.ordenpago:
+        class: Pronit\ComprasBundle\Admin\Documentos\OrdenesPago\OrdenPagoAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Compras", label: "Orden de Pago" }
+        arguments:
+            - ~
+            - Pronit\ComprasBundle\Entity\Documentos\OrdenesPago\OrdenPago
+            - 'PronitComprasBundle:Documentos\OrdenesPago\OrdenPago'
+        calls:
+            - [ setTranslationDomain, [PronitComprasBundle]]
+
+    pronit.admin.compras.ordenespago.itemordenpago:
+        class: Pronit\ComprasBundle\Admin\Documentos\OrdenesPago\ItemOrdenPagoAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, show_in_dashboard: false, group: null }
+        arguments:
+            - ~
+            - Pronit\ComprasBundle\Entity\Documentos\OrdenesPago\ItemOrdenPago
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitComprasBundle]]

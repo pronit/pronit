@@ -13,7 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\DiscriminatorMap({
         "ItemPedidoValue" = "Pronit\ComprasBundle\Entity\Documentos\Pedidos\ClasificadorItemPedido",
         "ItemEntradaMercanciasValue" = "Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\ClasificadorItemEntradaMercancias",
-        "ItemFacturaValue" = "Pronit\ComprasBundle\Entity\Documentos\Facturas\ClasificadorItemFactura"
+        "ItemFacturaValue" = "Pronit\ComprasBundle\Entity\Documentos\Facturas\ClasificadorItemFactura",
+        "ItemOrdenPagoValue" = "Pronit\ComprasBundle\Entity\Documentos\OrdenesPago\ClasificadorItemOrdenPago"
     })
  */
 abstract class ClasificadorItem

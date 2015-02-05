@@ -16,7 +16,12 @@
                 <source>Factura List</source>
                 <target>Facturas</target>
             </trans-unit>
-                        
+
+            <trans-unit id="Orden Pago List">
+                <source>Orden Pago List</source>
+                <target>Ordenes de Pago</target>
+            </trans-unit>
+                                                
             <trans-unit id="Proveedor Sociedad F I List">
                 <source>Proveedor Sociedad F I List</source>
                 <target>Gestión de Proveedores</target>

@@ -100,5 +100,10 @@ class Movimiento
     function getItemFinanzas()
     {
         return $this->itemFinanzas;
-    }    
+    } 
+    
+    public function __toString()
+    {
+        return $this->getCuenta() . " " . $this->getImporte();
+    }
 }
