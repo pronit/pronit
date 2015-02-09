@@ -3,12 +3,14 @@
 namespace Pronit\ComprasBundle\Entity\Documentos\OrdenesPago;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 use Exception;
 
 use Pronit\CoreBundle\Entity\Documentos\Documento;
 use Pronit\CoreBundle\Entity\Documentos\Item;
 use Pronit\ComprasBundle\Entity\Customizing\Acreedores\ProveedorSociedadFI;
 use Pronit\ParametrizacionGeneralBundle\Entity\Moneda;
+use Pronit\ComprasBundle\Entity\Documentos\OrdenesPago\ItemPago;
 
 use Pronit\ComprasBundle\Entity\Documentos\Estados\EstadoCompras;
 use Pronit\ComprasBundle\Entity\Documentos\Estados\Inicial;
@@ -36,13 +38,17 @@ class OrdenPago extends Documento
      */
     protected $proveedorSociedad;
     
-    
-    //$itemsGestionMovimiento
+    /**
+     * @ORM\OneToMany(targetEntity="Pronit\ComprasBundle\Entity\Documentos\OrdenesPago\ItemPago", mappedBy="ordenPago")
+     */
+    private $itemsPago;
     
     public function __construct()
     {
         parent::__construct();
-        $this->setEstadoCompras( new Inicial() );     
+        
+        $this->setEstadoCompras( new Inicial() );             
+        $this->itemsPago = new ArrayCollection();
     }    
 
     
@@ -53,6 +59,31 @@ class OrdenPago extends Documento
         }
         parent::addItem($item);
     }
+    
+    public function getItemsPago()
+    {
+        return $this->itemsPago;
+    }
+    
+    /**
+     * 
+     * @param ItemPago $itemPago
+     */
+    public function addItemsPago(ItemPago $itemPago) 
+    {
+        $itemPago->setOrdenPago($this);
+        $this->itemsPago->add($itemPago);
+    }    
+    
+    /**
+     * 
+     * @param ItemPago $itemPago
+     */
+    public function removeItemsPago(ItemPago $itemPago) 
+    {
+        $itemPago->setOrdenPago(null);
+        $this->itemsPago->removeElement($itemPago);
+    }        
     
     public function getMoneda()
     {

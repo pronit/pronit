@@ -84,6 +84,20 @@ class OrdenPagoAdmin extends Admin
                     )
                 )
             ->end()                    
+            ->with('Pagos')
+                ->add('itemsPago', 
+                    'sonata_type_collection', 
+                    array(
+                        'cascade_validation' => true, 
+                        'by_reference' => false, 
+                    ), 
+                    array(
+                        'edit' => 'inline',
+                        'inline' => 'table',                    
+                        'admin_code' => 'pronit.admin.compras.ordenespago.itempago'
+                    )
+                )
+            ->end()                
         ; 
     }        
     

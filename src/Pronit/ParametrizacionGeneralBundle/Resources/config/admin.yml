@@ -97,3 +97,25 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [PronitParametrizacionGeneralBundle]]                                    
+
+    sonata.admin.bancos:
+        class: Pronit\ParametrizacionGeneralBundle\Admin\Bancos\BancoAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Parametrización General", label: "Bancos" }
+        arguments:
+            - ~
+            - Pronit\ParametrizacionGeneralBundle\Entity\Bancos\Banco
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitParametrizacionGeneralBundle]]
+            
+    sonata.admin.cuentasbancarias:
+        class: Pronit\ParametrizacionGeneralBundle\Admin\Bancos\CuentaBancariaAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, show_in_dashboard: false }
+        arguments:
+            - ~
+            - Pronit\ParametrizacionGeneralBundle\Entity\Bancos\CuentaBancaria
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitParametrizacionGeneralBundle]]                                    

@@ -10,7 +10,10 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="core_gestionmovimiento")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"GestionMovimientoDeudorValue" = "Pronit\CoreBundle\Entity\Contabilidad\Movimientos\GestionMovimiento\GestionMovimientoDeudor"})
+ * @ORM\DiscriminatorMap({
+    "GestionMovimientoDeudorValue" = "Pronit\CoreBundle\Entity\Contabilidad\Movimientos\GestionMovimiento\GestionMovimientoDeudor",
+    "GestionMovimientoAcreedorValue" = "Pronit\CoreBundle\Entity\Contabilidad\Movimientos\GestionMovimiento\GestionMovimientoAcreedor"
+ })
  */
 abstract class GestionMovimiento
 {

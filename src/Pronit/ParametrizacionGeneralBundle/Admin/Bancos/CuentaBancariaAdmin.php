@@ -1,5 +1,5 @@
 <?php
-namespace Pronit\ComprasBundle\Admin\Documentos\OrdenesPago;
+namespace Pronit\ParametrizacionGeneralBundle\Admin\Bancos;
 
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -8,30 +8,32 @@ use Sonata\AdminBundle\Form\FormMapper;
 
 /**
  *
- * @author ldelia
+ * @author gcaseres
  */
-class ItemOrdenPagoAdmin extends Admin
+class CuentaBancariaAdmin extends Admin
 {
-    protected $parentAssociationMapping = 'documento';
     
-     // Fields to be shown on create/edit forms
+ // Fields to be shown on create/edit forms
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('clasificador')
-            ->add('importe')
-            ->add('gestionMovimientoAcreedor')
+            ->add('numero', 'number', array('label' => 'Número'))
         ;
-        
+    }
+
+    // Fields to be shown on filter forms
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
+    {
+        $datagridMapper
+            ->add('numero')
+        ;
     }
 
     // Fields to be shown on lists
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('clasificador')
-            ->add('importe')
-            ->add('gestionMovimientoAcreedor')
+            ->add('numero')
         ;
     }
 }

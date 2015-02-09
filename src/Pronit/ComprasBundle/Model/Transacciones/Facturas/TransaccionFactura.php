@@ -8,7 +8,7 @@ use Exception;
 use Pronit\ComprasBundle\Entity\Documentos\Facturas\Factura;
 use Pronit\CoreBundle\Model\Contabilidad\Movimientos\IGeneradorAsientosContables;
 use Pronit\CoreBundle\Model\Documentos\IGeneradorItemsFinanzas;
-use Pronit\CoreBundle\Entity\Contabilidad\Movimientos\GestionMovimiento\GestionMovimientoDeudor;
+use Pronit\CoreBundle\Entity\Contabilidad\Movimientos\GestionMovimiento\GestionMovimientoAcreedor;
 
 /**
  *
@@ -52,7 +52,7 @@ class TransaccionFactura {
 
                 $this->em->persist($movimiento);
 
-                $gestionMovimiento = new GestionMovimientoDeudor($movimiento);
+                $gestionMovimiento = new GestionMovimientoAcreedor($movimiento);
 
                 $this->em->persist($gestionMovimiento);
             }

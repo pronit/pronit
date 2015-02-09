@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 use Pronit\CoreBundle\Entity\Documentos\ClasificadorItem;
 use Pronit\CoreBundle\Entity\Documentos\Item;
-use Pronit\CoreBundle\Entity\Contabilidad\Movimientos\GestionMovimiento\GestionMovimiento;
+use Pronit\CoreBundle\Entity\Contabilidad\Movimientos\GestionMovimiento\GestionMovimientoAcreedor;
 
 use \Exception;
 
@@ -18,9 +18,14 @@ use \Exception;
 class ItemOrdenPago extends Item 
 {
     /**
-     * @ORM\ManyToOne(targetEntity="Pronit\CoreBundle\Entity\Contabilidad\Movimientos\GestionMovimiento\GestionMovimiento")
+     * @ORM\ManyToOne(targetEntity="Pronit\CoreBundle\Entity\Contabilidad\Movimientos\GestionMovimiento\GestionMovimientoAcreedor")
      */    
-    protected $gestionMovimiento;    
+    protected $gestionMovimientoAcreedor;
+    
+    /** 
+     * @ORM\Column(type="float") 
+     */
+    private $importe;    
     
     public function setClasificador(ClasificadorItem $clasificador)
     {
@@ -29,16 +34,26 @@ class ItemOrdenPago extends Item
         }
         parent::setClasificador($clasificador);
     }  
-    
-    function getGestionMovimiento()
+
+    function getGestionMovimientoAcreedor()
     {
-        return $this->gestionMovimiento;
+        return $this->gestionMovimientoAcreedor;
     }
 
-    function setGestionMovimiento(GestionMovimiento $gestionMovimiento)
+    function setGestionMovimientoAcreedor(GestionMovimientoAcreedor $gestionMovimientoAcreedor)
     {
-        $this->gestionMovimiento = $gestionMovimiento;
+        $this->gestionMovimientoAcreedor = $gestionMovimientoAcreedor;
     }    
+    
+    function getImporte()
+    {
+        return $this->importe;
+    }
+
+    function setImporte($importe)
+    {
+        $this->importe = $importe;
+    }   
     
 //    public function contabilizar()
 //    {

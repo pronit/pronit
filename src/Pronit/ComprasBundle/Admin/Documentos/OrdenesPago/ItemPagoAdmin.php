@@ -10,7 +10,7 @@ use Sonata\AdminBundle\Form\FormMapper;
  *
  * @author ldelia
  */
-class ItemOrdenPagoAdmin extends Admin
+class ItemPagoAdmin extends Admin
 {
     protected $parentAssociationMapping = 'documento';
     
@@ -18,9 +18,7 @@ class ItemOrdenPagoAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('clasificador')
             ->add('importe')
-            ->add('gestionMovimientoAcreedor')
         ;
         
     }
@@ -29,9 +27,7 @@ class ItemOrdenPagoAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('clasificador')
             ->add('importe')
-            ->add('gestionMovimientoAcreedor')
         ;
     }
 }

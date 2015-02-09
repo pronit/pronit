@@ -10,6 +10,10 @@
                 <source>Variante Ejercicio List</source>
                 <target>Variantes Ejercicios</target>
             </trans-unit>
+            <trans-unit id="Banco List">
+                <source>Banco List</source>
+                <target>Bancos</target>
+            </trans-unit>
             
         </body>
     </file>

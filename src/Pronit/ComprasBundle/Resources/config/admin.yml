@@ -97,3 +97,14 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [PronitComprasBundle]]
+
+    pronit.admin.compras.ordenespago.itempago:
+        class: Pronit\ComprasBundle\Admin\Documentos\OrdenesPago\ItemPagoAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, show_in_dashboard: false, group: null }
+        arguments:
+            - ~
+            - Pronit\ComprasBundle\Entity\Documentos\OrdenesPago\ItemPago
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitComprasBundle]]
