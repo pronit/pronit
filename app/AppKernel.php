@@ -34,6 +34,7 @@ class AppKernel extends Kernel
             
             new Bluegrass\Metadata\Bundle\MetadataBundle\BluegrassMetadataBundleMetadataBundle(),
             
+            
             new Pronit\CoreBundle\PronitCoreBundle(),
             new Pronit\ParametrizacionGeneralBundle\PronitParametrizacionGeneralBundle(),
             new Pronit\EstructuraEmpresaBundle\PronitEstructuraEmpresaBundle(),
@@ -48,6 +49,7 @@ class AppKernel extends Kernel
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
+            $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();
         }
 
         return $bundles;

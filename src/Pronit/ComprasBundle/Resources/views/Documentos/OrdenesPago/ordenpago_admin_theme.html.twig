@@ -1,0 +1,75 @@
+{% extends 'SonataAdminBundle:Form:form_admin_fields.html.twig' %}
+
+{% block collection_widget %}
+    {{ parent() }}
+    
+    {{ dump(form) }}
+    
+    {% for child in form %}
+        {{ dump(child) }}        
+    {% endfor %}
+    
+    {% if compound %}
+        compound
+    {% else %}
+        not compound
+    {% endif %}
+
+    
+{% endblock %}
+
+
+{% block collectionold_widget %}
+    {% spaceless %}
+        
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Tipo</th>
+                    <th>Importe</th>
+                    <th>Cuenta de Mayor</th>
+                    <th>Cuenta Bancaria</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Efectivo</td>
+                    <td>
+                        <input type="text" name="{{ form.vars.full_name }}[0][importe]" value="100" />
+                        <input type="hidden" name="{{ form.vars.full_name }}[0][type]" value="efectivo" />                        
+                    </td>
+                    <td>
+                        <input type="text" name="{{ form.vars.full_name }}[0][cuentaMayor]" value="20" />
+                    </td>
+                    <td>
+                        
+                    </td>                        
+                </tr>
+                <tr>
+                    <td>Transferencia</td>
+                    <td>
+                        <input type="text" name="{{ form.vars.full_name }}[1][importe]" value="200" />
+                        <input type="hidden" name="{{ form.vars.full_name }}[1][type]" value="transferencia" />
+                    </td>
+                    <td>
+                        <input type="text" name="{{ form.vars.full_name }}[1][cuentaMayor]" value="20" />
+                    </td>
+                    <td>
+                        <input type="text" name="{{ form.vars.full_name }}[1][cuentaBancaria]" value="1" />                        
+                    </td>
+                </tr>                
+            </tbody>
+        </table>
+        
+        <button onclick="" > 
+            <i class="glyphicon glyphicon-usd"></i>
+            Agregar Pago Efectivo 
+        </button>
+                    
+        <button onclick="" > 
+            <i class="glyphicon glyphicon-usd"></i>
+            Agregar Pago Transferencia Bancaria
+        </button>
+        
+    {% endspaceless %}
+{% endblock %}

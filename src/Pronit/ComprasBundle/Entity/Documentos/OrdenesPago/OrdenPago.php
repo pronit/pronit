@@ -8,13 +8,14 @@ use Exception;
 
 use Pronit\CoreBundle\Entity\Documentos\Documento;
 use Pronit\CoreBundle\Entity\Documentos\Item;
-use Pronit\ComprasBundle\Entity\Customizing\Acreedores\ProveedorSociedadFI;
+
 use Pronit\ParametrizacionGeneralBundle\Entity\Moneda;
 use Pronit\ComprasBundle\Entity\Documentos\OrdenesPago\ItemPago;
-
 use Pronit\ComprasBundle\Entity\Documentos\Estados\EstadoCompras;
 use Pronit\ComprasBundle\Entity\Documentos\Estados\Inicial;
 use Pronit\ComprasBundle\Entity\Documentos\Estados\Contabilizado;
+
+use Pronit\ComprasBundle\Entity\Customizing\Acreedores\ProveedorSociedadFI;
 
 /**
  *
@@ -39,7 +40,7 @@ class OrdenPago extends Documento
     protected $proveedorSociedad;
     
     /**
-     * @ORM\OneToMany(targetEntity="Pronit\ComprasBundle\Entity\Documentos\OrdenesPago\ItemPago", mappedBy="ordenPago")
+     * @ORM\OneToMany(targetEntity="Pronit\ComprasBundle\Entity\Documentos\OrdenesPago\ItemPago", mappedBy="ordenPago", cascade={"persist","remove"})
      */
     private $itemsPago;
     
@@ -79,10 +80,16 @@ class OrdenPago extends Documento
      * 
      * @param ItemPago $itemPago
      */
-    public function removeItemsPago(ItemPago $itemPago) 
+    public function removeItemsPago($itemsPago) 
     {
-        $itemPago->setOrdenPago(null);
-        $this->itemsPago->removeElement($itemPago);
+        echo "<br> removeItemsPago <br>";        
+        print_r( $itemsPago );
+        die( get_class( $itemsPago) );
+        foreach( $itemsPago as $itemPago )
+        {
+            $itemPago->setOrdenPago(null);
+            $this->itemsPago->removeElement($itemPago);            
+        }
     }        
     
     public function getMoneda()
