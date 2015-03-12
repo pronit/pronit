@@ -5,8 +5,6 @@ parameters:
     pronit_compras_transaccion.entradamercancias.class: Pronit\ComprasBundle\Model\Transacciones\EntradasMercancias\TransaccionEntradaMercancias
     pronit_compras_transaccion.factura.class: Pronit\ComprasBundle\Model\Transacciones\Facturas\TransaccionFactura
     pronit_compras_transaccion.ordenpago.class: Pronit\ComprasBundle\Model\Transacciones\OrdenesPago\TransaccionOrdenPago
-    
-    pronit_compras_transformer.itemspagotransformer.class: Pronit\ComprasBundle\Form\DataTransformer\ItemsPagoTransformer
 
 services:
     pronit_compras_documentos_entradasmercancias.generador_items_finanzas:
@@ -27,9 +25,14 @@ services:
         
     pronit_compras_transaccion.ordenpago:
         class: %pronit_compras_transaccion.ordenpago.class%
-        arguments: [@doctrine.orm.entity_manager]
+        arguments: [@doctrine.orm.entity_manager]        
         
-    pronit_compras_transformer.itemspagotransformer:
-        class: %pronit_compras_transformer.itemspagotransformer.class%
-        arguments: [@doctrine.orm.entity_manager]
-        
+    app.form.type.itempagoefectivotype:
+        class: Pronit\ComprasBundle\Form\Type\EfectivoItemPagoType
+        tags:
+            - { name: form.type, alias: itempagoefectivotype }        
+            
+    app.form.type.itempagotransferenciabancariatype:
+        class: Pronit\ComprasBundle\Form\Type\TransferenciaItemPagoType
+        tags:
+            - { name: form.type, alias: itempagotransferenciabancariatype }                    

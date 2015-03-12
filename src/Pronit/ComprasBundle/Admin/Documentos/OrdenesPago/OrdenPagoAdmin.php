@@ -93,6 +93,17 @@ class OrdenPagoAdmin extends Admin
             ->end()                    
             ->with('Pagos')
                 ->add( 
+                        
+                    $formMapper->create('itemsPago', 'infinite_form_polycollection', array(
+                        'types' => array(
+                            'itempagoefectivotype', // The first defined Type becomes the default
+                            'itempagotransferenciabancariatype',
+                        ),
+                        'allow_add' => true,
+                        'allow_delete' => true,
+                        'by_reference' => false,
+                    ))
+                    /*
                     $formMapper->create(
                         'itemsPago',
                         'collection', 
@@ -102,12 +113,13 @@ class OrdenPagoAdmin extends Admin
                             'type' => new ItemPagoType()
                         )
                     )
-//                    ->addModelTransformer( $this->getConfigurationPool()->getContainer()->get('pronit_compras_transformer.itemspagotransformer') ) 
+                    * 
+                    */
                 )
         ; 
-        
+/*        
         $builder = $formMapper->getFormBuilder();
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) {
+        $builder->addEventListener(FormEvents::POST_SET_DATA, function(FormEvent $event) {
 
                 $form = $event->getForm();
 
@@ -141,8 +153,7 @@ class OrdenPagoAdmin extends Admin
                     }
                 }    
         }, 1);    
-
-        
+*/        
     }        
     
     public function getFormTheme()

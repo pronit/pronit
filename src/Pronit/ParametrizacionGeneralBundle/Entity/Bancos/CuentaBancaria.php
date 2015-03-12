@@ -58,4 +58,9 @@ class CuentaBancaria
     {
         $this->banco = $banco;
     }
+    
+    public function __toString()
+    {
+        return (string) $this->getBanco() . " " . $this->getNumero();
+    }
 }

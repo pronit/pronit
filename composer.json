@@ -20,13 +20,14 @@
         "sensio/framework-extra-bundle": "~3.0",
         "sensio/generator-bundle": "~2.3",
         "incenteev/composer-parameter-handler": "~2.0",
-        "sonata-project/admin-bundle": "2.3.*@dev",
+        "sonata-project/admin-bundle": "dev-master",
         "sonata-project/doctrine-orm-admin-bundle": "2.3.x-dev",
         "sonata-project/user-bundle": "2.3.*@dev",        
         "doctrine/doctrine-fixtures-bundle": "2.2.*",
         "bluegrass/metadata": "dev-master",
         "fieryprophet/php-sandbox": "dev-master@dev",
-        "jeremeamia/functionparser": "dev-master@dev"
+        "jeremeamia/functionparser": "dev-master@dev",
+        "infinite-networks/form-bundle": "~1.0@dev"
     },
     "scripts": {
         "post-install-cmd": [
@@ -52,9 +53,6 @@
         "symfony-web-dir": "web",
         "incenteev-parameters": {
             "file": "app/config/parameters.yml"
-        },
-        "branch-alias": {
-            "dev-master": "2.4-dev"
         }
     },
     "require-dev": {

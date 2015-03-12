@@ -40,7 +40,7 @@ class OrdenPago extends Documento
     protected $proveedorSociedad;
     
     /**
-     * @ORM\OneToMany(targetEntity="Pronit\ComprasBundle\Entity\Documentos\OrdenesPago\ItemPago", mappedBy="ordenPago", cascade={"persist","remove"})
+     * @ORM\OneToMany(targetEntity="Pronit\ComprasBundle\Entity\Documentos\OrdenesPago\ItemPago", mappedBy="ordenPago", cascade={"persist","remove"}, orphanRemoval=true)
      */
     private $itemsPago;
     
@@ -80,16 +80,13 @@ class OrdenPago extends Documento
      * 
      * @param ItemPago $itemPago
      */
-    public function removeItemsPago($itemsPago) 
+    public function removeItemsPago($itemPago) 
     {
-        echo "<br> removeItemsPago <br>";        
-        print_r( $itemsPago );
-        die( get_class( $itemsPago) );
-        foreach( $itemsPago as $itemPago )
-        {
+//        foreach( $itemsPago as $itemPago )
+  //      {
             $itemPago->setOrdenPago(null);
             $this->itemsPago->removeElement($itemPago);            
-        }
+    //    }
     }        
     
     public function getMoneda()

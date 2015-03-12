@@ -36,12 +36,16 @@ framework:
 twig:
     debug:            true
     strict_variables: "%kernel.debug%"
-
+    form:
+        resources:
+            - 'InfiniteFormBundle::form_theme.html.twig'
+            - 'InfiniteFormBundle::collection_theme.html.twig'            
+            
 # Assetic Configuration
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ ]
+    bundles:        [ PronitComprasBundle ]
     #java: /usr/bin/java
     filters:
         cssrewrite: ~

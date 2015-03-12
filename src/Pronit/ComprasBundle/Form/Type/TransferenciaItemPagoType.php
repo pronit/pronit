@@ -14,20 +14,27 @@ class TransferenciaItemPagoType extends AbstractType
     {
         //die('test');
         $builder->add('importe');
+        $builder->add('cuenta');        
+        
         $builder->add('cuentaBancaria');
+        $builder->add('_type', 'hidden', array(
+            'data'   => $this->getName(),
+            'mapped' => false
+        ));        
     }
     
     
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            //'data_class' => 'Pronit\Compras\Entity\',
+            'data_class' => 'Pronit\ComprasBundle\Entity\Documentos\OrdenesPago\ItemPagoTransferenciaBancaria',
+            'model_class' => 'Pronit\ComprasBundle\Entity\Documentos\OrdenesPago\ItemPagoTransferenciaBancaria',
         ));        
     }
     
     public function getName()
     {
-        return 'itempagotransferencia';
+        return 'itempagotransferenciabancariatype';
     }    
     
 }
