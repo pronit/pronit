@@ -1,5 +1,11 @@
 {% extends 'SonataAdminBundle:Form:form_admin_fields.html.twig' %}
 
+{% block form_widget %}
+    {{ parent() }}
+    
+{% endblock %}
+
+
 {% block infinite_form_polycollection_row %}
     <div class="collection">
         

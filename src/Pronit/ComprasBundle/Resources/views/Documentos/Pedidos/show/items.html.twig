@@ -40,7 +40,7 @@
                     <td class="text-right"><strong>{{ documento.moneda.signoMonetario }} {{ documento.importeNeto|number_format(2, ',', '.') }}</strong></td>
                 </tr>
             {% endif %}
-        </tbody>
+        </tbody		{{dump( value )}}>
     </table>
 {% endblock %}
 </td>
