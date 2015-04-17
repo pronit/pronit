@@ -85,7 +85,7 @@ services:
             - Pronit\ComprasBundle\Entity\Documentos\OrdenesPago\OrdenPago
             - 'PronitComprasBundle:Documentos\OrdenesPago\OrdenPago'
         calls:
-            - [ setTemplate, [edit, PronitComprasBundle:Documentos\\OrdenesPago\\CRUD:edit.html.twig]]            
+            - [ setTemplate, [edit, PronitComprasBundle:Documentos\\OrdenPago\\CRUD:edit.html.twig]]            
             - [ setTranslationDomain, [PronitComprasBundle]]
 
     pronit.admin.compras.ordenespago.itemordenpago:
@@ -97,6 +97,7 @@ services:
             - Pronit\ComprasBundle\Entity\Documentos\OrdenesPago\ItemOrdenPago
             - ~
         calls:
+            - [ setTemplate, [edit, PronitComprasBundle:Documentos\\ItemOrdenPago\\CRUD:edit.html.twig]]            
             - [ setTranslationDomain, [PronitComprasBundle]]
 
     pronit.admin.compras.ordenespago.itempago:

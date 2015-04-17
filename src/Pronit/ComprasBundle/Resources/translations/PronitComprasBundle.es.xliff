@@ -36,7 +36,12 @@
                 <source>Action</source>
                 <target>Acción</target>
             </trans-unit>
-                        
+
+            <trans-unit id="Gestion Movimiento Acreedor">
+                <source>Gestion Movimiento Acreedor</source>
+                <target>Gestión Movimiento Acreedor</target>
+            </trans-unit>
+                                                
         </body>
     </file>
 </xliff>

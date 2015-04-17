@@ -12,7 +12,7 @@ abstract class Acreedor extends RolPersona
     /**
      * @ORM\ManyToOne(targetEntity="Pronit\CoreBundle\Entity\Contabilidad\CuentasContables\Cuenta")
      */    
-    protected $cuenta;    
+    protected $cuenta;
     
     function getCuenta()
     {

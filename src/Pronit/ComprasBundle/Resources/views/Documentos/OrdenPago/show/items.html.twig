@@ -1,0 +1,23 @@
+<td>
+{% block field %}   
+        <table class="table table-bordered">
+        <thead>
+            <th>Clasificador</th>
+            <th>Importe</th>
+        </thead>
+        <tbody>
+            
+            {% for itemOrdenPago in value %}
+            <tr>
+                <td>{{ itemOrdenPago.clasificador }}</td>
+                <td class="text-right">
+                    {{ itemOrdenPago.documento.moneda.signoMonetario }} {{ itemOrdenPago.importe|number_format(2, ',', '.') }}
+                </td>
+            </tr>
+            {% endfor %}
+            
+        </tbody>
+    </table>
+                
+{% endblock %}
+</td>

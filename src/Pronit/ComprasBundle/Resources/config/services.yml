@@ -27,12 +27,17 @@ services:
         class: %pronit_compras_transaccion.ordenpago.class%
         arguments: [@doctrine.orm.entity_manager]        
         
-    app.form.type.itempagoefectivotype:
-        class: Pronit\ComprasBundle\Form\Type\EfectivoItemPagoType
+    app.form.type.ordenespago.itempagoefectivotype:
+        class: Pronit\ComprasBundle\Form\Type\OrdenesPago\EfectivoItemPagoType
         tags:
             - { name: form.type, alias: itempagoefectivotype }        
             
-    app.form.type.itempagotransferenciabancariatype:
-        class: Pronit\ComprasBundle\Form\Type\TransferenciaItemPagoType
+    app.form.type.ordenespago.itempagotransferenciabancariatype:
+        class: Pronit\ComprasBundle\Form\Type\OrdenesPago\TransferenciaItemPagoType
         tags:
-            - { name: form.type, alias: itempagotransferenciabancariatype }                    
+            - { name: form.type, alias: itempagotransferenciabancariatype }
+            
+    app.form.type.ordenespago.itemordenpagotype:
+        class: Pronit\ComprasBundle\Form\Type\OrdenesPago\ItemOrdenPagoType
+        tags:
+            - { name: form.type, alias: itemordenpagotype }

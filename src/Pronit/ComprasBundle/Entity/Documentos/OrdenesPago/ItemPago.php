@@ -12,6 +12,7 @@ use Pronit\CoreBundle\Entity\Contabilidad\CuentasContables\Cuenta;
  *
  * @author ldelia
  * @ORM\Entity
+ * @ORM\Table(name="compras_itempago")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({

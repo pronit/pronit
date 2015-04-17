@@ -18,6 +18,10 @@ class OperacionContable extends Operacion
      */
     protected $claveContabilizacion;    
     
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $gestionaPartidasAbiertas;
     
     /**
      * 
@@ -32,6 +36,16 @@ class OperacionContable extends Operacion
     {
         $this->claveContabilizacion = $claveContabilizacion;
     }
+    
+    function getGestionaPartidasAbiertas()
+    {
+        return $this->gestionaPartidasAbiertas;
+    }
+
+    function setGestionaPartidasAbiertas($gestionaPartidasAbiertas)
+    {
+        $this->gestionaPartidasAbiertas = $gestionaPartidasAbiertas;
+    }    
     
     protected function procesar($returnValue) 
     {

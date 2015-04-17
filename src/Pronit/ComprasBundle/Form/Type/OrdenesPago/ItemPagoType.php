@@ -1,6 +1,6 @@
 <?php
 
-namespace Pronit\ComprasBundle\Form\Type;
+namespace Pronit\ComprasBundle\Form\Type\OrdenesPago;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;

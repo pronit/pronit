@@ -1,0 +1,103 @@
+{% extends 'SonataAdminBundle:CRUD:edit.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts
+        'bundles/infiniteform/js/collections.js'
+        output='js/application.js'
+    %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}    
+    
+    <script>
+        var cmb_proveedor;
+        
+        $(document).ready(function () {
+
+            s2_cmb_proveedor = $('#s2id_{{ form['proveedorSociedad'].vars.id }}');
+            
+            cnt_items = $('.collection_itemordenpago');
+        
+            span_proveedorelegido = $('<span></span>');
+            
+            cmb_proveedor = $('#{{ form['proveedorSociedad'].vars.id }}');
+            cmb_proveedor.parent().append( span_proveedorelegido );
+            
+            /*
+             * Combo de proveedores
+             * Eliminar los items de la orden de pago si se cambia de proveedor.
+             */
+            cmb_proveedor.change(function (e) {
+                if ($(this).val() !== '') {
+                    
+                    s2_cmb_proveedor.hide();
+
+                    {# En el formulario de edición no se permite modificar el combo de proveedor #}
+                    if( $(this).is(':enabled') ){
+                        var lnk_cambiar = $('<a href="">  Click para cambiar...</a>');
+                        lnk_cambiar.attr('id', 'btn-cambiar_' + $(this).attr('id'));
+                        lnk_cambiar.click(function () {
+                            $('#modal-confirm-cambioproveedor').modal();
+                            return false;
+                        });
+
+                        $(this).parent().append(lnk_cambiar);
+                    }
+                    
+                    span_proveedorelegido.html( cmb_proveedor.children("option").filter(":selected").text() );                    
+                    span_proveedorelegido.show();
+                    
+                    cnt_items.show();
+                                        
+                } else {
+                    
+                    span_proveedorelegido.hide();
+                    cnt_items.hide();
+                }                
+            });
+            
+            cmb_proveedor.trigger('change');
+
+            /*
+             * Configurar ventana modal
+             * modal-confirm-cambioproveedor
+             */
+            $('#modal-confirm-cambioproveedor .btn-primary').click(function () {
+                
+                span_proveedorelegido.hide();
+                cnt_items.find('a.remove_item').trigger('click');
+                
+                s2_cmb_proveedor.show();                
+                cmb_proveedor.val('').trigger('change');
+                $("option[value='']", cmb_proveedor).attr('selected', true)
+                
+                $('#btn-cambiar_' + cmb_proveedor.attr('id')).remove();
+                $('#modal-confirm-cambioproveedor').modal('hide');
+            });
+
+        });
+    </script>
+    
+{% endblock %}
+
+{% block form %}    
+    {{ parent() }}
+    
+    <div class="modal fade" id="modal-confirm-cambioproveedor">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Cambiar proveedor</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Al cambiar de proveedor se eliminará el detalle de la orden de pago. ¿Desea continuar?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary">Cambiar proveedor</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock form %}

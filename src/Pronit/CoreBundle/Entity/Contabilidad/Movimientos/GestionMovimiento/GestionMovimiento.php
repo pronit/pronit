@@ -41,6 +41,11 @@ abstract class GestionMovimiento
         $this->movimientosCompensatorios = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
+    function getId()
+    {
+        return $this->id;
+    }    
+    
     function getMovimientoGestionado()
     {
         return $this->movimientoGestionado;

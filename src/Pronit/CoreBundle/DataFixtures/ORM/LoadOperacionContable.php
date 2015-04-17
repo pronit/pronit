@@ -43,18 +43,18 @@ class LoadOperacionContable extends AbstractFixture implements FixtureInterface,
         $this->setManager($manager);
 
         $values = array(
-            array("codigo" => "BSX", "nombre" => "Contabilización de inventario", "claveContabilizacion" => 89),
-            array("codigo" => "WRX", "nombre" => "EM/RF abierta", "claveContabilizacion" => 96),
-            array("codigo" => "WRZ", "nombre" => "EM/RF concluida", "claveContabilizacion" => 86),
-            array("codigo" => "KBS", "nombre" => "Pedido Imputado", "claveContabilizacion" => 31),
-            array("codigo" => "PRM", "nombre" => "Dif. de cambio R-", "claveContabilizacion" => 40),
-            array("codigo" => "PRG", "nombre" => "Dif. de cambio R+", "claveContabilizacion" => 50),
-            array("codigo" => "PRD-", "nombre" => "Dif. de precio negat", "claveContabilizacion" => 83),
-            array("codigo" => "PRD+", "nombre" => "Dif. de precio posit", "claveContabilizacion" => 93),
-            array("codigo" => "BSD-", "nombre" => "Revalúo inventario en menos", "claveContabilizacion" => 50),
-            array("codigo" => "BSD+", "nombre" => "Revalúo inventario en mas", "claveContabilizacion" => 40),
-            array("codigo" => "IMP", "nombre" => "Cálculo de impuestos", "claveContabilizacion" => 40),
-            array("codigo" => "J1A1", "nombre" => "IVA soportado", "claveContabilizacion" => 40),
+            array("codigo" => "BSX", "nombre" => "Contabilización de inventario", "claveContabilizacion" => 89, "gestionaPartidasAbiertas" => 0),
+            array("codigo" => "WRX", "nombre" => "EM/RF abierta", "claveContabilizacion" => 96, "gestionaPartidasAbiertas" => 0),
+            array("codigo" => "WRZ", "nombre" => "EM/RF concluida", "claveContabilizacion" => 86, "gestionaPartidasAbiertas" => 1),
+            array("codigo" => "KBS", "nombre" => "Pedido Imputado", "claveContabilizacion" => 31, "gestionaPartidasAbiertas" => 0),
+            array("codigo" => "PRM", "nombre" => "Dif. de cambio R-", "claveContabilizacion" => 40, "gestionaPartidasAbiertas" => 0),
+            array("codigo" => "PRG", "nombre" => "Dif. de cambio R+", "claveContabilizacion" => 50, "gestionaPartidasAbiertas" => 0),
+            array("codigo" => "PRD-", "nombre" => "Dif. de precio negat", "claveContabilizacion" => 83, "gestionaPartidasAbiertas" => 0),
+            array("codigo" => "PRD+", "nombre" => "Dif. de precio posit", "claveContabilizacion" => 93, "gestionaPartidasAbiertas" => 0),
+            array("codigo" => "BSD-", "nombre" => "Revalúo inventario en menos", "claveContabilizacion" => 50, "gestionaPartidasAbiertas" => 0),
+            array("codigo" => "BSD+", "nombre" => "Revalúo inventario en mas", "claveContabilizacion" => 40, "gestionaPartidasAbiertas" => 0),
+            array("codigo" => "IMP", "nombre" => "Cálculo de impuestos", "claveContabilizacion" => 40, "gestionaPartidasAbiertas" => 0),
+            array("codigo" => "J1A1", "nombre" => "IVA soportado", "claveContabilizacion" => 40, "gestionaPartidasAbiertas" => 0),
         );
 
         foreach ($values as $value) {
@@ -63,6 +63,7 @@ class LoadOperacionContable extends AbstractFixture implements FixtureInterface,
             $obj->setCodigo($value['codigo']);
             $obj->setNombre($value['nombre']);
             $obj->setClaveContabilizacion($this->getReference('pronit-core-clavecontabilizacion-' . $value["claveContabilizacion"]));
+            $obj->setGestionaPartidasAbiertas($value['gestionaPartidasAbiertas']);
 
             $manager->persist($obj);
 

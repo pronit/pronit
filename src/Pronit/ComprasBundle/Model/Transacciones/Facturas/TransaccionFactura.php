@@ -43,20 +43,22 @@ class TransaccionFactura {
             $this->generadorItemsFinanzas->generar($factura);
             $movimientos = $this->generadorAsientosContables->generarDesdeDocumento($factura);
 
-            foreach ($movimientos as $movimiento) {
-
-                // pedir su itemfi, itemfi get operacion. 
-                // if operación hasPartidasAbiertas then 
-                //      if acreedor de factura hasPartidadsAbiertas 
-                //          crear GestionPartidasAbiertas
-
-                $this->em->persist($movimiento);
-
-                $gestionMovimiento = new GestionMovimientoAcreedor($movimiento);
-
-                $this->em->persist($gestionMovimiento);
+            foreach ($movimientos as /* @var $movimiento \Pronit\CoreBundle\Entity\Contabilidad\Movimientos\Movimiento */ $movimiento) {                
+                
+                $this->em->persist($movimiento);                
+                
+                $operacion = $movimiento->getItemFinanzas()->getOperacion();
+                
+                if ( $operacion->getGestionaPartidasAbiertas() ){
+                    
+                    $acreedor = $factura->getProveedorSociedad()->getAcreedor();
+                    
+                    //  if( $acreedor -> hasPartidasAbiertas ){
+                        $gestionMovimiento = new GestionMovimientoAcreedor($movimiento, $acreedor );                                                
+                        $this->em->persist($gestionMovimiento);
+                    //  }
+                }
             }
-
 
             $this->em->persist($factura);
             $this->em->flush();
