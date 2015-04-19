@@ -46,16 +46,24 @@ class LoadMonedas extends AbstractFixture implements FixtureInterface , OrderedF
     public function load(ObjectManager $manager)
     {
         $this->setManager($manager);        
+
+        $values = array(
+            array( 'nombre' => 'Pesos Argentinos', 'codigoISO' => "ARS", 'abreviatura' => 'Peso', 'signoMonetario' => '$', 'slug' => 'pesos' ),
+            array( 'nombre' => 'Dólar Estadounidense', 'codigoISO' => "USD", 'abreviatura' => 'Dólar', 'signoMonetario' => 'u$d', 'slug' => 'dolares' ),
+        );
         
-        $moneda = new Moneda();
-        $moneda->setNombre("Peso");
-        $moneda->setCodigoISO("ARS");
-        $moneda->setAbreviatura("Peso");
-        $moneda->setSignoMonetario("$");
-                
-        $manager->persist($moneda);
-        
-        $this->addReference('pronit-parametrizaciongeneral-moneda-pesos', $moneda);
+        foreach( $values as $v ){
+            
+            $moneda = new Moneda();
+            $moneda->setNombre( $v['nombre'] );
+            $moneda->setCodigoISO( $v['codigoISO'] );
+            $moneda->setAbreviatura( $v['abreviatura'] );
+            $moneda->setSignoMonetario( $v['signoMonetario'] );
+
+            $manager->persist($moneda);
+
+            $this->addReference('pronit-parametrizaciongeneral-moneda-' . $v['slug'], $moneda);            
+        }
         
         $manager->flush();
     }

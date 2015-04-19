@@ -67,6 +67,8 @@ class LoadPlanDeCuentas extends AbstractFixture implements FixtureInterface , Or
             array( "numero" => "190101", "nombre" => "Diferencia de cambio pérdida" ),
             array( "numero" => "190102", "nombre" => "Diferencia de precio pérdida" ),
             array( "numero" => "210101", "nombre" => "Proveedores locales" ),
+            array( "numero" => "210103", "nombre" => "Proveedores del exterior" ),
+            array( "numero" => "140111", "nombre" => "Percepciones sufridas IIBB BS AS" ),
             array( "numero" => "210102", "nombre" => "EM/RF: Entrega/prestaciones aún no facturadas" ),
             array( "numero" => "510192", "nombre" => "Diferencia de cambio ganancia" ),
             array( "numero" => "510193", "nombre" => "Diferencia de precio ganancia" ),

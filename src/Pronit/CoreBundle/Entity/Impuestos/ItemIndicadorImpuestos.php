@@ -39,6 +39,7 @@ class ItemIndicadorImpuestos
      */    
     protected $alicuota;
     
+    /*
     public function __construct(IndicadorImpuestos $indicadorImpuestos, OperacionContable $operacionContable, Funcion $funcion, $alicuota )
     {
         $this->setIndicadorImpuestos($indicadorImpuestos);
@@ -46,6 +47,8 @@ class ItemIndicadorImpuestos
         $this->setFuncion($funcion);
         $this->setAlicuota($alicuota);
     }
+     * 
+     */
     
     public function getId()
     {

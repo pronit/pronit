@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="core_rolpersona")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"ProveedorValue" = "Pronit\CoreBundle\Entity\Personas\Proveedor"})
+ * @ORM\DiscriminatorMap({"ProveedorValue" = "Pronit\CoreBundle\Entity\Personas\Proveedor", "DeudorValue" = "Pronit\CoreBundle\Entity\Personas\Deudor"})
  */
 abstract class RolPersona
 {

@@ -49,7 +49,7 @@ class LoadPedidos extends AbstractFixture implements FixtureInterface, OrderedFi
         $proveedorSociedad = $this->getReference('pronit-compras-customizing-acreedor-proveedorsociedadfi-delía');
         $centroLogistico = $this->getReference('pronit-estructuraempresa-centroLogistico-3000');
 
-        $clasificador = $this->getReference('pronit-documentos-clasificadoritempedido-100');
+        $clasificador = $this->getReference('pronit-documentos-compras-clasificadoritempedido-100');
         $escalaMetro = $this->getReference('pronit-parametrizaciongeneral-escala-metro');
 
         

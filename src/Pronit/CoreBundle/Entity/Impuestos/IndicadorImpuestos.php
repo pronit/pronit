@@ -60,16 +60,26 @@ class IndicadorImpuestos {
         $this->nombre = $nombre;
     }
 
-    public function addItem(OperacionContable $operacionContable, Funcion $funcion, $alicuota) {
-        $this->items[] = new ItemIndicadorImpuestos($this, $operacionContable, $funcion, $alicuota);
+//    public function addItem(OperacionContable $operacionContable, Funcion $funcion, $alicuota) {
+//        $this->items[] = new ItemIndicadorImpuestos($this, $operacionContable, $funcion, $alicuota);
+//    }
+    
+    public function addItem( ItemIndicadorImpuestos $itemIndicadorImpuestos ) 
+    {
+        $this->items[] = $itemIndicadorImpuestos;
+        $itemIndicadorImpuestos->setIndicadorImpuestos($this);
     }
-
+    
     public function getItems() {
         return $this->items;
     }
 
+    public function setItems( $items ) {
+        $this->items = $items;
+    }
+    
     public function __toString() {
-        return (string) $this->nombre;
+        return (string) $this->getCodigo() . " - " . $this->nombre;
     }
 
 }

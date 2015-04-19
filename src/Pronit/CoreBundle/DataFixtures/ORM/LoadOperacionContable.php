@@ -55,6 +55,8 @@ class LoadOperacionContable extends AbstractFixture implements FixtureInterface,
             array("codigo" => "BSD+", "nombre" => "Revalúo inventario en mas", "claveContabilizacion" => 40, "gestionaPartidasAbiertas" => 0),
             array("codigo" => "IMP", "nombre" => "Cálculo de impuestos", "claveContabilizacion" => 40, "gestionaPartidasAbiertas" => 0),
             array("codigo" => "J1A1", "nombre" => "IVA soportado", "claveContabilizacion" => 40, "gestionaPartidasAbiertas" => 0),
+            array("codigo" => "J2A1", "nombre" => "IVA repercutido", "claveContabilizacion" => 50, "gestionaPartidasAbiertas" => 0),
+            array("codigo" => "J1B1", "nombre" => "Percepciones Sufridas IIBB BS. AS.", "claveContabilizacion" => 40, "gestionaPartidasAbiertas" => 0),
         );
 
         foreach ($values as $value) {

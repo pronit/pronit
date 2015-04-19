@@ -34,6 +34,7 @@ class ProveedorAdmin extends Admin
     {
         $listMapper
             ->add('persona', null, array('label' => 'Tercero'))
+            ->add('cuenta')
             ->add('_action', 'actions', array(
                     'actions' => array(
                         'edit' => array(),

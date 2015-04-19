@@ -2,22 +2,26 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" datatype="plaintext" original="" >
         <body>
-            <trans-unit id="Persona Fisica List">
-                <source>Persona Fisica List</source>
-                <target>Personas Físicas</target>
+            <trans-unit id="Pedido List">
+                <source>Pedido List</source>
+                <target>Pedidos de Venta</target>
             </trans-unit>
-            <trans-unit id="Persona Juridica List">
-                <source>Persona Juridica List</source>
-                <target>Personas Jurídicas</target>
+            
+            <trans-unit id="Salida Mercancias List">
+                <source>Salida Mercancias List</source>
+                <target>Salida de Mercancías</target>
             </trans-unit>
-            <trans-unit id="Proveedor List">
-                <source>Proveedor List</source>
-                <target>Proveedores</target>
+            
+            <trans-unit id="Numero">
+                <source>Numero</source>
+                <target>Número</target>
             </trans-unit>
-            <trans-unit id="Movimiento List">
-                <source>Movimiento List</source>
-                <target>Libro diario</target>
-            </trans-unit>                        
+
+            <trans-unit id="Action">
+                <source>Action</source>
+                <target>Acción</target>
+            </trans-unit>
+                        
         </body>
     </file>
 </xliff>

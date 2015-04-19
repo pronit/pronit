@@ -1,6 +1,6 @@
 <?php
 
-namespace Pronit\CoreBundle\DataFixtures\ORM;
+namespace Pronit\CoreBundle\DataFixtures\ORM\Documentos\Compras;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
@@ -57,7 +57,7 @@ class LoadClasificadorItemPedido extends AbstractFixture implements FixtureInter
             
             $manager->persist($obj);
             
-            $this->addReference('pronit-documentos-clasificadoritempedido-' . $value['codigo'], $obj);        
+            $this->addReference('pronit-documentos-compras-clasificadoritempedido-' . $value['codigo'], $obj);        
         }
         
         $manager->flush();

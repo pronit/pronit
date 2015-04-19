@@ -1,19 +1,21 @@
 <?php
 
-namespace Pronit\CoreBundle\DataFixtures\ORM;
+namespace Pronit\CoreBundle\DataFixtures\ORM\Documentos\Ventas;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\ClasificadorItemEntradaMercancias;
+
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+
+use Pronit\CoreBundle\Entity\Documentos\Ventas\SalidasMercancias\ClasificadorItemSalidaMercancias;
 
 /**
  * @author ldelia
  */
-class LoadClasificadorItemEntradaMercancias extends AbstractFixture implements FixtureInterface , OrderedFixtureInterface, ContainerAwareInterface
+class LoadClasificadorItemSalidaMercancias extends AbstractFixture implements FixtureInterface , OrderedFixtureInterface, ContainerAwareInterface
 {
     /**
      * @var ContainerInterface
@@ -47,17 +49,17 @@ class LoadClasificadorItemEntradaMercancias extends AbstractFixture implements F
         $this->setManager($manager);        
 
         $values =  array(
-            array( "codigo" => "101", "nombre" => "Entrada de materiales por compra")
+            array( "codigo" => "501", "nombre" => "Salida de materiales por venta")
         );
         
         foreach( $values as $value ){
-            $obj = new ClasificadorItemEntradaMercancias();
+            $obj = new ClasificadorItemSalidaMercancias();
             $obj->setCodigo($value['codigo']);
             $obj->setNombre($value['nombre']);
             
             $manager->persist($obj);
             
-            $this->addReference('pronit-documentos-clasificadoritementradamercancias-' . $value['codigo'], $obj);        
+            $this->addReference('pronit-documentos-ventas-clasificadoritemsalidamercancias-' . $value['codigo'], $obj);        
         }
         
         $manager->flush();

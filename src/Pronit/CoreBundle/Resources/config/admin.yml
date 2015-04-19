@@ -31,6 +31,28 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [PronitCoreBundle]]                                    
+
+    pronit.core.personas.deudor:
+        class: Pronit\CoreBundle\Admin\Personas\DeudorAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Terceros", label: "Deudor" }
+        arguments:
+            - ~
+            - Pronit\CoreBundle\Entity\Personas\Deudor
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitCoreBundle]]                                    
+
+    pronit.core.customizing.deudores.deudorsociedadfi:
+        class: Pronit\CoreBundle\Admin\Customizing\Deudores\DeudorSociedadFIAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Customizing Sociedad FI", label: "Gestión de Deudores" }
+        arguments:
+            - ~
+            - Pronit\CoreBundle\Entity\Customizing\Deudores\DeudorSociedadFI
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitCoreBundle]]                                    
             
     sonata.core.contabilidad.movimientos:
         class: Pronit\CoreBundle\Admin\Contabilidad\Movimientos\MovimientoAdmin
@@ -77,4 +99,47 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [PronitCoreBundle]]                        
-        
+
+    pronit.admin.core.ventas.pedido:
+        class: Pronit\CoreBundle\Admin\Documentos\Ventas\Pedidos\PedidoAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Ventas", label: "Pedido de Venta" }
+        arguments:
+            - ~
+            - Pronit\CoreBundle\Entity\Documentos\Ventas\Pedidos\Pedido
+            - 'PronitCoreBundle:Documentos\Ventas\Pedidos\Pedido'
+        calls:
+            - [ setTranslationDomain, [PronitCoreBundle]]
+
+    pronit.admin.core.ventas.itempedido:
+        class: Pronit\CoreBundle\Admin\Documentos\Ventas\Pedidos\ItemPedidoAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, show_in_dashboard: false, group: null }
+        arguments:
+            - ~
+            - Pronit\CoreBundle\Entity\Documentos\Ventas\Pedidos\ItemPedido
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitCoreBundle]]
+
+    pronit.admin.core.ventas.entradasmercancias:
+        class: Pronit\CoreBundle\Admin\Documentos\Ventas\SalidasMercancias\SalidaMercanciasAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Ventas", label: "Salida de Mercancías" }
+        arguments:
+            - ~
+            - Pronit\CoreBundle\Entity\Documentos\Ventas\SalidasMercancias\SalidaMercancias
+            - 'PronitCoreBundle:Documentos\Ventas\SalidasMercancias\SalidaMercancias'
+        calls:
+            - [ setTranslationDomain, [PronitCoreBundle]]
+            
+    pronit.admin.core.ventas.itementradamercancias:
+        class: Pronit\CoreBundle\Admin\Documentos\Ventas\SalidasMercancias\ItemSalidaMercanciasAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, show_in_dashboard: false, group: null }
+        arguments:
+            - ~
+            - Pronit\CoreBundle\Entity\Documentos\Ventas\SalidasMercancias\ItemSalidaMercancias
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitCoreBundle]]

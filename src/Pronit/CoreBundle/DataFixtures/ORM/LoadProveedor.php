@@ -49,7 +49,7 @@ class LoadProveedor extends AbstractFixture implements FixtureInterface , Ordere
 
         $values =  array(
             array( "apellido" => "Delía", "cuenta" => "210101" ),
-            array( "apellido" => "Cáseres", "cuenta" => "210101" ),
+            array( "apellido" => "Cáseres", "cuenta" => "210103" ),
         );
         
         foreach( $values as $value ){

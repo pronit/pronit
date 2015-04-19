@@ -11,10 +11,12 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({
-        "ItemPedidoValue" = "Pronit\ComprasBundle\Entity\Documentos\Pedidos\ClasificadorItemPedido",
-        "ItemEntradaMercanciasValue" = "Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\ClasificadorItemEntradaMercancias",
+        "ComprasItemPedidoValue" = "Pronit\ComprasBundle\Entity\Documentos\Pedidos\ClasificadorItemPedido",
+        "ComprasItemEntradaMercanciasValue" = "Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\ClasificadorItemEntradaMercancias",
         "ItemFacturaValue" = "Pronit\ComprasBundle\Entity\Documentos\Facturas\ClasificadorItemFactura",
-        "ItemOrdenPagoValue" = "Pronit\ComprasBundle\Entity\Documentos\OrdenesPago\ClasificadorItemOrdenPago"
+        "ItemOrdenPagoValue" = "Pronit\ComprasBundle\Entity\Documentos\OrdenesPago\ClasificadorItemOrdenPago",
+        "VentasItemPedidoValue" = "Pronit\CoreBundle\Entity\Documentos\Ventas\Pedidos\ClasificadorItemPedido",
+        "VentasItemSalidaMercanciasValue" = "Pronit\CoreBundle\Entity\Documentos\Ventas\SalidasMercancias\ClasificadorItemSalidaMercancias",
     })
  */
 abstract class ClasificadorItem

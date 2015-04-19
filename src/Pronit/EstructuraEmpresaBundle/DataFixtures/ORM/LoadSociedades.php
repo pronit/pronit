@@ -9,6 +9,8 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+use Pronit\EstructuraEmpresaBundle\Entity\SociedadCO;
+use Pronit\EstructuraEmpresaBundle\Entity\SociedadGL;
 use Pronit\EstructuraEmpresaBundle\Entity\SociedadFI;
 use Pronit\EstructuraEmpresaBundle\Entity\CentroLogistico;
 use Pronit\EstructuraEmpresaBundle\Entity\Almacen;
@@ -48,8 +50,61 @@ class LoadSociedades extends AbstractFixture implements FixtureInterface , Order
     public function load(ObjectManager $manager)
     {
         $this->setManager($manager);        
+
+        /************** SOCIEDAD CO ***************/
+        $sociedadCO =  array(
+            array( 
+                "nombre" => "Ramirez y Asoc. Holding", 
+                "abreviatura" => "Ramirez Holding", 
+                "nombreFantasia" => "Ramirez Holding",
+                "activa" => true,
+                "fechaFundacion" => new \DateTime('1982-02-27'),
+            ),
+        );        
+        
+        foreach( $sociedadCO as $sco ){
+            $co_obj = new SociedadCO(); 
+            $co_obj->setNombre( $sco['nombre'] );
+            $co_obj->setAbreviatura( $sco['abreviatura'] );
+            $co_obj->setNombreFantasia( $sco['nombreFantasia'] );
+            $co_obj->setFechaFundacion( $sco['fechaFundacion'] );
+            $co_obj->setActiva( $sco['activa'] );        
+            
+            $this->addReference('pronit-estructuraempresa-sociedad-co-ramirez-holding', $co_obj);                
+            
+            $manager->persist($co_obj);            
+        }
+        
+        /************** SOCIEDAD GL ***************/
+        $sociedadGL =  array(
+            array( 
+                "sociedadCO" => "ramirez-holding",
+                "nombre" => "Ramirez Argentina", 
+                "abreviatura" => "Ramirez Arg", 
+                "nombreFantasia" => "Ramirez Argentina",
+                "activa" => true,
+                "fechaFundacion" => new \DateTime('1982-02-27'),
+            ),
+        );        
+        
+        foreach( $sociedadGL as $sgl ){
+            $gl_obj = new SociedadGL(); 
+            $gl_obj->setSociedadCO( $this->getReference('pronit-estructuraempresa-sociedad-co-'. $sgl['sociedadCO']) );
+            $gl_obj->setNombre( $sgl['nombre'] );
+            $gl_obj->setAbreviatura( $sgl['abreviatura'] );
+            $gl_obj->setNombreFantasia( $sgl['nombreFantasia'] );
+            $gl_obj->setFechaFundacion( $sgl['fechaFundacion'] );
+            $gl_obj->setActiva( $sgl['activa'] );        
+            
+            $this->addReference('pronit-estructuraempresa-sociedad-gl-ramirez-holding-arg', $gl_obj);                
+            
+            $manager->persist($gl_obj);            
+        }
+
+        /************** SOCIEDAD FI ***************/
         
         $sociedadFI = new SociedadFI();
+        $sociedadFI->setSociedadGL( $this->getReference('pronit-estructuraempresa-sociedad-gl-ramirez-holding-arg') );
         $sociedadFI->setNombre( "Modelo SA" );
         $sociedadFI->setAbreviatura("MSA FI");
         $sociedadFI->setNombreFantasia("Modelo SA Fantasía");
@@ -110,10 +165,37 @@ class LoadSociedades extends AbstractFixture implements FixtureInterface , Order
         }
         
         $manager->persist($sociedadFI);
-        
-        $manager->flush();
-        
+
         $this->addReference('pronit-estructuraempresa-sociedadfi', $sociedadFI);                
+                
+        /***************** sociedadFI extras ***********/
+        
+        $sociedadFI =  array(
+            array( 
+                "sociedadGL" => "ramirez-holding-arg",
+                "nombre" => "NH Construcciones S.A.", 
+                "abreviatura" => "NH S.A.", 
+                "nombreFantasia" => "NH Construcciones S.A.",
+                "activa" => true,
+                "fechaFundacion" => new \DateTime('1984-06-27'),
+            ),
+        );        
+        
+        foreach( $sociedadFI as $sfi ){
+            $fi_obj = new SociedadFI(); 
+            $fi_obj->setSociedadGL( $this->getReference('pronit-estructuraempresa-sociedad-gl-'. $sfi['sociedadGL']) );
+            $fi_obj->setNombre( $sfi['nombre'] );
+            $fi_obj->setAbreviatura( $sfi['abreviatura'] );
+            $fi_obj->setNombreFantasia( $sfi['nombreFantasia'] );
+            $fi_obj->setFechaFundacion( $sfi['fechaFundacion'] );
+            $fi_obj->setActiva( $sfi['activa'] );        
+            
+            $manager->persist($fi_obj);            
+        }
+        
+        
+        
+        $manager->flush();        
     }
     
     function getOrder()

@@ -39,7 +39,8 @@ class LoadIndicadorImpuestos extends AbstractFixture implements FixtureInterface
     /**
      * {@inheritDoc}
      */
-    public function load(ObjectManager $manager) {
+    public function load(ObjectManager $manager) 
+    {
         $this->setManager($manager);
 
         $values = array(
@@ -47,9 +48,25 @@ class LoadIndicadorImpuestos extends AbstractFixture implements FixtureInterface
                 "codigo" => "C1",
                 "nombre" => "IVA Compras 21%",
                 "items" => array(
-                    array("funcion" => "IMP_AXM", "operacion" => "J1A1", "alicuota" => 21)
+                    array("funcion" => "IMP_AXM", "operacion" => "J1A1", "alicuota" => 21),
                 ),
             ),
+            array(
+                "codigo" => "C2",
+                "nombre" => "IVA Compras 21% + Percepciones IIBB BSAS 3,5%",
+                "items" => array(
+                    array("funcion" => "IMP_AXM", "operacion" => "J1A1", "alicuota" => 21),
+                    array("funcion" => "IMP_AXM", "operacion" => "J1B1", "alicuota" => 3.5)
+                ),
+            ),            
+            array(
+                "codigo" => "V1",
+                "nombre" => "IVA Ventas 21%",
+                "items" => array(
+                    array("funcion" => "IMP_AXM", "operacion" => "J2A1", "alicuota" => 21)
+                ),
+            ),            
+            
         );
 
         foreach ($values as $value) {
@@ -59,7 +76,12 @@ class LoadIndicadorImpuestos extends AbstractFixture implements FixtureInterface
             $indicadorImpuestos->setNombre($value['nombre']);
 
             foreach ($value['items'] as $item) {
-                $indicadorImpuestos->addItem($this->getReference('pronit-core-operacion-' . $item['operacion']), $this->getReference('pronit-automatizacion-funcion-' . $item['funcion']), $item['alicuota']);
+                $itemIndicadorImpuesto = new \Pronit\CoreBundle\Entity\Impuestos\ItemIndicadorImpuestos();
+                $itemIndicadorImpuesto->setOperacionContable( $this->getReference('pronit-core-operacion-' . $item['operacion']) );
+                $itemIndicadorImpuesto->setAlicuota( $item['alicuota'] );
+                $itemIndicadorImpuesto->setFuncion( $this->getReference('pronit-automatizacion-funcion-' . $item['funcion']) );
+                
+                $indicadorImpuestos->addItem( $itemIndicadorImpuesto );
             }
 
             $manager->persist($indicadorImpuestos);

@@ -2,7 +2,8 @@ parameters:
     pronit_contabilidad_customizing.imputaciones_manager.class: Pronit\CoreBundle\Model\Contabilidad\Customizing\ImputacionesCustomizingManager
     pronit_contabilidad_customizing.generador_asientos_contables.class: Pronit\CoreBundle\Model\Contabilidad\Movimientos\GeneradorAsientosContables
     pronit_core.numeracion_sociedadfi_manager.class: Pronit\CoreBundle\Model\Numeraciones\NumeracionSociedadFIManager
-        
+    pronit_ventas_transaccion.salidamercancias.class: Pronit\CoreBundle\Model\Transacciones\SalidasMercancias\TransaccionSalidaMercancias
+    
 services:
 
     pronit_core.buscador_registro_condicion:
@@ -29,3 +30,6 @@ services:
         class: %pronit_contabilidad_customizing.generador_asientos_contables.class%
         arguments: [@pronit_core.numeracion_sociedadfi_manager]
         
+    pronit_ventas_transaccion.salidamercancias:
+        class: %pronit_ventas_transaccion.salidamercancias.class%
+        arguments: [@doctrine.orm.entity_manager]

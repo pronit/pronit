@@ -30,16 +30,8 @@ class MovimientoAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('fecha', 'doctrine_orm_datetime_range', array(),
-                        'sonata_type_date_range',
-                        array(
-                            'widget' => 'single_text',
-                            'required' => false,
-                            'attr' => array('class' => 'datepicker'),
-                        )
-                )
-
             ->add('asiento')                             
+            ->add('cuenta')                             
         ;
     }
     

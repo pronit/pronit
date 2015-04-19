@@ -94,7 +94,7 @@ class Moneda
         
     public function __toString() 
     {        
-        return (string)$this->nombre;
+        return (string)$this->getCodigoISO();
     }
     
     public function getDescripcion()
