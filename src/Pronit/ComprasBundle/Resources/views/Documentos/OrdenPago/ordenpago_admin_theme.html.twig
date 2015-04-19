@@ -1,17 +1,17 @@
 {% extends 'SonataAdminBundle:Form:form_admin_fields.html.twig' %}
 
 {% block infinite_form_polycollection_row %}
-    
+
     {% if form.vars.name == 'items' %}
-        
+
         {{ block('itemsOrdenPago_field') }}
-        
+
     {% elseif form.vars.name == 'itemsPago' %}
-        
+
         {{ block('itemsPago_field') }}
-        
+
     {% endif %}    
-    
+
 {% endblock %}
 
 {% block itemsOrdenPago_field %}
@@ -42,33 +42,33 @@
     </div>
 
     <script type="text/javascript">
-        $( function() {
-            
+        $(function () {
+
             var items = $('#{{ form.vars.id }}');
             new window.infinite.Collection(items, items.siblings('.add_itemordenpago'));
-            
-            items.bind('infinite_collection_add', function ( e ){                
+
+            items.bind('infinite_collection_add', function (e) {
 
                 $('.gestionMovimientoAcreedor', e.$row).empty();
 
                 var gestionMovimientoListPath = '{{ path('pronit_ordenespago_renderGestionMovimientoList', { id: '__id__' } ) }}';
                 gestionMovimientoListPath = gestionMovimientoListPath.replace('__id__', cmb_proveedor.val());
-        
-                $.ajax( { url: gestionMovimientoListPath, success: function(result){
 
-                    for(var i in result.options) {
+                $.ajax({url: gestionMovimientoListPath, success: function (result) {
 
-                        $('.gestionMovimientoAcreedor', e.$row).append($('<option>', {
-                            value: i,
-                            text: result.options[i]
-                        }));                        
-                    }
-                }});            
+                        for (var i in result.options) {
+
+                            $('.gestionMovimientoAcreedor', e.$row).append($('<option>', {
+                                value: i,
+                                text: result.options[i]
+                            }));
+                        }
+                    }});
 
             });
         });
     </script>    
-    
+
 {% endblock %}
 
 {% block itemordenpagotype_row %}
@@ -80,13 +80,13 @@
             {{ form_widget(form.importe) }}
         </div>
         <div class="col-sm-4">
-            
+
             {% if ( form.vars.data is not null and form.vars.data.id != '' ) %}
                 {{ form_widget(form.gestionMovimientoAcreedor, { 'attr':{'disabled':'disabled'} }) }}
             {% else %}
                 {{ form_widget(form.gestionMovimientoAcreedor) }}
             {% endif %}
-            
+
         </div>        
         <div class="col-sm-1">            
             <a class="remove_item" href="#">Eliminar</a>            
@@ -96,7 +96,7 @@
 {% endblock %}
 
 {% block itemsPago_field %}
-    
+
     <div class="collection">
 
         <div class="row">
@@ -119,23 +119,38 @@
 
         {{ form_widget(form) }}        
 
-        <a class="add_item btn btn-success btn-sm btn-outline sonata-ba-action" data-prototype="{{ form_row(form.vars.prototypes.itempagoefectivotype) | escape }}" href="#">
+
+        <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                Agregar pago <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li><a class="add_item" data-prototype="{{ form_row(form.vars.prototypes.itempagoefectivotype) | escape }}" href="#">Efectivo</span></a></li>
+                <li><a class="add_item" data-prototype="{{ form_row(form.vars.prototypes.itempagotransferenciabancariatype) | escape }}" href="#">Transferencia bancaria</a></li>
+            </ul>
+        </div>        
+            
+            <!--
+        <a class="add_item btn btn-success btn-sm btn-outline sonata-ba-action"  href="#">
             <i class="glyphicon glyphicon-usd"></i>
             Agregar Pago Efectivo 
         </a>
-        <a class="add_item btn btn-success btn-sm btn-outline sonata-ba-action" data-prototype="{{ form_row(form.vars.prototypes.itempagotransferenciabancariatype) | escape }}" href="#">
+        <a class="add_item btn btn-success btn-sm btn-outline sonata-ba-action"  href="#">
             <i class="glyphicon glyphicon-usd"></i>
             Agregar Pago Transferencia Bancaria
         </a>
+            -->
 
     </div>
 
     <script type="text/javascript">
-        if (!window.$) alert('jQuery not loaded');
-        $(function() {
-            if (!window.infinite || !window.infinite.Collection) alert('Collections helper not loaded');
+        if (!window.$)
+            alert('jQuery not loaded');
+        $(function () {
+            if (!window.infinite || !window.infinite.Collection)
+                alert('Collections helper not loaded');
             var itemsPago = $('#{{ form.vars.id }}');
-            new window.infinite.Collection(itemsPago, itemsPago.siblings('.add_item'));
+            new window.infinite.Collection(itemsPago, $('.add_item', itemsPago.siblings()));
         });
     </script>    
 {% endblock %}
@@ -161,7 +176,7 @@
         {{ form_widget(form) }}
     </div>
 {% endblock %}
- 
+
 {% block itempagotransferenciabancariatype_row %}
     <div class="row item">
         <div class="col-sm-2">
