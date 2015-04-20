@@ -8,6 +8,7 @@ use Pronit\ComprasBundle\Entity\Documentos\Facturas\ItemFactura;
 use Pronit\CoreBundle\Entity\Documentos\ClaseDocumento;
 use Pronit\CoreBundle\Entity\Documentos\Documento;
 use Pronit\CoreBundle\Entity\Documentos\ItemFinanzas;
+use Pronit\CoreBundle\Entity\Documentos\ItemFinanzasPago;
 use Pronit\CoreBundle\Model\Contabilidad\Customizing\IImputacionesCustomizingManager as FIIImputacionesCustomizingManager;
 use Pronit\CoreBundle\Model\Documentos\IGeneradorItemsFinanzas;
 use Pronit\CoreBundle\Model\Operaciones\Contextos\Documentos\Facturas\ContextoItemDocumentoFactura;
@@ -71,12 +72,15 @@ class GeneradorItemsFinanzas implements IGeneradorItemsFinanzas {
 
         $importeTotal = $documento->getImporteTotal();
 
-        foreach ($documento->getCondicionPagos()->getItems() as /* @var $itemCondicionPagos ItemCondicionPagos */ $itemCondicionPagos) {
+        $numeroPago = 1;
+        foreach ($documento->getCondicionPagos()->getItems() as /* @var $itemCondicionPagos ItemCondicionPagos */ $itemCondicionPagos) {            
             $importe = $importeTotal * $itemCondicionPagos->getPorcentaje() / 100;
 
-            $itemFinanzas = new ItemFinanzas($operacion, $cuenta);
+            $itemFinanzas = new ItemFinanzasPago($numeroPago, $operacion, $cuenta);
             $itemFinanzas->setImporte($importe);
             $documento->addItemFinanzas($itemFinanzas);
+            
+            $numeroPago++;
         }
     }
 

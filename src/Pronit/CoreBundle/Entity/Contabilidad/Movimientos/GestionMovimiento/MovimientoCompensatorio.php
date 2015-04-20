@@ -35,4 +35,8 @@ class MovimientoCompensatorio
         $this->gestionMovimiento = $gestionMovimiento;
         $this->movimiento = $movimiento;
     }
+    
+    public function getImporte() {
+        return abs($this->movimiento->getImporte());
+    }
 }

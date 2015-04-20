@@ -28,9 +28,17 @@ class OrdenPagoController extends Controller
         $gestionesMovimientoAcreedor = $this->getDoctrine()->getRepository('Pronit\CoreBundle\Entity\Contabilidad\Movimientos\GestionMovimiento\GestionMovimientoAcreedor')->findByAcreedor( $acreedor );
 
         $options = array();
-        
+                
         foreach( $gestionesMovimientoAcreedor as $gestionMovimientoAcreedor ){
-            $options[ $gestionMovimientoAcreedor->getId() ] = $gestionMovimientoAcreedor->__toString();
+            $numeroDocumento = $gestionMovimientoAcreedor->getMovimientoGestionado()->getItemFinanzas()->getDocumento()->getNumero();
+            $fechaDocumento = $gestionMovimientoAcreedor->getMovimientoGestionado()->getItemFinanzas()->getDocumento()->getFecha();
+            $fechaVto = $gestionMovimientoAcreedor->getFechaVencimiento();
+            $importe = $gestionMovimientoAcreedor->getImporteSinCompensar();
+            //$options[ $gestionMovimientoAcreedor->getId() ] = '[' . $numeroDocumento . '] - ' . $importe;
+            $options[$gestionMovimientoAcreedor->getId()]['fecha_documento'] = array('d' => $fechaDocumento->format('d'), 'm' => $fechaDocumento->format('m'), 'y' => $fechaDocumento->format('Y'));
+            $options[$gestionMovimientoAcreedor->getId()]['fecha_vencimiento'] = array('d' => $fechaVto->format('d'), 'm' => $fechaVto->format('m'), 'y' => $fechaVto->format('Y'));
+            $options[$gestionMovimientoAcreedor->getId()]['numero_documento'] = $numeroDocumento;
+            $options[$gestionMovimientoAcreedor->getId()]['importe'] = $importe;
         }
         
         return new JsonResponse( array('options' => $options ));

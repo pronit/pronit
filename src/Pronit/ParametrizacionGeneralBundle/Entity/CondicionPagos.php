@@ -138,18 +138,17 @@ class CondicionPagos {
      */
     public function calcularFechaVencimientoPago($numeroPago, DateTime $fechaBase) {
         $result = clone $fechaBase;
-        $interval = new DateInterval();
         
-        for ($i=0; $i <= $numeroPago; $i++) {
+        for ($i=1; $i <= $numeroPago; $i++) {
             
             /* @var $item ItemCondicionPagos */
-            $item = $this->items->get($i);
+            $item = $this->items->get($i - 1);
             
-            $interval->d = $item->getCantidadDias();
+            $interval = new DateInterval("P" . $item->getCantidadDias() . "D");
             $result->add($interval);
         }
         
-        return result;
+        return $result;
     }
     
     public function __toString()

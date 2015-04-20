@@ -39,6 +39,7 @@ class OperacionContableAdmin extends Admin {
                 ->add('codigo')
                 ->add('nombre')
                 ->add('contextosAceptados')
+                ->add('gestionaPartidasAbiertas')
                 ->add('claveContabilizacion')
         ;
     }
@@ -48,6 +49,7 @@ class OperacionContableAdmin extends Admin {
                 ->add('codigo')
                 ->add('nombre')
                 ->add('contextosAceptados')
+                ->add('gestionaPartidasAbiertas')
                 ->add('claveContabilizacion')
         ;
     }

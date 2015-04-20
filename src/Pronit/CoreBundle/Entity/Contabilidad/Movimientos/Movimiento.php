@@ -2,10 +2,9 @@
 namespace Pronit\CoreBundle\Entity\Contabilidad\Movimientos;
 
 use DateTime;
+use Doctrine\ORM\Mapping as ORM;
 use Pronit\CoreBundle\Entity\Contabilidad\CuentasContables\Cuenta;
 use Pronit\CoreBundle\Entity\Documentos\ItemFinanzas;
-
-use Doctrine\ORM\Mapping as ORM;
 
 /** 
  * @ORM\Entity

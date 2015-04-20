@@ -11,6 +11,9 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Entity
  * @ORM\Table(name="core_documentoitemfinanzas") 
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="discr", type="string")
+ * @ORM\DiscriminatorMap({"ItemFinanzasValue" = "ItemFinanzas", "ItemFinanzasPagoValue" = "ItemFinanzasPago"})
  * @author gcaseres
  */
 class ItemFinanzas {
@@ -49,6 +52,11 @@ class ItemFinanzas {
     public function __construct(OperacionContable $operacion = null, Cuenta $cuenta = null) {
         $this->cuenta = $cuenta;
         $this->operacion = $operacion;
+    }
+    
+    
+    public function accept(ItemFinanzasVisitor $visitor) {
+        $visitor->visitItemFinanzas($this);
     }
     
     /**
@@ -114,6 +122,5 @@ class ItemFinanzas {
     public function getImporte() {
         return $this->importe;
     }
-    
     
 }

@@ -35,9 +35,8 @@
 
         {{ form_widget(form) }}        
 
-        <a class="add_itemordenpago btn btn-success btn-sm btn-outline sonata-ba-action" data-prototype="{{ form_row(form.vars.prototypes.itemordenpagotype) | escape }}" href="#">
-            <i class="glyphicon glyphicon-usd"></i>
-            Agregar Item
+        <a class="add_itemordenpago btn btn-default btn-sm sonata-ba-action" data-prototype="{{ form_row(form.vars.prototypes.itemordenpagotype) | escape }}" href="#">
+            <span class="glyphicon glyphicon-usd"></span> Agregar Item
         </a>
     </div>
 
@@ -57,10 +56,14 @@
                 $.ajax({url: gestionMovimientoListPath, success: function (result) {
 
                         for (var i in result.options) {
-
+                            var numero_documento = result.options[i].numero_documento;
+                            var importe = Number(result.options[i].importe).toFixed(2);
+                            var fecha_documento = result.options[i].fecha_documento;
+                            var fecha_vencimiento = result.options[i].fecha_vencimiento;
+                            
                             $('.gestionMovimientoAcreedor', e.$row).append($('<option>', {
                                 value: i,
-                                text: result.options[i]
+                                text: 'FDOC: ' + (new Date(fecha_documento.y, fecha_documento.m, fecha_documento.d)).toLocaleDateString() + ' - NDOC: ' + numero_documento + ' - ' + importe + ' - FVTO: ' + (new Date(fecha_vencimiento.y, fecha_vencimiento.m, fecha_vencimiento.d)).toLocaleDateString()
                             }));
                         }
                     }});

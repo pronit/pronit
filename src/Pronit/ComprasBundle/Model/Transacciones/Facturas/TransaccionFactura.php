@@ -4,11 +4,12 @@ namespace Pronit\ComprasBundle\Model\Transacciones\Facturas;
 
 use Doctrine\ORM\EntityManager;
 use Exception;
-
 use Pronit\ComprasBundle\Entity\Documentos\Facturas\Factura;
+use Pronit\ComprasBundle\Model\Contabilidad\Movimientos\GestionMovimiento\GestionMovimientoFacturaFactory;
+use Pronit\CoreBundle\Entity\Contabilidad\Movimientos\GestionMovimiento\GestionMovimientoAcreedor;
+use Pronit\CoreBundle\Entity\Contabilidad\Movimientos\Movimiento;
 use Pronit\CoreBundle\Model\Contabilidad\Movimientos\IGeneradorAsientosContables;
 use Pronit\CoreBundle\Model\Documentos\IGeneradorItemsFinanzas;
-use Pronit\CoreBundle\Entity\Contabilidad\Movimientos\GestionMovimiento\GestionMovimientoAcreedor;
 
 /**
  *
@@ -42,8 +43,10 @@ class TransaccionFactura {
 
             $this->generadorItemsFinanzas->generar($factura);
             $movimientos = $this->generadorAsientosContables->generarDesdeDocumento($factura);
+            
+            $gestionMovimientoFactory = new GestionMovimientoFacturaFactory($factura);
 
-            foreach ($movimientos as /* @var $movimiento \Pronit\CoreBundle\Entity\Contabilidad\Movimientos\Movimiento */ $movimiento) {                
+            foreach ($movimientos as /* @var $movimiento Movimiento */ $movimiento) {                
                 
                 $this->em->persist($movimiento);                
                 
@@ -51,10 +54,10 @@ class TransaccionFactura {
                 
                 if ( $operacion->getGestionaPartidasAbiertas() ){
                     
-                    $acreedor = $factura->getProveedorSociedad()->getAcreedor();
+                    //$acreedor = $factura->getProveedorSociedad()->getAcreedor();
                     
                     //  if( $acreedor -> hasPartidasAbiertas ){
-                        $gestionMovimiento = new GestionMovimientoAcreedor($movimiento, $acreedor );                                                
+                        $gestionMovimiento = $gestionMovimientoFactory->create($movimiento->getItemFinanzas(), $movimiento);// new GestionMovimientoAcreedor($movimiento, $acreedor );                                                
                         $this->em->persist($gestionMovimiento);
                     //  }
                 }

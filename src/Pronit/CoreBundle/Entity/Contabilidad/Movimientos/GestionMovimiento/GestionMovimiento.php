@@ -51,8 +51,22 @@ abstract class GestionMovimiento
         return $this->movimientoGestionado;
     }    
     
+    public function getImporteSinCompensar() {
+        return abs($this->movimientoGestionado->getImporte()) - $this->getImporteCompensado();
+    }
+    
+    public function getImporteCompensado() {
+        $total = 0;
+        foreach ($this->movimientosCompensatorios as $compensatorio) {
+            $total += $compensatorio->getImporte();
+        }
+        
+        return $total;
+    }
+    
+    
     public function __toString()
-    {
-        return (string) $this->getMovimientoGestionado();
+    {        
+        return (string)$this->getMovimientoGestionado();
     }
 }
