@@ -1,10 +1,10 @@
 <?php
 
-namespace Pronit\CoreBundle\Controller\Documentos\Ventas\SalidasMercancias;
+namespace Pronit\CoreBundle\Controller\Documentos\Ventas\Facturas;
 
 use Sonata\AdminBundle\Controller\CRUDController as Controller;
 
-class SalidaMercanciasController extends Controller
+class FacturaController extends Controller
 {
     public function contabilizarAction($id)
     {
@@ -16,11 +16,5 @@ class SalidaMercanciasController extends Controller
         $transaccionSalidaMercancias->ejecutar($salidaMercancias);                
 
         return $this->redirect( $this->generateUrl( 'pronit_ventas_salidas_mercancias_list' ) );
-    }
-    
-    public function crearFacturaDesdeSalidaMercanciasAction($id)
-    {
-        return $this->redirect($this->generateUrl('pronit_ventas_facturas_create', array( 'salidamercancias_id' => $id ) ));        
     }    
-    
 }

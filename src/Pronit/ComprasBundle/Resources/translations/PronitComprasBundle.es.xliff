@@ -31,6 +31,12 @@
                 <source>Numero</source>
                 <target>Número</target>
             </trans-unit>
+            
+            <trans-unit id="Estado Facturacion">
+                <source>Estado Facturacion</source>
+                <target>Estado Facturación</target>
+            </trans-unit>
+            
 
             <trans-unit id="Action">
                 <source>Action</source>

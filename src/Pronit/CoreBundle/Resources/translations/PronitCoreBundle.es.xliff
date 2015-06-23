@@ -11,10 +11,25 @@
                 <source>Salida Mercancias List</source>
                 <target>Salida de Mercancías</target>
             </trans-unit>
-            
+
+            <trans-unit id="Factura List">
+                <source>Factura List</source>
+                <target>Facturas</target>
+            </trans-unit>
+                        
             <trans-unit id="Numero">
                 <source>Numero</source>
                 <target>Número</target>
+            </trans-unit>
+
+            <trans-unit id="Estado Facturacion">
+                <source>Estado Facturacion</source>
+                <target>Estado Facturación</target>
+            </trans-unit>
+
+            <trans-unit id="Centro Logistico">
+                <source>Centro Logistico</source>
+                <target>Centro Logístico</target>
             </trans-unit>
 
             <trans-unit id="Action">

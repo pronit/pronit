@@ -10,6 +10,12 @@ use Pronit\CoreBundle\Entity\Documentos\Ventas\Ventas;
 use Pronit\CoreBundle\Entity\Documentos\Item;
 use Pronit\CoreBundle\Entity\Documentos\Ventas\ItemVentas;
 
+use Pronit\CoreBundle\Entity\Documentos\Ventas\Estados\Facturacion\EstadoFacturacion;
+use Pronit\CoreBundle\Entity\Documentos\Ventas\Estados\Facturacion\SinFacturar;
+use Pronit\CoreBundle\Entity\Documentos\Ventas\Estados\Facturacion\FacturadoParcialmente;
+use Pronit\CoreBundle\Entity\Documentos\Ventas\Estados\Facturacion\Finalizado as FacturacionFinalizada;
+
+
 /**
  *
  * @author ldelia
@@ -18,9 +24,16 @@ use Pronit\CoreBundle\Entity\Documentos\Ventas\ItemVentas;
  */
 class SalidaMercancias extends Ventas
 {
+    /**
+     * @ORM\OneToOne(targetEntity="Pronit\CoreBundle\Entity\Documentos\Ventas\Estados\Facturacion\EstadoFacturacion", cascade={"persist", "remove"}, orphanRemoval=true)
+     **/    
+    protected $estadoFacturacion;    
+    
     public function __construct()
     {
-        parent::__construct();        
+        parent::__construct();   
+        
+        $this->setEstadoFacturacion( new SinFacturar() );
     }    
     
     public function addItem(Item $item)
@@ -31,6 +44,16 @@ class SalidaMercancias extends Ventas
         }
         parent::addItem($item);
     }
+    
+    function getEstadoFacturacion()
+    {
+        return $this->estadoFacturacion;
+    }
+
+    protected function setEstadoFacturacion(EstadoFacturacion $estadoFacturacion = null)
+    {
+        $this->estadoFacturacion = $estadoFacturacion;
+    }    
     
     public function contabilizar()
     {
@@ -44,4 +67,9 @@ class SalidaMercancias extends Ventas
             $itemSalidaMercancias->contabilizar();
         }        
     }    
+    
+    public function isFacturacionFinalizada()
+    {
+        return $this->getEstadoFacturacion() instanceof FacturacionFinalizada;
+    }            
 }

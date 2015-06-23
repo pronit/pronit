@@ -17,6 +17,12 @@ use Pronit\CoreBundle\Entity\Documentos\Ventas\Estados\Entregas\EntregadoParcial
 
 use Pronit\CoreBundle\Entity\Documentos\Ventas\SalidasMercancias\ItemSalidaMercancias;
 
+use Pronit\CoreBundle\Entity\Documentos\Ventas\Estados\Facturacion\EstadoFacturacion;
+use Pronit\CoreBundle\Entity\Documentos\Ventas\Estados\Facturacion\SinFacturar;
+use Pronit\CoreBundle\Entity\Documentos\Ventas\Estados\Facturacion\FacturadoParcialmente;
+use Pronit\CoreBundle\Entity\Documentos\Ventas\Estados\Facturacion\Finalizado as FacturacionFinalizada;
+
+
 /**
  *
  * @author ldelia
@@ -28,6 +34,11 @@ class ItemPedido extends ItemVentas
      * @ORM\OneToOne(targetEntity="Pronit\CoreBundle\Entity\Documentos\Ventas\Estados\Entregas\EstadoEntrega", cascade={"persist", "remove"}, orphanRemoval=true)
      **/    
     protected $estadoEntrega;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="Pronit\CoreBundle\Entity\Documentos\Ventas\Estados\Facturacion\EstadoFacturacion", cascade={"all"}, orphanRemoval=true)
+     **/    
+    protected $estadoFacturacion;        
 
     /**
      * @ORM\OneToMany(targetEntity="Pronit\CoreBundle\Entity\Documentos\Ventas\SalidasMercancias\ItemSalidaMercancias", mappedBy="itemPedidoEntregado", cascade={"ALL"})
@@ -41,6 +52,7 @@ class ItemPedido extends ItemVentas
         $this->referenciasItemSalidaMercancias = new \Doctrine\Common\Collections\ArrayCollection();
         
         $this->setEstadoEntrega( new SinEntregar() );        
+        $this->setEstadoFacturacion( new SinFacturar() );
     }
     
     public function __toString()
@@ -65,6 +77,16 @@ class ItemPedido extends ItemVentas
     {
         $this->estadoEntrega = $estado;
     }    
+    
+    function getEstadoFacturacion()
+    {
+        return $this->estadoFacturacion;
+    }
+
+    protected function setEstadoFacturacion(EstadoFacturacion $estadoFacturacion)
+    {
+        $this->estadoFacturacion = $estadoFacturacion;
+    }        
 
     function getReferenciasItemSalidaMercancias()
     {

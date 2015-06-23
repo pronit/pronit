@@ -9,6 +9,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Pronit\CoreBundle\Entity\Documentos\ClasificadorItem;
 use Pronit\CoreBundle\Entity\Documentos\Ventas\ItemVentas;
 use Pronit\CoreBundle\Entity\Documentos\Ventas\Pedidos\ItemPedido;
+use Pronit\CoreBundle\Entity\Documentos\Ventas\Facturas\ItemFactura;
+
+use Pronit\CoreBundle\Entity\Documentos\Ventas\Estados\Facturacion\EstadoFacturacion;
+use Pronit\CoreBundle\Entity\Documentos\Ventas\Estados\Facturacion\SinFacturar;
+use Pronit\CoreBundle\Entity\Documentos\Ventas\Estados\Facturacion\FacturadoParcialmente;
+use Pronit\CoreBundle\Entity\Documentos\Ventas\Estados\Facturacion\Finalizado as FacturacionFinalizada;
 
 use \Exception;
 
@@ -21,13 +27,27 @@ use \Exception;
 class ItemSalidaMercancias extends ItemVentas
 {
     /**
+     * @ORM\OneToOne(targetEntity="Pronit\CoreBundle\Entity\Documentos\Ventas\Estados\Facturacion\EstadoFacturacion", cascade={"persist", "remove"}, orphanRemoval=true)
+     **/    
+    protected $estadoFacturacion;
+    
+    /**
      * @ORM\ManyToOne(targetEntity="Pronit\CoreBundle\Entity\Documentos\Ventas\Pedidos\ItemPedido")
      */    
     protected $itemPedidoEntregado;    
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Pronit\CoreBundle\Entity\Documentos\Ventas\Facturas\ItemFactura", mappedBy="itemSalidaMercanciasFacturado", cascade={"ALL"})
+     */
+    protected $itemFacturadores;    
+    
 
     public function __construct()
     {
         parent::__construct();
+        
+        $this->itemFacturadores = new ArrayCollection();
+        $this->setEstadoFacturacion( new SinFacturar() );        
     }
 
     public function setClasificador(ClasificadorItem $clasificador) 
@@ -56,6 +76,22 @@ class ItemSalidaMercancias extends ItemVentas
     {
         $this->itemPedidoEntregado = $itemPedido;
         $itemPedido->addReferenciaItemSalidaMercancias($this);
+    } 
+    
+    function addItemFacturador(ItemFactura $itemFactura)
+    {
+        $this->itemFacturadores[] = $itemFactura;
+    }    
+    
+    
+    public function getEstadoFacturacion()
+    {
+        return $this->estadoFacturacion;
+    }
+
+    protected function setEstadoFacturacion(EstadoFacturacion $estadoFacturacion)
+    {
+        $this->estadoFacturacion = $estadoFacturacion;
     }    
 
     public function contabilizar()

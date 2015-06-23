@@ -143,3 +143,25 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [PronitCoreBundle]]
+            
+    pronit.admin.core.ventas.facturas.factura:
+        class: Pronit\CoreBundle\Admin\Documentos\Ventas\Facturas\FacturaAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Ventas", label: "Factura" }
+        arguments:
+            - ~
+            - Pronit\CoreBundle\Entity\Documentos\Ventas\Facturas\Factura
+            - 'PronitCoreBundle:Documentos\Ventas\Facturas\Factura'
+        calls:
+            - [ setTranslationDomain, [PronitCoreBundle]]
+            
+    pronit.admin.core.ventas.facturas.itemfactura:
+        class: Pronit\CoreBundle\Admin\Documentos\Ventas\Facturas\ItemFacturaAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, show_in_dashboard: false, group: null }
+        arguments:
+            - ~
+            - Pronit\CoreBundle\Entity\Documentos\Ventas\Facturas\ItemFactura
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitCoreBundle]]

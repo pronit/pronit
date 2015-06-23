@@ -1,6 +1,6 @@
 <?php
 
-namespace Pronit\CoreBundle\DataFixtures\ORM;
+namespace Pronit\CoreBundle\DataFixtures\ORM\Documentos\Compras;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
@@ -10,12 +10,12 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-use Pronit\ComprasBundle\Entity\Documentos\OrdenesPago\ClasificadorItemOrdenPago;
+use Pronit\ComprasBundle\Entity\Documentos\Facturas\ClasificadorItemFactura;
 
 /**
  * @author ldelia
  */
-class LoadClasificadorItemOrdenPago extends AbstractFixture implements FixtureInterface , OrderedFixtureInterface, ContainerAwareInterface
+class LoadClasificadorItemFactura extends AbstractFixture implements FixtureInterface , OrderedFixtureInterface, ContainerAwareInterface
 {
     /**
      * @var ContainerInterface
@@ -49,17 +49,17 @@ class LoadClasificadorItemOrdenPago extends AbstractFixture implements FixtureIn
         $this->setManager($manager);        
 
         $values =  array(
-            array( "codigo" => "103", "nombre" => "Recepción de orden de pago")
+            array( "codigo" => "102", "nombre" => "Recepción de factura compra")
         );
         
         foreach( $values as $value ){
-            $obj = new ClasificadorItemOrdenPago();
+            $obj = new ClasificadorItemFactura();
             $obj->setCodigo($value['codigo']);
             $obj->setNombre($value['nombre']);
             
             $manager->persist($obj);
             
-            $this->addReference('pronit-documentos-clasificadoritemordenpago-' . $value['codigo'], $obj);        
+            $this->addReference('pronit-documentos-clasificadoritemfactura-' . $value['codigo'], $obj);        
         }
         
         $manager->flush();
@@ -67,6 +67,6 @@ class LoadClasificadorItemOrdenPago extends AbstractFixture implements FixtureIn
     
     function getOrder()
     {
-        return 16; 
+        return 15; 
     }
 }

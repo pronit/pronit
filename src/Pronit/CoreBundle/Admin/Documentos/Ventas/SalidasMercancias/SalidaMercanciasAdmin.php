@@ -27,6 +27,7 @@ class SalidaMercanciasAdmin extends Admin
         $listMapper
             ->addIdentifier('numero', null, array('route' => array('name' => 'show')))
             ->add('estadoVentas')
+            ->add('estadoFacturacion')
             ->add('sociedad')
             ->add('fecha', 'date', array( 'format' => 'd/m/Y' ))
             ->add('deudorSociedad', null, array('label'=>'Cliente') ) 
@@ -52,9 +53,11 @@ class SalidaMercanciasAdmin extends Admin
         $showMapper
             ->with('Cabecera')
                 ->add('numero')
+                ->add('estadoVentas')
+                ->add('estadoFacturacion')                
                 ->add('sociedad')                
                 ->add('fecha', 'date', array( 'format' => 'd/m/Y' ))                                                
-                ->add('deudorSociedad', null, array('label'=>'Cliente') )
+                ->add('deudorSociedad', null, array( 'label' => 'Cliente' ) )
                 ->add('centroLogistico')
                 ->add('moneda')                
                 ->add('textoCabecera')
@@ -159,7 +162,7 @@ class SalidaMercanciasAdmin extends Admin
             $admin = $this->isChild() ? $this->getParent() : $this;
             $id = $admin->getRequest()->get('id');
 
-            /* @var $entradaMercancias \Pronit\CoreBundle\Entity\Documentos\Ventas\SalidasMercancias\SalidaMercancias  */            
+            /* @var $salidaMercancias \Pronit\CoreBundle\Entity\Documentos\Ventas\SalidasMercancias\SalidaMercancias  */            
             $salidaMercancias = $this->getObject($id);
             
             if( $salidaMercancias->isModificable() ){
@@ -168,29 +171,29 @@ class SalidaMercanciasAdmin extends Admin
                         ->setLinkAttribute('class', 'glyphicon glyphicon-ok');                
             }else{
                 
-//                if(! $salidaMercancias->isFacturacionFinalizada() ){
-//                    $menu->addChild( 'Crear Factura', array('uri' => $admin->generateUrl('crearFacturaDesdeEntradaMercancias', array('id' => $id))) )
-//                            ->setLinkAttribute('class', 'glyphicon glyphicon-import');                
-//                }                
+                if(! $salidaMercancias->isFacturacionFinalizada() ){
+                    $menu->addChild( 'Crear Factura', array('uri' => $admin->generateUrl('crearFacturaDesdeSalidaMercancias', array('id' => $id))) )
+                            ->setLinkAttribute('class', 'glyphicon glyphicon-import');                
+                }                
             }            
   
         }
     }
     
-    public function isGranted($name, $entradaMercancias = null)
+    public function isGranted($name, $salidaMercancias = null)
     {
-        /* @var $entradaMercancias \Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\EntradaMercancias  */            
+        /* @var $salidaMercancias \Pronit\CoreBundle\Entity\Documentos\Ventas\SalidasMercancias\SalidaMercancias  */            
         
-        if (( $name == 'EDIT' ) && ( ! is_null($entradaMercancias)) ){            
-            return $entradaMercancias->isModificable() && parent::isGranted($name, $entradaMercancias);
+        if (( $name == 'EDIT' ) && ( ! is_null($salidaMercancias)) ){            
+            return $salidaMercancias->isModificable() && parent::isGranted($name, $salidaMercancias);
         }else{
-            return parent::isGranted($name, $entradaMercancias);
+            return parent::isGranted($name, $salidaMercancias);
         }        
     }
     
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection->add('contabilizar', $this->getRouterIdParameter() . '/contabilizar');
-        $collection->add('crearFacturaDesdeEntradaMercancias', $this->getRouterIdParameter() . '/new');
+        $collection->add('crearFacturaDesdeSalidaMercancias', $this->getRouterIdParameter() . '/new');
     }        
 }

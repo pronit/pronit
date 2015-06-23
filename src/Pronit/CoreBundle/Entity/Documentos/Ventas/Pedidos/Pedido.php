@@ -15,6 +15,11 @@ use Pronit\CoreBundle\Entity\Documentos\Ventas\Estados\Entregas\SinEntregar;
 use Pronit\CoreBundle\Entity\Documentos\Ventas\Estados\Entregas\Finalizado;
 use Pronit\CoreBundle\Entity\Documentos\Ventas\Estados\Entregas\EntregadoParcialmente;
 
+use Pronit\CoreBundle\Entity\Documentos\Ventas\Estados\Facturacion\EstadoFacturacion;
+use Pronit\CoreBundle\Entity\Documentos\Ventas\Estados\Facturacion\SinFacturar;
+use Pronit\CoreBundle\Entity\Documentos\Ventas\Estados\Facturacion\FacturadoParcialmente;
+use Pronit\CoreBundle\Entity\Documentos\Ventas\Estados\Facturacion\Finalizado as FacturacionFinalizada;
+
 
 /**
  *
@@ -29,10 +34,18 @@ class Pedido extends Ventas
      **/    
     protected $estadoEntrega;
     
+    /**
+     * @ORM\OneToOne(targetEntity="Pronit\CoreBundle\Entity\Documentos\Ventas\Estados\Facturacion\EstadoFacturacion", cascade={"all"}, orphanRemoval=true)
+     **/    
+    protected $estadoFacturacion;    
+    
+    
     public function __construct()
     {
         parent::__construct();
+        
         $this->setEstadoEntrega( new SinEntregar() );
+        $this->setEstadoFacturacion( new SinFacturar() );
     }    
     
     public function addItem(Item $item)
@@ -54,6 +67,17 @@ class Pedido extends Ventas
     {
         $this->estadoEntrega = $estado;
     }    
+    
+    function getEstadoFacturacion()
+    {
+        return $this->estadoFacturacion;
+    }
+
+    protected function setEstadoFacturacion(EstadoFacturacion $estadoFacturacion = null)
+    {
+        $this->estadoFacturacion = $estadoFacturacion;
+    }    
+    
     
     /**
      * Los items cuando sufren algún cambio notifican al documento para que se actualice sus estados. Esto en un futuro se mejorará utilizando Observer

@@ -2,6 +2,7 @@
 {% block field %}   
     <table class="table table-bordered">
         <thead>
+            <th>Estado Facturación</th>
             <th>Clasificador</th>
             <th>Bien/Servicio</th>
             <th>Escala</th>
@@ -12,6 +13,7 @@
         <tbody>
             {% for itemSalida in value %}
             <tr>
+                <td>{{ itemSalida.estadoFacturacion }}</td>
                 <td>{{ itemSalida.clasificador }}</td>
                 <td>{{ itemSalida.bienServicio }}</td>
                 <td>{{ itemSalida.escala }}</td>
@@ -32,7 +34,7 @@
                 {% set documento = value[0].documento %}
                 
                 <tr>
-                    <td colspan="5"><strong>Importe Neto</strong></td>
+                    <td colspan="6"><strong>Importe Neto</strong></td>
                     <td class="text-right"><strong>{{ documento.moneda.signoMonetario }} {{ documento.importeNeto|number_format(2, ',', '.') }}</strong></td>
                 </tr>
             {% endif %}
