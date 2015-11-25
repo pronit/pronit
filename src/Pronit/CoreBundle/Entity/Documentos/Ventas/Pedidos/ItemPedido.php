@@ -10,12 +10,14 @@ use Pronit\CoreBundle\Entity\Documentos\ClasificadorItem;
 use Pronit\CoreBundle\Entity\Documentos\Ventas\ItemVentas;
 use Pronit\CoreBundle\Entity\Documentos\Ventas\Pedidos\ClasificadorItemPedido;
 
+use Pronit\CoreBundle\Entity\Documentos\Ventas\SalidasMercancias\ItemSalidaMercancias;
+
 use Pronit\CoreBundle\Entity\Documentos\Ventas\Estados\Entregas\EstadoEntrega;
 use Pronit\CoreBundle\Entity\Documentos\Ventas\Estados\Entregas\SinEntregar;
 use Pronit\CoreBundle\Entity\Documentos\Ventas\Estados\Entregas\Finalizado;
 use Pronit\CoreBundle\Entity\Documentos\Ventas\Estados\Entregas\EntregadoParcialmente;
 
-use Pronit\CoreBundle\Entity\Documentos\Ventas\SalidasMercancias\ItemSalidaMercancias;
+use Pronit\CoreBundle\Entity\Documentos\Ventas\Facturas\ItemFactura;
 
 use Pronit\CoreBundle\Entity\Documentos\Ventas\Estados\Facturacion\EstadoFacturacion;
 use Pronit\CoreBundle\Entity\Documentos\Ventas\Estados\Facturacion\SinFacturar;
@@ -130,4 +132,35 @@ class ItemPedido extends ItemVentas
         
         return $this->getCantidad() - $entregado;
     }       
+    
+    public function registrarFacturacion( ItemFactura $itemFactura )
+    {
+        if( $this->getCantidadPendienteDeFacturacion() > 0 ){
+            $this->setEstadoFacturacion( new FacturadoParcialmente() );
+        }else{
+            $this->setEstadoFacturacion( new FacturacionFinalizada() );
+        }
+        $this->getDocumento()->update();
+    }   
+    
+    public function getCantidadPendienteDeFacturacion()
+    {
+        // El item pedido puede estar ligado 
+        // 1) a items factura ( proceso pedido - factura - salida )
+        // 2) a items salida ( proceso pedido - salida - factura )
+        // 
+        // Si está ligado a items entrada ...
+        if ( $this->getReferenciasItemSalidaMercancias()->count() ){
+            
+            $cantidadFacturada = 0;
+
+            /* @var $itemEntradaMercancias \Pronit\CoreBundle\Entity\Documentos\Ventas\SalidasMercancias\ItemSalidaMercancias */
+            foreach( $this->getReferenciasItemSalidaMercancias() as $itemSalidaMercancias )
+            {
+                $cantidadFacturada = $cantidadFacturada + $itemSalidaMercancias->getCantidadFacturada();
+            }
+
+            return $this->getCantidad() - $cantidadFacturada;
+        }        
+    }    
 }

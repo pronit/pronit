@@ -14,6 +14,10 @@
                 <source>Banco List</source>
                 <target>Bancos</target>
             </trans-unit>
+            <trans-unit id="Sistema Medicion List">
+                <source>Sistema Medicion List</source>
+                <target>Sistemas de Medición</target>
+            </trans-unit>
             
         </body>
     </file>

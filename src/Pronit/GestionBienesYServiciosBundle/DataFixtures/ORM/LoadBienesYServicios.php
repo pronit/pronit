@@ -53,34 +53,96 @@ class LoadBienesYServicios extends AbstractFixture implements FixtureInterface, 
     protected function loadMateriales() {
         $valuesDummies = array();
 
-        for ($i = 1; $i < 100; $i++) {
-            $values[] = array('codigo' => "BS-$i",
-                "nombre" => "Bien Servicio $i",
-                'categoria' => $this->getReference('pronit-gestionbienesyservicios-categoriavaloracion-3006'),
-                'tipo' => $this->getReference('pronit-gestionbienesyservicios-tipobienservicio-productoelaborado'),
-                "sistemaMedicion" => $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-litro')
-            );
-        }
-
         $values[] = array('codigo' => "MM001",
             "nombre" => "Aditivo A1SW",
             'categoria' => $this->getReference('pronit-gestionbienesyservicios-categoriavaloracion-3006'),
             'tipo' => $this->getReference('pronit-gestionbienesyservicios-tipobienservicio-productoelaborado'),
-            "sistemaMedicion" => $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-litro')
+            "sistemaMedicion" => $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-litros'),
+            'presentacionesCompra' => array(),
+            'presentacionesVenta' => array(),
         );
         $values[] = array('codigo' => "610615008",
             "nombre" => "Caja Telescopica I 3 90 Libras",
             'categoria' => $this->getReference('pronit-gestionbienesyservicios-categoriavaloracion-3001'),
             'tipo' => $this->getReference('pronit-gestionbienesyservicios-tipobienservicio-productoelaborado'),
-            "sistemaMedicion" => $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-litro'),
-            "sociedadFI_precioValoracionEstandar" => 24.0
+            "sistemaMedicion" => $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-litros'),
+            "sociedadFI_precioValoracionEstandar" => 24.0,
+            'presentacionesCompra' => array(),
+            'presentacionesVenta' => array(),
         );
+        
         $values[] = array('codigo' => "610612011",
-            "nombre" => "Caja Telescopica K 90 Libras",
+            "nombre" => "Bolsa Ceral x 25",
             'categoria' => $this->getReference('pronit-gestionbienesyservicios-categoriavaloracion-3001'),
             'tipo' => $this->getReference('pronit-gestionbienesyservicios-tipobienservicio-productoelaborado'),
-            "sistemaMedicion" => $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-litro'),
-            "sociedadFI_precioValoracionEstandar" => 4
+            "sistemaMedicion" => $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-unidades'),
+            "sociedadFI_precioValoracionEstandar" => 4,
+            'presentacionesCompra' => array( 
+                array( 
+                    "nombre" => "Caja x 5", 
+                    'fraccionamientos' => array( 
+                        array(
+                            'cantidad' => 5, 
+                            'escala' => $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-unidades-escala-unidad'),
+                            'presentacionVenta' => 'Bolsa 25kg'
+                        ) 
+                    ) 
+                ),
+            ),
+            'presentacionesVenta' => array( 
+                array( 
+                    "nombre" => "Bolsa 25kg",
+                    "escalas" => array(
+                        $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-unidades-escala-unidad'),
+                    )
+                ),
+                array( 
+                    "nombre" => "Suelto",
+                    "escalas" => array(
+                        $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-kilos-escala-kilo'),
+                    )
+                ),                
+            )
+            
+        );
+        
+        $values[] = array('codigo' => "610612012",
+            "nombre" => "Vino Rutini Malbec x 750 ml",
+            'categoria' => $this->getReference('pronit-gestionbienesyservicios-categoriavaloracion-3001'),
+            'tipo' => $this->getReference('pronit-gestionbienesyservicios-tipobienservicio-productoelaborado'),
+            "sistemaMedicion" => $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-unidades'),
+            "sociedadFI_precioValoracionEstandar" => 4,
+            'presentacionesCompra' => array( 
+                array( 
+                    "nombre" => "Caja x 6", 
+                    'fraccionamientos' => array( 
+                        array(
+                            'cantidad' => 6, 
+                            'escala' => $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-unidades-escala-unidad'),
+                            'presentacionVenta' => 'Botella 750ml'
+                        ) 
+                    ) 
+                ),
+                array( 
+                    "nombre" => "Caja x 12", 
+                    'fraccionamientos' => array( 
+                        array( 
+                            'cantidad' => 12, 
+                            'escala' => $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-unidades-escala-unidad'),
+                            'presentacionVenta' => 'Botella 750ml'
+                        ) 
+                    ) 
+                ),                
+            ),
+            'presentacionesVenta' => array( 
+                array( 
+                    "nombre" => "Botella 750ml",
+                    "escalas" => array(
+                        $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-unidades-escala-unidad'),
+                    )
+                ),
+            )
+            
         );
 
         foreach ($values as $v) {
@@ -91,7 +153,40 @@ class LoadBienesYServicios extends AbstractFixture implements FixtureInterface, 
             $bienServicio->setCategoriaValoracion($v['categoria']);
             $bienServicio->setTipo($v['tipo']);
             $bienServicio->setSistemaMedicion($v['sistemaMedicion']);
+            
+            foreach( $v['presentacionesVenta'] as $pv ){
+                
+                $presentacionVenta = new \Pronit\CoreBundle\Entity\BienesYServicios\Presentaciones\PresentacionVenta();
+                $presentacionVenta->setNombre($pv['nombre']);
+                
+                foreach ( $pv['escalas'] as $escala){
+                    
+                    $presentacionVenta->addEscala($escala);
+                }                                
 
+                $bienServicio->addPresentacionVenta($presentacionVenta);                
+                
+                $this->addReference('pronit-gestionbienesyservicios-bienservicio-' . $v['codigo'] . '-presentacionVenta-' . $pv['nombre'], $presentacionVenta);
+            }
+
+            foreach( $v['presentacionesCompra'] as $pc ){
+                
+                $presentacionCompra = new \Pronit\CoreBundle\Entity\BienesYServicios\Presentaciones\PresentacionCompra();
+                $presentacionCompra->setNombre($pc['nombre']);
+
+                foreach ( $pc['fraccionamientos'] as $f){
+                    
+                    $fraccionamiento = new \Pronit\CoreBundle\Entity\BienesYServicios\Presentaciones\Fraccionamiento();
+                    $fraccionamiento->setCantidad($f['cantidad']);
+                    $fraccionamiento->setEscala($f['escala']);
+                    $fraccionamiento->setPresentacionVenta( $this->getReference( 'pronit-gestionbienesyservicios-bienservicio-' . $v['codigo'] . '-presentacionVenta-' . $f['presentacionVenta'] ) );
+                    
+                    $presentacionCompra->addFraccionamiento($fraccionamiento);
+                }                
+
+                $bienServicio->addPresentacionCompra($presentacionCompra);                
+            }
+            
             $this->manager->persist($bienServicio);
 
             $this->addReference('pronit-gestionbienesyservicios-bienservicio-' . $v['codigo'], $bienServicio);

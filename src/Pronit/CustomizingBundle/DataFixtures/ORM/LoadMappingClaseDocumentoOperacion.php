@@ -45,7 +45,8 @@ class LoadMappingClaseDocumentoOperacion extends AbstractFixture implements Fixt
 
 
         $values = array(            
-            array("clase" => ClaseDocumento::CODIGO_FACTURAACREEDOR, "operacion" => "KBS")
+            array("clase" => ClaseDocumento::CODIGO_FACTURAACREEDOR, "operacion" => "KBS"),
+            array("clase" => ClaseDocumento::CODIGO_FACTURADEUDOR, "operacion" => "DBS")
         );
 
         foreach ($values as $value) {

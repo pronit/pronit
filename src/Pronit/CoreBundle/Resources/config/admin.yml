@@ -165,3 +165,26 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [PronitCoreBundle]]
+
+    pronit.admin.core.bienesyservicios.presentaciones.presentacioncompra:
+        class: Pronit\CoreBundle\Admin\BienesYServicios\Presentaciones\PresentacionCompraAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, show_in_dashboard: false, group: null }
+        arguments:
+            - ~
+            - Pronit\CoreBundle\Entity\BienesYServicios\Presentaciones\PresentacionCompra
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitCoreBundle]]
+            
+    pronit.admin.core.bienesyservicios.presentaciones.presentacionventa:
+        class: Pronit\CoreBundle\Admin\BienesYServicios\Presentaciones\PresentacionVentaAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, show_in_dashboard: false, group: null }
+        arguments:
+            - ~
+            - Pronit\CoreBundle\Entity\BienesYServicios\Presentaciones\PresentacionVenta
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitCoreBundle]]
+

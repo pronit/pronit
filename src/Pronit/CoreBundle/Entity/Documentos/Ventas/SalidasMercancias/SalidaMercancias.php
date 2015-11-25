@@ -72,4 +72,69 @@ class SalidaMercancias extends Ventas
     {
         return $this->getEstadoFacturacion() instanceof FacturacionFinalizada;
     }            
+    
+    /**
+     * Los items cuando sufren algún cambio notifican al documento para que se actualice sus estados. Esto en un futuro se mejorará utilizando Observer
+     */
+    public function update()
+    {
+        /* Cuando un item le dice al Documento que se tiene que actualizar, 
+         * por cuestiones de performance no se puede re-calcular en ese momento el estado.
+         * En cambio, se limpia el estado, y por lo tanto, se modifica el documento.
+         * Esta modificación lleva a que se ejecute el método refrescarEstados mediante HasLifecycleCallbacks */
+        
+        $this->setEstadoFacturacion( null );
+    }
+    
+    /**
+     *
+     * @ORM\PreFlush     
+     */
+    public function _preFlush()
+    {
+        /**
+         * Al actualizar un pedido Pedido se va a intentar ejecutar este metodo. 
+         * Solo aplica cuando ya está contabilizado
+         */        
+        if( ! $this->isContabilizado() ){
+            return;
+        }            
+            
+        $this->updateEstadoFacturacion();
+    }    
+
+    protected function updateEstadoFacturacion()
+    {
+        $itemsFacturadosParcialmente = 0;
+        $itemsFinalizados = 0;
+                
+        $items = $this->getItems()->getIterator();
+                
+        $items->rewind();                                
+        
+        /* Itero por cada item para verificar su estado. Si ya encontré uno parcialmente facturado
+         * no tiene sentido continuar: el pedido estará parcialmente facturado */
+        while( ( $itemsFacturadosParcialmente == 0 ) && $items->valid() ){            
+            
+            /* @var $item \Pronit\CoreBundle\Entity\Documentos\Ventas\SalidasMercancias\ItemSalidaMercancias */
+            $item = $items->current();   
+            
+            if ( $item->isFacturacionFinalizada() ){
+                $itemsFinalizados++;
+            }elseif( $item->isFacturadoParcialmente() ){
+                $itemsFacturadosParcialmente++;
+            }
+            
+            $items->next();            
+        }
+        
+        if (( $itemsFacturadosParcialmente ) || (  $itemsFinalizados > 0 && $itemsFinalizados < count( $items ) ) ){
+            $this->setEstadoFacturacion( new FacturadoParcialmente() );
+        }elseif ( $itemsFinalizados == count( $items ) ) {
+            $this->setEstadoFacturacion( new FacturacionFinalizada() );
+        }else{
+            $this->setEstadoFacturacion( new SinFacturar() );
+        }                
+    }    
+    
 }

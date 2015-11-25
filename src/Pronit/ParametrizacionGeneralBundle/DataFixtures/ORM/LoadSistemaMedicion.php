@@ -87,15 +87,19 @@ class LoadSistemaMedicion extends AbstractFixture implements FixtureInterface , 
         
         $manager->persist($conversion);
 
+        
+        $escalaLitro = $this->createEscala('Litro', 'l', 1 );
+        
         $sistemaLitros = new SistemaMedicion();                
         $sistemaLitros->setNombre('Sistema Volúmen Líquido Litros');
-        $sistemaLitros->setAbreviatura('S-VL');
-        $sistemaLitros->addEscala( $this->createEscala('Litro', 'l', 1 ) );
+        $sistemaLitros->setAbreviatura('S-VL');        
+        $sistemaLitros->addEscala( $escalaLitro );
         $sistemaLitros->addEscala( $this->createEscala('Decilitro', 'dl', 0.1 ) );
         $sistemaLitros->addEscala( $this->createEscala('Centilitro', 'cl', 0.01 ) );
         $sistemaLitros->addEscala( $this->createEscala('Mililitro', 'ml', 0.001 ) );
         
-        $this->addReference('pronit-parametrizaciongeneral-sistemamedicion-litro', $sistemaLitros);
+        $this->addReference('pronit-parametrizaciongeneral-sistemamedicion-litros', $sistemaLitros);
+        $this->addReference('pronit-parametrizaciongeneral-sistemamedicion-litros-escala-litro', $escalaLitro);
         
         $manager->persist($sistemaLitros);
 
@@ -108,6 +112,35 @@ class LoadSistemaMedicion extends AbstractFixture implements FixtureInterface , 
         $this->addReference('pronit-parametrizaciongeneral-sistemamedicion-tiempo', $sistemaTiempo);
         
         $manager->persist($sistemaTiempo);
+
+        /** UNIDADES **/
+        
+        $escalaUnidad = $this->createEscala('Unidad', 'u', 1 );
+        
+        $sistemaUnidades = new SistemaMedicion();
+        $sistemaUnidades->setNombre('Sistema Unidades');
+        $sistemaUnidades->addEscala( $escalaUnidad );
+        $sistemaUnidades->setAbreviatura('S-U');
+        
+        $this->addReference('pronit-parametrizaciongeneral-sistemamedicion-unidades', $sistemaUnidades);
+        $this->addReference('pronit-parametrizaciongeneral-sistemamedicion-unidades-escala-unidad', $escalaUnidad);
+        
+        $manager->persist($sistemaUnidades);
+        
+        /** Kilos **/
+        
+        $escalaKilo = $this->createEscala('Kilo', 'Kg', 1 );
+        
+        $sistemaKilos = new SistemaMedicion();
+        $sistemaKilos->setNombre('Sistema Kilo');
+        $sistemaKilos->addEscala( $escalaKilo );
+        $sistemaKilos->setAbreviatura('S-KG');
+        
+        $this->addReference('pronit-parametrizaciongeneral-sistemamedicion-kilos', $sistemaKilos);
+        $this->addReference('pronit-parametrizaciongeneral-sistemamedicion-kilos-escala-kilo', $escalaKilo);
+        
+        $manager->persist($sistemaKilos);
+        
         
         $manager->flush();
     }

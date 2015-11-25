@@ -13,6 +13,8 @@ use Pronit\CoreBundle\Entity\Documentos\Ventas\ItemVentas;
 
 use Pronit\CoreBundle\Entity\Documentos\Ventas\SalidasMercancias\ItemSalidaMercancias;
 
+use Pronit\CoreBundle\Model\Operaciones\Contextos\Impuestos\ContextoCalculoImpuesto;
+
 use \Exception;
 
 
@@ -76,7 +78,41 @@ class ItemFactura extends ItemVentas
         $item->addItemFacturador($this);
     }        
     
+    public function getImporteTotal()
+    {
+        $importeTotal = $this->getImporteNeto();
+        
+        /* @var $itemIndicadorImpuesto \Pronit\CoreBundle\Entity\Impuestos\ItemIndicadorImpuestos */
+        foreach( $this->getIndicadorImpuestos()->getItems() as $itemIndicadorImpuesto ){
+            $funcion = $itemIndicadorImpuesto->getFuncion();
+            
+            $contexto = new ContextoCalculoImpuesto($this->getImporteNeto(), $itemIndicadorImpuesto->getAlicuota() );
+            
+            
+            
+            //if ($operacionContable->aceptaContexto($contexto)) {
+                $monto = $funcion->ejecutar($contexto);
+                
+                $importeTotal = $importeTotal + $monto;
+            //} else {
+//                throw new Exception('La operación no puede ejecutarse en el contexto provisto.');
+//            }
+        }
+        
+        return $importeTotal;
+    }
 
+    public function contabilizar()
+    {
+        // todo: en un futuro va a existir tambien la relacion referenciaItemPedido ( proceso pedido - factura - salida mercancias )
+        
+        // en ese momento debemos registrar la facturación en uno u otro
+        
+        $this->getItemSalidaMercanciasFacturado()->registrarFacturacion($this);
+        
+        $this->getItemSalidaMercanciasFacturado()->getItemPedidoEntregado()->registrarFacturacion($this);
+    }
+    
     public function __toString()
     {
         return $this->getId();

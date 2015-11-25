@@ -16,11 +16,48 @@ class MaterialAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('codigo', 'text')
-            ->add('nombre')
-            ->add('tipo', 'entity', array('class' => 'Pronit\GestionBienesYServiciosBundle\Entity\TipoMaterial') )                
-            ->add('categoriaValoracion')
-            ->add('sistemaMedicion')
+            ->with('Material', array('class' => 'col-md-6'))->end()
+            ->with('Presentaciones de Compra', array('class' => 'col-md-6'))->end()
+            ->with('Presentaciones de Venta', array('class' => 'col-md-6') )->end()
+        ;   
+        
+        $formMapper
+            ->with('Material')
+                    ->add('codigo', 'text')
+                    ->add('nombre')
+                    ->add('tipo', 'entity', array('class' => 'Pronit\GestionBienesYServiciosBundle\Entity\TipoMaterial') )                
+                    ->add('categoriaValoracion')
+                    ->add('sistemaMedicion')
+            ->end()
+            ->with('Presentaciones de Compra')
+                ->add('presentacionesCompra', 
+                    'sonata_type_collection', 
+                    array(
+                        'cascade_validation' => true, 
+                        'by_reference' => false, 
+                    ), 
+                    array(
+                        'edit' => 'inline',
+                        'inline' => 'table',                    
+                        'admin_code' => 'pronit.admin.core.bienesyservicios.presentaciones.presentacioncompra'
+                    )
+                )                
+            ->end()        
+            ->with('Presentaciones de Venta')
+                ->add('presentacionesVenta', 
+                    'sonata_type_collection', 
+                    array(
+                        'cascade_validation' => true, 
+                        'by_reference' => false, 
+                    ), 
+                    array(
+                        'edit' => 'inline',
+                        'inline' => 'table',                    
+                        'admin_code' => 'pronit.admin.core.bienesyservicios.presentaciones.presentacionventa'
+                    )
+                )                
+            ->end()        
+                
         ;
     }
 

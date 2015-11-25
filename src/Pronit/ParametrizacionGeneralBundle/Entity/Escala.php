@@ -5,13 +5,10 @@ namespace Pronit\ParametrizacionGeneralBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * 
  *
  * @author ldelia
- */
-/** 
  * @ORM\Entity
-  * @ORM\Table(name="pgener_escala")
+ * @ORM\Table(name="pgener_escala")
  */
 class Escala
 {    

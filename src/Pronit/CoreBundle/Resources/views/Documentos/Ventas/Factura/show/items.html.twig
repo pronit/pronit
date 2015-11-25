@@ -1,0 +1,61 @@
+<td>
+{% block field %}   
+        <table class="table table-bordered">
+        <thead>
+            <th>Clasificador</th>
+            <th>Bien/Servicio</th>
+            <th>Escala</th>
+            <th>Indicador de Impuestos</th>
+            <th>Cantidad</th>            
+            <th>Importe Unitario</th>
+            <th>Importe Neto</th>
+            <th>Importe Total</th>
+        </thead>
+        <tbody>
+            
+            {% for itemFactura in value %}
+            <tr>
+                <td>{{ itemFactura.clasificador }}</td>
+                <td>{{ itemFactura.bienServicio }}</td>
+                <td>{{ itemFactura.escala }}</td>
+                <td>{{ itemFactura.indicadorImpuestos }}</td>                
+                <td class="text-right">
+                    {{ itemFactura.cantidad|number_format(2, ',', '.') }}
+                </td>
+                <td class="text-right">
+                    {{ itemFactura.documento.moneda.signoMonetario }} {{ itemFactura.precioUnitario|number_format(2, ',', '.') }}
+                </td>
+                <td class="text-right">
+                    {{ itemFactura.documento.moneda.signoMonetario }} {{ itemFactura.importeNeto|number_format(2, ',', '.') }}
+                </td>
+                <td class="text-right">
+                    {{ itemFactura.documento.moneda.signoMonetario }} {{ itemFactura.importeTotal|number_format(2, ',', '.') }}
+                </td>
+            </tr>
+            {% endfor %}
+            
+            {% if( value|length >0 ) %}
+                {# Se imprimieron items, por lo tanto se imprime una última fila totalizadora #}
+                {% set factura = value[0].documento %}
+                
+                <tr>
+                    <td colspan="7"><strong>Importe Neto</strong></td>
+                    <td class="text-right"><strong>{{ factura.moneda.signoMonetario }} {{ factura.importeNeto|number_format(2, ',', '.') }}</strong></td>
+                </tr>
+                <tr>
+                    <td colspan="7"><strong>Impuestos</strong></td>
+                    {% set totalImpuestos = factura.importeTotal - factura.importeNeto %}
+                    <td class="text-right"><strong>{{ factura.moneda.signoMonetario }} {{ totalImpuestos|number_format(2, ',', '.') }}</strong></td>
+                </tr>
+                
+                <tr>
+                    <td colspan="7"><strong>Importe Total</strong></td>
+                    <td class="text-right"><strong>{{ factura.moneda.signoMonetario }} {{ factura.importeTotal|number_format(2, ',', '.') }}</strong></td>
+                </tr>
+            {% endif %}            
+            
+        </tbody>
+    </table>
+                
+{% endblock %}
+</td>

@@ -78,6 +78,11 @@ class ItemSalidaMercancias extends ItemVentas
         $itemPedido->addReferenciaItemSalidaMercancias($this);
     } 
     
+    function getItemFacturadores()
+    {
+        return $this->itemFacturadores;
+    }    
+    
     function addItemFacturador(ItemFactura $itemFactura)
     {
         $this->itemFacturadores[] = $itemFactura;
@@ -97,6 +102,34 @@ class ItemSalidaMercancias extends ItemVentas
     public function contabilizar()
     {
         $this->getItemPedidoEntregado()->registrarSalidaMercancias($this);                
+    }
+
+    public function registrarFacturacion( ItemFactura $itemFactura )
+    {
+        if( $this->getCantidadPendienteDeFacturacion() > 0 ){
+            $this->setEstadoFacturacion( new FacturadoParcialmente() );
+        }else{
+            $this->setEstadoFacturacion( new FacturacionFinalizada() );
+        }
+        $this->getDocumento()->update();
+    }   
+
+    public function getCantidadFacturada()
+    {
+        $facturado = 0;
+        
+        /* @var $itemFactura \Pronit\ComprasBundle\Entity\Documentos\Facturas\ItemFactura */
+        foreach( $this->getItemFacturadores() as $itemFactura )
+        {
+            $facturado = $facturado + $itemFactura->getCantidad();
+        }
+        
+        return $facturado;
+    }
+     
+    public function getCantidadPendienteDeFacturacion()
+    {
+        return $this->getCantidad() - $this->getCantidadFacturada();
     }
     
 }

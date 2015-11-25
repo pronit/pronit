@@ -9,6 +9,7 @@ use Pronit\CoreBundle\Entity\Documentos\Ventas\Ventas;
 
 use Pronit\CoreBundle\Entity\Documentos\Item;
 use Pronit\CoreBundle\Entity\Documentos\Ventas\Facturas\ItemFactura;
+use Pronit\ParametrizacionGeneralBundle\Entity\CondicionPagos;
 
 /**
  *
@@ -23,6 +24,11 @@ class Factura extends Ventas
      */    
     protected $condicionPagos;
 
+    public function __construct()
+    {
+        parent::__construct();        
+    }    
+    
     /**
      * 
      * @return CondicionPagos
@@ -35,13 +41,19 @@ class Factura extends Ventas
     function setCondicionPagos(CondicionPagos $condicionPagos)
     {
         $this->condicionPagos = $condicionPagos;
-    }
+    }        
     
-    
-    public function __construct()
+    public function getImporteTotal()
     {
-        parent::__construct();        
-    }    
+        $importeTotal = 0;
+        
+        foreach( $this->getItems() as $item ){
+
+            $importeTotal = $importeTotal + $item->getImporteTotal();
+        }
+        
+        return $importeTotal;
+    }        
     
     public function addItem(Item $item)
     {        
@@ -56,6 +68,13 @@ class Factura extends Ventas
     {
         parent::contabilizar();
 
+        /* Cuando la factura se contabiliza se "contabilizan" su items */
+        
+        /* @var $itemFactura \Pronit\CoreBundle\Entity\Documentos\Ventas\Facturas\ItemFactura  */
+        foreach( $this->getItems() as $itemFactura ){
+            
+            $itemFactura->contabilizar();
+        }        
         
     }    
 }

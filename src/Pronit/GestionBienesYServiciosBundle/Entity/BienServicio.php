@@ -3,9 +3,10 @@
 namespace Pronit\GestionBienesYServiciosBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Pronit\ParametrizacionGeneralBundle\Entity\SistemaMedicion;
 
+use Pronit\ParametrizacionGeneralBundle\Entity\SistemaMedicion;
 use Pronit\GestionBienesYServiciosBundle\Entity\TipoBienServicio;
+
 
 /**
  * 
@@ -52,12 +53,8 @@ abstract class BienServicio
      * @ORM\ManyToOne(targetEntity="Pronit\GestionBienesYServiciosBundle\Entity\TipoBienServicio")
      * @ORM\JoinColumn(nullable=false)
      */
-    protected $tipo;    
-    
-    public function __construct()
-    {
-    }
-    
+    protected $tipo;        
+        
     public function getId()
     {
         return $this->id;

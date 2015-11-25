@@ -18,6 +18,10 @@ class ClaseDocumento {
     const CODIGO_FACTURAACREEDOR = "KR";
     const CODIGO_ENTRADAMERCANCIAS = "EM";
     
+    const CODIGO_PEDIDOVENTA = "PV";
+    const CODIGO_FACTURADEUDOR = "DR";
+    const CODIGO_SALIDAMERCANCIAS = "SM";
+    
     /**
      * @ORM\Column(type="string")
      * @ORM\Id
