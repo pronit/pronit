@@ -188,3 +188,14 @@ services:
         calls:
             - [ setTranslationDomain, [PronitCoreBundle]]
 
+    pronit.admin.core.bienesyservicios.presentaciones.fraccionamiento:
+        class: Pronit\CoreBundle\Admin\BienesYServicios\Presentaciones\FraccionamientoAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, show_in_dashboard: false, group: null }
+        arguments:
+            - ~
+            - Pronit\CoreBundle\Entity\BienesYServicios\Presentaciones\Fraccionamiento
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitCoreBundle]]
+

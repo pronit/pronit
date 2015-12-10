@@ -36,12 +36,19 @@ class Material extends BienServicio
     {
         return $this->presentacionesCompra;
     }
-
-    protected function setPresentacionesCompra($presentacionCompra)
+    
+    public function setPresentacionesCompra($presentacionCompra)
     {
+        /* Lo necesita Sonada para el CRUD de Materiales */
         $this->presentacionesCompra = $presentacionCompra;
     }    
-    
+
+    public function addPresentacionesCompra(PresentacionCompra $presentacionCompra)
+    {
+        /* @todo este metodo lo necesita Sonata para el CRUD de materiales. */
+        $this->addPresentacionCompra($presentacionCompra);
+    }
+            
     public function addPresentacionCompra(PresentacionCompra $presentacionCompra)
     {
         $presentacionCompra->setMaterial($this);
@@ -58,10 +65,17 @@ class Material extends BienServicio
         return $this->presentacionesVenta;
     }
 
-    protected function setPresentacionesVenta($presentacionVenta)
+    public function setPresentacionesVenta($presentacionVenta)
     {
+        /* Lo necesita Sonada para el CRUD de Materiales */
         $this->presentacionesVenta = $presentacionVenta;
     }    
+
+    public function addPresentacionesVenta(PresentacionVenta $presentacionVenta)
+    {
+        /* Lo necesita Sonada para el CRUD de Materiales */
+        $this->addPresentacionVenta($presentacionVenta);
+    }
     
     public function addPresentacionVenta(PresentacionVenta $presentacionVenta)
     {

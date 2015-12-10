@@ -79,4 +79,8 @@ class PresentacionVenta
     {
         $this->escalas->removeElement( $escala );
     }        
+    
+    public function __toString() {
+        return $this->nombre;
+    }
 }

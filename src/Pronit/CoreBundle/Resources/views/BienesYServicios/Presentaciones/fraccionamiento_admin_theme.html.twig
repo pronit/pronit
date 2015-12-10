@@ -1,0 +1,34 @@
+{% extends 'SonataAdminBundle:Form:form_admin_fields.html.twig' %}
+
+
+
+{% block pronit_admin_core_bienesyservicios_presentaciones_presentacioncompra_nombre_text_widget -%}
+    <div class="row" style="margin-bottom: 25px"></div>
+    {{ form_widget(form) }}
+{%- endblock%}
+
+{% block pronit_admin_core_bienesyservicios_presentaciones_presentacioncompra_fraccionamiento_sonata_type_admin_widget -%}
+    
+    <div id="field_container_{{ id }}" class="field-container">
+        
+        <span id="field_widget_{{ id }}" >
+            <div class="row">
+                <div class="col-md-4">
+                    {{ form_row(form.cantidad) }}
+                </div>
+                <div class="col-md-4">
+                    {{ form_row(form.escala) }}
+                </div>
+                <div class="col-md-4">
+                    {{ form_row(form.presentacionVenta) }}
+                </div>
+            </div>
+        </span>
+
+        {% include 'SonataDoctrineORMAdminBundle:CRUD:edit_modal.html.twig' %}
+    </div>
+    
+    {% include 'SonataDoctrineORMAdminBundle:CRUD:edit_orm_many_association_script.html.twig' %}
+
+{%- endblock%}
+

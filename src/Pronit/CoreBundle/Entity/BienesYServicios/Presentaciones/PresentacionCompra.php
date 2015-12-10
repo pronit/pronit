@@ -30,34 +30,22 @@ class PresentacionCompra
     private $nombre;
     
     /**
-     * @ORM\OneToMany(targetEntity="Pronit\CoreBundle\Entity\BienesYServicios\Presentaciones\Fraccionamiento", mappedBy="presentacionCompra", cascade={"ALL"})
+     * @ORM\OneToOne(targetEntity="Pronit\CoreBundle\Entity\BienesYServicios\Presentaciones\Fraccionamiento", cascade={"ALL"})
      */    
-    protected $fraccionamientos;    
+    protected $fraccionamiento;    
     
     public function __construct()
     {
-        $this->setFraccionamientos( new ArrayCollection() );
     }    
     
-    function getFraccionamientos() 
+    function getFraccionamiento() 
     {
-        return $this->fraccionamientos;
+        return $this->fraccionamiento;
     }
 
-    function setFraccionamientos($fraccionamientos) {
-        $this->fraccionamientos = $fraccionamientos;
+    function setFraccionamiento( Fraccionamiento $fraccionamiento) {
+        $this->fraccionamiento = $fraccionamiento;
     }
-    
-    public function addFraccionamiento(Fraccionamiento $fraccionamiento)
-    {
-        $fraccionamiento->setPresentacionCompra($this);
-        $this->fraccionamientos[] = $fraccionamiento;
-    }
-
-    public function removeFraccionamiento(Fraccionamiento $fraccionamiento)
-    {
-        $this->fraccionamientos->removeElement( $fraccionamiento  );
-    }    
     
     function getNombre() 
     {

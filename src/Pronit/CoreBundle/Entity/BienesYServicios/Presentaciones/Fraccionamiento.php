@@ -18,11 +18,6 @@ class Fraccionamiento
     protected $id;    
     
     /**
-     * @ORM\ManyToOne(targetEntity="Pronit\CoreBundle\Entity\BienesYServicios\Presentaciones\PresentacionCompra", inversedBy="fraccionamientos")
-     */        
-    private $presentacionCompra;        
-    
-    /**
      * @ORM\Column(type="float")
      */        
     private $cantidad;
@@ -38,19 +33,9 @@ class Fraccionamiento
     private $presentacionVenta;
     
     
-    function getPresentacionCompra() 
-    {
-        return $this->presentacionCompra;
-    }
-
     function getCantidad() 
     {
         return $this->cantidad;
-    }
-
-    function setPresentacionCompra($presentacionCompra) 
-    {
-        $this->presentacionCompra = $presentacionCompra;
     }
 
     function setCantidad($cantidad) 

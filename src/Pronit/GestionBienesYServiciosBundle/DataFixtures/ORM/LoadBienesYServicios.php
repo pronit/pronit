@@ -80,12 +80,10 @@ class LoadBienesYServicios extends AbstractFixture implements FixtureInterface, 
             'presentacionesCompra' => array( 
                 array( 
                     "nombre" => "Caja x 5", 
-                    'fraccionamientos' => array( 
-                        array(
-                            'cantidad' => 5, 
-                            'escala' => $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-unidades-escala-unidad'),
-                            'presentacionVenta' => 'Bolsa 25kg'
-                        ) 
+                    'fraccionamiento' => array( 
+                        'cantidad' => 5, 
+                        'escala' => $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-unidades-escala-unidad'),
+                        'presentacionVenta' => 'Bolsa 25kg'
                     ) 
                 ),
             ),
@@ -115,22 +113,18 @@ class LoadBienesYServicios extends AbstractFixture implements FixtureInterface, 
             'presentacionesCompra' => array( 
                 array( 
                     "nombre" => "Caja x 6", 
-                    'fraccionamientos' => array( 
-                        array(
-                            'cantidad' => 6, 
-                            'escala' => $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-unidades-escala-unidad'),
-                            'presentacionVenta' => 'Botella 750ml'
-                        ) 
+                    'fraccionamiento' => array( 
+                        'cantidad' => 6, 
+                        'escala' => $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-unidades-escala-unidad'),
+                        'presentacionVenta' => 'Botella 750ml'
                     ) 
                 ),
                 array( 
                     "nombre" => "Caja x 12", 
-                    'fraccionamientos' => array( 
-                        array( 
-                            'cantidad' => 12, 
-                            'escala' => $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-unidades-escala-unidad'),
-                            'presentacionVenta' => 'Botella 750ml'
-                        ) 
+                    'fraccionamiento' => array( 
+                        'cantidad' => 12, 
+                        'escala' => $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-unidades-escala-unidad'),
+                        'presentacionVenta' => 'Botella 750ml'
                     ) 
                 ),                
             ),
@@ -174,15 +168,12 @@ class LoadBienesYServicios extends AbstractFixture implements FixtureInterface, 
                 $presentacionCompra = new \Pronit\CoreBundle\Entity\BienesYServicios\Presentaciones\PresentacionCompra();
                 $presentacionCompra->setNombre($pc['nombre']);
 
-                foreach ( $pc['fraccionamientos'] as $f){
-                    
-                    $fraccionamiento = new \Pronit\CoreBundle\Entity\BienesYServicios\Presentaciones\Fraccionamiento();
-                    $fraccionamiento->setCantidad($f['cantidad']);
-                    $fraccionamiento->setEscala($f['escala']);
-                    $fraccionamiento->setPresentacionVenta( $this->getReference( 'pronit-gestionbienesyservicios-bienservicio-' . $v['codigo'] . '-presentacionVenta-' . $f['presentacionVenta'] ) );
-                    
-                    $presentacionCompra->addFraccionamiento($fraccionamiento);
-                }                
+                $fraccionamiento = new \Pronit\CoreBundle\Entity\BienesYServicios\Presentaciones\Fraccionamiento();
+                $fraccionamiento->setCantidad($pc['fraccionamiento']['cantidad']);
+                $fraccionamiento->setEscala($pc['fraccionamiento']['escala']);
+                $fraccionamiento->setPresentacionVenta( $this->getReference( 'pronit-gestionbienesyservicios-bienservicio-' . $v['codigo'] . '-presentacionVenta-' . $pc['fraccionamiento']['presentacionVenta'] ) );
+
+                $presentacionCompra->setFraccionamiento($fraccionamiento);
 
                 $bienServicio->addPresentacionCompra($presentacionCompra);                
             }
