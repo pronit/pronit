@@ -10,7 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity
  * @ORM\Table(name="core_bienesyservicios_presentacionescompra") 
  */
-class PresentacionCompra 
+class PresentacionCompra extends Presentacion
 {
     /**
      * @ORM\Column(type="integer")
@@ -22,31 +22,17 @@ class PresentacionCompra
     /**
      * @ORM\ManyToOne(targetEntity="Pronit\GestionBienesYServiciosBundle\Entity\Material", inversedBy="presentacionesCompra")
      */        
-    private $material;
+    private $material;  
     
     /**
-     * @ORM\Column(type="string", length=50)
-     */        
-    private $nombre;
-    
-    /**
-     * @ORM\OneToOne(targetEntity="Pronit\CoreBundle\Entity\BienesYServicios\Presentaciones\Fraccionamiento", cascade={"ALL"})
+     * @ORM\OneToOne(targetEntity="Pronit\CoreBundle\Entity\BienesYServicios\Presentaciones\FraccionamientoCompra", cascade={"ALL"}, mappedBy="presentacionOrigen")
      */    
     protected $fraccionamiento;    
     
     public function __construct()
     {
     }    
-    
-    function getFraccionamiento() 
-    {
-        return $this->fraccionamiento;
-    }
-
-    function setFraccionamiento( Fraccionamiento $fraccionamiento) {
-        $this->fraccionamiento = $fraccionamiento;
-    }
-    
+        
     function getNombre() 
     {
         return $this->nombre;
@@ -67,5 +53,15 @@ class PresentacionCompra
         $this->material = $material;
     }
 
+    function getFraccionamiento() 
+    {
+        return $this->fraccionamiento;
+    }
+
+    function setFraccionamiento(FraccionamientoCompra $fraccionamiento) 
+    {
+        $this->fraccionamiento = $fraccionamiento;
+        $fraccionamiento->setPresentacionOrigen($this);
+    }
     
 }

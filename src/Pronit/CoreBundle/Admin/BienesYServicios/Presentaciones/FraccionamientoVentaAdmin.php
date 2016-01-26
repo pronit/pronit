@@ -10,15 +10,15 @@ use Sonata\AdminBundle\Form\FormMapper;
  *
  * @author ldelia
  */
-class FraccionamientoAdmin extends Admin
+class FraccionamientoVentaAdmin extends Admin
 {
      // Fields to be shown on create/edit forms
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
             ->add('cantidad')                
-            ->add('escala')
-            ->add('presentacionVenta')
+            ->add('unidad')
+            ->add('presentacionDestino')
         ;        
     }        
 }

@@ -189,12 +189,23 @@ services:
             - [ setTranslationDomain, [PronitCoreBundle]]
 
     pronit.admin.core.bienesyservicios.presentaciones.fraccionamiento:
-        class: Pronit\CoreBundle\Admin\BienesYServicios\Presentaciones\FraccionamientoAdmin
+        class: Pronit\CoreBundle\Admin\BienesYServicios\Presentaciones\FraccionamientoCompraAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, show_in_dashboard: false, group: null }
         arguments:
             - ~
-            - Pronit\CoreBundle\Entity\BienesYServicios\Presentaciones\Fraccionamiento
+            - Pronit\CoreBundle\Entity\BienesYServicios\Presentaciones\FraccionamientoCompra
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitCoreBundle]]
+
+    pronit.admin.core.bienesyservicios.presentaciones.fraccionamientoVentaDestino:
+        class: Pronit\CoreBundle\Admin\BienesYServicios\Presentaciones\FraccionamientoVentaAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, show_in_dashboard: false, group: null }
+        arguments:
+            - ~
+            - Pronit\CoreBundle\Entity\BienesYServicios\Presentaciones\FraccionamientoVenta
             - ~
         calls:
             - [ setTranslationDomain, [PronitCoreBundle]]

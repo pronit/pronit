@@ -5,10 +5,9 @@ namespace Pronit\CoreBundle\Entity\BienesYServicios\Presentaciones;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
- * @ORM\Table(name="core_bienesyservicios_fraccionamientos") 
+ * @ORM\MappedSuperclass
  */
-class Fraccionamiento
+abstract class Fraccionamiento
 {
     /**
      * @ORM\Column(type="integer")  
@@ -20,17 +19,12 @@ class Fraccionamiento
     /**
      * @ORM\Column(type="float")
      */        
-    private $cantidad;
+    private $cantidad;    
     
     /**
      * @ORM\ManyToOne(targetEntity="Pronit\ParametrizacionGeneralBundle\Entity\Escala", inversedBy="escala")
      */        
-    private $escala;    
-    
-    /**
-     * @ORM\ManyToOne(targetEntity="Pronit\CoreBundle\Entity\BienesYServicios\Presentaciones\PresentacionVenta")
-     */        
-    private $presentacionVenta;
+    private $unidad;   
     
     
     function getCantidad() 
@@ -42,24 +36,29 @@ class Fraccionamiento
     {
         $this->cantidad = $cantidad;
     }
-
-    function getEscala() 
+    
+    function getUnidad() 
     {
-        return $this->escala;
+        return $this->unidad;
     }
 
-    function setEscala($escala) 
+    function setUnidad($unidad) 
     {
-        $this->escala = $escala;
+        $this->unidad = $unidad;
     }    
     
-    function getPresentacionVenta() 
+    function getPresentacionOrigen() 
     {
-        return $this->presentacionVenta;
+        return $this->presentacionOrigen;
     }
 
-    function setPresentacionVenta($presentacionVenta) 
+    function getPresentacionDestino() 
     {
-        $this->presentacionVenta = $presentacionVenta;
+        return $this->presentacionDestino;
+    }
+
+    function setPresentacionDestino( PresentacionVenta $presentacionVenta) 
+    {
+        $this->presentacionDestino = $presentacionVenta;
     }    
 }

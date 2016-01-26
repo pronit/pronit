@@ -19,7 +19,8 @@ class PresentacionVentaAdmin extends Admin
     {
         $formMapper
             ->add('nombre')
-            ->add('escalas')                
+            ->add('unidades')                
+            ->add('fraccionamientoVentaDestino', 'sonata_type_admin')
         ;
         
     }

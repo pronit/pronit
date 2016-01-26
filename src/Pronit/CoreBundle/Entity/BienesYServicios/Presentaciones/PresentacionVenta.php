@@ -11,7 +11,7 @@ use Pronit\ParametrizacionGeneralBundle\Entity\Escala;
  * @ORM\Entity
  * @ORM\Table(name="core_bienesyservicios_presentacionesventa") 
  */
-class PresentacionVenta
+class PresentacionVenta extends Presentacion
 {
     /**
      * @ORM\Column(type="integer")
@@ -26,19 +26,28 @@ class PresentacionVenta
     private $material;
     
     /**
-     * @ORM\Column(type="string", length=50)
-     */        
-    private $nombre;    
-    
-    /**
      * @ORM\ManyToMany(targetEntity="Pronit\ParametrizacionGeneralBundle\Entity\Escala")
      */    
-    protected $escalas;
+    protected $unidades;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Pronit\CoreBundle\Entity\BienesYServicios\Presentaciones\FraccionamientoCompra", mappedBy="presentacionDestino")
+     */    
+    protected $fraccionamientosCompra;
     
+    /**
+     * @ORM\OneToOne(targetEntity="Pronit\CoreBundle\Entity\BienesYServicios\Presentaciones\FraccionamientoVenta", mappedBy="presentacionDestino")
+     */    
+    protected $fraccionamientoVentaOrigen;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="Pronit\CoreBundle\Entity\BienesYServicios\Presentaciones\FraccionamientoVenta", cascade={"ALL"}, mappedBy="presentacionOrigen")
+     */    
+    protected $fraccionamientoVentaDestino;    
     
     public function __construct()
     {
-        $this->escalas = new ArrayCollection();
+        $this->unidades = new ArrayCollection();
     }    
     
     function getNombre() 
@@ -55,32 +64,55 @@ class PresentacionVenta
     {
         return $this->material;
     }
-
+    
     function setMaterial($material) 
     {
         $this->material = $material;
     }    
     
-    function getEscalas() 
+    function getUnidades() 
     {
-        return $this->escalas;
+        return $this->unidades;
     }
 
-    function setEscalas($escalas) {
-        $this->escalas = $escalas;
+    function setUnidades($unidades)    
+    {
+        $this->unidades = $unidades;
     }
     
-    public function addEscala(Escala $escala)
+    public function addUnidad(Escala $escala)
     {
-        $this->escalas[] = $escala;
+        $this->unidades[] = $escala;
     }
 
-    public function removeEscala(Escala $escala)
+    public function removeUnidad(Escala $escala)
     {
-        $this->escalas->removeElement( $escala );
-    }        
+        $this->unidades->removeElement( $escala );
+    }
     
-    public function __toString() {
+    function getFraccionamientoVentaOrigen() 
+    {
+        return $this->fraccionamientoVentaOrigen;
+    }
+
+    function getFraccionamientoVentaDestino() 
+    {
+        return $this->fraccionamientoVentaDestino;
+    }
+
+    function setFraccionamientoVentaOrigen($fraccionamientoVentaOrigen) 
+    {
+        $this->fraccionamientoVentaOrigen = $fraccionamientoVentaOrigen;
+    }
+
+    function setFraccionamientoVentaDestino(FraccionamientoVenta $fraccionamientoVentaDestino) 
+    {
+        $this->fraccionamientoVentaDestino = $fraccionamientoVentaDestino;
+        $fraccionamientoVentaDestino->setPresentacionOrigen($this);
+    }    
+    
+    public function __toString() 
+    {
         return $this->nombre;
-    }
+    }       
 }

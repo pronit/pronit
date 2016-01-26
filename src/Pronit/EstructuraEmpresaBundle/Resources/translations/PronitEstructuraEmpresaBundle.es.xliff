@@ -14,6 +14,10 @@
                 <source>Sociedad G L List</source>
                 <target>Sociedades GL</target>
             </trans-unit>            
+            <trans-unit id="Sociedad F I">
+                <source>Sociedad F I</source>
+                <target>Sociedad FI</target>
+            </trans-unit>            
             <trans-unit id="Sociedad F I List">
                 <source>Sociedad F I List</source>
                 <target>Sociedades FI</target>
@@ -26,6 +30,19 @@
                 <source>Bien Servicio Sociedad F I List</source>
                 <target>Gestión de Bienes y Servicios</target>
             </trans-unit>                        
+            <trans-unit id="Codigo">
+                <source>Codigo</source>
+                <target>Código</target>
+            </trans-unit>                                    
+            <trans-unit id="Division Administrativa">
+                <source>Division Administrativa</source>
+                <target>División Administrativa</target>
+            </trans-unit>                                    
+            <trans-unit id="Action">
+                <source>Action</source>
+                <target>Acción</target>
+            </trans-unit>                                    
+            
         </body>
     </file>
 </xliff>

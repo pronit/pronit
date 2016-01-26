@@ -71,6 +71,44 @@ class LoadBienesYServicios extends AbstractFixture implements FixtureInterface, 
             'presentacionesVenta' => array(),
         );
         
+        $values[] = array('codigo' => "514612011",
+            "nombre" => "Ibupirac 600 Capsulas Blandas",
+            'categoria' => $this->getReference('pronit-gestionbienesyservicios-categoriavaloracion-3001'),
+            'tipo' => $this->getReference('pronit-gestionbienesyservicios-tipobienservicio-productoelaborado'),
+            "sistemaMedicion" => $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-unidades'),
+            "sociedadFI_precioValoracionEstandar" => 4,
+            'presentacionesCompra' => array( 
+                array( 
+                    "nombre" => "Palet X 50 Ibupirac 600 Capsulas Blandas x 10", 
+                    'fraccionamiento' => array( 
+                        'cantidad' => 50, 
+                        'unidad' => $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-unidades-escala-unidad'),
+                        'presentacionVenta' => 'Ibupirac 600 Capsulas Blandas x 10'
+                    ) 
+                ),
+            ),
+            'presentacionesVenta' => array( 
+                array( 
+                    "nombre" => "Ibupirac 600 Capsulas Blandas x 10",
+                    "unidades" => array(
+                        $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-unidades-escala-unidad'),
+                    ),
+                    'fraccionamiento' => array( 
+                        'cantidad' => 10, 
+                        'unidad' => $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-unidades-escala-unidad'),
+                        'presentacionVenta' => 'Suelto'
+                    ) 
+                ),
+                array( 
+                    "nombre" => "Suelto",
+                    "unidades" => array(
+                        $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-unidades-escala-unidad'),
+                    )
+                ),                
+            )
+            
+        );
+        
         $values[] = array('codigo' => "610612011",
             "nombre" => "Bolsa Ceral x 25",
             'categoria' => $this->getReference('pronit-gestionbienesyservicios-categoriavaloracion-3001'),
@@ -82,7 +120,7 @@ class LoadBienesYServicios extends AbstractFixture implements FixtureInterface, 
                     "nombre" => "Caja x 5", 
                     'fraccionamiento' => array( 
                         'cantidad' => 5, 
-                        'escala' => $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-unidades-escala-unidad'),
+                        'unidad' => $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-unidades-escala-unidad'),
                         'presentacionVenta' => 'Bolsa 25kg'
                     ) 
                 ),
@@ -90,13 +128,13 @@ class LoadBienesYServicios extends AbstractFixture implements FixtureInterface, 
             'presentacionesVenta' => array( 
                 array( 
                     "nombre" => "Bolsa 25kg",
-                    "escalas" => array(
+                    "unidades" => array(
                         $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-unidades-escala-unidad'),
-                    )
+                    ),
                 ),
                 array( 
                     "nombre" => "Suelto",
-                    "escalas" => array(
+                    "unidades" => array(
                         $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-kilos-escala-kilo'),
                     )
                 ),                
@@ -115,7 +153,7 @@ class LoadBienesYServicios extends AbstractFixture implements FixtureInterface, 
                     "nombre" => "Caja x 6", 
                     'fraccionamiento' => array( 
                         'cantidad' => 6, 
-                        'escala' => $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-unidades-escala-unidad'),
+                        'unidad' => $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-unidades-escala-unidad'),
                         'presentacionVenta' => 'Botella 750ml'
                     ) 
                 ),
@@ -123,7 +161,7 @@ class LoadBienesYServicios extends AbstractFixture implements FixtureInterface, 
                     "nombre" => "Caja x 12", 
                     'fraccionamiento' => array( 
                         'cantidad' => 12, 
-                        'escala' => $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-unidades-escala-unidad'),
+                        'unidad' => $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-unidades-escala-unidad'),
                         'presentacionVenta' => 'Botella 750ml'
                     ) 
                 ),                
@@ -131,7 +169,7 @@ class LoadBienesYServicios extends AbstractFixture implements FixtureInterface, 
             'presentacionesVenta' => array( 
                 array( 
                     "nombre" => "Botella 750ml",
-                    "escalas" => array(
+                    "unidades" => array(
                         $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-unidades-escala-unidad'),
                     )
                 ),
@@ -147,37 +185,67 @@ class LoadBienesYServicios extends AbstractFixture implements FixtureInterface, 
             $bienServicio->setCategoriaValoracion($v['categoria']);
             $bienServicio->setTipo($v['tipo']);
             $bienServicio->setSistemaMedicion($v['sistemaMedicion']);
-            
-            foreach( $v['presentacionesVenta'] as $pv ){
-                
-                $presentacionVenta = new \Pronit\CoreBundle\Entity\BienesYServicios\Presentaciones\PresentacionVenta();
-                $presentacionVenta->setNombre($pv['nombre']);
-                
-                foreach ( $pv['escalas'] as $escala){
-                    
-                    $presentacionVenta->addEscala($escala);
-                }                                
 
-                $bienServicio->addPresentacionVenta($presentacionVenta);                
-                
-                $this->addReference('pronit-gestionbienesyservicios-bienservicio-' . $v['codigo'] . '-presentacionVenta-' . $pv['nombre'], $presentacionVenta);
-            }
-
+            /**
+             * Se generan las presentaciones de venta y de compra
+             */
             foreach( $v['presentacionesCompra'] as $pc ){
                 
                 $presentacionCompra = new \Pronit\CoreBundle\Entity\BienesYServicios\Presentaciones\PresentacionCompra();
                 $presentacionCompra->setNombre($pc['nombre']);
 
-                $fraccionamiento = new \Pronit\CoreBundle\Entity\BienesYServicios\Presentaciones\Fraccionamiento();
-                $fraccionamiento->setCantidad($pc['fraccionamiento']['cantidad']);
-                $fraccionamiento->setEscala($pc['fraccionamiento']['escala']);
-                $fraccionamiento->setPresentacionVenta( $this->getReference( 'pronit-gestionbienesyservicios-bienservicio-' . $v['codigo'] . '-presentacionVenta-' . $pc['fraccionamiento']['presentacionVenta'] ) );
-
-                $presentacionCompra->setFraccionamiento($fraccionamiento);
-
                 $bienServicio->addPresentacionCompra($presentacionCompra);                
+                
+                $this->addReference('pronit-gestionbienesyservicios-bienservicio-' . $v['codigo'] . '-presentacionCompra-' . $pc['nombre'], $presentacionCompra);
             }
             
+            foreach( $v['presentacionesVenta'] as $pv ){
+                
+                $presentacionVenta = new \Pronit\CoreBundle\Entity\BienesYServicios\Presentaciones\PresentacionVenta();
+                $presentacionVenta->setNombre($pv['nombre']);                
+                foreach ( $pv['unidades'] as $unidad){                    
+                    $presentacionVenta->addUnidad($unidad);
+                }                                                
+
+                $bienServicio->addPresentacionVenta($presentacionVenta);                
+                
+                $this->addReference('pronit-gestionbienesyservicios-bienservicio-' . $v['codigo'] . '-presentacionVenta-' . $pv['nombre'], $presentacionVenta);
+            }
+            
+            /**
+             * Se continúa con la carga de fraccionamiento. Esto no se puede hacer en la pasada anterior porque no estaban todas las referencias cargadas
+             */
+
+            foreach( $v['presentacionesCompra'] as $pc ){
+                
+                if( isset( $pc['fraccionamiento'] ) ){
+                    
+                    $presentacionCompra = $this->getReference('pronit-gestionbienesyservicios-bienservicio-' . $v['codigo'] . '-presentacionCompra-' . $pc['nombre']);
+                                    
+                    $fraccionamiento = new \Pronit\CoreBundle\Entity\BienesYServicios\Presentaciones\FraccionamientoCompra();
+                    $fraccionamiento->setCantidad($pc['fraccionamiento']['cantidad']);
+                    $fraccionamiento->setUnidad($pc['fraccionamiento']['unidad']);
+                    $fraccionamiento->setPresentacionDestino( $this->getReference( 'pronit-gestionbienesyservicios-bienservicio-' . $v['codigo'] . '-presentacionVenta-' . $pc['fraccionamiento']['presentacionVenta'] ) );                    
+                    
+                    $presentacionCompra->setFraccionamiento($fraccionamiento);
+                }
+            }
+
+            foreach( $v['presentacionesVenta'] as $pv ){                
+
+                if( isset( $pv['fraccionamiento'] ) ){
+                    
+                    $presentacionVenta = $this->getReference('pronit-gestionbienesyservicios-bienservicio-' . $v['codigo'] . '-presentacionVenta-' . $pv['nombre']);
+
+                    $fraccionamiento = new \Pronit\CoreBundle\Entity\BienesYServicios\Presentaciones\FraccionamientoVenta();
+                    $fraccionamiento->setCantidad($pv['fraccionamiento']['cantidad']);
+                    $fraccionamiento->setUnidad($pv['fraccionamiento']['unidad']);
+                    $fraccionamiento->setPresentacionDestino( $this->getReference( 'pronit-gestionbienesyservicios-bienservicio-' . $v['codigo'] . '-presentacionVenta-' . $pv['fraccionamiento']['presentacionVenta'] ) );
+
+                    $presentacionVenta->setFraccionamientoVentaDestino($fraccionamiento);                    
+                }
+            }
+
             $this->manager->persist($bienServicio);
 
             $this->addReference('pronit-gestionbienesyservicios-bienservicio-' . $v['codigo'], $bienServicio);
