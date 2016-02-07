@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="core_documentoitemfinanzas") 
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"ItemFinanzasValue" = "ItemFinanzas", "ItemFinanzasPagoValue" = "ItemFinanzasPago"})
+ * @ORM\DiscriminatorMap({"ItemFinanzasValue" = "ItemFinanzas", "ItemFinanzasPagoValue" = "ItemFinanzasPago", "ItemFinanzasEntradaMercanciasValue" = "ItemFinanzasEntradaMercancias"})
  * @author gcaseres
  */
 class ItemFinanzas {

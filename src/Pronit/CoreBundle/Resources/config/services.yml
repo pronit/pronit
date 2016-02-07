@@ -44,3 +44,8 @@ services:
     pronit_ventas_transaccion.factura:
         class: %pronit_ventas_transaccion.factura.class%
         arguments: [@doctrine.orm.entity_manager, @pronit_ventas_documentos_facturas.generador_items_finanzas, @pronit_contabilidad_customizing.generador_asientos_contables]        
+
+    app.controlling_menu_listener:
+        class: Pronit\CoreBundle\EventListener\ControllingMenuBuilderListener
+        tags:
+            - { name: kernel.event_listener, event: sonata.admin.event.configure.menu.sidebar, method: addMenuItems }

@@ -1,1 +1,3 @@
-
+pronit_controlling_liquidacion_objetoscosto:
+    path:      /pronit_controlling_liquidacion_objetoscosto
+    defaults:  { _controller: PronitCoreBundle:Controlling\LiquidacionObjetosCosto:index }

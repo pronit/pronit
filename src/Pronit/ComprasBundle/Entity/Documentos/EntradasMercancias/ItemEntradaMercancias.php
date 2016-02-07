@@ -13,6 +13,7 @@ use Pronit\ComprasBundle\Entity\Documentos\Facturas\ItemFactura;
 use Pronit\ComprasBundle\Entity\Documentos\ItemAbastecimientoExterno;
 use Pronit\ComprasBundle\Entity\Documentos\Pedidos\ItemPedido;
 use Pronit\CoreBundle\Entity\Documentos\ClasificadorItem;
+use Pronit\CoreBundle\Entity\Controlling\ObjetoCosto;
 
 use \Exception;
 
@@ -28,6 +29,12 @@ class ItemEntradaMercancias extends ItemAbastecimientoExterno
      * @ORM\OneToOne(targetEntity="Pronit\ComprasBundle\Entity\Documentos\Estados\Facturacion\EstadoFacturacion", cascade={"persist", "remove"}, orphanRemoval=true)
      **/    
     protected $estadoFacturacion;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Pronit\CoreBundle\Entity\Controlling\ObjetoCosto")
+     * @ORM\JoinColumn(nullable=true)
+     */    
+    protected $objetoCosto;    
     
     /**
      * @ORM\ManyToOne(targetEntity="Pronit\ComprasBundle\Entity\Documentos\Pedidos\ItemPedido")
@@ -55,7 +62,21 @@ class ItemEntradaMercancias extends ItemAbastecimientoExterno
         }
         parent::setClasificador($clasificador);
     }
+    
+    /**
+     * 
+     * @return ObjetoCosto
+     */
+    function getObjetoCosto() 
+    {
+        return $this->objetoCosto;
+    }
 
+    function setObjetoCosto(ObjetoCosto $objetoCosto) 
+    {
+        $this->objetoCosto = $objetoCosto;
+    }
+    
     public function getEstadoFacturacion()
     {
         return $this->estadoFacturacion;
@@ -96,6 +117,7 @@ class ItemEntradaMercancias extends ItemAbastecimientoExterno
         $itemPedido->addReferenciaItemEntradaMercancias($this);
     }    
 
+    
     
     function getItemFacturadores()
     {

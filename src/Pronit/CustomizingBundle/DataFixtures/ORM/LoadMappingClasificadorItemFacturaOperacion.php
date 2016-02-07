@@ -44,7 +44,7 @@ class LoadMappingClasificadorItemFacturaOperacion extends AbstractFixture implem
 
 
         $values = array(
-            array("codigo" => "102", "operacion" => "WRZ", "funcion" => "DOC_EM_ITEM_IMPORTENETO"),
+            array("codigo" => "102", "operacion" => "WRZ", "funcion" => "DOC_FC_ITEM_IMPORTENETO"),
         );
 
         foreach ($values as $value) {

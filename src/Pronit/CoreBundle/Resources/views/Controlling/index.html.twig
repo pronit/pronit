@@ -1,0 +1,621 @@
+{% extends 'SonataAdminBundle::standard_layout.html.twig' %}
+
+{% block sonata_breadcrumb %}
+    <div class="navbar-left">
+        <div class="hidden-xs">
+            <ol class="nav navbar-top-links breadcrumb">
+                <li>
+                    <a href="/pronit/web/app_dev.php/admin/dashboard">Dashboard</a>
+                </li>
+                <li>
+                    <a href="/pronit/web/app_dev.php/admin/pedidos/list">Controlling</a>
+                </li>
+                <li class="active"><span>Liquidación de objetos de costo</span></li>
+            </ol>
+        </div>
+    </div> 
+{% endblock %}
+
+{% block sonata_page_content_header %}
+    <section class="content-header">
+
+        <div class="sticky-wrapper"><nav class="navbar navbar-default" role="navigation">
+                <div class="container-fluid">
+
+                    <div class="navbar-collapse">
+                        <div class="navbar-left">
+                        </div>
+
+                        <ul class="nav navbar-nav navbar-right">
+
+                            <li class="dropdown sonata-actions">
+                                <a href="#" class="dropdown-toggle sonata-ba-action" data-toggle="dropdown">
+                                    <i class="fa fa-filter"></i>
+                                    Filtros <b class="caret"></b>
+                                </a>
+
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a href="#" class="sonata-toggle-filter sonata-ba-action" filter-target="filter-s56b7553762fd7-numero" filter-container="filter-container-s56b7553762fd7">
+                                            <i class="fa fa-square-o"></i>Sociedad FI
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="sonata-toggle-filter sonata-ba-action" filter-target="filter-s56b7553762fd7-sociedad" filter-container="filter-container-s56b7553762fd7">
+                                            <i class="fa fa-square-o"></i>Tipo de Objeto
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="sonata-toggle-filter sonata-ba-action" filter-target="filter-s56b7553762fd7-fecha" filter-container="filter-container-s56b7553762fd7">
+                                            <i class="fa fa-square-o"></i>Objeto
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="sonata-toggle-filter sonata-ba-action" filter-target="filter-s56b7553762fd7-estadoEntrega" filter-container="filter-container-s56b7553762fd7">
+                                            <i class="fa fa-square-o"></i>Fecha de Contabilización
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="sonata-toggle-filter sonata-ba-action" filter-target="filter-s56b7553762fd7-proveedorSociedad" filter-container="filter-container-s56b7553762fd7">
+                                            <i class="fa fa-square-o"></i>Clase de Documento
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="sonata-toggle-filter sonata-ba-action" filter-target="filter-s56b7553762fd7-centroLogistico" filter-container="filter-container-s56b7553762fd7">
+                                            <i class="fa fa-square-o"></i>Fecha desde
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="sonata-toggle-filter sonata-ba-action" filter-target="filter-s56b7553762fd7-textoCabecera" filter-container="filter-container-s56b7553762fd7">
+                                            <i class="fa fa-square-o"></i>Fecha hasta
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </nav></div>
+    </section>
+{% endblock %}    
+
+{% block sonata_admin_content %}
+    <section class="content">
+
+        <div class="row">
+
+            <div class="col-xs-12 col-md-12 sonata-filters-box" style="display: none" id="filter-container-s56b7553762fd7">
+                <div class="box box-primary">
+                    <div class="box-body">
+                        <form class="sonata-filter-form form-horizontal " action="/pronit/web/app_dev.php/admin/pedidos/list" method="GET" role="form">
+
+
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    <div class="form-group " id="filter-s56b7553762fd7-numero" sonata-filter="true" style="display: none">
+                                        <label for="filter_numero_value" class="col-sm-3 control-label">Sociedad FI</label>
+
+                                        <div class="col-sm-4 advanced-filter" style="display: none;">
+                                            <div class="select2-container" id="s2id_filter_numero_type" style="width: 100%;"><a href="javascript:void(0)" class="select2-choice select2-default" tabindex="-1">   <span class="select2-chosen" id="select2-chosen-1"></span><abbr class="select2-search-choice-close"></abbr>   <span class="select2-arrow" role="presentation"><b role="presentation"></b></span></a><label for="s2id_autogen1" class="select2-offscreen"></label><input class="select2-focusser select2-offscreen" type="text" aria-haspopup="true" role="button" aria-labelledby="select2-chosen-1" id="s2id_autogen1"><div class="select2-drop select2-display-none select2-with-searchbox">   <div class="select2-search">       <label for="s2id_autogen1_search" class="select2-offscreen"></label>       <input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input" role="combobox" aria-expanded="true" aria-autocomplete="list" aria-owns="select2-results-1" id="s2id_autogen1_search" placeholder="">   </div>   <ul class="select2-results" role="listbox" id="select2-results-1">   </ul></div></div><select id="filter_numero_type" name="filter[numero][type]" class="" tabindex="-1" title="" style="display: none;"><option value=""></option><option value="1">contiene</option><option value="2">no contiene</option><option value="3">es igual a</option></select>
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            <input type="text" id="filter_numero_value" name="filter[numero][value]" class=" form-control" value="Modelo S.A.">
+                                        </div>
+
+                                        <div class="col-sm-1">
+                                            <label class="control-label">
+                                                <a href="#" class="sonata-toggle-filter sonata-ba-action" filter-target="filter-s56b7553762fd7-numero" filter-container="filter-container-s56b7553762fd7">
+                                                    <i class="fa fa-minus-circle"></i>
+                                                </a>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group " id="filter-s56b7553762fd7-sociedad" sonata-filter="true" style="display: none">
+                                        <label for="filter_sociedad_value" class="col-sm-3 control-label">Tipo de Objeto</label>
+
+                                        <div class="col-sm-4 advanced-filter" style="display: none;">
+                                            <div class="select2-container" id="s2id_filter_sociedad_type" style="width: 100%;"><a href="javascript:void(0)" class="select2-choice select2-default" tabindex="-1">   <span class="select2-chosen" id="select2-chosen-2"></span><abbr class="select2-search-choice-close"></abbr>   <span class="select2-arrow" role="presentation"><b role="presentation"></b></span></a><label for="s2id_autogen2" class="select2-offscreen"></label><input class="select2-focusser select2-offscreen" type="text" aria-haspopup="true" role="button" aria-labelledby="select2-chosen-2" id="s2id_autogen2"><div class="select2-drop select2-display-none select2-with-searchbox">   <div class="select2-search">       <label for="s2id_autogen2_search" class="select2-offscreen"></label>       <input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input" role="combobox" aria-expanded="true" aria-autocomplete="list" aria-owns="select2-results-2" id="s2id_autogen2_search" placeholder="">   </div>   <ul class="select2-results" role="listbox" id="select2-results-2">   </ul></div></div><select id="filter_sociedad_type" name="filter[sociedad][type]" class="" tabindex="-1" title="" style="display: none;"><option value=""></option><option value="1">igual a</option><option value="2">diferente a</option></select>
+
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            <input type="text" id="filter_numero_value" name="filter[numero][value]" class=" form-control" value="Centro de Beneficio">
+                                        </div>
+
+                                        <div class="col-sm-1">
+                                            <label class="control-label">
+                                                <a href="#" class="sonata-toggle-filter sonata-ba-action" filter-target="filter-s56b7553762fd7-sociedad" filter-container="filter-container-s56b7553762fd7">
+                                                    <i class="fa fa-minus-circle"></i>
+                                                </a>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group " id="filter-s56b7553762fd7-fecha" sonata-filter="true" style="display: none">
+                                        <label for="filter_fecha_value" class="col-sm-3 control-label">Objeto</label>
+
+                                        <div class="col-sm-4 advanced-filter" style="display: none;">
+                                            <div class="select2-container" id="s2id_filter_fecha_type" style="width: 100%;"><a href="javascript:void(0)" class="select2-choice select2-default" tabindex="-1">   <span class="select2-chosen" id="select2-chosen-4"></span><abbr class="select2-search-choice-close"></abbr>   <span class="select2-arrow" role="presentation"><b role="presentation"></b></span></a><label for="s2id_autogen4" class="select2-offscreen"></label><input class="select2-focusser select2-offscreen" type="text" aria-haspopup="true" role="button" aria-labelledby="select2-chosen-4" id="s2id_autogen4"><div class="select2-drop select2-display-none select2-with-searchbox">   <div class="select2-search">       <label for="s2id_autogen4_search" class="select2-offscreen"></label>       <input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input" role="combobox" aria-expanded="true" aria-autocomplete="list" aria-owns="select2-results-4" id="s2id_autogen4_search" placeholder="">   </div>   <ul class="select2-results" role="listbox" id="select2-results-4">   </ul></div></div><select id="filter_fecha_type" name="filter[fecha][type]" class="" tabindex="-1" title="" style="display: none;"><option value=""></option><option value="3">=</option><option value="1">&gt;=</option><option value="2">&gt;</option><option value="4">&lt;=</option><option value="5">&lt;</option><option value="6">está vacío</option><option value="7">no está vacío</option></select>
+
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            <input type="text" id="filter_numero_value" name="filter[numero][value]" class=" form-control" value="Pintura">
+                                        </div>
+
+                                        <div class="col-sm-1">
+                                            <label class="control-label">
+                                                <a href="#" class="sonata-toggle-filter sonata-ba-action" filter-target="filter-s56b7553762fd7-fecha" filter-container="filter-container-s56b7553762fd7">
+                                                    <i class="fa fa-minus-circle"></i>
+                                                </a>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group " id="filter-s56b7553762fd7-estadoEntrega" sonata-filter="true" style="display: none">
+                                        <label for="filter_estadoEntrega_value" class="col-sm-3 control-label">Fecha de Contabilización</label>
+
+                                        <div class="col-sm-4 advanced-filter" style="display: none;">
+                                            <input type="hidden" id="filter_estadoEntrega_type" name="filter[estadoEntrega][type]" class=" form-control">
+
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            <input type="text" id="filter_numero_value" name="filter[numero][value]" class=" form-control" value="08/1/2016">
+                                        </div>
+
+                                        <div class="col-sm-1">
+                                            <label class="control-label">
+                                                <a href="#" class="sonata-toggle-filter sonata-ba-action" filter-target="filter-s56b7553762fd7-estadoEntrega" filter-container="filter-container-s56b7553762fd7">
+                                                    <i class="fa fa-minus-circle"></i>
+                                                </a>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group " id="filter-s56b7553762fd7-proveedorSociedad" sonata-filter="true" style="display: none">
+                                        <label for="filter_proveedorSociedad_value" class="col-sm-3 control-label">Clase de Documento</label>
+
+                                        <div class="col-sm-4 advanced-filter" style="display: none;">
+                                            <div class="select2-container" id="s2id_filter_proveedorSociedad_type" style="width: 100%;"><a href="javascript:void(0)" class="select2-choice select2-default" tabindex="-1">   <span class="select2-chosen" id="select2-chosen-6"></span><abbr class="select2-search-choice-close"></abbr>   <span class="select2-arrow" role="presentation"><b role="presentation"></b></span></a><label for="s2id_autogen6" class="select2-offscreen"></label><input class="select2-focusser select2-offscreen" type="text" aria-haspopup="true" role="button" aria-labelledby="select2-chosen-6" id="s2id_autogen6"><div class="select2-drop select2-display-none select2-with-searchbox">   <div class="select2-search">       <label for="s2id_autogen6_search" class="select2-offscreen"></label>       <input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input" role="combobox" aria-expanded="true" aria-autocomplete="list" aria-owns="select2-results-6" id="s2id_autogen6_search" placeholder="">   </div>   <ul class="select2-results" role="listbox" id="select2-results-6">   </ul></div></div><select id="filter_proveedorSociedad_type" name="filter[proveedorSociedad][type]" class="" tabindex="-1" title="" style="display: none;"><option value=""></option><option value="1">igual a</option><option value="2">diferente a</option></select>
+
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            <input type="text" id="filter_numero_value" name="filter[numero][value]" class=" form-control" value="EM">                                            
+                                        </div>
+
+                                        <div class="col-sm-1">
+                                            <label class="control-label">
+                                                <a href="#" class="sonata-toggle-filter sonata-ba-action" filter-target="filter-s56b7553762fd7-proveedorSociedad" filter-container="filter-container-s56b7553762fd7">
+                                                    <i class="fa fa-minus-circle"></i>
+                                                </a>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group " id="filter-s56b7553762fd7-centroLogistico" sonata-filter="true" style="display: none">
+                                        <label for="filter_centroLogistico_value" class="col-sm-3 control-label">Fecha desde</label>
+
+                                        <div class="col-sm-4 advanced-filter" style="display: none;">
+                                            <div class="select2-container" id="s2id_filter_centroLogistico_type" style="width: 100%;"><a href="javascript:void(0)" class="select2-choice select2-default" tabindex="-1">   <span class="select2-chosen" id="select2-chosen-8"></span><abbr class="select2-search-choice-close"></abbr>   <span class="select2-arrow" role="presentation"><b role="presentation"></b></span></a><label for="s2id_autogen8" class="select2-offscreen"></label><input class="select2-focusser select2-offscreen" type="text" aria-haspopup="true" role="button" aria-labelledby="select2-chosen-8" id="s2id_autogen8"><div class="select2-drop select2-display-none select2-with-searchbox">   <div class="select2-search">       <label for="s2id_autogen8_search" class="select2-offscreen"></label>       <input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input" role="combobox" aria-expanded="true" aria-autocomplete="list" aria-owns="select2-results-8" id="s2id_autogen8_search" placeholder="">   </div>   <ul class="select2-results" role="listbox" id="select2-results-8">   </ul></div></div><select id="filter_centroLogistico_type" name="filter[centroLogistico][type]" class="" tabindex="-1" title="" style="display: none;"><option value=""></option><option value="1">igual a</option><option value="2">diferente a</option></select>
+
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            <input type="text" id="filter_numero_value" name="filter[numero][value]" class=" form-control" value="1/12/2015">                                        
+                                        </div>
+
+                                        <div class="col-sm-1">
+                                            <label class="control-label">
+                                                <a href="#" class="sonata-toggle-filter sonata-ba-action" filter-target="filter-s56b7553762fd7-centroLogistico" filter-container="filter-container-s56b7553762fd7">
+                                                    <i class="fa fa-minus-circle"></i>
+                                                </a>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group " id="filter-s56b7553762fd7-textoCabecera" sonata-filter="true" style="display: none">
+                                        <label for="filter_textoCabecera_value" class="col-sm-3 control-label">Fecha hasta</label>
+
+                                        <div class="col-sm-4 advanced-filter" style="display: none;">
+                                            <div class="select2-container" id="s2id_filter_textoCabecera_type" style="width: 100%;"><a href="javascript:void(0)" class="select2-choice select2-default" tabindex="-1">   <span class="select2-chosen" id="select2-chosen-10"></span><abbr class="select2-search-choice-close"></abbr>   <span class="select2-arrow" role="presentation"><b role="presentation"></b></span></a><label for="s2id_autogen10" class="select2-offscreen"></label><input class="select2-focusser select2-offscreen" type="text" aria-haspopup="true" role="button" aria-labelledby="select2-chosen-10" id="s2id_autogen10"><div class="select2-drop select2-display-none select2-with-searchbox">   <div class="select2-search">       <label for="s2id_autogen10_search" class="select2-offscreen"></label>       <input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input" role="combobox" aria-expanded="true" aria-autocomplete="list" aria-owns="select2-results-10" id="s2id_autogen10_search" placeholder="">   </div>   <ul class="select2-results" role="listbox" id="select2-results-10">   </ul></div></div><select id="filter_textoCabecera_type" name="filter[textoCabecera][type]" class="" tabindex="-1" title="" style="display: none;"><option value=""></option><option value="1">contiene</option><option value="2">no contiene</option><option value="3">es igual a</option></select>
+
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            <input type="text" id="filter_numero_value" name="filter[numero][value]" class=" form-control" value="31/12/2015">
+                                        </div>
+
+                                        <div class="col-sm-1">
+                                            <label class="control-label">
+                                                <a href="#" class="sonata-toggle-filter sonata-ba-action" filter-target="filter-s56b7553762fd7-textoCabecera" filter-container="filter-container-s56b7553762fd7">
+                                                    <i class="fa fa-minus-circle"></i>
+                                                </a>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-3 text-center">
+                                    <input type="hidden" name="filter[_page]" id="filter__page" value="1">
+
+                                    <input type="hidden" id="filter__sort_by" name="filter[_sort_by]" class=" form-control" value="id">
+                                    <input type="hidden" id="filter__sort_order" name="filter[_sort_order]" class=" form-control" value="ASC">
+                                    <input type="hidden" id="filter__per_page" name="filter[_per_page]" class=" form-control" value="32">
+
+
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fa fa-filter"></i> Filtrar
+                                        </button>
+
+                                        <a class="btn btn-default" href="/pronit/web/app_dev.php/admin/pedidos/list?filters=reset">
+                                            Restablecer
+                                        </a>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <a href="#" data-toggle="advanced-filter">
+                                            <i class="fa fa-cogs"></i>
+                                            Filtros avanzados
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-md-12">
+                <form action="/pronit/web/app_dev.php/admin/pedidos/batch?filter%5B_sort_order%5D=ASC&amp;filter%5B_sort_by%5D=id&amp;filter%5B_page%5D=1&amp;filter%5B_per_page%5D=32" method="POST">
+                    <input type="hidden" name="_sonata_csrf_token" value="Z2fyPDLIIQRsTUzgc5tiuwtPpg3FZg7Oe3Tys-nMH8c">
+
+                    <div class="box box-primary" style="margin-bottom: 100px;">
+                        <div class="box-header with-border">
+                            <h4 class="box-title">
+                                Objeto emisor - Selección de partidas
+                            </h4>
+                        </div>
+
+                        <div class="box-body table-responsive no-padding">
+
+
+
+                            <table class="table table-bordered table-striped sonata-ba-list">
+                                <thead>
+                                    <tr class="sonata-ba-list-field-header">
+                                        <th class="sonata-ba-list-field-header sonata-ba-list-field-header-batch">
+                                <div class="icheckbox_square-blue" style="position: relative;"><input type="checkbox" id="list_batch_checkbox" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div>
+                                </th>
+
+                                <th class="sonata-ba-list-field-header-text  sonata-ba-list-field-header-order-asc ">
+                                    <a href="/pronit/web/app_dev.php/admin/pedidos/list?filter%5B_sort_order%5D=ASC&amp;filter%5B_sort_by%5D=numero&amp;filter%5B_page%5D=1&amp;filter%5B_per_page%5D=32">                                                    
+                                        Documento
+                                    </a>
+                                </th>                                                                                                                                                                                                            
+                                <th class="sonata-ba-list-field-header-orm_one_to_one ">
+                                    Clase Documento
+                                </th>                                                                                                                                                                                                            
+                                <th class="sonata-ba-list-field-header-orm_one_to_one ">
+                                    Posición
+                                </th>                                                                                                                                                                                                            
+                                <th class="sonata-ba-list-field-header-orm_one_to_one ">
+                                    Tipo elemento de costo
+                                </th>                                                                                                                                                                                                            
+                                <th class="sonata-ba-list-field-header-orm_many_to_one ">
+                                    Descripción objeto
+                                </th>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+                                <th class="sonata-ba-list-field-header-date  sonata-ba-list-field-header-order-asc ">                                   
+                                    Cuenta de Mayor
+                                </th>                                                                                                                                                                                                            
+                                <th class="sonata-ba-list-field-header-orm_many_to_one ">
+                                    Importe ML
+                                </th>                                                                                                                                                                                                            
+                                <th class="sonata-ba-list-field-header-orm_many_to_one ">
+                                    Importe a Transferir en ML
+                                </th>                                                                                                                                                                                                                                                                                               </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-batch" objectid="1">
+                                            <div class="icheckbox_square-blue" style="position: relative;"><input type="checkbox" name="idx[]" value="1" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div>
+                                        </td>
+
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="1">
+                                            <a class="sonata-link-identifier" href="/pronit/web/app_dev.php/admin/pedidos/1/show">9000851</a>
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            EM
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            1
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            CeCo
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one" objectid="1">
+                                            Pintura
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-date" objectid="1">
+                                            Materiales indirectos
+                                        </td>
+
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one text-right" objectid="1">
+                                            800,00 ARS
+                                        </td>
+
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one text-right" objectid="1">
+                                            ARS
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-batch" objectid="1">
+                                            <div class="icheckbox_square-blue" style="position: relative;"><input type="checkbox" name="idx[]" value="1" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div>
+                                        </td>
+
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="1">
+                                            <a class="sonata-link-identifier" href="/pronit/web/app_dev.php/admin/pedidos/1/show">9000851</a>
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            EM
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            2
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            CeCo
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one" objectid="1">
+                                            Pintura
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-date" objectid="1">
+                                            Servicios de terceros
+                                        </td>
+
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one text-right" objectid="1">
+                                            200,00 ARS
+                                        </td>
+
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one text-right" objectid="1">
+                                            ARS
+                                        </td>
+                                    </tr>
+                                    <tr>
+
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-batch" objectid="1">
+                                            <div class="icheckbox_square-blue" style="position: relative;"><input type="checkbox" name="idx[]" value="1" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div>
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="1">
+                                            <a class="sonata-link-identifier" href="/pronit/web/app_dev.php/admin/pedidos/1/show">9000876</a>
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            EM
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            1
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            CeCo
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one" objectid="1">
+                                            Pintura
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-date" objectid="1">
+                                            Materiales indirectos
+                                        </td>
+
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one text-right" objectid="1">
+                                            1200,00 ARS
+                                        </td>
+
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one text-right" objectid="1">
+                                            ARS
+                                        </td>
+                                    </tr>                                                                        
+                                    <tr>
+
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-batch" objectid="1">
+                                            <div class="icheckbox_square-blue" style="position: relative;"><input type="checkbox" name="idx[]" value="1" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div>
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="1">
+                                            <a class="sonata-link-identifier" href="/pronit/web/app_dev.php/admin/pedidos/1/show">9000876</a>
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            EM
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            2
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            CeCo
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one" objectid="1">
+                                            Pintura
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-date" objectid="1">
+                                            Servicios de terceros
+                                        </td>
+
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one text-right" objectid="1">
+                                            200,00 ARS
+                                        </td>
+
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one text-right" objectid="1">
+                                            ARS
+                                        </td>
+                                    </tr>                                        
+
+                                    <tr>
+
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-batch" objectid="1">
+                                            <div class="icheckbox_square-blue" style="position: relative;"><input type="checkbox" name="idx[]" value="1" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div>
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="1">
+                                            <a class="sonata-link-identifier" href="/pronit/web/app_dev.php/admin/pedidos/1/show">9000906</a>
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            EM
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            1
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            CeCo
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one" objectid="1">
+                                            Pintura
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-date" objectid="1">
+                                            Materiales indirectos
+                                        </td>
+
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one text-right" objectid="1">
+                                            2080,00 ARS
+                                        </td>
+
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one text-right" objectid="1">
+                                            ARS
+                                        </td>
+                                    </tr>    
+
+                                    <tr>
+
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-batch" objectid="1">
+                                            <div class="icheckbox_square-blue" style="position: relative;"><input type="checkbox" name="idx[]" value="1" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div>
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="1">
+                                            <a class="sonata-link-identifier" href="/pronit/web/app_dev.php/admin/pedidos/1/show">9000906</a>
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            EM
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            2
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            CeCo
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one" objectid="1">
+                                            Pintura
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-date" objectid="1">
+                                            Servicios de terceros
+                                        </td>
+
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one text-right" objectid="1">
+                                            200,00 ARS
+                                        </td>
+
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one text-right" objectid="1">
+                                            ARS
+                                        </td>
+                                    </tr>                                       
+                                </tbody>
+
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="8" class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one text-right text-bold">4.680,00 ARS</td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one text-right text-bold">0,00 ARS</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+
+
+                        </div>
+                        <div class="box-footer">
+                            <div class="form-inline clearfix">
+
+                                <div class="pull-right">
+                                    <button type="button" class="btn btn-default">Atrás</button>
+                                    <button type="button" class="btn btn-default">Ejecutar</button>
+                                    <button type="button" class="btn btn-default">Marcar todas las partidas</button>
+                                    <button type="button" class="btn btn-default">Desmarcar todas las partidas</button>
+                                    <button type="button" class="btn btn-default">Filtrar</button>
+                                    
+                                    <div class="btn-group">                                                                               
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                            <i class="fa fa-share-square-o"></i>
+                                            Exportar
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="/pronit/web/app_dev.php/admin/pedidos/export?filter%5B_sort_order%5D=ASC&amp;filter%5B_sort_by%5D=id&amp;filter%5B_page%5D=0&amp;filter%5B_per_page%5D=32&amp;format=json">
+                                                    <i class="fa fa-arrow-circle-o-down"></i>
+                                                    JSON
+                                                </a>
+                                            </li><li>
+                                            </li><li>
+                                                <a href="/pronit/web/app_dev.php/admin/pedidos/export?filter%5B_sort_order%5D=ASC&amp;filter%5B_sort_by%5D=id&amp;filter%5B_page%5D=0&amp;filter%5B_per_page%5D=32&amp;format=xml">
+                                                    <i class="fa fa-arrow-circle-o-down"></i>
+                                                    XML
+                                                </a>
+                                            </li><li>
+                                            </li><li>
+                                                <a href="/pronit/web/app_dev.php/admin/pedidos/export?filter%5B_sort_order%5D=ASC&amp;filter%5B_sort_by%5D=id&amp;filter%5B_page%5D=0&amp;filter%5B_per_page%5D=32&amp;format=csv">
+                                                    <i class="fa fa-arrow-circle-o-down"></i>
+                                                    CSV
+                                                </a>
+                                            </li><li>
+                                            </li><li>
+                                                <a href="/pronit/web/app_dev.php/admin/pedidos/export?filter%5B_sort_order%5D=ASC&amp;filter%5B_sort_by%5D=id&amp;filter%5B_page%5D=0&amp;filter%5B_per_page%5D=32&amp;format=xls">
+                                                    <i class="fa fa-arrow-circle-o-down"></i>
+                                                    XLS
+                                                </a>
+                                            </li><li>
+                                            </li></ul>
+                                    </div>
+
+                                    &nbsp;-&nbsp;
+
+
+                                    1 / 1
+                                    &nbsp;-&nbsp;
+
+                                    3 resultados    &nbsp;-&nbsp;
+
+                                    <label class="control-label" for="s56b7553762fd7_per_page">Por página</label>
+                                    <div class="select2-container per-page small" id="s2id_s56b7553762fd7_per_page" style="width: auto"><a href="javascript:void(0)" class="select2-choice" tabindex="-1">   <span class="select2-chosen" id="select2-chosen-13">
+                                                32
+                                            </span><abbr class="select2-search-choice-close"></abbr>   <span class="select2-arrow" role="presentation"><b role="presentation"></b></span></a><label for="s2id_autogen13" class="select2-offscreen">Por página</label><input class="select2-focusser select2-offscreen" type="text" aria-haspopup="true" role="button" aria-labelledby="select2-chosen-13" id="s2id_autogen13"><div class="select2-drop select2-display-none select2-with-searchbox">   <div class="select2-search">       <label for="s2id_autogen13_search" class="select2-offscreen">Por página</label>       <input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input" role="combobox" aria-expanded="true" aria-autocomplete="list" aria-owns="select2-results-13" id="s2id_autogen13_search" placeholder="">   </div>   <ul class="select2-results" role="listbox" id="select2-results-13">   </ul></div></div><select class="per-page small" id="s56b7553762fd7_per_page" style="width: auto; display: none;" tabindex="-1" title="Por página">
+                                        <option value="/pronit/web/app_dev.php/admin/pedidos/list?filter%5B_sort_order%5D=ASC&amp;filter%5B_page%5D=1&amp;filter%5B_per_page%5D=16">
+                                            16
+                                        </option>
+                                        <option selected="selected" value="/pronit/web/app_dev.php/admin/pedidos/list?filter%5B_sort_order%5D=ASC&amp;filter%5B_page%5D=1&amp;filter%5B_per_page%5D=32">
+                                            32
+                                        </option>
+                                        <option value="/pronit/web/app_dev.php/admin/pedidos/list?filter%5B_sort_order%5D=ASC&amp;filter%5B_page%5D=1&amp;filter%5B_per_page%5D=64">
+                                            64
+                                        </option>
+                                        <option value="/pronit/web/app_dev.php/admin/pedidos/list?filter%5B_sort_order%5D=ASC&amp;filter%5B_page%5D=1&amp;filter%5B_per_page%5D=128">
+                                            128
+                                        </option>
+                                        <option value="/pronit/web/app_dev.php/admin/pedidos/list?filter%5B_sort_order%5D=ASC&amp;filter%5B_page%5D=1&amp;filter%5B_per_page%5D=192">
+                                            192
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </section>    
+{% endblock %}

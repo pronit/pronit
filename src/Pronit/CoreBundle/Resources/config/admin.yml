@@ -210,3 +210,36 @@ services:
         calls:
             - [ setTranslationDomain, [PronitCoreBundle]]
 
+    pronit.admin.core.controlling.centrocosto:
+        class: Pronit\CoreBundle\Admin\Controlling\CentroCostoAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Controlling", label: "Centro de Costo" }
+        arguments:
+            - ~
+            - Pronit\CoreBundle\Entity\Controlling\CentroCosto
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitCoreBundle]]
+
+    pronit.admin.core.controlling.centrobeneficio:
+        class: Pronit\CoreBundle\Admin\Controlling\CentroBeneficioAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Controlling", label: "Centro de Beneficio" }
+        arguments:
+            - ~
+            - Pronit\CoreBundle\Entity\Controlling\CentroBeneficio
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitCoreBundle]]
+
+    pronit.admin.core.controlling.orden:
+        class: Pronit\CoreBundle\Admin\Controlling\OrdenAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Controlling", label: "Orden" }
+        arguments:
+            - ~
+            - Pronit\CoreBundle\Entity\Controlling\Orden
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitCoreBundle]]
+

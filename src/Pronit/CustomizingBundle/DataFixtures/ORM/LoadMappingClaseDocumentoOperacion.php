@@ -46,7 +46,8 @@ class LoadMappingClaseDocumentoOperacion extends AbstractFixture implements Fixt
 
         $values = array(            
             array("clase" => ClaseDocumento::CODIGO_FACTURAACREEDOR, "operacion" => "KBS"),
-            array("clase" => ClaseDocumento::CODIGO_FACTURADEUDOR, "operacion" => "DBS")
+            array("clase" => ClaseDocumento::CODIGO_FACTURADEUDOR, "operacion" => "DBS"),
+            array("clase" => ClaseDocumento::CODIGO_ENTRADAMERCANCIAS, "operacion" => "WRX", "funcion" => "DOC_EM_IMPORTENETO"),
         );
 
         foreach ($values as $value) {
@@ -54,7 +55,11 @@ class LoadMappingClaseDocumentoOperacion extends AbstractFixture implements Fixt
             $claseDocumento = $this->getReference('pronit-core-clasedocumento-' . $value['clase']);
             $operacion = $this->getReference('pronit-core-operacion-' . $value['operacion']);
 
-            $obj = new MappingClaseDocumentoOperacion($claseDocumento, $operacion);
+            if(isset( $value['funcion'] )){
+                $obj = new MappingClaseDocumentoOperacion($claseDocumento, $operacion, $this->getReference('pronit-automatizacion-funcion-' . $value['funcion']));
+            }else{
+                $obj = new MappingClaseDocumentoOperacion($claseDocumento, $operacion);
+            }            
 
             $this->setReference('pronit-customizing-mappingclasedocumentooperacion-' . $value['clase'] . $value['operacion'], $obj);
 

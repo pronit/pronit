@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Pronit\CoreBundle\Entity\Documentos\Item;
 use Pronit\ParametrizacionGeneralBundle\Entity\Escala;
 use Pronit\GestionBienesYServiciosBundle\Entity\BienServicio;
+use Pronit\CoreBundle\Entity\BienesYServicios\Presentaciones\PresentacionCompra;
 
 abstract class ItemCompras extends Item
 {
@@ -21,9 +22,16 @@ abstract class ItemCompras extends Item
     protected $escala;    
     
     /**
+     * @todo esto debería desaparecer. Se deja para mantener compatibilidad
      * @ORM\ManyToOne(targetEntity="Pronit\GestionBienesYServiciosBundle\Entity\BienServicio")
      */    
     protected $bienServicio;    
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Pronit\CoreBundle\Entity\BienesYServicios\Presentaciones\PresentacionCompra")
+     */    
+    protected $presentacionCompra;
+    
             
     public function getBienServicio()
     {
@@ -33,6 +41,16 @@ abstract class ItemCompras extends Item
     public function setBienServicio(BienServicio $bienServicio)
     {
         $this->bienServicio = $bienServicio;
+    }    
+    
+    function getPresentacionCompra() 
+    {
+        return $this->presentacionCompra;
+    }
+
+    function setPresentacionCompra(PresentacionCompra $presentacionCompra) 
+    {
+        $this->presentacionCompra = $presentacionCompra;
     }    
     
     public function getCantidad()

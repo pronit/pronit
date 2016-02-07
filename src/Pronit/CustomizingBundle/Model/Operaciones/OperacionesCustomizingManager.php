@@ -32,6 +32,7 @@ class OperacionesCustomizingManager implements IOperacionesCustomizingManager {
     }
     
     public function getMappingsCondicionPagosByClaseDocumento(ClaseDocumento $claseDocumento) {
+        /* TODO: este método debería desaparecer */
         $qb = $this->em->createQueryBuilder();
         $qb->select('e')
                 ->from('Pronit\CustomizingBundle\Entity\Operaciones\MappingClaseDocumentoOperacion', 'e')
@@ -42,4 +43,15 @@ class OperacionesCustomizingManager implements IOperacionesCustomizingManager {
         return $result[0];        
     }
 
+    public function getMappingsByClaseDocumento(ClaseDocumento $claseDocumento) {
+        $qb = $this->em->createQueryBuilder();
+        $qb->select('e')
+                ->from('Pronit\CustomizingBundle\Entity\Operaciones\MappingClaseDocumentoOperacion', 'e')
+                ->where('e.claseDocumento = :claseDocumento')
+                ->setParameter('claseDocumento', $claseDocumento);
+
+        $result = $qb->getQuery()->getResult();
+        return $result;        
+    }
+    
 }

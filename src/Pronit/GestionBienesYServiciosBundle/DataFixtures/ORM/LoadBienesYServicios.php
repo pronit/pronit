@@ -131,6 +131,11 @@ class LoadBienesYServicios extends AbstractFixture implements FixtureInterface, 
                     "unidades" => array(
                         $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-unidades-escala-unidad'),
                     ),
+                    'fraccionamiento' => array( 
+                        'cantidad' => 25, 
+                        'unidad' => $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-kilos-escala-kilo'),
+                        'presentacionVenta' => 'Suelto'
+                    )                     
                 ),
                 array( 
                     "nombre" => "Suelto",

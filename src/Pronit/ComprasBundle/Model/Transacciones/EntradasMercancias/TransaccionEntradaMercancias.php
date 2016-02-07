@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Exception;
 use Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\EntradaMercancias;
 use Pronit\CoreBundle\Model\Contabilidad\Movimientos\IGeneradorAsientosContables;
+use Pronit\CoreBundle\Model\Documentos\Controlling\IImputadorObjetosCosto;
 use Pronit\CoreBundle\Model\Documentos\IGeneradorItemsFinanzas;
 
 /**
@@ -22,11 +23,15 @@ class TransaccionEntradaMercancias {
 
     /** @var IGeneradorAsientosContables */
     protected $generadorAsientosContables;
+    
+    /** @var IImputadorObjetosCosto */
+    protected $imputadorObjetosCosto;
 
-    public function __construct(EntityManager $em, IGeneradorItemsFinanzas $generadorItemsFinanzas, IGeneradorAsientosContables $generadorAsientosContables) {
+    public function __construct(EntityManager $em, IGeneradorItemsFinanzas $generadorItemsFinanzas, IGeneradorAsientosContables $generadorAsientosContables, IImputadorObjetosCosto $imputadorObjetosCosto) {
         $this->em = $em;
         $this->generadorItemsFinanzas = $generadorItemsFinanzas;
         $this->generadorAsientosContables = $generadorAsientosContables;
+        $this->imputadorObjetosCosto = $imputadorObjetosCosto;
     }
 
     public function ejecutar(EntradaMercancias $entradaMercancias) {
@@ -40,6 +45,7 @@ class TransaccionEntradaMercancias {
 
             $this->generadorItemsFinanzas->generar($entradaMercancias);
             $movimientos = $this->generadorAsientosContables->generarDesdeDocumento($entradaMercancias);
+            $this->imputadorObjetosCosto->imputar($entradaMercancias);
 
             foreach ($movimientos as $movimiento) {
                 $this->em->persist($movimiento);

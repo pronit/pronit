@@ -10,6 +10,7 @@ namespace Pronit\CustomizingBundle\Entity\Operaciones;
 
 use Pronit\CoreBundle\Entity\Documentos\ClaseDocumento;
 use Pronit\CoreBundle\Entity\Operaciones\OperacionContable;
+use Pronit\AutomatizacionBundle\Entity\Funcion;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -41,10 +42,19 @@ class MappingClaseDocumentoOperacion {
      * @var ClaseDocumento
      */
     private $claseDocumento;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Pronit\AutomatizacionBundle\Entity\Funcion")
+     * @ORM\JoinColumn(nullable=true)
+     * @var Funcion
+     */
+    private $funcion;
+    
 
-    public function __construct(ClaseDocumento $claseDocumento, OperacionContable $operacion) {
+    public function __construct(ClaseDocumento $claseDocumento, OperacionContable $operacion, Funcion $funcion = null) {
         $this->claseDocumento = $claseDocumento;
         $this->operacion = $operacion;
+        $this->funcion = $funcion;
     }
 
     /**
@@ -63,4 +73,7 @@ class MappingClaseDocumentoOperacion {
         return $this->claseDocumento;
     }
 
+    function getFuncion() {
+        return $this->funcion;
+    }
 }

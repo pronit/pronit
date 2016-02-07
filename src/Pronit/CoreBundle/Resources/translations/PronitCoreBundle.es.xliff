@@ -16,7 +16,12 @@
                 <source>Factura List</source>
                 <target>Facturas</target>
             </trans-unit>
-                        
+
+            <trans-unit id="Centro Costo List">
+                <source>Centro Costo List</source>
+                <target>Centros de costo</target>
+            </trans-unit>
+                                                
             <trans-unit id="Numero">
                 <source>Numero</source>
                 <target>Número</target>

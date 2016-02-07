@@ -10,24 +10,26 @@
     "require": {
         "php": ">=5.3.3",
         "symfony/symfony": "2.6.*",
-        "doctrine/orm": "~2.2,>=2.2.3",
+        "doctrine/orm": "v2.5.2",        
         "doctrine/doctrine-bundle": "~1.2",
         "twig/extensions": "~1.0",
         "symfony/assetic-bundle": "~2.3",
         "symfony/swiftmailer-bundle": "~2.3",
         "symfony/monolog-bundle": "~2.4",
         "sensio/distribution-bundle": "~2.3",
-        "sensio/framework-extra-bundle": "~3.0",
-        "sensio/generator-bundle": "~2.3",
+        "sensio/framework-extra-bundle": "~3.0",        
         "incenteev/composer-parameter-handler": "~2.0",
         "sonata-project/admin-bundle": "dev-master",
         "sonata-project/doctrine-orm-admin-bundle": "2.4.x-dev",
         "sonata-project/user-bundle": "2.3.*@dev",        
-        "doctrine/doctrine-fixtures-bundle": "2.2.*",
         "bluegrass/metadata": "dev-master",
         "fieryprophet/php-sandbox": "dev-master@dev",
         "jeremeamia/functionparser": "dev-master@dev",
-        "infinite-networks/form-bundle": "~1.0@dev"
+        "infinite-networks/form-bundle": "~1.0@dev",
+        "doctrine/doctrine-fixtures-bundle": "^2.2@dev"
+    },
+	"require-dev": {
+        "sensio/generator-bundle": "~2.3"
     },
     "scripts": {
         "post-install-cmd": [

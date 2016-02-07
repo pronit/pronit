@@ -6,13 +6,20 @@ use Doctrine\ORM\EntityManager;
 use Exception;
 use Pronit\CoreBundle\Entity\Documentos\Documento;
 use Pronit\CoreBundle\Entity\Documentos\Item;
+use Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\ItemEntradaMercancias;
 use Pronit\CoreBundle\Entity\Documentos\ItemFinanzas;
+use \Pronit\CoreBundle\Entity\Documentos\ItemFinanzasEntradaMercancias;
 use Pronit\CoreBundle\Model\Contabilidad\Customizing\IImputacionesCustomizingManager as FIIImputacionesCustomizingManager;
 use Pronit\CoreBundle\Model\Documentos\IGeneradorItemsFinanzas;
 use Pronit\CoreBundle\Model\Operaciones\Contextos\Documentos\ContextoItemDocumentoEntradaMercancias;
 use Pronit\CustomizingBundle\Entity\Operaciones\MappingClasificadorItemOperacion;
 use Pronit\CustomizingBundle\Model\Operaciones\IOperacionesCustomizingManager;
 use Pronit\GestionBienesYServiciosBundle\Model\Customizing\Contabilidad\IImputacionesCustomizingManager as MMIImputacionesCustomizingManager;
+use Pronit\CoreBundle\Entity\Documentos\ClaseDocumento;
+use \Pronit\CoreBundle\Model\Operaciones\Contextos\Documentos\ContextoDocumentoEntradaMercancias;
+use Pronit\CoreBundle\Entity\Operaciones\Operacion;
+use Pronit\CustomizingBundle\Entity\Operaciones\MappingClaseDocumentoOperacion;
+use Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\EntradaMercancias;
 
 /**
  * Description of GeneradorItemsFinanzas
@@ -42,13 +49,43 @@ class GeneradorItemsFinanzas implements IGeneradorItemsFinanzas {
             $this->generarDesdeItem($item);
         }
 
-
-        /*
-         * TODO: Generar items de finanzas a partir del documento
-         */
+        $this->generarDesdeEntradaMercancias($documento);
     }
 
-    protected function generarDesdeItem(Item $item) {
+    protected function generarDesdeItem(Item $item) 
+    {
+        $this->generarDesdeItemEntradaMercancias($item);
+    }
+    
+    protected function generarDesdeEntradaMercancias(EntradaMercancias $entradaMercancias)
+    {        
+        $claseDocumento = $this->em->getRepository('Pronit\CoreBundle\Entity\Documentos\ClaseDocumento')->find(ClaseDocumento::CODIGO_ENTRADAMERCANCIAS);
+        /* @var $claseDocumento ClaseDocumento */
+        
+        $mappings = $this->operacionesCustomizingManager->getMappingsByClaseDocumento($claseDocumento);
+        
+        foreach($mappings as $mapping){
+            /* @var $mapping MappingClaseDocumentoOperacion */
+            
+            /* @var $operacion Operacion */    
+            $operacion = $mapping->getOperacion();
+            $funcion = $mapping->getFuncion();            
+            $cuenta = $this->fiImputacionesCustomizingManager->getCuenta($operacion);                        
+            
+            $contexto = new ContextoDocumentoEntradaMercancias($operacion, $entradaMercancias);
+            $importe = $funcion->ejecutar($contexto);
+
+            if($importe != 0){
+                $itemFinanzas = new ItemFinanzasEntradaMercancias($operacion, $cuenta);                
+                $itemFinanzas->setImporte($importe);
+                
+                $entradaMercancias->addItemFinanzas($itemFinanzas);
+            }
+        }
+    }
+    
+    protected function generarDesdeItemEntradaMercancias(ItemEntradaMercancias $item) 
+    {    
         $documento = $item->getDocumento();
         $clasificador = $item->getClasificador();
         $mappingsClasificadorItemOperacion = $this->operacionesCustomizingManager->getMappingsByClasificadorItem($clasificador);
@@ -66,11 +103,16 @@ class GeneradorItemsFinanzas implements IGeneradorItemsFinanzas {
                 throw new Exception("No se pudo determinar la cuenta contable a imputar.");
             }
 
-
             $importe = $funcion->ejecutar($contexto);
 
-            if ($importe != 0) {
-                $itemFinanzas = new ItemFinanzas($operacion, $cuenta);
+            if ($importe != 0) {                
+                
+                if( is_null($item->getObjetoCosto()) ){
+                    $itemFinanzas = new ItemFinanzasEntradaMercancias( $operacion, $cuenta);    
+                }else{
+                    $itemFinanzas = new ItemFinanzasEntradaMercancias( $operacion, $cuenta, $item->getObjetoCosto() );
+                }
+                
                 $itemFinanzas->setImporte($importe);
                 $documento->addItemFinanzas($itemFinanzas);
             }

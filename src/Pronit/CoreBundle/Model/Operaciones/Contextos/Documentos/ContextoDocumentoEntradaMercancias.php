@@ -4,7 +4,7 @@ namespace Pronit\CoreBundle\Model\Operaciones\Contextos\Documentos;
 
 use Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\EntradaMercancias;
 use Pronit\CoreBundle\Entity\Operaciones\Operacion;
-use Pronit\CoreBundle\Model\Operaciones\Contextos\Contexto;
+use Pronit\AutomatizacionBundle\Model\Funciones\Contexto;
 
 /**
  *

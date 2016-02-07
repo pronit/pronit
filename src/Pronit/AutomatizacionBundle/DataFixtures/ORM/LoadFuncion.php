@@ -77,6 +77,20 @@ class LoadFuncion extends AbstractFixture implements FixtureInterface, OrderedFi
                     '
             ),
             array(
+                "nombre" => "DOC_EM_IMPORTENETO",
+                "nombreClase" => "Script_DOC_EM_IMPORTENETO",
+                "script" => '
+                         class Script_DOC_EM_IMPORTENETO extends Scripting\Script {
+                             public function ejecutar(Scripting\Contexto $contexto) {
+
+                                 $documento = $contexto->getDocumento();
+                                 
+                                 return $documento->getImporteNeto();
+                             }
+                         }
+                '
+            ),
+            array(
                 "nombre" => "DOC_EM_ITEM_IMPORTENETO",
                 "nombreClase" => "Script_DOC_EM_ITEM_IMPORTENETO",
                 "script" => '
@@ -89,7 +103,7 @@ class LoadFuncion extends AbstractFixture implements FixtureInterface, OrderedFi
                              }
                          }
                 '
-            ),
+            ),            
             array(
                 "nombre" => "DOC_FC_ITEM_IMPORTENETO",
                 "nombreClase" => "Script_DOC_FC_ITEM_IMPORTENETO",

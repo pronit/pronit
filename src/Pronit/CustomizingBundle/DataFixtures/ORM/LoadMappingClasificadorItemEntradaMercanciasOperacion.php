@@ -45,7 +45,6 @@ class LoadMappingClasificadorItemEntradaMercanciasOperacion extends AbstractFixt
 
         $values = array(
             array("codigo" => "101", "operacion" => "BSX", "funcion" => "DOC_EM_ITEM_IMPORTENETO"),
-            array("codigo" => "101", "operacion" => "WRX", "funcion" => "DOC_EM_ITEM_IMPORTENETO"),
             array("codigo" => "101", "operacion" => "PRD+", "funcion" => "DOC_EM_ITEM_DIFFPRECIOVALORACION_POSITIVE"),
             array("codigo" => "101", "operacion" => "PRD-", "funcion" => "DOC_EM_ITEM_DIFFPRECIOVALORACION_NEGATIVE"),
             array("codigo" => "101", "operacion" => "BSD+", "funcion" => "DOC_EM_ITEM_REVALUOINVENTARIO_POSITIVE"),

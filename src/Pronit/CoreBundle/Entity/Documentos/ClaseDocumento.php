@@ -61,7 +61,7 @@ class ClaseDocumento {
      * @return string
      */
     public function getNombre() {
-        return $this->nombre();
+        return $this->nombre;
     }
     
     
