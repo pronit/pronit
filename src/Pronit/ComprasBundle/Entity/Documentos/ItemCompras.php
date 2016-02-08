@@ -9,6 +9,7 @@ use Pronit\ParametrizacionGeneralBundle\Entity\Escala;
 use Pronit\GestionBienesYServiciosBundle\Entity\BienServicio;
 use Pronit\CoreBundle\Entity\BienesYServicios\Presentaciones\PresentacionCompra;
 
+
 abstract class ItemCompras extends Item
 {
     /**
@@ -31,8 +32,7 @@ abstract class ItemCompras extends Item
      * @ORM\ManyToOne(targetEntity="Pronit\CoreBundle\Entity\BienesYServicios\Presentaciones\PresentacionCompra")
      */    
     protected $presentacionCompra;
-    
-            
+                
     public function getBienServicio()
     {
         return $this->bienServicio;
@@ -72,7 +72,6 @@ abstract class ItemCompras extends Item
     {
         /** @todo validar que $escala sea parte de $material->getSistemaMedicion() */        
         $this->escala = $escala;
-    }
-    
+    }    
 }
 

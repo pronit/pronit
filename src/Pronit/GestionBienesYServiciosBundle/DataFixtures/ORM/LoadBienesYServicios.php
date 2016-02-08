@@ -70,6 +70,27 @@ class LoadBienesYServicios extends AbstractFixture implements FixtureInterface, 
             'presentacionesCompra' => array(),
             'presentacionesVenta' => array(),
         );
+
+        $values[] = array('codigo' => "6796342",
+            "nombre" => "Pintura blanco brillante ST",
+            'categoria' => $this->getReference('pronit-gestionbienesyservicios-categoriavaloracion-3001'),
+            'tipo' => $this->getReference('pronit-gestionbienesyservicios-tipobienservicio-productoelaborado'),
+            "sistemaMedicion" => $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-unidades'),
+            "sociedadFI_precioValoracionEstandar" => 4,
+            'presentacionesCompra' => array( 
+                array( 
+                    "nombre" => "Balde de 60 lts"
+                ),
+            ),
+            'presentacionesVenta' => array( 
+                array( 
+                    "nombre" => "Balde de 60 lts",
+                    "unidades" => array(
+                        $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-unidades-escala-unidad'),
+                    ),
+                ),
+            )            
+        );
         
         $values[] = array('codigo' => "514612011",
             "nombre" => "Ibupirac 600 Capsulas Blandas",

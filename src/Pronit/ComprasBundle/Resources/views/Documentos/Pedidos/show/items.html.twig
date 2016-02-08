@@ -10,6 +10,8 @@
             <th>Cantidad</th>            
             <th>Importe Unitario</th>
             <th>Importe Neto</th>
+            <th>Almacén</th>
+            <th>Objeto de costo</th>
         </thead>
         <tbody>
             {% for itemPedido in value %}
@@ -28,6 +30,8 @@
                 <td class="text-right">
                     {{ itemPedido.documento.moneda.signoMonetario }} {{ itemPedido.importeNeto|number_format(2, ',', '.') }}
                 </td>
+                <td>{{ itemPedido.almacen }}</td>
+                <td>{{ itemPedido.objetoCosto }}</td>
             </tr>
             {% endfor %}
             
@@ -36,7 +40,7 @@
                 {% set documento = value[0].documento %}
                 
                 <tr>
-                    <td colspan="7"><strong>Importe Neto</strong></td>
+                    <td colspan="9"><strong>Importe Neto</strong></td>
                     <td class="text-right"><strong>{{ documento.moneda.signoMonetario }} {{ documento.importeNeto|number_format(2, ',', '.') }}</strong></td>
                 </tr>
             {% endif %}

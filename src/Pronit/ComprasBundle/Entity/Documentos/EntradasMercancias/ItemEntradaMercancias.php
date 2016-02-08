@@ -14,6 +14,7 @@ use Pronit\ComprasBundle\Entity\Documentos\ItemAbastecimientoExterno;
 use Pronit\ComprasBundle\Entity\Documentos\Pedidos\ItemPedido;
 use Pronit\CoreBundle\Entity\Documentos\ClasificadorItem;
 use Pronit\CoreBundle\Entity\Controlling\ObjetoCosto;
+use Pronit\EstructuraEmpresaBundle\Entity\Almacen;
 
 use \Exception;
 
@@ -31,6 +32,11 @@ class ItemEntradaMercancias extends ItemAbastecimientoExterno
     protected $estadoFacturacion;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Pronit\EstructuraEmpresaBundle\Entity\Almacen")
+     */    
+    protected $almacen;
+    
+    /**
      * @ORM\ManyToOne(targetEntity="Pronit\CoreBundle\Entity\Controlling\ObjetoCosto")
      * @ORM\JoinColumn(nullable=true)
      */    
@@ -45,6 +51,8 @@ class ItemEntradaMercancias extends ItemAbastecimientoExterno
      * @ORM\OneToMany(targetEntity="Pronit\ComprasBundle\Entity\Documentos\Facturas\ItemFactura", mappedBy="itemEntradaMercanciasFacturado", cascade={"ALL"})
      */
     protected $itemFacturadores;    
+    
+    
 
     public function __construct()
     {
@@ -62,6 +70,16 @@ class ItemEntradaMercancias extends ItemAbastecimientoExterno
         }
         parent::setClasificador($clasificador);
     }
+
+    function getAlmacen() 
+    {
+        return $this->almacen;
+    }
+
+    function setAlmacen($almacen) 
+    {
+        $this->almacen = $almacen;
+    }    
     
     /**
      * 

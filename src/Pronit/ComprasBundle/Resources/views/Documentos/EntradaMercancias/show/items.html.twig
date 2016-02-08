@@ -8,7 +8,9 @@
             <th>Escala</th>
             <th>Cantidad</th>            
             <th>Importe Unitario</th>
-            <th>Importe Neto</th>
+            <th>Importe Neto</th>  
+            <th>Almacén</th>
+            <th>Objeto de costo</th>            
         </thead>
         <tbody>
             {% for itemEntrada in value %}
@@ -26,6 +28,8 @@
                 <td class="text-right">
                     {{ itemEntrada.documento.moneda.signoMonetario }} {{ itemEntrada.importeNeto|number_format(2, ',', '.') }}
                 </td>
+                <td>{{ itemEntrada.almacen }}</td>
+                <td>{{ itemEntrada.objetoCosto }}</td>                
             </tr>
             {% endfor %}   
             

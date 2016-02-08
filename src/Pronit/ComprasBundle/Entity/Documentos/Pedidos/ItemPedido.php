@@ -21,6 +21,8 @@ use Pronit\ComprasBundle\Entity\Documentos\Estados\Facturacion\SinFacturar;
 use Pronit\ComprasBundle\Entity\Documentos\Estados\Facturacion\Finalizado as FacturacionFinalizada;
 use Pronit\ComprasBundle\Entity\Documentos\Estados\Facturacion\FacturadoParcialmente;
 
+use Pronit\CoreBundle\Entity\Controlling\ObjetoCosto;
+use Pronit\EstructuraEmpresaBundle\Entity\Almacen;
 
 /**
  *
@@ -38,6 +40,17 @@ class ItemPedido extends ItemAbastecimientoExterno
      * @ORM\OneToOne(targetEntity="Pronit\ComprasBundle\Entity\Documentos\Estados\Facturacion\EstadoFacturacion", cascade={"all"}, orphanRemoval=true)
      **/    
     protected $estadoFacturacion;    
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Pronit\CoreBundle\Entity\Controlling\ObjetoCosto")
+     * @ORM\JoinColumn(nullable=true)
+     */    
+    protected $objetoCosto;    
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Pronit\EstructuraEmpresaBundle\Entity\Almacen")
+     */    
+    protected $almacen;    
     
     /**
      * @ORM\OneToMany(targetEntity="Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\ItemEntradaMercancias", mappedBy="itemPedidoEntregado", cascade={"ALL"})
@@ -59,6 +72,30 @@ class ItemPedido extends ItemAbastecimientoExterno
         return (string) $this->getId();
     }
 
+    function getAlmacen() 
+    {
+        return $this->almacen;
+    }
+
+    function setAlmacen($almacen) 
+    {
+        $this->almacen = $almacen;
+    }    
+
+    /**
+     * 
+     * @return ObjetoCosto
+     */
+    function getObjetoCosto() 
+    {
+        return $this->objetoCosto;
+    }
+
+    function setObjetoCosto(ObjetoCosto $objetoCosto) 
+    {
+        $this->objetoCosto = $objetoCosto;
+    }
+    
     public function getEstadoEntrega()
     {
         return $this->estadoEntrega;

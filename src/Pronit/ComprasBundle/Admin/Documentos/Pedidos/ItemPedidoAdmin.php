@@ -24,6 +24,8 @@ class ItemPedidoAdmin extends Admin
             ->add('escala')                
             ->add('cantidad')
             ->add('precioUnitario')
+            ->add('almacen')
+            ->add('objetoCosto')    
         ;        
     }
 
