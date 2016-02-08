@@ -50,15 +50,20 @@ class LoadObjetoCosto extends AbstractFixture implements FixtureInterface , Orde
         $this->setManager($manager);        
 
         $valuesCentroCosto =  array(
-            array( "nombre" => "Gastos de Administración"),
-            array( "nombre" => "Pintura y acabado"),
-            array( "nombre" => "Gastos financieros"),
+            array( "nombre" => "Gastos de Administración","validezDesde" => "2016-01-01", "validezHasta" => "2017-01-01", "cuentaContable" => "710195"),
+            array( "nombre" => "Pintura","validezDesde" => "2016-01-01", "validezHasta" => "2017-01-01", "cuentaContable" => "150103"),
+            array( "nombre" => "Gastos financieros","validezDesde" => "2016-01-01", "validezHasta" => "2017-01-01", "cuentaContable" => "710195"),
+            array( "nombre" => "Investigación y Desarrollo","validezDesde" => "2016-01-01", "validezHasta" => "2017-01-01", "cuentaContable" => "810194"),
         );
         
         foreach( $valuesCentroCosto as $value ){
             
             $obj = new CentroCosto();
             $obj->setNombre( $value['nombre'] );
+            $obj->setValidezDesde( new \DateTime( $value['validezDesde'] ) );
+            $obj->setValidezHasta( new \DateTime( $value['validezHasta'] ) );
+            $obj->setSociedadFI( $this->getReference('pronit-estructuraempresa-sociedadfi-modelosa') );
+            $obj->setCuentaContable( $this->getReference('pronit-contabilidad-cuenta-' . $value["cuentaContable"]) );
             
             $manager->persist($obj);
             
@@ -66,15 +71,18 @@ class LoadObjetoCosto extends AbstractFixture implements FixtureInterface , Orde
         }       
         
         $valuesCentroBeneficio =  array(
-            array( "nombre" => "Servicio de Atención al Cliente"),
-            array( "nombre" => "Alquiler de instrumentos"),
-            array( "nombre" => "Alquiler de inmueble"),
+            array( "nombre" => "Servicio Garantía","validezDesde" => "2016-01-01", "validezHasta" => "2017-01-01", "cuentaContable" => "610194"),
+            array( "nombre" => "Alquileres","validezDesde" => "2016-01-01", "validezHasta" => "2017-01-01", "cuentaContable" => "710194"),
         );
         
         foreach( $valuesCentroBeneficio as $value ){
             
             $obj = new CentroBeneficio();
             $obj->setNombre( $value['nombre'] );
+            $obj->setValidezDesde( new \DateTime( $value['validezDesde'] ) );
+            $obj->setValidezHasta( new \DateTime( $value['validezHasta'] ) );
+            $obj->setSociedadFI( $this->getReference('pronit-estructuraempresa-sociedadfi-modelosa') );
+            $obj->setCuentaContable( $this->getReference('pronit-contabilidad-cuenta-' . $value["cuentaContable"]) );
             
             $manager->persist($obj);
             
@@ -82,15 +90,18 @@ class LoadObjetoCosto extends AbstractFixture implements FixtureInterface , Orde
         }       
 
         $valuesOrden =  array(
-            array( "nombre" => "Anvil para guitarra"),
-            array( "nombre" => "Anvil para teclado"),
-            array( "nombre" => "Anvil para pedalera"),
+            array( "nombre" => "Renovación Planta Gonnet","validezDesde" => "2016-01-01", "validezHasta" => "2017-01-01", "cuentaContable" => "150107"),
+            array( "nombre" => "Motos - HFX - Lote 120356","validezDesde" => "2016-01-01", "validezHasta" => "2017-01-01", "cuentaContable" => "150105"),
         );        
         
         foreach( $valuesOrden as $value ){
             
             $obj = new Orden();
             $obj->setNombre( $value['nombre'] );
+            $obj->setValidezDesde( new \DateTime( $value['validezDesde'] ) );
+            $obj->setValidezHasta( new \DateTime( $value['validezHasta'] ) );
+            $obj->setSociedadFI( $this->getReference('pronit-estructuraempresa-sociedadfi-modelosa') );
+            $obj->setCuentaContable( $this->getReference('pronit-contabilidad-cuenta-' . $value["cuentaContable"]) );
             
             $manager->persist($obj);
             

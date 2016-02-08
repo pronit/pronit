@@ -1,6 +1,6 @@
 <?php
 
-namespace Pronit\Geographic\CoreBundle\DataFixtures\ORM;
+namespace Pronit\CoreBundle\DataFixtures\ORM\Geographic;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
@@ -382,6 +382,6 @@ class LoadDivisionesAdministrativas extends AbstractFixture implements FixtureIn
     
     function getOrder()
     {
-        return 21; 
+        return 11; 
     }
 }

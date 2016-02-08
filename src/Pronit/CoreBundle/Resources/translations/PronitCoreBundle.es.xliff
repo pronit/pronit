@@ -21,10 +21,25 @@
                 <source>Centro Costo List</source>
                 <target>Centros de costo</target>
             </trans-unit>
-                                                
+
+            <trans-unit id="Centro Beneficio List">
+                <source>Centro Beneficio List</source>
+                <target>Centros de Beneficio</target>
+            </trans-unit>
+            
+            <trans-unit id="Orden List">
+                <source>Orden List</source>
+                <target>Ordenes</target>
+            </trans-unit>
+                                                                                                                                                                                                
             <trans-unit id="Numero">
                 <source>Numero</source>
                 <target>Número</target>
+            </trans-unit>
+
+            <trans-unit id="Sociedad F I">
+                <source>Sociedad F I</source>
+                <target>Sociedad FI</target>
             </trans-unit>
 
             <trans-unit id="Estado Facturacion">

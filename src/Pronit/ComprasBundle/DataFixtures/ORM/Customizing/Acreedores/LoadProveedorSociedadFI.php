@@ -51,7 +51,7 @@ class LoadProveedorSociedadFI extends AbstractFixture implements FixtureInterfac
         $proveedorSociedadFI->setAcreedor($this->getReference('pronit-core-proveedor-Delía'));
         $proveedorSociedadFI->setCodigo('DEL');
         $proveedorSociedadFI->setMonedaPedido($this->getReference('pronit-parametrizaciongeneral-moneda-pesos'));
-        $proveedorSociedadFI->setSociedadFI($this->getReference( 'pronit-estructuraempresa-sociedadfi' ));
+        $proveedorSociedadFI->setSociedadFI($this->getReference( 'pronit-estructuraempresa-sociedadfi-modelosa' ));
                 
         $manager->persist($proveedorSociedadFI);
         

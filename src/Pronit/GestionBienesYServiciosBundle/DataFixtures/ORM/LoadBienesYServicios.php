@@ -263,7 +263,7 @@ class LoadBienesYServicios extends AbstractFixture implements FixtureInterface, 
             $bienServicioSociedadFI->setCodigo($bienServicio->getCodigo());
             $bienServicioSociedadFI->setPrecioValoracionEstandar(isset($v["sociedadFI_precioValoracionEstandar"]) ? $v["sociedadFI_precioValoracionEstandar"] : rand(10, 1000) / 10 );
             $bienServicioSociedadFI->setPrecioValoracionPromedio(null);/** @todo */
-            $bienServicioSociedadFI->setSociedadFI($this->getReference('pronit-estructuraempresa-sociedadfi'));
+            $bienServicioSociedadFI->setSociedadFI($this->getReference('pronit-estructuraempresa-sociedadfi-modelosa'));
 
             $this->manager->persist($bienServicioSociedadFI);
         }
@@ -306,7 +306,7 @@ class LoadBienesYServicios extends AbstractFixture implements FixtureInterface, 
             $bienServicioSociedadFI->setCodigo($bienServicio->getCodigo());
             $bienServicioSociedadFI->setPrecioValoracionEstandar(rand(10, 1000) / 10);
             $bienServicioSociedadFI->setPrecioValoracionPromedio(null);
-            $bienServicioSociedadFI->setSociedadFI($this->getReference('pronit-estructuraempresa-sociedadfi'));
+            $bienServicioSociedadFI->setSociedadFI($this->getReference('pronit-estructuraempresa-sociedadfi-modelosa'));
 
             $this->manager->persist($bienServicioSociedadFI);
         }

@@ -13,7 +13,10 @@ abstract class ObjetoCostoAdmin extends Admin
     {
         $formMapper
             ->add('nombre', 'text', array('label' => 'Nombre'))
-            ->add('importe')
+            ->add('sociedadFI')
+            ->add('cuentaContable')
+            ->add('validezDesde', 'date', array('widget' => 'single_text'))
+            ->add('validezHasta', 'date', array('widget' => 'single_text'))
         ;
     }
 
@@ -22,6 +25,10 @@ abstract class ObjetoCostoAdmin extends Admin
     {
         $datagridMapper
             ->add('nombre')
+            ->add('sociedadFI')
+            ->add('cuentaContable')
+            ->add('validezDesde')
+            ->add('validezHasta')                
         ;
     }
 
@@ -30,6 +37,10 @@ abstract class ObjetoCostoAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('nombre')
+            ->add('sociedadFI')
+            ->add('cuentaContable')
+            ->add('validezDesde', 'date', array( 'format' => 'd/m/Y' ))
+            ->add('validezHasta', 'date', array( 'format' => 'd/m/Y' ))                
         ;
     }
 }

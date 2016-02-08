@@ -44,7 +44,7 @@ class LoadPedidos extends AbstractFixture implements FixtureInterface, OrderedFi
     public function load(ObjectManager $manager) {
         $this->setManager($manager);
 
-        $sociedad = $this->getReference('pronit-estructuraempresa-sociedadfi');
+        $sociedad = $this->getReference('pronit-estructuraempresa-sociedadfi-modelosa');
         $moneda = $this->getReference('pronit-parametrizaciongeneral-moneda-pesos');
         $proveedorSociedad = $this->getReference('pronit-compras-customizing-acreedor-proveedorsociedadfi-delía');
         $centroLogistico = $this->getReference('pronit-estructuraempresa-centroLogistico-3000');

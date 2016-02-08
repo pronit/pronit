@@ -64,6 +64,7 @@ class LoadPlanDeCuentas extends AbstractFixture implements FixtureInterface , Or
             array( "numero" => "150104", "nombre" => "Productos semielaborados" ),
             array( "numero" => "150105", "nombre" => "Productos terminados" ),
             array( "numero" => "150106", "nombre" => "Activos Fijos" ),
+            array( "numero" => "150107", "nombre" => "Inmuebles varios" ),
             array( "numero" => "190101", "nombre" => "Diferencia de cambio pérdida" ),
             array( "numero" => "190102", "nombre" => "Diferencia de precio pérdida" ),
             array( "numero" => "210101", "nombre" => "Proveedores locales" ),
@@ -72,6 +73,10 @@ class LoadPlanDeCuentas extends AbstractFixture implements FixtureInterface , Or
             array( "numero" => "210102", "nombre" => "EM/RF: Entrega/prestaciones aún no facturadas" ),
             array( "numero" => "510192", "nombre" => "Diferencia de cambio ganancia" ),
             array( "numero" => "510193", "nombre" => "Diferencia de precio ganancia" ),
+            array( "numero" => "610194", "nombre" => "Servicios post venta" ),
+            array( "numero" => "710194", "nombre" => "Otros ingresos" ),
+            array( "numero" => "710195", "nombre" => "Otros egresos" ),
+            array( "numero" => "810194", "nombre" => "Inversiones Varias" ),
         );
                 
         $planCuentas = new PlanCuentas();
@@ -92,7 +97,7 @@ class LoadPlanDeCuentas extends AbstractFixture implements FixtureInterface , Or
             
             $planCuentas->addItem("1.".$i, $item);
             
-            $this->addReference('pronit-contabilidad-cuenta-' . $value["numero"], $cuenta);        
+            $this->addReference('pronit-contabilidad-cuenta-' . $value["numero"], $cuenta);
             
             $i++;
         }

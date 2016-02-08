@@ -73,7 +73,7 @@ class FacturaAdmin extends Admin
                 ->add('sociedad')                
                 ->add('centroLogistico')
                 ->add('entradamercancias_id', 'hidden', array('data' => $entradamercancias_id, 'mapped' => false))
-                ->add('fecha', 'date', array('widget' => 'single_text'))                                                
+                ->add('fecha', 'date', array('widget' => 'single_text'))
             ->end()
             ->with('Cabecera')
                 ->add('deudorSociedad', null, array('label'=>'Proveedor') )

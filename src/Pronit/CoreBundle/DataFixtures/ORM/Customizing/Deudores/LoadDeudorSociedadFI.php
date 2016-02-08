@@ -50,7 +50,7 @@ class LoadDeudorSociedadFI extends AbstractFixture implements FixtureInterface ,
         $deudorSociedadFI = new DeudorSociedadFI();
         $deudorSociedadFI->setDeudor($this->getReference('pronit-core-deudor-Arana'));
         $deudorSociedadFI->setCodigo('26250958');
-        $deudorSociedadFI->setSociedadFI($this->getReference( 'pronit-estructuraempresa-sociedadfi' ));
+        $deudorSociedadFI->setSociedadFI($this->getReference( 'pronit-estructuraempresa-sociedadfi-modelosa' ));
                 
         $manager->persist($deudorSociedadFI);
         

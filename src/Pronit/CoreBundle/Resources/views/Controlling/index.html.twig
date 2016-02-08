@@ -585,7 +585,7 @@
                                     1 / 1
                                     &nbsp;-&nbsp;
 
-                                    3 resultados    &nbsp;-&nbsp;
+                                    6 resultados    &nbsp;-&nbsp;
 
                                     <label class="control-label" for="s56b7553762fd7_per_page">Por página</label>
                                     <div class="select2-container per-page small" id="s2id_s56b7553762fd7_per_page" style="width: auto"><a href="javascript:void(0)" class="select2-choice" tabindex="-1">   <span class="select2-chosen" id="select2-chosen-13">
@@ -617,5 +617,735 @@
 
         </div>
 
+        
+        <div class="row">
+            <div class="col-xs-12 col-md-12">
+                <form action="/pronit/web/app_dev.php/admin/pedidos/batch?filter%5B_sort_order%5D=ASC&amp;filter%5B_sort_by%5D=id&amp;filter%5B_page%5D=1&amp;filter%5B_per_page%5D=32" method="POST">
+                    <input type="hidden" name="_sonata_csrf_token" value="Z2fyPDLIIQRsTUzgc5tiuwtPpg3FZg7Oe3Tys-nMH8c">
+
+                    <div class="box box-primary" style="margin-bottom: 130px;">
+                        <div class="box-header with-border">
+                            <h4 class="box-title">
+                                Objeto emisor - Selección de partidas
+                            </h4>
+                        </div>
+
+                        <div class="box-body table-responsive no-padding">
+
+
+
+                            <table class="table table-bordered table-striped sonata-ba-list">
+                                <thead>
+                                    <tr class="sonata-ba-list-field-header">
+                                        <th class="sonata-ba-list-field-header sonata-ba-list-field-header-batch">                               
+                                            <div class="icheckbox_square-blue" style="position: relative;">
+                                                <input type="checkbox" id="list_batch_checkbox" style="position: absolute; opacity: 0;">
+                                                <ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins>
+                                            </div>
+                                        </th>
+
+                                <th class="sonata-ba-list-field-header-text  sonata-ba-list-field-header-order-asc ">
+                                    <a href="/pronit/web/app_dev.php/admin/pedidos/list?filter%5B_sort_order%5D=ASC&amp;filter%5B_sort_by%5D=numero&amp;filter%5B_page%5D=1&amp;filter%5B_per_page%5D=32">                                                    
+                                        Documento
+                                    </a>
+                                </th>                                                                                                                                                                                                            
+                                <th class="sonata-ba-list-field-header-orm_one_to_one ">
+                                    Clase Documento
+                                </th>                                                                                                                                                                                                            
+                                <th class="sonata-ba-list-field-header-orm_one_to_one ">
+                                    Posición
+                                </th>                                                                                                                                                                                                            
+                                <th class="sonata-ba-list-field-header-orm_one_to_one ">
+                                    Tipo elemento de costo
+                                </th>                                                                                                                                                                                                            
+                                <th class="sonata-ba-list-field-header-orm_many_to_one ">
+                                    Descripción objeto
+                                </th>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+                                <th class="sonata-ba-list-field-header-date  sonata-ba-list-field-header-order-asc ">                                   
+                                    Cuenta de Mayor
+                                </th>                                                                                                                                                                                                            
+                                <th class="sonata-ba-list-field-header-orm_many_to_one ">
+                                    Importe ML
+                                </th>                                                                                                                                                                                                            
+                                <th class="sonata-ba-list-field-header-orm_many_to_one ">
+                                    Importe a Transferir en ML
+                                </th>                                                                                                                                                                                                                                                                                               </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-batch" objectid="1">
+                                            <div class="icheckbox_square-blue checked" style="position: relative;"><input type="checkbox" name="idx[]" value="1" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div>
+                                        </td>
+
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="1">
+                                            <a class="sonata-link-identifier" href="/pronit/web/app_dev.php/admin/pedidos/1/show">9000851</a>
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            EM
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            1
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            CeCo
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one" objectid="1">
+                                            Pintura
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-date" objectid="1">
+                                            Materiales indirectos
+                                        </td>
+
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one text-right" objectid="1">
+                                            800,00 ARS
+                                        </td>
+
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one text-right" objectid="1">
+                                            800,00 ARS
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-batch" objectid="1">
+                                            <div class="icheckbox_square-blue checked" style="position: relative;"><input type="checkbox" name="idx[]" value="1" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div>
+                                        </td>
+
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="1">
+                                            <a class="sonata-link-identifier" href="/pronit/web/app_dev.php/admin/pedidos/1/show">9000851</a>
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            EM
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            2
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            CeCo
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one" objectid="1">
+                                            Pintura
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-date" objectid="1">
+                                            Servicios de terceros
+                                        </td>
+
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one text-right" objectid="1">
+                                            200,00 ARS
+                                        </td>
+
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one text-right" objectid="1">
+                                            150,00 ARS
+                                        </td>
+                                    </tr>
+                                    <tr>
+
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-batch" objectid="1">
+                                            <div class="icheckbox_square-blue checked" style="position: relative;"><input type="checkbox" name="idx[]" value="1" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div>
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="1">
+                                            <a class="sonata-link-identifier" href="/pronit/web/app_dev.php/admin/pedidos/1/show">9000876</a>
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            EM
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            1
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            CeCo
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one" objectid="1">
+                                            Pintura
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-date" objectid="1">
+                                            Materiales indirectos
+                                        </td>
+
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one text-right" objectid="1">
+                                            1200,00 ARS
+                                        </td>
+
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one text-right" objectid="1">
+                                            1200,00 ARS
+                                        </td>
+                                    </tr>                                                                        
+                                    <tr>
+
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-batch" objectid="1">
+                                            <div class="icheckbox_square-blue checked" style="position: relative;"><input type="checkbox" name="idx[]" value="1" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div>
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="1">
+                                            <a class="sonata-link-identifier" href="/pronit/web/app_dev.php/admin/pedidos/1/show">9000876</a>
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            EM
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            2
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            CeCo
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one" objectid="1">
+                                            Pintura
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-date" objectid="1">
+                                            Servicios de terceros
+                                        </td>
+
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one text-right" objectid="1">
+                                            200,00 ARS
+                                        </td>
+
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one text-right" objectid="1">
+                                            100,00 ARS
+                                        </td>
+                                    </tr>                                        
+
+                                    <tr>
+
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-batch" objectid="1">
+                                            <div class="icheckbox_square-blue checked" style="position: relative;"><input type="checkbox" name="idx[]" value="1" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div>
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="1">
+                                            <a class="sonata-link-identifier" href="/pronit/web/app_dev.php/admin/pedidos/1/show">9000906</a>
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            EM
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            1
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            CeCo
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one" objectid="1">
+                                            Pintura
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-date" objectid="1">
+                                            Materiales indirectos
+                                        </td>
+
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one text-right" objectid="1">
+                                            2080,00 ARS
+                                        </td>
+
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one text-right" objectid="1">
+                                            1000,00 ARS
+                                        </td>
+                                    </tr>    
+
+                                    <tr>
+
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-batch" objectid="1">
+                                            <div class="icheckbox_square-blue" style="position: relative;"><input type="checkbox" name="idx[]" value="1" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div>
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="1">
+                                            <a class="sonata-link-identifier" href="/pronit/web/app_dev.php/admin/pedidos/1/show">9000906</a>
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            EM
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            2
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            CeCo
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one" objectid="1">
+                                            Pintura
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-date" objectid="1">
+                                            Servicios de terceros
+                                        </td>
+
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one text-right" objectid="1">
+                                            200,00 ARS
+                                        </td>
+
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one text-right" objectid="1">
+                                            ARS
+                                        </td>
+                                    </tr>                                       
+                                </tbody>
+
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="8" class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one text-right text-bold">4.680,00 ARS</td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one text-right text-bold">3.250,00 ARS</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+
+
+                        </div>
+                        <div class="box-footer">
+                            <div class="form-inline clearfix">
+
+                                <div class="pull-right">
+                                    <button type="button" class="btn btn-default">Atrás</button>
+                                    <button type="button" class="btn btn-default">Ejecutar</button>
+                                    <button type="button" class="btn btn-default">Marcar todas las partidas</button>
+                                    <button type="button" class="btn btn-default">Desmarcar todas las partidas</button>
+                                    <button type="button" class="btn btn-default">Filtrar</button>
+                                    
+                                    <div class="btn-group">                                                                               
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                            <i class="fa fa-share-square-o"></i>
+                                            Exportar
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="/pronit/web/app_dev.php/admin/pedidos/export?filter%5B_sort_order%5D=ASC&amp;filter%5B_sort_by%5D=id&amp;filter%5B_page%5D=0&amp;filter%5B_per_page%5D=32&amp;format=json">
+                                                    <i class="fa fa-arrow-circle-o-down"></i>
+                                                    JSON
+                                                </a>
+                                            </li><li>
+                                            </li><li>
+                                                <a href="/pronit/web/app_dev.php/admin/pedidos/export?filter%5B_sort_order%5D=ASC&amp;filter%5B_sort_by%5D=id&amp;filter%5B_page%5D=0&amp;filter%5B_per_page%5D=32&amp;format=xml">
+                                                    <i class="fa fa-arrow-circle-o-down"></i>
+                                                    XML
+                                                </a>
+                                            </li><li>
+                                            </li><li>
+                                                <a href="/pronit/web/app_dev.php/admin/pedidos/export?filter%5B_sort_order%5D=ASC&amp;filter%5B_sort_by%5D=id&amp;filter%5B_page%5D=0&amp;filter%5B_per_page%5D=32&amp;format=csv">
+                                                    <i class="fa fa-arrow-circle-o-down"></i>
+                                                    CSV
+                                                </a>
+                                            </li><li>
+                                            </li><li>
+                                                <a href="/pronit/web/app_dev.php/admin/pedidos/export?filter%5B_sort_order%5D=ASC&amp;filter%5B_sort_by%5D=id&amp;filter%5B_page%5D=0&amp;filter%5B_per_page%5D=32&amp;format=xls">
+                                                    <i class="fa fa-arrow-circle-o-down"></i>
+                                                    XLS
+                                                </a>
+                                            </li><li>
+                                            </li></ul>
+                                    </div>
+
+                                    &nbsp;-&nbsp;
+
+
+                                    1 / 1
+                                    &nbsp;-&nbsp;
+
+                                    6 resultados    &nbsp;-&nbsp;
+
+                                    <label class="control-label" for="s56b7553762fd7_per_page">Por página</label>
+                                    <div class="select2-container per-page small" id="s2id_s56b7553762fd7_per_page" style="width: auto"><a href="javascript:void(0)" class="select2-choice" tabindex="-1">   <span class="select2-chosen" id="select2-chosen-13">
+                                                32
+                                            </span><abbr class="select2-search-choice-close"></abbr>   <span class="select2-arrow" role="presentation"><b role="presentation"></b></span></a><label for="s2id_autogen13" class="select2-offscreen">Por página</label><input class="select2-focusser select2-offscreen" type="text" aria-haspopup="true" role="button" aria-labelledby="select2-chosen-13" id="s2id_autogen13"><div class="select2-drop select2-display-none select2-with-searchbox">   <div class="select2-search">       <label for="s2id_autogen13_search" class="select2-offscreen">Por página</label>       <input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input" role="combobox" aria-expanded="true" aria-autocomplete="list" aria-owns="select2-results-13" id="s2id_autogen13_search" placeholder="">   </div>   <ul class="select2-results" role="listbox" id="select2-results-13">   </ul></div></div><select class="per-page small" id="s56b7553762fd7_per_page" style="width: auto; display: none;" tabindex="-1" title="Por página">
+                                        <option value="/pronit/web/app_dev.php/admin/pedidos/list?filter%5B_sort_order%5D=ASC&amp;filter%5B_page%5D=1&amp;filter%5B_per_page%5D=16">
+                                            16
+                                        </option>
+                                        <option selected="selected" value="/pronit/web/app_dev.php/admin/pedidos/list?filter%5B_sort_order%5D=ASC&amp;filter%5B_page%5D=1&amp;filter%5B_per_page%5D=32">
+                                            32
+                                        </option>
+                                        <option value="/pronit/web/app_dev.php/admin/pedidos/list?filter%5B_sort_order%5D=ASC&amp;filter%5B_page%5D=1&amp;filter%5B_per_page%5D=64">
+                                            64
+                                        </option>
+                                        <option value="/pronit/web/app_dev.php/admin/pedidos/list?filter%5B_sort_order%5D=ASC&amp;filter%5B_page%5D=1&amp;filter%5B_per_page%5D=128">
+                                            128
+                                        </option>
+                                        <option value="/pronit/web/app_dev.php/admin/pedidos/list?filter%5B_sort_order%5D=ASC&amp;filter%5B_page%5D=1&amp;filter%5B_per_page%5D=192">
+                                            192
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        
+        
+        
+
+        <div class="row">
+            <div class="col-xs-12 col-md-12">
+                <form action="/pronit/web/app_dev.php/admin/pedidos/batch?filter%5B_sort_order%5D=ASC&amp;filter%5B_sort_by%5D=id&amp;filter%5B_page%5D=1&amp;filter%5B_per_page%5D=32" method="POST">
+                    <input type="hidden" name="_sonata_csrf_token" value="Z2fyPDLIIQRsTUzgc5tiuwtPpg3FZg7Oe3Tys-nMH8c">
+
+                    <div class="box box-primary" style="margin-bottom: 100px;">
+                        <div class="box-header with-border">
+                            <h4 class="box-title">
+                                Objeto receptor
+                            </h4>
+                        </div>
+                        
+                        <div style="margin: 10px 0px 10px 10px;">
+                            <span style="margin-right: 20px;">
+                                Clase de documento a generar
+                            </span>
+                            <span>
+                                <input type="" value="DC" size="5"/>
+                            </span>
+                        </div>
+
+                        <div class="box-body table-responsive no-padding">
+
+
+
+                            <table class="table table-bordered table-striped sonata-ba-list">
+                                <thead>
+                                <th class="sonata-ba-list-field-header-text  sonata-ba-list-field-header-order-asc ">
+                                    Tipo elemento de costo
+                                </th>                                                                                                                                                                                                            
+                                <th class="sonata-ba-list-field-header-orm_one_to_one ">
+                                    Descripción objeto
+                                </th>                                                                                                                                                                                                            
+                                <th class="sonata-ba-list-field-header-orm_one_to_one ">
+                                    Cuenta de Mayor
+                                </th>                                                                                                                                                                                                            
+                                <th class="sonata-ba-list-field-header-orm_one_to_one ">
+                                    Importe a recibir en ML
+                                </th>                                                                                                                                                                                                            
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="1">
+                                            CeBe
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            Motos
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            Servicios post venta
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one text-right" objectid="1">
+                                            1.800,00 ARS
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="1">
+                                            CeBe
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            Alquileres
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            Otros ingresos
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one text-right" objectid="1">
+                                            1.450,00 ARS
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="4" class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one text-right text-bold">3.250,00 ARS</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+
+
+                        </div>
+                        <div class="box-footer">
+                            <div class="form-inline clearfix">
+
+                                <div class="pull-right">
+                                    <button type="button" class="btn btn-default">Atrás</button>
+                                    <button type="button" class="btn btn-default">Contabilizar</button>
+                                    
+                                    <div class="btn-group">                                                                               
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                            <i class="fa fa-share-square-o"></i>
+                                            Exportar
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="/pronit/web/app_dev.php/admin/pedidos/export?filter%5B_sort_order%5D=ASC&amp;filter%5B_sort_by%5D=id&amp;filter%5B_page%5D=0&amp;filter%5B_per_page%5D=32&amp;format=json">
+                                                    <i class="fa fa-arrow-circle-o-down"></i>
+                                                    JSON
+                                                </a>
+                                            </li><li>
+                                            </li><li>
+                                                <a href="/pronit/web/app_dev.php/admin/pedidos/export?filter%5B_sort_order%5D=ASC&amp;filter%5B_sort_by%5D=id&amp;filter%5B_page%5D=0&amp;filter%5B_per_page%5D=32&amp;format=xml">
+                                                    <i class="fa fa-arrow-circle-o-down"></i>
+                                                    XML
+                                                </a>
+                                            </li><li>
+                                            </li><li>
+                                                <a href="/pronit/web/app_dev.php/admin/pedidos/export?filter%5B_sort_order%5D=ASC&amp;filter%5B_sort_by%5D=id&amp;filter%5B_page%5D=0&amp;filter%5B_per_page%5D=32&amp;format=csv">
+                                                    <i class="fa fa-arrow-circle-o-down"></i>
+                                                    CSV
+                                                </a>
+                                            </li><li>
+                                            </li><li>
+                                                <a href="/pronit/web/app_dev.php/admin/pedidos/export?filter%5B_sort_order%5D=ASC&amp;filter%5B_sort_by%5D=id&amp;filter%5B_page%5D=0&amp;filter%5B_per_page%5D=32&amp;format=xls">
+                                                    <i class="fa fa-arrow-circle-o-down"></i>
+                                                    XLS
+                                                </a>
+                                            </li><li>
+                                            </li></ul>
+                                    </div>
+
+                                    &nbsp;-&nbsp;
+
+
+                                    1 / 1
+                                    &nbsp;-&nbsp;
+
+                                    2 resultados    &nbsp;-&nbsp;
+
+                                    <label class="control-label" for="s56b7553762fd7_per_page">Por página</label>
+                                    <div class="select2-container per-page small" id="s2id_s56b7553762fd7_per_page" style="width: auto"><a href="javascript:void(0)" class="select2-choice" tabindex="-1">   <span class="select2-chosen" id="select2-chosen-13">
+                                                32
+                                            </span><abbr class="select2-search-choice-close"></abbr>   <span class="select2-arrow" role="presentation"><b role="presentation"></b></span></a><label for="s2id_autogen13" class="select2-offscreen">Por página</label><input class="select2-focusser select2-offscreen" type="text" aria-haspopup="true" role="button" aria-labelledby="select2-chosen-13" id="s2id_autogen13"><div class="select2-drop select2-display-none select2-with-searchbox">   <div class="select2-search">       <label for="s2id_autogen13_search" class="select2-offscreen">Por página</label>       <input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input" role="combobox" aria-expanded="true" aria-autocomplete="list" aria-owns="select2-results-13" id="s2id_autogen13_search" placeholder="">   </div>   <ul class="select2-results" role="listbox" id="select2-results-13">   </ul></div></div><select class="per-page small" id="s56b7553762fd7_per_page" style="width: auto; display: none;" tabindex="-1" title="Por página">
+                                        <option value="/pronit/web/app_dev.php/admin/pedidos/list?filter%5B_sort_order%5D=ASC&amp;filter%5B_page%5D=1&amp;filter%5B_per_page%5D=16">
+                                            16
+                                        </option>
+                                        <option selected="selected" value="/pronit/web/app_dev.php/admin/pedidos/list?filter%5B_sort_order%5D=ASC&amp;filter%5B_page%5D=1&amp;filter%5B_per_page%5D=32">
+                                            32
+                                        </option>
+                                        <option value="/pronit/web/app_dev.php/admin/pedidos/list?filter%5B_sort_order%5D=ASC&amp;filter%5B_page%5D=1&amp;filter%5B_per_page%5D=64">
+                                            64
+                                        </option>
+                                        <option value="/pronit/web/app_dev.php/admin/pedidos/list?filter%5B_sort_order%5D=ASC&amp;filter%5B_page%5D=1&amp;filter%5B_per_page%5D=128">
+                                            128
+                                        </option>
+                                        <option value="/pronit/web/app_dev.php/admin/pedidos/list?filter%5B_sort_order%5D=ASC&amp;filter%5B_page%5D=1&amp;filter%5B_per_page%5D=192">
+                                            192
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+
+        
+        <div class="row">
+            <div class="col-xs-12 col-md-12">
+                <form action="/pronit/web/app_dev.php/admin/pedidos/batch?filter%5B_sort_order%5D=ASC&amp;filter%5B_sort_by%5D=id&amp;filter%5B_page%5D=1&amp;filter%5B_per_page%5D=32" method="POST">
+                    <input type="hidden" name="_sonata_csrf_token" value="Z2fyPDLIIQRsTUzgc5tiuwtPpg3FZg7Oe3Tys-nMH8c">
+
+                    <div class="box box-primary" style="margin-bottom: 100px;">
+                        <div class="box-header with-border">
+                            <h4 class="box-title">
+                                Traspaso de Costos
+                            </h4>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-2">
+                                Sociedad FI
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" value="Modelo S.A.">
+                            </div>
+                            <div class="col-md-2">
+                                Clase de documento 
+                            </div>
+                            <div  class="col-md-3">
+                                <input type="text" value="DC">
+                            </div>
+                            <div class="col-md-1"></div>
+                        </div>    
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-2">
+                                Número de documento 
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" value="7000130">
+                            </div>
+                            <div class="col-md-2">
+                                Fecha de Contabilización
+                            </div>              
+                            <div class="col-md-3">
+                                <input type="text" value="08/01/2016">
+                            </div>
+                            <div class="col-md-1"></div>
+                        </div>
+
+                        <div class="box-body table-responsive no-padding">
+
+
+
+                            <table class="table table-bordered table-striped sonata-ba-list">
+                                <thead>
+                                <th class="sonata-ba-list-field-header-text  sonata-ba-list-field-header-order-asc ">
+                                    Posición
+                                </th>                                                                                                                                                                                                            
+                                <th class="sonata-ba-list-field-header-orm_one_to_one ">
+                                    Cuenta de mayor
+                                </th>                                                                                                                                                                                                            
+                                <th class="sonata-ba-list-field-header-orm_one_to_one ">
+                                    Tipo elemento de costo
+                                </th>                                                                                                                                                                                                            
+                                <th class="sonata-ba-list-field-header-orm_one_to_one ">
+                                    Descripción objeto
+                                </th>                                                                                                                                                                                                            
+                                <th class="sonata-ba-list-field-header-orm_one_to_one ">
+                                    Importe ML
+                                </th>                                                                                                                                                                                                                                            
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="1">
+                                            1
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            Materiales Indirectos
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            CeCo
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            Pintura
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one text-right" objectid="1">
+                                            3.000,00 ARS
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="1">
+                                            2
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            Servicios de terceros
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            CeCo
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            Pintura
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one text-right" objectid="1">
+                                            250,00 ARS
+                                        </td>
+                                    </tr>                                    
+                                    <tr>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="1">
+                                            3
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            Servicios post venta
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            CeBe
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            Motos
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one text-right" objectid="1">
+                                            -1.800,00 ARS
+                                        </td>
+                                    </tr>      
+                                    <tr>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-text" objectid="1">
+                                            4
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            Otros ingresos
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            CeBe
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_one_to_one" objectid="1">
+                                            Alquileres
+                                        </td>
+                                        <td class="sonata-ba-list-field sonata-ba-list-field-orm_many_to_one text-right" objectid="1">
+                                            -1.450,00 ARS
+                                        </td>
+                                    </tr>                                          
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <div class="box-footer">
+                            <div class="form-inline clearfix">
+
+                                <div class="pull-right">
+                                    
+                                    <div class="btn-group">                                                                               
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                            <i class="fa fa-share-square-o"></i>
+                                            Exportar
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="/pronit/web/app_dev.php/admin/pedidos/export?filter%5B_sort_order%5D=ASC&amp;filter%5B_sort_by%5D=id&amp;filter%5B_page%5D=0&amp;filter%5B_per_page%5D=32&amp;format=json">
+                                                    <i class="fa fa-arrow-circle-o-down"></i>
+                                                    JSON
+                                                </a>
+                                            </li><li>
+                                            </li><li>
+                                                <a href="/pronit/web/app_dev.php/admin/pedidos/export?filter%5B_sort_order%5D=ASC&amp;filter%5B_sort_by%5D=id&amp;filter%5B_page%5D=0&amp;filter%5B_per_page%5D=32&amp;format=xml">
+                                                    <i class="fa fa-arrow-circle-o-down"></i>
+                                                    XML
+                                                </a>
+                                            </li><li>
+                                            </li><li>
+                                                <a href="/pronit/web/app_dev.php/admin/pedidos/export?filter%5B_sort_order%5D=ASC&amp;filter%5B_sort_by%5D=id&amp;filter%5B_page%5D=0&amp;filter%5B_per_page%5D=32&amp;format=csv">
+                                                    <i class="fa fa-arrow-circle-o-down"></i>
+                                                    CSV
+                                                </a>
+                                            </li><li>
+                                            </li><li>
+                                                <a href="/pronit/web/app_dev.php/admin/pedidos/export?filter%5B_sort_order%5D=ASC&amp;filter%5B_sort_by%5D=id&amp;filter%5B_page%5D=0&amp;filter%5B_per_page%5D=32&amp;format=xls">
+                                                    <i class="fa fa-arrow-circle-o-down"></i>
+                                                    XLS
+                                                </a>
+                                            </li><li>
+                                            </li></ul>
+                                    </div>
+
+                                    &nbsp;-&nbsp;
+
+
+                                    1 / 1
+                                    &nbsp;-&nbsp;
+
+                                    4 resultados    &nbsp;-&nbsp;
+
+                                    <label class="control-label" for="s56b7553762fd7_per_page">Por página</label>
+                                    <div class="select2-container per-page small" id="s2id_s56b7553762fd7_per_page" style="width: auto"><a href="javascript:void(0)" class="select2-choice" tabindex="-1">   <span class="select2-chosen" id="select2-chosen-13">
+                                                32
+                                            </span><abbr class="select2-search-choice-close"></abbr>   <span class="select2-arrow" role="presentation"><b role="presentation"></b></span></a><label for="s2id_autogen13" class="select2-offscreen">Por página</label><input class="select2-focusser select2-offscreen" type="text" aria-haspopup="true" role="button" aria-labelledby="select2-chosen-13" id="s2id_autogen13"><div class="select2-drop select2-display-none select2-with-searchbox">   <div class="select2-search">       <label for="s2id_autogen13_search" class="select2-offscreen">Por página</label>       <input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input" role="combobox" aria-expanded="true" aria-autocomplete="list" aria-owns="select2-results-13" id="s2id_autogen13_search" placeholder="">   </div>   <ul class="select2-results" role="listbox" id="select2-results-13">   </ul></div></div><select class="per-page small" id="s56b7553762fd7_per_page" style="width: auto; display: none;" tabindex="-1" title="Por página">
+                                        <option value="/pronit/web/app_dev.php/admin/pedidos/list?filter%5B_sort_order%5D=ASC&amp;filter%5B_page%5D=1&amp;filter%5B_per_page%5D=16">
+                                            16
+                                        </option>
+                                        <option selected="selected" value="/pronit/web/app_dev.php/admin/pedidos/list?filter%5B_sort_order%5D=ASC&amp;filter%5B_page%5D=1&amp;filter%5B_per_page%5D=32">
+                                            32
+                                        </option>
+                                        <option value="/pronit/web/app_dev.php/admin/pedidos/list?filter%5B_sort_order%5D=ASC&amp;filter%5B_page%5D=1&amp;filter%5B_per_page%5D=64">
+                                            64
+                                        </option>
+                                        <option value="/pronit/web/app_dev.php/admin/pedidos/list?filter%5B_sort_order%5D=ASC&amp;filter%5B_page%5D=1&amp;filter%5B_per_page%5D=128">
+                                            128
+                                        </option>
+                                        <option value="/pronit/web/app_dev.php/admin/pedidos/list?filter%5B_sort_order%5D=ASC&amp;filter%5B_page%5D=1&amp;filter%5B_per_page%5D=192">
+                                            192
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        
     </section>    
 {% endblock %}

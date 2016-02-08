@@ -1,6 +1,6 @@
 <?php
 
-namespace Pronit\EstructuraEmpresaBundle\DataFixtures\ORM;
+namespace Pronit\CoreBundle\DataFixtures\ORM\EstructuraEmpresa;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
@@ -166,7 +166,7 @@ class LoadSociedades extends AbstractFixture implements FixtureInterface , Order
         
         $manager->persist($sociedadFI);
 
-        $this->addReference('pronit-estructuraempresa-sociedadfi', $sociedadFI);                
+        $this->addReference('pronit-estructuraempresa-sociedadfi-modelosa', $sociedadFI);                
                 
         /***************** sociedadFI extras ***********/
         
@@ -200,6 +200,6 @@ class LoadSociedades extends AbstractFixture implements FixtureInterface , Order
     
     function getOrder()
     {
-        return 30; 
+        return 12; 
     }
 }
