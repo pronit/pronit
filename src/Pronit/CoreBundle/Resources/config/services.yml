@@ -2,6 +2,7 @@ parameters:
     pronit_contabilidad_customizing.imputaciones_manager.class: Pronit\CoreBundle\Model\Contabilidad\Customizing\ImputacionesCustomizingManager
     pronit_contabilidad_customizing.generador_asientos_contables.class: Pronit\CoreBundle\Model\Contabilidad\Movimientos\GeneradorAsientosContables
     pronit_core.numeracion_sociedadfi_manager.class: Pronit\CoreBundle\Model\Numeraciones\NumeracionSociedadFIManager
+    pronit_core.imputa_objeto_costos_manager.class: Pronit\CoreBundle\Model\Controlling\Aspectos\ImputaObjetoCostosManager
     
     pronit_ventas_documentos_facturas.generador_items_finanzas.class: Pronit\CoreBundle\Model\Documentos\Ventas\Facturas\GeneradorItemsFinanzas    
     pronit_ventas_transaccion.salidamercancias.class: Pronit\CoreBundle\Model\Transacciones\SalidasMercancias\TransaccionSalidaMercancias
@@ -24,6 +25,10 @@ services:
     pronit_core.numeracion_sociedadfi_manager:
         class: %pronit_core.numeracion_sociedadfi_manager.class%
         arguments: [@doctrine.orm.entity_manager]
+        
+    pronit_core.imputa_objeto_costos_manager:
+        class: %pronit_core.imputa_objeto_costos_manager.class%
+        arguments: [@doctrine.orm.entity_manager]        
         
     pronit_contabilidad_customizing.imputaciones_manager:
         class: %pronit_contabilidad_customizing.imputaciones_manager.class%

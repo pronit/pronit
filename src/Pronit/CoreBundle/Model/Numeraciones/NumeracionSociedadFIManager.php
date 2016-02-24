@@ -21,11 +21,13 @@ class NumeracionSociedadFIManager implements INumeracionSociedadFIManager {
      */
     private $em;
 
-    public function __construct(EntityManager $em) {
+    public function __construct(EntityManager $em) 
+    {
         $this->em = $em;
     }
 
-    public function generarNumeroAsiento(SociedadFI $sociedad) {
+    public function generarNumeroAsiento(SociedadFI $sociedad) 
+    {
         $this->em->getConnection()->beginTransaction();
 
         try {
