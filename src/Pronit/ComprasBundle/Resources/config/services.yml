@@ -10,7 +10,7 @@ parameters:
 services:
     pronit_compras_documentos_entradasmercancias.generador_items_finanzas:
         class: %pronit_compras_documentos_entradasmercancias.generador_items_finanzas.class%
-        arguments: [@doctrine.orm.entity_manager, @pronit_customizing.operaciones_customizing_manager, @pronit_gestion_bienesyservicios_customizing_contabilidad.imputaciones_manager, @pronit_contabilidad_customizing.imputaciones_manager]        
+        arguments: [@doctrine.orm.entity_manager, @pronit_customizing.operaciones_customizing_manager, @pronit_gestion_bienesyservicios_customizing_contabilidad.imputaciones_manager, @pronit_contabilidad_customizing.imputaciones_manager, @pronit_core.imputa_objeto_costos_manager]        
 
     pronit_compras_documentos_entradasmercancias.imputador_objetoscosto:
         class: %pronit_compras_documentos_entradasmercancias.imputador_objetoscosto.class%
