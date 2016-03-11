@@ -73,6 +73,7 @@ class ImputadorObjetosCosto implements IImputadorObjetosCosto
                 $imputacion->setImporte($monto);
                 $imputacion->setCuentaContable($cuentaContable);        
                 $imputacion->setObjetoCosto($objetoCosto);
+                $imputacion->setItem($item);
                 
                 $this->em->persist($imputacion);
             }

@@ -6,6 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 use Pronit\CoreBundle\Entity\Contabilidad\CuentasContables\Cuenta;
 
+use Pronit\CoreBundle\Entity\Documentos\Item;
+
 /** 
  * @ORM\Entity
  * @ORM\Table(name="controlling_imputacionobjetocosto")
@@ -39,6 +41,11 @@ class Imputacion
      */    
     protected $fecha;    
     
+    /**
+     *
+     * @ORM\ManyToOne(targetEntity="Pronit\CoreBundle\Entity\Documentos\Item") 
+     */
+    protected $item;    
 
     function getImporte() 
     {
@@ -72,5 +79,15 @@ class Imputacion
 
     function setCuentaContable($cuentaContable) {
         $this->cuentaContable = $cuentaContable;
+    }    
+    
+    function getItem() 
+    {
+        return $this->item;
+    }
+
+    function setItem(Item $item) 
+    {
+        $this->item = $item;
     }    
 }
