@@ -2,7 +2,7 @@
 
 namespace Pronit\CoreBundle\Model\Documentos\Controlling;
 
-use Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\EntradaMercancias;
+use Pronit\CoreBundle\Entity\Documentos\Documento;
 
 /**
  *
@@ -10,5 +10,5 @@ use Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\EntradaMercancias;
  */
 interface IImputadorObjetosCosto 
 {
-    function imputar(EntradaMercancias $entradaMercancias);
+    function imputar(Documento $entradaMercancias);
 }

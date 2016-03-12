@@ -8,6 +8,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\EntradaMercancias;
 use Pronit\CoreBundle\Entity\Controlling\GestionImputacion;
 use Pronit\CoreBundle\Entity\Controlling\Imputacion;
+use Pronit\CoreBundle\Entity\Documentos\Documento;
 use Pronit\CoreBundle\Entity\Documentos\ItemFinanzas;
 use Pronit\CoreBundle\Entity\Documentos\ItemFinanzasEntradaMercancias;
 use Pronit\CoreBundle\Model\Aspectos\IAspectoManager;
@@ -35,8 +36,8 @@ class ImputadorObjetosCosto implements IImputadorObjetosCosto {
         $this->imputaObjetoCostosManager = $imputaObjetoCostosManager;
     }
 
-    public function imputar(EntradaMercancias $entradaMercancias) {
-        foreach ($entradaMercancias->getItemsFinanzas() as /* @var $item ItemFinanzasEntradaMercancias */ $item) {
+    public function imputar(Documento $documento) {
+        foreach ($documento->getItemsFinanzas() as /* @var $item ItemFinanzasEntradaMercancias */ $item) {
             if ($item->getItemDocumento() !== null) {
                 $this->imputarItem($item);
             }
