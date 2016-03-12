@@ -45,6 +45,7 @@ class LoadEntradaMercancias extends AbstractFixture implements FixtureInterface,
 
         $sociedad = $this->getReference('pronit-estructuraempresa-sociedadfi-modelosa');
         $moneda = $this->getReference('pronit-parametrizaciongeneral-moneda-pesos');
+        $objetoCosto = $this->getReference('pronit-core-controlling-centrocosto-Pintura');
 
         $clasificador = $this->getReference('pronit-documentos-clasificadoritementradamercancias-101');        
 
@@ -67,6 +68,7 @@ class LoadEntradaMercancias extends AbstractFixture implements FixtureInterface,
             $item->setEscala( $itemPedido->getEscala() );
             $item->setBienServicio( $itemPedido->getBienServicio() );
             $item->setPrecioUnitario($itemPedido->getPrecioUnitario());
+            $item->setObjetoCosto($objetoCosto);
             $item->setItemPedidoEntregado( $itemPedido );
             
             $entradaMercancias->addItem($item);

@@ -118,6 +118,10 @@ abstract class ObjetoCosto {
      * @param float $importe
      */
     public function imputar(DateTime $fecha, Item $itemDocumento, Cuenta $cuentaContable, $importe) {
+        $imputacion = new Imputacion($this, $fecha, $itemDocumento, $cuentaContable, $importe);
+        $this->imputaciones->add($imputacion);
+        
+        return $imputacion;
         
         /*
          * La lista de imputaciones se encuentra agrupada por cuenta contable.

@@ -4,8 +4,11 @@ namespace Pronit\CoreBundle\Model\Documentos\Controlling;
 
 use ArrayObject;
 use DateTime;
+use Doctrine\Common\Persistence\ObjectManager;
 use Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\EntradaMercancias;
+use Pronit\CoreBundle\Entity\Controlling\GestionImputacion;
 use Pronit\CoreBundle\Entity\Controlling\Imputacion;
+use Pronit\CoreBundle\Entity\Documentos\ItemFinanzas;
 use Pronit\CoreBundle\Entity\Documentos\ItemFinanzasEntradaMercancias;
 use Pronit\CoreBundle\Model\Aspectos\IAspectoManager;
 use Pronit\CoreBundle\Model\Documentos\Controlling\IImputadorObjetosCosto;
@@ -17,21 +20,36 @@ class ImputadorObjetosCosto implements IImputadorObjetosCosto {
 
     /**
      *
+     * @var ObjectManager
+     */
+    private $em;
+
+    /**
+     *
      * @var IAspectoManager
      */
     private $imputaObjetoCostosManager;
 
-    public function __construct(IAspectoManager $imputaObjetoCostosManager) {
+    public function __construct(ObjectManager $em, IAspectoManager $imputaObjetoCostosManager) {
+        $this->em = $em;
         $this->imputaObjetoCostosManager = $imputaObjetoCostosManager;
     }
 
     public function imputar(EntradaMercancias $entradaMercancias) {
         foreach ($entradaMercancias->getItemsFinanzas() as /* @var $item ItemFinanzasEntradaMercancias */ $item) {
             if ($item->getItemDocumento() !== null) {
-                if ($this->imputaObjetoCostosManager->has($item->getOperacion()) && !is_null($item->getItemDocumento()->getObjetoCosto())) {
-                    $item->getItemDocumento()->getObjetoCosto()->imputar(new DateTime(), $item->getItemDocumento(), $item->getCuenta(), $item->getImporte());
-                }
+                $this->imputarItem($item);
             }
+        }
+    }
+
+    private function imputarItem(ItemFinanzas $item) {
+        if ($this->imputaObjetoCostosManager->has($item->getOperacion()) && !is_null($item->getItemDocumento()->getObjetoCosto())) {
+            /* @var $imputacion Imputacion */
+            $imputacion = $item->getItemDocumento()->getObjetoCosto()->imputar(new DateTime(), $item->getItemDocumento(), $item->getCuenta(), $item->getImporte());
+            $this->em->persist($imputacion);
+            $gestionImputacion = new GestionImputacion($imputacion);
+            $this->em->persist($gestionImputacion);
         }
     }
 

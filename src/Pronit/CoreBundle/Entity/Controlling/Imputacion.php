@@ -3,7 +3,6 @@
 namespace Pronit\CoreBundle\Entity\Controlling;
 
 use DateTime;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Pronit\CoreBundle\Entity\Contabilidad\CuentasContables\Cuenta;
 use Pronit\CoreBundle\Entity\Documentos\Item as ItemDocumento;
@@ -15,37 +14,54 @@ use Pronit\CoreBundle\Entity\Documentos\Item as ItemDocumento;
 class Imputacion {
 
     /**
+     * 
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="ObjetoCosto", inversedBy="imputaciones") 
+     * 
+     * @var ObjetoCosto
      */
     private $objetoCosto;
 
     /**
+     * 
      * @ORM\Id
+     * @ORM\ManyToOne(targetEntity="Pronit\CoreBundle\Entity\Documentos\Item")
+     *
+     * @var ItemDocumento
+     */
+    private $itemDocumento;
+
+    /**
+     * 
+     * @ORM\Column(type="date")
+     * 
+     * @var DateTime
+     */
+    private $fecha;
+
+    /**
+     * 
      * @ORM\ManyToOne(targetEntity="Pronit\CoreBundle\Entity\Contabilidad\CuentasContables\Cuenta") 
      */
     private $cuentaContable;
-
-    /**
-     *
-     * @ORM\OneToMany(targetEntity="ItemImputacion", mappedBy="imputacion", cascade={"ALL"})
-     * 
-     * @var ArrayCollection
-     */
-    private $items;
 
     /**
      * @ORM\Column(type="float")
      */
     private $importe;
 
-    public function __construct(ObjetoCosto $objetoCosto, Cuenta $cuentaContable) {
-        $this->importe = 0;
-        $this->items = new ArrayCollection();
+    public function __construct(ObjetoCosto $objetoCosto, DateTime $fecha, ItemDocumento $itemDocumento, Cuenta $cuentaContable, $importe) {
+        $this->importe = $importe;
         $this->objetoCosto = $objetoCosto;
         $this->cuentaContable = $cuentaContable;
+        $this->itemDocumento = $itemDocumento;
+        $this->fecha = $fecha;
     }
 
+    /**
+     * 
+     * @return float
+     */
     public function getImporte() {
         return $this->importe;
     }
@@ -58,10 +74,6 @@ class Imputacion {
         return $this->objetoCosto;
     }
 
-    public function setObjetoCosto($objetoCosto) {
-        $this->objetoCosto = $objetoCosto;
-    }
-
     /**
      * 
      * @return Cuenta
@@ -70,21 +82,20 @@ class Imputacion {
         return $this->cuentaContable;
     }
 
-    public function setCuentaContable($cuentaContable) {
-        $this->cuentaContable = $cuentaContable;
-    }
-
-    public function addItem(DateTime $fecha, ItemDocumento $item, $importe) {
-        $this->items->add(new ItemImputacion($this, $fecha, $item, $importe));
-        $this->importe += $importe;
-    }
-    
     /**
      * 
-     * @return ArrayCollection
+     * @return DateTime
      */
-    public function getItems() {
-        return $this->items;
+    public function getFecha() {
+        return $this->fecha;
+    }
+
+    /**
+     * 
+     * @return Item
+     */
+    public function getItemDocumento() {
+        return $this->itemDocumento;
     }
 
 }
