@@ -9,6 +9,7 @@ use Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\ItemEntradaMercanc
 use Pronit\CoreBundle\Entity\Documentos\ClaseDocumento;
 use Pronit\CoreBundle\Entity\Documentos\Documento;
 use Pronit\CoreBundle\Entity\Documentos\Item;
+use Pronit\CoreBundle\Entity\Documentos\ItemFinanzas;
 use Pronit\CoreBundle\Entity\Documentos\ItemFinanzasEntradaMercancias;
 use Pronit\CoreBundle\Entity\Operaciones\Operacion;
 use Pronit\CoreBundle\Model\Aspectos\IAspectoManager;
@@ -32,18 +33,16 @@ class GeneradorItemsFinanzas implements IGeneradorItemsFinanzas {
      *
      * @var IAspectoManager
      */
-    private $imputaObjetoCostosManager;
     private $operacionesCustomizingManager;
     private $mmImputacionesCustomizingManager;
     private $fiImputacionesCustomizingManager;
     private $em;
 
-    public function __construct(EntityManager $em, IOperacionesCustomizingManager $operacionesCustomizingManager, MMIImputacionesCustomizingManager $mmImputacionesCustomizingManager, FIIImputacionesCustomizingManager $fiImputacionesCustomizingManager, IAspectoManager $imputaObjetoCostosManager) {
+    public function __construct(EntityManager $em, IOperacionesCustomizingManager $operacionesCustomizingManager, MMIImputacionesCustomizingManager $mmImputacionesCustomizingManager, FIIImputacionesCustomizingManager $fiImputacionesCustomizingManager) {
         $this->em = $em;
         $this->operacionesCustomizingManager = $operacionesCustomizingManager;
         $this->mmImputacionesCustomizingManager = $mmImputacionesCustomizingManager;
         $this->fiImputacionesCustomizingManager = $fiImputacionesCustomizingManager;
-        $this->imputaObjetoCostosManager = $imputaObjetoCostosManager;
     }
 
     public function generar(Documento $documento) {
@@ -80,7 +79,7 @@ class GeneradorItemsFinanzas implements IGeneradorItemsFinanzas {
             $importe = $funcion->ejecutar($contexto);
 
             if ($importe != 0) {
-                $itemFinanzas = new ItemFinanzasEntradaMercancias($operacion, $cuenta);
+                $itemFinanzas = new ItemFinanzas($operacion, $cuenta);
                 $itemFinanzas->setImporte($importe);
 
                 $entradaMercancias->addItemFinanzas($itemFinanzas);
@@ -109,12 +108,7 @@ class GeneradorItemsFinanzas implements IGeneradorItemsFinanzas {
             $importe = $funcion->ejecutar($contexto);
 
             if ($importe != 0) {                
-                if (!is_null($item->getObjetoCosto()) && $this->imputaObjetoCostosManager->has($operacion)) {
-                    $itemFinanzas = new ItemFinanzasEntradaMercancias($operacion, $cuenta, $item->getObjetoCosto());
-                } else {                    
-                    $itemFinanzas = new ItemFinanzasEntradaMercancias($operacion, $cuenta);
-                }
-
+                $itemFinanzas = new ItemFinanzasEntradaMercancias($operacion, $cuenta, $item->getObjetoCosto(), $item);
                 $itemFinanzas->setImporte($importe);
                 $documento->addItemFinanzas($itemFinanzas);
             }

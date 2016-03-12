@@ -103,7 +103,7 @@ class GeneradorItemsFinanzas implements IGeneradorItemsFinanzas {
             $importe = $funcion->ejecutar($contexto);
 
             if ($importe != 0) {
-                $itemFinanzas = new ItemFinanzas($operacion, $cuenta);
+                $itemFinanzas = new ItemFinanzas($operacion, $cuenta, $item);
                 $itemFinanzas->setImporte($importe);
                 $documento->addItemFinanzas($itemFinanzas);
             }

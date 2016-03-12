@@ -14,7 +14,7 @@ services:
 
     pronit_compras_documentos_entradasmercancias.imputador_objetoscosto:
         class: %pronit_compras_documentos_entradasmercancias.imputador_objetoscosto.class%
-        arguments: [@doctrine.orm.entity_manager]
+        arguments: [ @pronit_core.imputa_objeto_costos_manager ]
 
     pronit_compras_documentos_facturas.generador_items_finanzas:
         class: %pronit_compras_documentos_facturas.generador_items_finanzas.class%

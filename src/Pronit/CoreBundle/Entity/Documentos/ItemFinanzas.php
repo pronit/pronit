@@ -30,6 +30,12 @@ class ItemFinanzas {
      * @var Documento
      */
     private $documento;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Item")
+     * @var Documento
+     */
+    private $itemDocumento;
   
     /**
      * @ORM\ManyToOne(targetEntity="Pronit\CoreBundle\Entity\Operaciones\OperacionContable")
@@ -49,9 +55,14 @@ class ItemFinanzas {
      */
     private $importe;
     
-    public function __construct(OperacionContable $operacion = null, Cuenta $cuenta = null) {
+    public function __construct(OperacionContable $operacion = null, Cuenta $cuenta = null, Item $itemDocumento = null, $importe = null) {
         $this->cuenta = $cuenta;
         $this->operacion = $operacion;
+        $this->itemDocumento = $itemDocumento;
+        $this->importe = $importe;
+        if ($itemDocumento !== null) {
+            $this->documento = $itemDocumento->getDocumento();
+        }
     }
     
     
@@ -73,6 +84,14 @@ class ItemFinanzas {
      */
     public function getDocumento() {
         return $this->documento;
+    }
+    
+    /**
+     * 
+     * @return Item
+     */
+    public function getItemDocumento() {
+        return $this->itemDocumento;
     }
     
     /**

@@ -19,8 +19,8 @@ class ItemFinanzasEntradaMercancias extends ItemFinanzas {
      */
     protected $objetoCosto;    
     
-    public function __construct(OperacionContable $operacion = null, Cuenta $cuenta = null, ObjetoCosto $objetoCosto = null) {
-        parent::__construct($operacion, $cuenta);
+    public function __construct(OperacionContable $operacion = null, Cuenta $cuenta = null, ObjetoCosto $objetoCosto = null, Item $itemDocumento = null) {
+        parent::__construct($operacion, $cuenta, $itemDocumento);
         $this->setObjetoCosto($objetoCosto);
     }
     

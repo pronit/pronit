@@ -2,18 +2,15 @@
 
 namespace Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias;
 
-use Exception;
 use Doctrine\ORM\Mapping as ORM;
-
+use Exception;
 use Pronit\ComprasBundle\Entity\Documentos\AbastecimientoExterno;
-
-use Pronit\CoreBundle\Entity\Documentos\Item;
 use Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\ItemEntradaMercancias;
-
 use Pronit\ComprasBundle\Entity\Documentos\Estados\Facturacion\EstadoFacturacion;
-use Pronit\ComprasBundle\Entity\Documentos\Estados\Facturacion\SinFacturar;
-use Pronit\ComprasBundle\Entity\Documentos\Estados\Facturacion\Finalizado as FacturacionFinalizada;
 use Pronit\ComprasBundle\Entity\Documentos\Estados\Facturacion\FacturadoParcialmente;
+use Pronit\ComprasBundle\Entity\Documentos\Estados\Facturacion\Finalizado as FacturacionFinalizada;
+use Pronit\ComprasBundle\Entity\Documentos\Estados\Facturacion\SinFacturar;
+use Pronit\CoreBundle\Entity\Documentos\Item;
 
 /**
  *
@@ -97,7 +94,7 @@ class EntradaMercancias extends AbastecimientoExterno
          * no tiene sentido continuar: el pedido estará parcialmente facturado */
         while( ( $itemsFacturadosParcialmente == 0 ) && $items->valid() ){            
             
-            /* @var $item \Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\ItemEntradaMercancias */
+            /* @var $item ItemEntradaMercancias */
             $item = $items->current();   
             
             if ( $item->isFacturacionFinalizada() ){
@@ -125,7 +122,7 @@ class EntradaMercancias extends AbastecimientoExterno
 
         /* Cuando la entrada de mercancias se contabiliza se "contabilizan" su items */
         
-        /* @var $itemEntradaMercancias \Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\ItemEntradaMercancias  */
+        /* @var $itemEntradaMercancias ItemEntradaMercancias  */
         foreach( $this->getItems() as $itemEntradaMercancias ){
             
             $itemEntradaMercancias->contabilizar();
