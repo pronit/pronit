@@ -86,8 +86,7 @@ class LoadPlanDeCuentas extends AbstractFixture implements FixtureInterface , Or
         
         foreach( $values as $value ){
             
-            $cuenta = new Cuenta();
-            $cuenta->setNombre($value['nombre']);
+            $cuenta = new Cuenta($value['numero'], $value['nombre']);
 
             $manager->persist($cuenta);
             
