@@ -103,7 +103,7 @@ class LoadFuncion extends AbstractFixture implements FixtureInterface, OrderedFi
                              }
                          }
                 '
-            ),            
+            ),
             array(
                 "nombre" => "DOC_FC_ITEM_IMPORTENETO",
                 "nombreClase" => "Script_DOC_FC_ITEM_IMPORTENETO",
@@ -264,6 +264,20 @@ class LoadFuncion extends AbstractFixture implements FixtureInterface, OrderedFi
                              }
                          }                     
                     '
+            ),
+            array(
+                "nombre" => "DOC_DC_ITEM_IMPORTE",
+                "nombreClase" => "Script_DOC_DC_ITEM_IMPORTE",
+                "script" => '
+                         class Script_DOC_DC_ITEM_IMPORTE extends Scripting\Script {
+                             public function ejecutar(Scripting\Contexto $contexto) {
+
+                                 $item = $contexto->getItem();
+                                 
+                                 return $item->getImporte();
+                             }
+                         }
+                '
             ),
         );
 

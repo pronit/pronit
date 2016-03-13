@@ -121,28 +121,7 @@ abstract class ObjetoCosto {
         $imputacion = new Imputacion($this, $fecha, $itemDocumento, $cuentaContable, $importe);
         $this->imputaciones->add($imputacion);
         
-        return $imputacion;
-        
-        /*
-         * La lista de imputaciones se encuentra agrupada por cuenta contable.
-         * Por lo tanto se busca primero la imputación a la cuenta y luego se
-         * le agrega el detalle.
-         * Si la imputacion a la cuenta no existe se crea.
-         */
-        
-        $selectedImputacion = null;
-        foreach ($this->imputaciones as /* @var $imputacion Imputacion */ $imputacion) {
-            if ($imputacion->getCuentaContable()->equals($cuentaContable)){
-                $selectedImputacion = $imputacion;
-            }            
-        }
-        
-        if (is_null($selectedImputacion)) {
-            $selectedImputacion = new Imputacion($this, $cuentaContable);
-            $this->imputaciones->add($selectedImputacion);
-        }
-        
-        $selectedImputacion->addItem($fecha, $itemDocumento, $importe);
+        return $imputacion;        
     }
     
     /**

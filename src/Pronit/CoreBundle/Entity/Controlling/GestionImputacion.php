@@ -70,8 +70,24 @@ class GestionImputacion {
     }
 
     public function addCompensacion(Imputacion $imputacion) {
-        $this->imputacionesCompensatorias->add(new ImputacionCompensatoria($imputacion));
+        $this->imputacionesCompensatorias->add(new ImputacionCompensatoria($this, $imputacion));
         $this->importe += $imputacion->getImporte();
+    }
+    
+    /**
+     * 
+     * @return Imputacion
+     */
+    public function getImputacionInicial() {
+        return $this->imputacionInicial;
+    }
+    
+    /**
+     * 
+     * @return ArrayCollection
+     */
+    public function getImputacionesCompensatorias() {
+        return $this->imputacionesCompensatorias;
     }
 
     /**

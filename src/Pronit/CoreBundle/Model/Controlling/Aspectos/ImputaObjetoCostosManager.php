@@ -32,7 +32,7 @@ class ImputaObjetoCostosManager implements IAspectoManager
      */
     public function set(Operacion $operacion)
     {
-        $aspecto = new ImputaObjetoCostos($operacion);
+        $aspecto = new ImputaObjetoCostos($operacion, 1);
         
         $this->em->persist($aspecto);
         

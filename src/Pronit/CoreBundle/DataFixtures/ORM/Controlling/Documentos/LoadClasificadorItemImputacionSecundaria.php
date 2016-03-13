@@ -1,18 +1,19 @@
 <?php
 
-namespace Pronit\CoreBundle\DataFixtures\ORM\Aspectos\Controlling;
+namespace Pronit\CoreBundle\DataFixtures\ORM\Controlling\Documentos;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Pronit\CoreBundle\Entity\Controlling\Documentos\ClasificadorItemImputacionSecundaria;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * @author ldelia
  */
-class LoadAspectos extends AbstractFixture implements FixtureInterface, OrderedFixtureInterface, ContainerAwareInterface {
+class LoadClasificadorItemImputacionSecundaria extends AbstractFixture implements FixtureInterface, OrderedFixtureInterface, ContainerAwareInterface {
 
     /**
      * @var ContainerInterface
@@ -40,22 +41,27 @@ class LoadAspectos extends AbstractFixture implements FixtureInterface, OrderedF
      */
     public function load(ObjectManager $manager) {
         $this->setManager($manager);
-        $objetoCostoAspectoManager = $this->container->get('pronit_core.imputa_objeto_costos_manager');
 
-        $operacionBSX = $this->getReference('pronit-core-operacion-BSX');
-        $objetoCostoAspectoManager->set($operacionBSX);
-        
-        $operacionCOE = $this->getReference('pronit-core-operacion-COE');
-        $objetoCostoAspectoManager->set($operacionCOE);
+        $values = array(
+            array("codigo" => "1", "nombre" => "Item emisor"),
+            array("codigo" => "2", "nombre" => "Item receptor")
+        );
 
-        $operacionCOR = $this->getReference('pronit-core-operacion-COR');
-        $objetoCostoAspectoManager->set($operacionCOR);
-        
+        foreach ($values as $value) {
+            $obj = new ClasificadorItemImputacionSecundaria();
+            $obj->setCodigo($value['codigo']);
+            $obj->setNombre($value['nombre']);
+
+            $manager->persist($obj);
+
+            $this->addReference('pronit-documentos-clasificadoritemimputacionsecundaria-' . $value['codigo'], $obj);
+        }
+
         $manager->flush();
     }
 
     function getOrder() {
-        return 12;
+        return 14;
     }
 
 }

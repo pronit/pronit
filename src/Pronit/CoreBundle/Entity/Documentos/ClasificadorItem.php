@@ -18,6 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
         "VentasItemPedidoValue" = "Pronit\CoreBundle\Entity\Documentos\Ventas\Pedidos\ClasificadorItemPedido",
         "VentasItemSalidaMercanciasValue" = "Pronit\CoreBundle\Entity\Documentos\Ventas\SalidasMercancias\ClasificadorItemSalidaMercancias",
         "VentasItemFacturaValue" = "Pronit\CoreBundle\Entity\Documentos\Ventas\Facturas\ClasificadorItemFactura",
+        "ControllingItemImputacionSecundariaValue" = "Pronit\CoreBundle\Entity\Controlling\Documentos\ClasificadorItemImputacionSecundaria"
     })
  */
 abstract class ClasificadorItem
