@@ -1,0 +1,7 @@
+services:
+    pronit.controlling.repositories.gestionimputacion:
+        class: Doctrine\ORM\EntityRepository
+        factory_service: doctrine.orm.default_entity_manager
+        factory_method: getRepository
+        arguments:
+            - Pronit\CoreBundle\Entity\Controlling\GestionImputacion

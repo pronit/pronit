@@ -2,6 +2,7 @@
 
 namespace Pronit\CoreBundle\Model\Documentos\Controlling;
 
+use ArrayObject;
 use Pronit\CoreBundle\Entity\Documentos\Documento;
 
 /**
@@ -10,5 +11,10 @@ use Pronit\CoreBundle\Entity\Documentos\Documento;
  */
 interface IImputadorObjetosCosto 
 {
-    function imputar(Documento $entradaMercancias);
+    /**
+     * 
+     * @param Documento $documento
+     * @return ArrayObject
+     */
+    function imputar(Documento $documento);
 }

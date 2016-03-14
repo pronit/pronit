@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * 
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Pronit\CoreBundle\Entity\Controlling\Repository\GestionImputacionRepository")
  * @ORM\Table(name="controlling_gestionimputacion")
  * 
  * @author gcaseres

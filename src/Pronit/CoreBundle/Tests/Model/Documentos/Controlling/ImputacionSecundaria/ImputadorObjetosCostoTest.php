@@ -17,8 +17,8 @@ use Pronit\CoreBundle\Entity\Controlling\ObjetoCosto;
 use Pronit\CoreBundle\Entity\Documentos\ItemFinanzas;
 use Pronit\CoreBundle\Entity\Operaciones\OperacionContable;
 use Pronit\CoreBundle\Model\Aspectos\IAspectoManager;
-use Pronit\CoreBundle\Model\Documentos\Controlling\ImputadorObjetosCosto as ImputadorObjetosCostoEM;
 use Pronit\CoreBundle\Model\Documentos\Controlling\ImputacionSecundaria\ImputadorObjetosCosto;
+use Pronit\CoreBundle\Model\Documentos\Controlling\ImputadorObjetosCosto as ImputadorObjetosCostoEM;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 /**
@@ -90,27 +90,22 @@ class ImputadorObjetosCostoTest extends KernelTestCase {
         return new ImputadorObjetosCosto($em, $imputaObjetoCostosAspectoManagerMock);
     }
 
-    /**
-     * 
-     * @param array $data
-     * @return ObjectManager
-     */
-    private function createObjectManagerMock(array &$data, array $repositories) {
-        /* @var $em ObjectManager */
-        $om = $this->getMock('Doctrine\Common\Persistence\ObjectManager');
+    private function createGestionImputacionRepositoryMock(&$data) {
+        $repository = $this->getMock('Pronit\CoreBundle\Entity\Controlling\Repository\IGestionImputacionRepository');
+        $repository->method('find')->will($this->returnCallback(function ($pk) use (&$data) {
+                    foreach ($data['Pronit\CoreBundle\Entity\Controlling\GestionImputacion'] as $gestionImputacion) {
+                        if ($pk['itemDocumento'] === $gestionImputacion->getImputacionInicial()->getItemDocumento() && $pk['objetoCosto'] === $gestionImputacion->getImputacionInicial()->getObjetoCosto()) {
+                            return $gestionImputacion;
+                        }
+                    }
 
-        $om->method('persist')->will($this->returnCallback(function ($obj) use (&$data) {
-                    if (!isset($data[get_class($obj)])) {
-                        $data[get_class($obj)] = array();
-                    } 
-                    $data[get_class($obj)][] = $obj;
+                    return null;
+                }));
+        $repository->method('add')->will($this->returnCallback(function ($obj) use (&$data) {
+                    $data['Pronit\CoreBundle\Entity\Controlling\GestionImputacion'][] = $obj;
                 }));
 
-        $om->method('getRepository')->will($this->returnCallback(function ($name) use ($repositories) {
-                    return $repositories[$name];
-                }));
-
-        return $om;
+        return $repository;
     }
 
     private function createEntradaMercancias(array $operaciones, Cuenta $cuentaContable, ObjetoCosto $objetoCosto, $importeItem) {
@@ -126,7 +121,7 @@ class ImputadorObjetosCostoTest extends KernelTestCase {
     private function createImputacionSecundaria(array $objetosCosto, array $operaciones, Cuenta $cuentaContable, Imputacion $imputacionEmisor, $importeEmisor) {
         $doc = new ImputacionSecundaria();
 
-        $itemEmisor = new ItemEmisor($imputacionEmisor);        
+        $itemEmisor = new ItemEmisor($imputacionEmisor);
         $itemEmisor->setImporte($importeEmisor);
 
         $doc->addItem($itemEmisor);
@@ -143,39 +138,24 @@ class ImputadorObjetosCostoTest extends KernelTestCase {
         return $doc;
     }
 
-
     public function testImputarImputacionCompensatoria() {
-        $data = array();
-        $repositories = array(
-            'Pronit\CoreBundle\Entity\Controlling\GestionImputacion' => $this->getMock('Doctrine\Common\Persistence\ObjectRepository')
+        $data = array(
+            'Pronit\CoreBundle\Entity\Controlling\GestionImputacion' => array()
         );
 
-        $em = $this->createObjectManagerMock($data, $repositories);
+        $em = $this->getMock('Doctrine\Common\Persistence\ObjectManager');
         $operaciones = $this->createOperaciones();
 
-        $imputadorEM = new ImputadorObjetosCostoEM($em, $this->createImputaObjetoCostosAspectoManagerMock($operaciones));
-        $imputadorDC = new ImputadorObjetosCosto($em, $this->createImputaObjetoCostosAspectoManagerMock($operaciones));
+        $imputadorEM = new ImputadorObjetosCostoEM($em, $this->createGestionImputacionRepositoryMock($data), $this->createImputaObjetoCostosAspectoManagerMock($operaciones));
+        $imputadorDC = new ImputadorObjetosCosto($em, $this->createGestionImputacionRepositoryMock($data), $this->createImputaObjetoCostosAspectoManagerMock($operaciones));
 
         $objetosCosto = $this->createObjetosCosto();
         $cuentaContable = new Cuenta('CC1', 'Cuenta contable 1');
 
         $docEM = $this->createEntradaMercancias($operaciones, $cuentaContable, $objetosCosto['C1'], 100);
 
-        $repositories['Pronit\CoreBundle\Entity\Controlling\GestionImputacion']
-                ->method('find')
-                ->will($this->returnCallback(function ($pk) use (&$data) {                    
-                            if (isset($data['Pronit\CoreBundle\Entity\Controlling\GestionImputacion'])) {
-                                foreach ($data['Pronit\CoreBundle\Entity\Controlling\GestionImputacion'] as $gestionImputacion) {                                                                        
-                                    if ($pk['itemDocumento'] === $gestionImputacion->getImputacionInicial()->getItemDocumento() && $pk['objetoCosto'] === $gestionImputacion->getImputacionInicial()->getObjetoCosto()) {
-                                        return $gestionImputacion;
-                                    }
-                                }
-                            }
-                            return null;
-                        }));
-
         $imputadorEM->imputar($docEM);
-        
+
         /* @var $imputacion Imputacion */
         $imputacion = $objetosCosto['C1']->getImputaciones()->get(0);
 
@@ -189,7 +169,7 @@ class ImputadorObjetosCostoTest extends KernelTestCase {
         $gestionImputacionDC = $data['Pronit\CoreBundle\Entity\Controlling\GestionImputacion'][1];
 
         $this->assertEquals(1, $gestionImputacionEM->getImputacionesCompensatorias()->count(), 'Se espera que exista una imputacion compensatoria.');
-        $this->assertEquals(0, $gestionImputacionDC->getImputacionesCompensatorias()->count(), 'Se espera que la GestionImputacion generada por la imputacion DC no tenga ninguna imputación secundaria.');        
+        $this->assertEquals(0, $gestionImputacionDC->getImputacionesCompensatorias()->count(), 'Se espera que la GestionImputacion generada por la imputacion DC no tenga ninguna imputación secundaria.');
         $this->assertEquals(50, $gestionImputacionEM->getImporte());
     }
 

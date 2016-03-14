@@ -12,6 +12,7 @@ use Pronit\CoreBundle\Entity\Controlling\Documentos\ItemImputacionSecundaria;
 use Pronit\CoreBundle\Entity\Controlling\Documentos\ItemReceptor;
 use Pronit\CoreBundle\Entity\Controlling\GestionImputacion;
 use Pronit\CoreBundle\Entity\Controlling\Imputacion;
+use Pronit\CoreBundle\Entity\Controlling\Repository\IGestionImputacionRepository;
 use Pronit\CoreBundle\Entity\Documentos\Documento;
 use Pronit\CoreBundle\Entity\Documentos\ItemFinanzas;
 use Pronit\CoreBundle\Model\Aspectos\IAspectoManager;
@@ -33,14 +34,25 @@ class ImputadorObjetosCosto implements IImputadorObjetosCosto {
      * @var IAspectoManager
      */
     private $imputaObjetoCostosManager;
+    
+    /**
+     *
+     * @var IGestionImputacionRepository
+     */
+    private $gestionImputacionRepository;    
 
-    public function __construct(ObjectManager $em, IAspectoManager $imputaObjetoCostosManager) {
+    public function __construct(ObjectManager $em,  IGestionImputacionRepository $gestionImputacionRepository, IAspectoManager $imputaObjetoCostosManager) {
         $this->em = $em;
         $this->imputaObjetoCostosManager = $imputaObjetoCostosManager;
+        $this->gestionImputacionRepository = $gestionImputacionRepository;
     }
 
+    /**
+     * 
+     * {@inheritdoc}
+     */    
     public function imputar(Documento $documento) {
-        $this->imputarImputacionSecundaria($documento);
+        return $this->imputarImputacionSecundaria($documento);
     }
 
     private function imputarImputacionSecundaria(ImputacionSecundaria $documento) {
@@ -73,7 +85,7 @@ class ImputadorObjetosCosto implements IImputadorObjetosCosto {
         $imputacion = $itemDocumento->getObjetoCosto()->imputar(new DateTime(), $itemDocumento, $cuentaContable, -$importe);
         $this->em->persist($imputacion);
         
-        $gestionImputacion = $this->em->getRepository('Pronit\CoreBundle\Entity\Controlling\GestionImputacion')->find(array(
+        $gestionImputacion = $this->gestionImputacionRepository->find(array(
             'itemDocumento' => $itemDocumento->getImputacion()->getItemDocumento(),
             'objetoCosto' => $itemDocumento->getImputacion()->getObjetoCosto()
         ));
@@ -91,7 +103,7 @@ class ImputadorObjetosCosto implements IImputadorObjetosCosto {
         $this->em->persist($imputacion);
 
         $gestionImputacion = new GestionImputacion($imputacion);
-        $this->em->persist($gestionImputacion);
+        $this->gestionImputacionRepository->add($gestionImputacion);
 
     }
 

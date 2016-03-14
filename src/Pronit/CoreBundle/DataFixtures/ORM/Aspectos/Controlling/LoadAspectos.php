@@ -40,7 +40,7 @@ class LoadAspectos extends AbstractFixture implements FixtureInterface, OrderedF
      */
     public function load(ObjectManager $manager) {
         $this->setManager($manager);
-        $objetoCostoAspectoManager = $this->container->get('pronit_core.imputa_objeto_costos_manager');
+        $objetoCostoAspectoManager = $this->container->get('pronit.controlling.aspectos.manager.imputa_objetoscosto');
 
         $operacionBSX = $this->getReference('pronit-core-operacion-BSX');
         $objetoCostoAspectoManager->set($operacionBSX);

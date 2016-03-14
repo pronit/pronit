@@ -9,9 +9,6 @@ use Pronit\CoreBundle\Entity\Contabilidad\CuentasContables\Cuenta;
 use Pronit\CoreBundle\Entity\Controlling\Aspectos\ImputaObjetoCostos;
 use Pronit\CoreBundle\Entity\Controlling\CentroBeneficio;
 use Pronit\CoreBundle\Entity\Controlling\CentroCosto;
-use Pronit\CoreBundle\Entity\Controlling\Documentos\ImputacionSecundaria;
-use Pronit\CoreBundle\Entity\Controlling\Documentos\ItemEmisor;
-use Pronit\CoreBundle\Entity\Controlling\Documentos\ItemReceptor;
 use Pronit\CoreBundle\Entity\Controlling\Imputacion;
 use Pronit\CoreBundle\Entity\Controlling\ObjetoCosto;
 use Pronit\CoreBundle\Entity\Documentos\ItemFinanzas;
@@ -89,29 +86,6 @@ class ImputadorObjetosCostoTest extends KernelTestCase {
         return new ImputadorObjetosCosto($em, $imputaObjetoCostosAspectoManagerMock);
     }
 
-    /**
-     * 
-     * @param array $data
-     * @return ObjectManager
-     */
-    private function createObjectManagerMock(array &$data, array $repositories) {
-        /* @var $em ObjectManager */
-        $om = $this->getMock('Doctrine\Common\Persistence\ObjectManager');
-
-        $om->method('persist')->will($this->returnCallback(function ($obj) use (&$data) {
-                    if (!isset($data[get_class($obj)])) {
-                        $data[get_class($obj)] = array();
-                    } 
-                    $data[get_class($obj)][] = $obj;
-                }));
-
-        $om->method('getRepository')->will($this->returnCallback(function ($name) use ($repositories) {
-                    return $repositories[$name];
-                }));
-
-        return $om;
-    }
-
     private function createEntradaMercancias(array $operaciones, Cuenta $cuentaContable, ObjetoCosto $objetoCosto, $importeItem) {
         $doc = new EntradaMercancias();
         $item = new ItemEntradaMercancias();
@@ -121,21 +95,26 @@ class ImputadorObjetosCostoTest extends KernelTestCase {
 
         return $doc;
     }
+    
+    private function createGestionImputacionRepositoryMock(&$data) {
+        $repository = $this->getMock('Pronit\CoreBundle\Entity\Controlling\Repository\IGestionImputacionRepository');
+        $repository->method('find')->will($this->returnValue(null));
+        $repository->method('add')->will($this->returnCallback(function ($obj) use (&$data) {
+            $data['Pronit\CoreBundle\Entity\Controlling\GestionImputacion'][] = $obj;
+        }));
+        
+        return $repository;
+    }
 
 
     public function testImputar() {
 
-        $data = array();
-        $repositories = array(
-            'Pronit\CoreBundle\Entity\Controlling\GestionImputacion' => $this->getMock('Doctrine\Common\Persistence\ObjectRepository')
-        );
+        $data = array('Pronit\CoreBundle\Entity\Controlling\GestionImputacion' => array());
 
-        $em = $this->createObjectManagerMock($data, $repositories);
+        $em = $this->getMock('Doctrine\Common\Persistence\ObjectManager');
         $operaciones = $this->createOperaciones();
 
-        $repositories['Pronit\CoreBundle\Entity\Controlling\GestionImputacion']->method('find')->will($this->returnValue(null));
-
-        $imputador = new ImputadorObjetosCosto($em, $this->createImputaObjetoCostosAspectoManagerMock($operaciones));
+        $imputador = new ImputadorObjetosCosto($em, $this->createGestionImputacionRepositoryMock($data), $this->createImputaObjetoCostosAspectoManagerMock($operaciones));
 
         $objetosCosto = $this->createObjetosCosto();
         $cuentaContable = new Cuenta('CC1', 'Cuenta contable 1');
