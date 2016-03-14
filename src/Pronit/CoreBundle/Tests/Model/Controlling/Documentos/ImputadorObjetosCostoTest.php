@@ -1,6 +1,6 @@
 <?php
 
-namespace Pronit\CoreBundle\Tests\Model\Documentos\Controlling;
+namespace Pronit\CoreBundle\Tests\Model\Controlling\Documentos;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\EntradaMercancias;
@@ -14,7 +14,7 @@ use Pronit\CoreBundle\Entity\Controlling\ObjetoCosto;
 use Pronit\CoreBundle\Entity\Documentos\ItemFinanzas;
 use Pronit\CoreBundle\Entity\Operaciones\OperacionContable;
 use Pronit\CoreBundle\Model\Aspectos\IAspectoManager;
-use Pronit\CoreBundle\Model\Documentos\Controlling\ImputadorObjetosCosto;
+use Pronit\CoreBundle\Model\Controlling\Documentos\ImputadorObjetosCosto;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace Pronit\CoreBundle\Model\Documentos\Controlling;
+namespace Pronit\CoreBundle\Model\Controlling\Documentos;
 
 use ArrayObject;
 use Pronit\CoreBundle\Entity\Documentos\Documento;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Pronit\CoreBundle\Model\Documentos\Controlling;
+namespace Pronit\CoreBundle\Model\Controlling\Documentos;
 
 use DateTime;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -10,7 +10,7 @@ use Pronit\CoreBundle\Entity\Controlling\Repository\IGestionImputacionRepository
 use Pronit\CoreBundle\Entity\Documentos\Documento;
 use Pronit\CoreBundle\Entity\Documentos\ItemFinanzas;
 use Pronit\CoreBundle\Model\Aspectos\IAspectoManager;
-use Pronit\CoreBundle\Model\Documentos\Controlling\IImputadorObjetosCosto;
+use Pronit\CoreBundle\Model\Controlling\Documentos\IImputadorObjetosCosto;
 
 /**
  * @author ldelia

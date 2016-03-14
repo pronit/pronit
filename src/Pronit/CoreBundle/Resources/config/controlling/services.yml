@@ -5,9 +5,9 @@ services:
         arguments: [@doctrine.orm.entity_manager]        
         
     pronit.controlling.documentos.imputador_objetoscosto:
-        class: Pronit\CoreBundle\Model\Documentos\Controlling\ImputadorObjetosCosto
+        class: Pronit\CoreBundle\Model\Controlling\Documentos\ImputadorObjetosCosto
         arguments: [@doctrine.orm.entity_manager, @pronit.controlling.repositories.gestionimputacion, @pronit.controlling.aspectos.manager.imputa_objetoscosto ]
 
     pronit.controlling.documentos.imputacionsecundaria.imputador_objetoscosto:
-        class: Pronit\CoreBundle\Model\Documentos\Controlling\ImputacionSecundaria\ImputadorObjetosCosto
+        class: Pronit\CoreBundle\Model\Controlling\Documentos\ImputacionSecundaria\ImputadorObjetosCosto
         arguments: [@doctrine.orm.entity_manager, @pronit.controlling.repositories.gestionimputacion, @pronit.controlling.aspectos.manager.imputa_objetoscosto ]
