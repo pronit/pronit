@@ -68,6 +68,6 @@ class Cuenta
     
     public function __toString()
     {
-        return sptrintf('%s', $this->nombre);
+        return sprintf('%s', $this->nombre);
     }
 }

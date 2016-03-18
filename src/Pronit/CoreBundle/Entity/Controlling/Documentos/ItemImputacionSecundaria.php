@@ -2,6 +2,8 @@
 
 namespace Pronit\CoreBundle\Entity\Controlling\Documentos;
 
+use Doctrine\ORM\Mapping as ORM;
+
 use Pronit\CoreBundle\Entity\Controlling\ObjetoCosto;
 use Pronit\CoreBundle\Entity\Documentos\Item;
 

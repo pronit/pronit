@@ -5,18 +5,24 @@ namespace Pronit\CoreBundle\Entity\Controlling\Documentos;
 use Doctrine\ORM\Mapping as ORM;
 use Pronit\CoreBundle\Entity\Controlling\Imputacion;
 
-class ItemEmisor extends ItemImputacionSecundaria {
+/**
+ *
+ * @author ldelia
+ * @ORM\Entity
+ */
 
+class ItemEmisor extends ItemImputacionSecundaria 
+{
     /**
      * @ORM\ManyToOne(targetEntity="Pronit\CoreBundle\Entity\Controlling\Imputacion") 
      */
-    private $imputacion;
+    protected $imputacion;
 
-    public function __construct(Imputacion $imputacion) {
-        parent::__construct();
-        $this->imputacion = $imputacion;
+    public function setImputacion(Imputacion $imputacion)
+    {
+        $this->imputacion = $imputacion;        
     }
-
+    
     /**
      * 
      * @return Imputacion

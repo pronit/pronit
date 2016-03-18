@@ -17,7 +17,8 @@ use Pronit\CoreBundle\Entity\Documentos\ClasificadorItem;
         "ItemOrdenPagoValue" = "Pronit\ComprasBundle\Entity\Documentos\OrdenesPago\ItemOrdenPago",
         "VentasItemPedidoValue" = "Pronit\CoreBundle\Entity\Documentos\Ventas\Pedidos\ItemPedido", 
         "VentasItemSalidaMercanciasValue" = "Pronit\CoreBundle\Entity\Documentos\Ventas\SalidasMercancias\ItemSalidaMercancias",
-        "VentasItemFacturaValue" = "Pronit\CoreBundle\Entity\Documentos\Ventas\Facturas\ItemFactura"
+        "VentasItemFacturaValue" = "Pronit\CoreBundle\Entity\Documentos\Ventas\Facturas\ItemFactura",
+        "ControllingItemEmisorImputacionSecundariaValue" = "Pronit\CoreBundle\Entity\Controlling\Documentos\ItemEmisor"
     })
  */
 abstract class Item

@@ -31,7 +31,12 @@
                 <source>Orden List</source>
                 <target>Ordenes</target>
             </trans-unit>
-                                                                                                                                                                                                
+
+            <trans-unit id="Imputacion Secundaria List">
+                <source>Imputacion Secundaria List</source>
+                <target>Imputación Secundaria</target>
+            </trans-unit>
+                                                                                                                                                                                                                                                                                                                                                                                                
             <trans-unit id="Numero">
                 <source>Numero</source>
                 <target>Número</target>

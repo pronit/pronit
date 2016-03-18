@@ -121,7 +121,8 @@ class ImputadorObjetosCostoTest extends KernelTestCase {
     private function createImputacionSecundaria(array $objetosCosto, array $operaciones, Cuenta $cuentaContable, Imputacion $imputacionEmisor, $importeEmisor) {
         $doc = new ImputacionSecundaria();
 
-        $itemEmisor = new ItemEmisor($imputacionEmisor);
+        $itemEmisor = new ItemEmisor();
+        $itemEmisor->setImputacion($imputacionEmisor);
         $itemEmisor->setImporte($importeEmisor);
 
         $doc->addItem($itemEmisor);

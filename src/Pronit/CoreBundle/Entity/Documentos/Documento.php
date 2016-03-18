@@ -19,6 +19,7 @@ use Pronit\EstructuraEmpresaBundle\Entity\SociedadFI;
         "VentasPedidoValue" = "Pronit\CoreBundle\Entity\Documentos\Ventas\Pedidos\Pedido",
         "VentasSalidaMercanciasValue" = "Pronit\CoreBundle\Entity\Documentos\Ventas\SalidasMercancias\SalidaMercancias", 
         "VentasFacturaValue" = "Pronit\CoreBundle\Entity\Documentos\Ventas\Facturas\Factura", 
+        "ControllingImputacionSecundariaValue" = "Pronit\CoreBundle\Entity\Controlling\Documentos\ImputacionSecundaria", 
     })
  */
 abstract class Documento 

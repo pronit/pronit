@@ -26,10 +26,6 @@ class ImputacionCompensatoria {
     
     /**
      * @ORM\ManyToOne(targetEntity="Imputacion")
-     * @ORM\JoinColumns({
-     *  @ORM\JoinColumn(name="objetoCosto_id", referencedColumnName="objetoCosto_id"),
-     *  @ORM\JoinColumn(name="itemDocumento_id", referencedColumnName="itemDocumento_id")
-     * })
      * 
      * @var Imputacion
      */

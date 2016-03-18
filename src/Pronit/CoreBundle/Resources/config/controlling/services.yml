@@ -11,3 +11,8 @@ services:
     pronit.controlling.documentos.imputacionsecundaria.imputador_objetoscosto:
         class: Pronit\CoreBundle\Model\Controlling\Documentos\ImputacionSecundaria\ImputadorObjetosCosto
         arguments: [@doctrine.orm.entity_manager, @pronit.controlling.repositories.gestionimputacion, @pronit.controlling.aspectos.manager.imputa_objetoscosto ]
+
+    pronit.form.type.controlling.documentos.itememisortype:
+        class: Pronit\CoreBundle\Form\Type\Controlling\Documentos\ItemEmisorType
+        tags:
+            - { name: form.type, alias: itememisortype }        

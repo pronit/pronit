@@ -10,12 +10,20 @@ use Pronit\CoreBundle\Entity\Documentos\Item as ItemDocumento;
 /**
  * @ORM\Entity
  * @ORM\Table(name="controlling_imputacionobjetocosto")
+ *  uniqueConstraints={@ORM\UniqueConstraint(name="imputacion_unique",columns={"itemDocumento_id"})},
  */
-class Imputacion {
-
+class Imputacion 
+{
+    
+    /**
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+    
     /**
      * 
-     * @ORM\Id
      * @ORM\ManyToOne(targetEntity="ObjetoCosto", inversedBy="imputaciones") 
      * 
      * @var ObjetoCosto
@@ -24,7 +32,6 @@ class Imputacion {
 
     /**
      * 
-     * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Pronit\CoreBundle\Entity\Documentos\Item")
      *
      * @var ItemDocumento
@@ -50,7 +57,8 @@ class Imputacion {
      */
     private $importe;
 
-    public function __construct(ObjetoCosto $objetoCosto, DateTime $fecha, ItemDocumento $itemDocumento, Cuenta $cuentaContable, $importe) {
+    public function __construct(ObjetoCosto $objetoCosto, DateTime $fecha, ItemDocumento $itemDocumento, Cuenta $cuentaContable, $importe) 
+    {
         $this->importe = $importe;
         $this->objetoCosto = $objetoCosto;
         $this->cuentaContable = $cuentaContable;
@@ -92,10 +100,15 @@ class Imputacion {
 
     /**
      * 
-     * @return Item
+     * @return ItemDocumento
      */
-    public function getItemDocumento() {
+    public function getItemDocumento() 
+    {
         return $this->itemDocumento;
+    }
+    
+    public function __toString() {
+        return $this->getImporte() . " - " . $this->getObjetoCosto() . " - TODO - " . $this->getItemDocumento()->getDocumento()->getNumero();
     }
 
 }

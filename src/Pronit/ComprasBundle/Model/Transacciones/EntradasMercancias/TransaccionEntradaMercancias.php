@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Exception;
 use Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\EntradaMercancias;
 use Pronit\CoreBundle\Model\Contabilidad\Movimientos\IGeneradorAsientosContables;
-use Pronit\CoreBundle\Model\Documentos\Controlling\IImputadorObjetosCosto;
+use Pronit\CoreBundle\Model\Controlling\Documentos\IImputadorObjetosCosto;
 use Pronit\CoreBundle\Model\Documentos\IGeneradorItemsFinanzas;
 
 /**

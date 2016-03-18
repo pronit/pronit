@@ -14,6 +14,11 @@ use Pronit\CoreBundle\Entity\Documentos\Ventas\Estados\Inicial;
 use Pronit\CoreBundle\Entity\Documentos\Ventas\Estados\Contabilizado;
 
 
+/**
+ *
+ * @author ldelia
+ * @ORM\Entity
+ */
 class ImputacionSecundaria extends Documento
 {
     public function getItemsEmisor()

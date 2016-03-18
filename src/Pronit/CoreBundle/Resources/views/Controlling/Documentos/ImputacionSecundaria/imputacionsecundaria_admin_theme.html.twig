@@ -1,0 +1,73 @@
+{% extends 'SonataAdminBundle:Form:form_admin_fields.html.twig' %}
+
+{% form_theme form.items _self %}
+
+{% block infinite_form_polycollection_row %}
+
+    {% if form.vars.name == 'items' %}
+
+        {{ block('itemsImputacionSecundaria_field') }}
+
+    {% endif %}    
+
+{% endblock %}
+
+{% block itemsImputacionSecundaria_field %}
+
+    <div class="collection_itememisor">
+
+        <div class="row">
+            <div class="col-sm-3">
+                <strong>Clasificador</strong>
+            </div>            
+            <div class="col-sm-5">
+                <strong>Item documento</strong>
+            </div>
+            <div class="col-sm-3">
+                <strong>Importe</strong>
+            </div>
+            <div class="col-sm-1">            
+                <strong>Acciones</strong>
+            </div>
+        </div>
+
+        {{ form_widget(form) }}        
+
+        <a class="add_itememisor btn btn-default btn-sm sonata-ba-action" data-prototype="{{ form_row(form.vars.prototypes.itememisortype) | escape }}" href="#">
+            <span class="glyphicon glyphicon-usd"></span> Agregar Item
+        </a>
+    </div>
+
+    <script type="text/javascript">
+        $(function () {
+
+            var items = $('#{{ form.vars.id }}');
+            new window.infinite.Collection(items, items.siblings('.add_itememisor'));
+
+            items.bind('infinite_collection_add', function (e) {
+
+            });
+        });
+    </script>    
+
+{% endblock %}
+
+{% block itememisortype_row %}
+    
+    <div class="row item itememisor">
+        <div class="col-sm-3">
+            {{ form_widget(form.clasificador) }}
+        </div>                
+        <div class="col-sm-5">
+            {{ form_widget(form.imputacion) }}
+        </div>        
+        <div class="col-sm-3">
+            {{ form_widget(form.importe) }}
+        </div>
+        <div class="col-sm-1">            
+            <a class="remove_item" href="#">Eliminar</a>            
+        </div>
+        {{ form_widget(form) }}        
+    </div>
+{% endblock %}
+

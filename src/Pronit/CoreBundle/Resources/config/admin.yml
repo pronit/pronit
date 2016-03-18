@@ -243,3 +243,14 @@ services:
         calls:
             - [ setTranslationDomain, [PronitCoreBundle]]
 
+    pronit.admin.core.controlling.imputacionsecundaria:
+        class: Pronit\CoreBundle\Admin\Controlling\Documentos\ImputacionSecundariaAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Controlling", label: "Imputación Secundaria" }
+        arguments:
+            - ~
+            - Pronit\CoreBundle\Entity\Controlling\Documentos\ImputacionSecundaria
+            - ~
+        calls:
+            - [ setTemplate, [edit, PronitCoreBundle:Controlling\\Documentos\\ImputacionSecundaria\\CRUD:edit.html.twig]]                        
+            - [ setTranslationDomain, [PronitCoreBundle]]    
