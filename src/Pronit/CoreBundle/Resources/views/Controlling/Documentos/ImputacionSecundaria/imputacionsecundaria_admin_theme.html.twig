@@ -14,18 +14,21 @@
 
 {% block itemsImputacionSecundaria_field %}
 
-    <div class="collection_itememisor">
+    <div class="collection_item">
 
         <div class="row">
             <div class="col-sm-3">
                 <strong>Clasificador</strong>
             </div>            
-            <div class="col-sm-5">
+            <div class="col-sm-3">
                 <strong>Item documento</strong>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-2">
                 <strong>Importe</strong>
             </div>
+            <div class="col-sm-3">
+                <strong>Objeto Costo</strong>
+            </div>            
             <div class="col-sm-1">            
                 <strong>Acciones</strong>
             </div>
@@ -33,8 +36,11 @@
 
         {{ form_widget(form) }}        
 
-        <a class="add_itememisor btn btn-default btn-sm sonata-ba-action" data-prototype="{{ form_row(form.vars.prototypes.itememisortype) | escape }}" href="#">
-            <span class="glyphicon glyphicon-usd"></span> Agregar Item
+        <a class="add_item btn btn-default btn-sm sonata-ba-action" data-prototype="{{ form_row(form.vars.prototypes.itememisortype) | escape }}" href="#">
+            <span class="glyphicon glyphicon-log-out"></span> Agregar Item Emisor
+        </a>
+        <a class="add_item btn btn-default btn-sm sonata-ba-action" data-prototype="{{ form_row(form.vars.prototypes.itemreceptortype) | escape }}" href="#">
+            <span class="glyphicon glyphicon-log-in"></span> Agregar Item Receptor
         </a>
     </div>
 
@@ -42,7 +48,7 @@
         $(function () {
 
             var items = $('#{{ form.vars.id }}');
-            new window.infinite.Collection(items, items.siblings('.add_itememisor'));
+            new window.infinite.Collection(items, items.siblings('.add_item'));
 
             items.bind('infinite_collection_add', function (e) {
 
@@ -58,12 +64,35 @@
         <div class="col-sm-3">
             {{ form_widget(form.clasificador) }}
         </div>                
-        <div class="col-sm-5">
+        <div class="col-sm-3">
             {{ form_widget(form.imputacion) }}
         </div>        
-        <div class="col-sm-3">
+        <div class="col-sm-2">
             {{ form_widget(form.importe) }}
         </div>
+        <div class="col-sm-3">            
+        </div>                
+        <div class="col-sm-1">            
+            <a class="remove_item" href="#">Eliminar</a>            
+        </div>
+        {{ form_widget(form) }}        
+    </div>
+{% endblock %}
+
+{% block itemreceptortype_row %}
+    
+    <div class="row item itemreceptor">
+        <div class="col-sm-3">
+            {{ form_widget(form.clasificador) }}
+        </div>                
+        <div class="col-sm-3">
+        </div>        
+        <div class="col-sm-2">
+            {{ form_widget(form.importe) }}
+        </div>
+        <div class="col-sm-3">            
+            {{ form_widget(form.objetoCosto) }}            
+        </div>                
         <div class="col-sm-1">            
             <a class="remove_item" href="#">Eliminar</a>            
         </div>

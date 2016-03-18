@@ -40,8 +40,17 @@ class ImputacionSecundariaAdmin extends Admin
                 ->add('fecha', 'date', array( 'format' => 'd/m/Y' ))                                                
                 ->add('textoCabecera')
             ->end()      
-            ->with('Items')
-                ->add('items', null, array('template' => 'PronitCoreBundle:Controlling\Documentos\ImputacionSecundaria\CRUD\show:items.html.twig'))
+            ->with('Items Emisores')
+                ->add('itemsEmisor', null, 
+                        array(
+                            'template' => 'PronitCoreBundle:Controlling\Documentos\ImputacionSecundaria\CRUD\show:itemsEmisores.html.twig')
+                        )
+            ->end()  
+            ->with('Items Receptores')
+                ->add('itemsReceptores', null, 
+                        array(
+                            'template' => 'PronitCoreBundle:Controlling\Documentos\ImputacionSecundaria\CRUD\show:itemsReceptores.html.twig')
+                        )
             ->end()  
 
         ;
@@ -69,6 +78,7 @@ class ImputacionSecundariaAdmin extends Admin
                     $formMapper->create('items', 'infinite_form_polycollection', array(
                         'types' => array(
                             'itememisortype', 
+                            'itemreceptortype', 
                         ),
                         'allow_add' => true,
                         'allow_delete' => true,

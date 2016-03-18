@@ -23,12 +23,26 @@ class ImputacionSecundaria extends Documento
 {
     public function getItemsEmisor()
     {
-        throw new \Exception("No implementado aún");
+        $itemsEmisores = new \Doctrine\Common\Collections\ArrayCollection();
+        
+        foreach( $this->getItems() as $item ){
+            if ('Pronit\CoreBundle\Entity\Controlling\Documentos\ItemEmisor' === get_class($item)){
+                $itemsEmisores->add($item);
+            }
+        }
+        return $itemsEmisores;
     }
     
     public function getItemsReceptores()
     {
-        throw new \Exception("No implementado aún");
+        $itemsReceptores = new \Doctrine\Common\Collections\ArrayCollection();
+        
+        foreach( $this->getItems() as $item ){
+            if ('Pronit\CoreBundle\Entity\Controlling\Documentos\ItemReceptor' === get_class($item)){
+                $itemsReceptores->add($item);
+            }
+        }
+        return $itemsReceptores;
     }
 }
 

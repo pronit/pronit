@@ -16,3 +16,8 @@ services:
         class: Pronit\CoreBundle\Form\Type\Controlling\Documentos\ItemEmisorType
         tags:
             - { name: form.type, alias: itememisortype }        
+            
+    pronit.form.type.controlling.documentos.itemreceptortype:
+        class: Pronit\CoreBundle\Form\Type\Controlling\Documentos\ItemReceptorType
+        tags:
+            - { name: form.type, alias: itemreceptortype }        

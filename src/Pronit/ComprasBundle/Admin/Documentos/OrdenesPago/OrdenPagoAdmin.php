@@ -52,7 +52,7 @@ class OrdenPagoAdmin extends Admin
                 ->add('textoCabecera')
             ->end()      
             ->with('Items')
-                ->add('items', null, array('template' => 'PronitComprasBundle:Documentos\OrdenPago\show:items.html.twig'))
+                ->add('items', null, array('template' => 'PronitComprasBundle:Documentos\OrdenPago\CRUD\show:items.html.twig'))
             ->end()  
             // todo mostrar pagos
         ;
