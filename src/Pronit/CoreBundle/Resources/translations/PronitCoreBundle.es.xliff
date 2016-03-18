@@ -36,7 +36,12 @@
                 <source>Imputacion Secundaria List</source>
                 <target>Imputación Secundaria</target>
             </trans-unit>
-                                                                                                                                                                                                                                                                                                                                                                                                
+
+            <trans-unit id="Imputacion Secundaria Create">
+                <source>Imputacion Secundaria Create</source>
+                <target>Nueva Imputación Secundaria</target>
+            </trans-unit>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
             <trans-unit id="Numero">
                 <source>Numero</source>
                 <target>Número</target>

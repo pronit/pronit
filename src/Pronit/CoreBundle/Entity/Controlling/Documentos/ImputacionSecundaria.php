@@ -13,7 +13,8 @@ use Pronit\CoreBundle\Entity\Documentos\Ventas\Estados\EstadoVentas;
 use Pronit\CoreBundle\Entity\Documentos\Ventas\Estados\Inicial;
 use Pronit\CoreBundle\Entity\Documentos\Ventas\Estados\Contabilizado;
 
-
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 /**
  *
  * @author ldelia
@@ -21,6 +22,28 @@ use Pronit\CoreBundle\Entity\Documentos\Ventas\Estados\Contabilizado;
  */
 class ImputacionSecundaria extends Documento
 {
+    /**
+     * @Assert\Callback
+     */
+    public function validate(ExecutionContextInterface $context)
+    {
+        $importeTotalEmisores = 0;
+        $importeTotalReceptores = 0;
+        
+        foreach($this->getItemsEmisor() as $itemEmisor){
+            $importeTotalEmisores += $itemEmisor->getImporte();
+        }
+        foreach($this->getItemsReceptor() as $itemReceptor){
+            $importeTotalReceptores += $itemReceptor->getImporte();
+        }
+        
+        if ( $importeTotalEmisores !== $importeTotalReceptores ){
+            $context->buildViolation('La sumatoria de los importes de los items emisor debe coincidir a la sumatoria de los importes de los items receptor')
+                ->atPath('items')
+                ->addViolation();            
+        }
+    }
+    
     public function getItemsEmisor()
     {
         $itemsEmisores = new \Doctrine\Common\Collections\ArrayCollection();
@@ -33,7 +56,7 @@ class ImputacionSecundaria extends Documento
         return $itemsEmisores;
     }
     
-    public function getItemsReceptores()
+    public function getItemsReceptor()
     {
         $itemsReceptores = new \Doctrine\Common\Collections\ArrayCollection();
         

@@ -36,10 +36,12 @@
 
         {{ form_widget(form) }}        
 
-        <a class="add_item btn btn-default btn-sm sonata-ba-action" data-prototype="{{ form_row(form.vars.prototypes.itememisortype) | escape }}" href="#">
+        <hr>
+        
+        <a class="add_item btn btn-primary btn-sm" data-prototype="{{ form_row(form.vars.prototypes.itememisortype) | escape }}" href="#">
             <span class="glyphicon glyphicon-log-out"></span> Agregar Item Emisor
         </a>
-        <a class="add_item btn btn-default btn-sm sonata-ba-action" data-prototype="{{ form_row(form.vars.prototypes.itemreceptortype) | escape }}" href="#">
+        <a class="add_item btn btn-info btn-sm" data-prototype="{{ form_row(form.vars.prototypes.itemreceptortype) | escape }}" href="#">
             <span class="glyphicon glyphicon-log-in"></span> Agregar Item Receptor
         </a>
     </div>

@@ -47,7 +47,7 @@ class ImputacionSecundariaAdmin extends Admin
                         )
             ->end()  
             ->with('Items Receptores')
-                ->add('itemsReceptores', null, 
+                ->add('itemsReceptor', null, 
                         array(
                             'template' => 'PronitCoreBundle:Controlling\Documentos\ImputacionSecundaria\CRUD\show:itemsReceptores.html.twig')
                         )
