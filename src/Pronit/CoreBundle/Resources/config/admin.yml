@@ -250,7 +250,18 @@ services:
         arguments:
             - ~
             - Pronit\CoreBundle\Entity\Controlling\Documentos\ImputacionSecundaria
-            - ~
+            - 'PronitCoreBundle:Controlling\Documentos\ImputacionSecundaria\ImputacionSecundaria'
         calls:
             - [ setTemplate, [edit, PronitCoreBundle:Controlling\\Documentos\\ImputacionSecundaria\\CRUD:edit.html.twig]]                        
             - [ setTranslationDomain, [PronitCoreBundle]]    
+            
+    pronit.admin.core.controlling.reporteimputacionobjetocosto:
+        class: Pronit\CoreBundle\Admin\Controlling\ReporteImputacionObjetoCostoAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Controlling", label: "Reporte Imputaciones" }
+        arguments:
+            - ~
+            - Pronit\CoreBundle\Entity\Controlling\Imputacion
+            - ~
+        calls:
+            - [ setTranslationDomain, [PronitCoreBundle]]                

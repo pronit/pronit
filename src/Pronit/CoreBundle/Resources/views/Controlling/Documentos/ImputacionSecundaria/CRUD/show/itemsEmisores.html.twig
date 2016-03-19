@@ -11,8 +11,8 @@
                 
             <tr>
                 <td>{{ item.clasificador }}</td>
-                <td>{{ item.imputacion }}</td>
-                <td>{{ item.importe }}</td>                
+                <td>{{ item.gestionImputacion.imputacionInicial.objetoCosto }} - {{ item.gestionImputacion.imputacionInicial.itemDocumento.posicion }} - {{ item.gestionImputacion.imputacionInicial.itemDocumento.documento.numero }}</td>
+                <td>$ {{ item.importe|number_format(2, ',', '.') }}</td>                
             </tr>
             {% endfor %}   
             

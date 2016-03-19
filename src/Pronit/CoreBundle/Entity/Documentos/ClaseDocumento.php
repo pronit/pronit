@@ -22,6 +22,8 @@ class ClaseDocumento {
     const CODIGO_FACTURADEUDOR = "DR";
     const CODIGO_SALIDAMERCANCIAS = "SM";
     
+    const CODIGO_DISTRIBUCIONSECUNDARIA = "DS";
+    
     /**
      * @ORM\Column(type="string")
      * @ORM\Id

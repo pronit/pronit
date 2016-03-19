@@ -47,6 +47,11 @@
                 <target>Número</target>
             </trans-unit>
 
+            <trans-unit id="Descripcion">
+                <source>Descripcion</source>
+                <target>Descripción</target>
+            </trans-unit>
+
             <trans-unit id="Sociedad F I">
                 <source>Sociedad F I</source>
                 <target>Sociedad FI</target>
@@ -61,6 +66,16 @@
                 <source>Centro Logistico</source>
                 <target>Centro Logístico</target>
             </trans-unit>
+            
+            <trans-unit id="Movimiento List">
+                <source>Movimiento List</source>
+                <target>Libro diario</target>
+            </trans-unit>            
+
+            <trans-unit id="Imputacion List">
+                <source>Imputacion List</source>
+                <target>Reporte de Imputaciones</target>
+            </trans-unit>            
 
             <trans-unit id="Action">
                 <source>Action</source>

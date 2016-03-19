@@ -30,8 +30,15 @@ abstract class Item
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;    
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $posicion;    
     
-    /** @ORM\ManyToOne(targetEntity="Documento", inversedBy="items") */
+    /** 
+     * @ORM\ManyToOne(targetEntity="Documento", inversedBy="items") 
+     */
     private $documento;    
     
     /**
@@ -72,5 +79,15 @@ abstract class Item
     public function setClasificador(ClasificadorItem $clasificador)
     {
         $this->clasificador = $clasificador;
+    }    
+    
+    function getPosicion() 
+    {
+        return $this->posicion;
+    }
+
+    function setPosicion($posicion) 
+    {
+        $this->posicion = $posicion;
     }    
 }

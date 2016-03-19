@@ -13,8 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
  * 
  * @author gcaseres
  */
-class GestionImputacion {
-
+class GestionImputacion 
+{
     /**
      * 
      * @ORM\Id
@@ -43,7 +43,7 @@ class GestionImputacion {
 
     /**
      * 
-     * @ORM\OneToMany(targetEntity="ImputacionCompensatoria", mappedBy="gestionImputacion")
+     * @ORM\OneToMany(targetEntity="ImputacionCompensatoria", mappedBy="gestionImputacion", cascade={"ALL"})
      * 
      * @var ArrayCollection
      */
@@ -94,4 +94,15 @@ class GestionImputacion {
         return $this->importe;
     }
 
+    public function __toString() 
+    {
+        return '$ ' . 
+                number_format($this->getImporte(), 2, ',', '.')
+                . " - " 
+                . $this->getImputacionInicial()->getObjetoCosto() 
+                . " - " 
+                .  $this->getImputacionInicial()->getItemDocumento()->getPosicion() 
+                . " - " 
+                . $this->getImputacionInicial()->getItemDocumento()->getDocumento()->getNumero();
+    }
 }

@@ -4,7 +4,7 @@ namespace Pronit\CoreBundle\Entity\Controlling\Documentos;
 
 use Doctrine\ORM\Mapping as ORM;
 use Pronit\CoreBundle\Entity\Controlling\Imputacion;
-
+use Pronit\CoreBundle\Entity\Controlling\GestionImputacion;
 /**
  *
  * @author ldelia
@@ -14,29 +14,34 @@ use Pronit\CoreBundle\Entity\Controlling\Imputacion;
 class ItemEmisor extends ItemImputacionSecundaria 
 {
     /**
-     * @ORM\ManyToOne(targetEntity="Pronit\CoreBundle\Entity\Controlling\Imputacion") 
+     * @ORM\ManyToOne(targetEntity="Pronit\CoreBundle\Entity\Controlling\GestionImputacion") 
+     * @ORM\JoinColumns({
+     *  @ORM\JoinColumn(name="objetoCosto_id", referencedColumnName="objetoCosto_id"),
+     *  @ORM\JoinColumn(name="itemDocumento_id", referencedColumnName="itemDocumento_id")     
+     * })
      */
-    protected $imputacion;
-
-    public function setImputacion(Imputacion $imputacion)
-    {
-        $this->imputacion = $imputacion;        
-    }
-    
+    protected $gestionImputacion;
     /**
      * 
-     * @return Imputacion
+     * @return GestionImputacion
      */
-    public function getImputacion() {
-        return $this->imputacion;
+    function getGestionImputacion() 
+    {
+        return $this->gestionImputacion;
     }
+
+    function setGestionImputacion(GestionImputacion $gestionImputacion) 
+    {
+        $this->gestionImputacion = $gestionImputacion;
+    }    
 
     /**
      * 
      * @return ObjetoCostro
      */
-    public function getObjetoCosto() {
-        return $this->imputacion->getObjetoCosto();
+    public function getObjetoCosto() 
+    {
+        return $this->gestionImputacion->getImputacionInicial()->getObjetoCosto();
     }
 
 }

@@ -11,22 +11,22 @@ class ItemEmisorType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('clasificador', 'entity', array(
-            'class' => 'PronitCoreBundle:Controlling\Documentos\ClasificadorItemImputacionSecundaria',
-            'query_builder' => function (EntityRepository $er) {
-                return $er->createQueryBuilder('c')
-                    ->where("c.nombre = 'Item emisor'");
-            }            
-        ));        
-        $builder->add('imputacion', 'entity', array(
-            'class' => 'PronitCoreBundle:Controlling\Imputacion'
-        ));
-        $builder->add('importe');
-        
-        $builder->add('_type', 'hidden', array(
-            'data'   => $this->getName(),
-            'mapped' => false
-        ));        
+        $builder
+            ->add('clasificador', 'entity', array(
+                'class' => 'PronitCoreBundle:Controlling\Documentos\ClasificadorItemImputacionSecundaria',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->where("c.nombre = 'Item emisor'");
+                }            
+            ))
+            ->add('gestionImputacion', 'entity', array(
+                'class' => 'PronitCoreBundle:Controlling\GestionImputacion',
+            ))
+            ->add('importe')
+            ->add('_type', 'hidden', array(
+                'data'   => $this->getName(),
+                'mapped' => false
+            ));        
     }
     
     public function setDefaultOptions(OptionsResolverInterface $resolver)

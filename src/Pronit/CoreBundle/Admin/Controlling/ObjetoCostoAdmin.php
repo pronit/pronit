@@ -41,6 +41,9 @@ abstract class ObjetoCostoAdmin extends Admin
             ->add('cuentaContable')
             ->add('validezDesde', 'date', array( 'format' => 'd/m/Y' ))
             ->add('validezHasta', 'date', array( 'format' => 'd/m/Y' ))                
+            ->add('importe', 'currency', array(
+                'template' => 'PronitCoreBundle:Controlling/ObjetoCosto:list_importe.html.twig'
+            ))
         ;
     }
 }

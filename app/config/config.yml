@@ -40,7 +40,7 @@ twig:
         resources:
             - 'InfiniteFormBundle::form_theme.html.twig'
             - 'InfiniteFormBundle::collection_theme.html.twig'            
-            
+            - 'SonataCoreBundle:Form:datepicker.html.twig'            
 # Assetic Configuration
 assetic:
     debug:          "%kernel.debug%"

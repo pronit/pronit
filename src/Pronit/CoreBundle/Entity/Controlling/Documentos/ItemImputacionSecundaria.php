@@ -14,11 +14,13 @@ abstract class ItemImputacionSecundaria extends Item {
      */
     protected $importe;
 
-    public function getImporte() {
+    public function getImporte() 
+    {
         return $this->importe;
     }
 
-    public function setImporte($importe) {
+    public function setImporte($importe) 
+    {
         $this->importe = $importe;
     }
 
