@@ -10,86 +10,92 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="pgener_escala")
  */
-class Escala
-{    
+class Escala {
+
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     */    
+     */
     protected $id;
 
     /**
      * @ORM\Column(type="string", length=50)
-     */    
+     */
     protected $nombre;
-    
+
     /**
      * @ORM\Column(type="string", length=10)
-     */        
+     */
     protected $abreviatura;
-    
-    /** @ORM\ManyToOne(targetEntity="Pronit\ParametrizacionGeneralBundle\Entity\SistemaMedicion", inversedBy="escalas") */
+
+    /** @ORM\ManyToOne(targetEntity=SistemaMedicionn", inversedBy="escalas") */
     protected $sistemaMedicion;
-    
+
     /**
      * @ORM\Column(type="float")
-     */    
-    private $factor;    
-    
-    public function __construct()
-    {
+     */
+    private $factor;
+
+    public function __construct($nombre, $abreviatura, $factor) {
+        $this->nombre = $nombre;
+        $this->abreviatura = $abreviatura;
+        $this->factor = $factor;
     }
-    
-    public function getId()
-    {
+
+    public function getId() {
         return $this->id;
     }
-    
-    public function setNombre($valor)
-    {
+
+    public function setNombre($valor) {
         $this->nombre = $valor;
     }
-    
-    public function getNombre()
-    {
+
+    public function getNombre() {
         return $this->nombre;
     }
-    
-    
-    public function setAbreviatura($value)
-    {
+
+    public function setAbreviatura($value) {
         $this->abreviatura = $value;
     }
-    
-    public function getAbreviatura()
-    {
+
+    public function getAbreviatura() {
         return $this->abreviatura;
     }
 
-    public function getSistemaMedicion()
-    {
+    /**
+     * 
+     * @return SistemaMedicion
+     */
+    public function getSistemaMedicion() {
         return $this->sistemaMedicion;
     }
 
-    public function setSistemaMedicion($sistemaMedicion)
-    {
+    public function setSistemaMedicion($sistemaMedicion) {
         $this->sistemaMedicion = $sistemaMedicion;
     }
-      
-    public function getFactor()
-    {
+
+    public function getFactor() {
         return $this->factor;
     }
 
-    public function setFactor($factor)
-    {
+    public function setFactor($factor) {
         $this->factor = $factor;
-    }    
-    
-    public function __toString()
-    {
+    }
+
+    public function __toString() {
         return $this->getNombre();
     }
-}
 
+    /**
+     * 
+     * @param float $valor
+     * @param \Pronit\ParametrizacionGeneralBundle\Entity\Escala $escala
+     * @return float
+     */
+    public function escalar($valor, Escala $escala) {
+        $factor = $this->getFactor() / $escala->getFactor();
+        return $valor * $factor;
+    }
+
+}
