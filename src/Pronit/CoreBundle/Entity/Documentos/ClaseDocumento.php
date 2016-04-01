@@ -17,6 +17,7 @@ class ClaseDocumento {
     const CODIGO_PEDIDO = "PD";
     const CODIGO_FACTURAACREEDOR = "KR";
     const CODIGO_ENTRADAMERCANCIAS = "EM";
+    const CODIGO_ORDENPAGO = "OP";
     
     const CODIGO_PEDIDOVENTA = "PV";
     const CODIGO_FACTURADEUDOR = "DR";

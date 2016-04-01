@@ -2,6 +2,7 @@
 namespace Pronit\ComprasBundle\Admin\Documentos\OrdenesPago;
 
 use Pronit\ComprasBundle\Entity\Documentos\OrdenesPago\OrdenPago;
+use Pronit\CoreBundle\Entity\Documentos\ClaseDocumento;
 
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -10,7 +11,6 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Knp\Menu\ItemInterface as MenuItemInterface;
 use Sonata\AdminBundle\Admin\AdminInterface;
-
 
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormEvent;
@@ -166,4 +166,16 @@ class OrdenPagoAdmin extends Admin
         $collection->add('contabilizar', $this->getRouterIdParameter() . '/contabilizar');
         $collection->add('renderGestionMovimientoList', $this->getRouterIdParameter() . '/renderGestionMovimientoList');        
     }    
+    
+    public function getNewInstance()
+    {
+        /* @var $clase \Pronit\CoreBundle\Entity\Documentos\ClaseDocumento  */
+        $clase = $this->getModelManager()->find('Pronit\CoreBundle\Entity\Documentos\ClaseDocumento', ClaseDocumento::CODIGO_ORDENPAGO);                        
+        
+        $ordenPago = new OrdenPago();
+        $ordenPago->setClase($clase);
+                
+        return $ordenPago;
+    }
+    
 }

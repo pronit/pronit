@@ -6,6 +6,8 @@ use Pronit\ComprasBundle\Entity\Documentos\Facturas\Factura;
 use Pronit\ComprasBundle\Entity\Documentos\Facturas\ItemFactura;
 use Pronit\ComprasBundle\Entity\Documentos\Pedidos\Pedido;
 
+use Pronit\CoreBundle\Entity\Documentos\ClaseDocumento;
+
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
@@ -102,7 +104,11 @@ class FacturaAdmin extends Admin
     
     public function getNewInstance()
     {
+        /* @var $clase \Pronit\CoreBundle\Entity\Documentos\ClaseDocumento  */
+        $clase = $this->getModelManager()->find('Pronit\CoreBundle\Entity\Documentos\ClaseDocumento', ClaseDocumento::CODIGO_FACTURAACREEDOR);                        
+        
         $factura = new Factura();
+        $factura->setClase($clase);
         
         $entradamercancias_id = $this->request->query->get('entradamercancias_id');
         

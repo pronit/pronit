@@ -10,6 +10,8 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
+use Pronit\CoreBundle\Entity\Documentos\ClaseDocumento;
+use Pronit\CoreBundle\Entity\Documentos\Ventas\Pedidos\Pedido;
 /**
  *
  * @author ldelia
@@ -145,5 +147,16 @@ class PedidoAdmin extends Admin
     {
         $collection->add('contabilizar', $this->getRouterIdParameter() . '/contabilizar');
         $collection->add('crearSalidaMercanciasDesdePedido', $this->getRouterIdParameter() . '/new');
+    }    
+    
+    public function getNewInstance()
+    {
+        /* @var $clase \Pronit\CoreBundle\Entity\Documentos\ClaseDocumento  */
+        $clase = $this->getModelManager()->find('Pronit\CoreBundle\Entity\Documentos\ClaseDocumento', ClaseDocumento::CODIGO_PEDIDOVENTA);                        
+        
+        $documento = new Pedido();
+        $documento->setClase($clase);
+                
+        return $documento;
     }    
 }

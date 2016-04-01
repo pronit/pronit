@@ -10,6 +10,7 @@ use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 
+use Pronit\CoreBundle\Entity\Documentos\ClaseDocumento;
 use Pronit\CoreBundle\Entity\Documentos\Ventas\SalidasMercancias\SalidaMercancias;
 use Pronit\CoreBundle\Entity\Documentos\Ventas\SalidasMercancias\ItemSalidaMercancias;
 
@@ -111,7 +112,11 @@ class SalidaMercanciasAdmin extends Admin
     
     public function getNewInstance()
     {
+        /* @var $clase \Pronit\CoreBundle\Entity\Documentos\ClaseDocumento  */
+        $clase = $this->getModelManager()->find('Pronit\CoreBundle\Entity\Documentos\ClaseDocumento', ClaseDocumento::CODIGO_SALIDAMERCANCIAS);
+        
         $salidaMercancias = new SalidaMercancias();
+        $salidaMercancias->setClase($clase);
         
         $pedido_id = $this->request->query->get('pedido_id');
         

@@ -9,6 +9,7 @@ use Sonata\AdminBundle\Route\RouteCollection;
 use Knp\Menu\ItemInterface as MenuItemInterface;
 use Sonata\AdminBundle\Admin\AdminInterface;
 
+use Pronit\CoreBundle\Entity\Documentos\ClaseDocumento;
 use Pronit\CoreBundle\Entity\Documentos\Ventas\Facturas\Factura;
 use Pronit\CoreBundle\Entity\Documentos\Ventas\Facturas\ItemFactura;
 
@@ -100,7 +101,11 @@ class FacturaAdmin extends Admin
     
     public function getNewInstance()
     {
+        /* @var $clase \Pronit\CoreBundle\Entity\Documentos\ClaseDocumento  */
+        $clase = $this->getModelManager()->find('Pronit\CoreBundle\Entity\Documentos\ClaseDocumento', ClaseDocumento::CODIGO_FACTURADEUDOR);
+        
         $factura = new Factura();
+        $factura->setClase($clase);
         
         $salidamercancias_id = $this->request->query->get('salidamercancias_id');
         

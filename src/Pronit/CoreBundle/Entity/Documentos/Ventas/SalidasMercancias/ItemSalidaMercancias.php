@@ -98,6 +98,16 @@ class ItemSalidaMercancias extends ItemVentas
     {
         $this->estadoFacturacion = $estadoFacturacion;
     }    
+    
+    public function isFacturacionFinalizada()
+    {
+        return $this->getEstadoFacturacion() instanceof FacturacionFinalizada;
+    }
+    
+    public function isFacturadoParcialmente()
+    {
+        return $this->getEstadoFacturacion() instanceof FacturadoParcialmente;
+    }        
 
     public function contabilizar()
     {

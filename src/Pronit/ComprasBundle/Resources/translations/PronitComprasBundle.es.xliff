@@ -6,10 +6,20 @@
                 <source>Pedido List</source>
                 <target>Pedidos de Compra</target>
             </trans-unit>
-            
+
+            <trans-unit id="Pedido Create">
+                <source>Pedido Create</source>
+                <target>Nuevo Pedido</target>
+            </trans-unit>
+                        
             <trans-unit id="Entrada Mercancias List">
                 <source>Entrada Mercancias List</source>
                 <target>Entrada de Mercancías</target>
+            </trans-unit>
+
+            <trans-unit id="Entrada Mercancias Create">
+                <source>Entrada Mercancias Create</source>
+                <target>Nueva Entrada de Mercancías</target>
             </trans-unit>
 
             <trans-unit id="Factura List">
