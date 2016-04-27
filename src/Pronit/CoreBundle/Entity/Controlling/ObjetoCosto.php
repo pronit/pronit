@@ -52,6 +52,11 @@ abstract class ObjetoCosto {
      * @ORM\Column(type="date")
      */
     protected $validezHasta;
+    
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $importe;    
 
     /**
      *      
@@ -63,6 +68,7 @@ abstract class ObjetoCosto {
 
     public function __construct() {
         $this->imputaciones = new ArrayCollection();
+        $this->importe = 0;
     }
 
     public function getId() {
@@ -121,7 +127,14 @@ abstract class ObjetoCosto {
         $imputacion = new Imputacion($this, $fecha, $itemDocumento, $cuentaContable, $importe);
         $this->imputaciones->add($imputacion);
         
+        $this->importe += $importe;
+        
         return $imputacion;        
+    }
+    
+    public function getImporte()
+    {
+        return $this->importe;
     }
     
     /**

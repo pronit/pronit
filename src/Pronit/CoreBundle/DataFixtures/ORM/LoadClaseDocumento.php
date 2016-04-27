@@ -47,8 +47,11 @@ class LoadClaseDocumento extends AbstractFixture implements FixtureInterface, Or
             array("codigo" => ClaseDocumento::CODIGO_FACTURAACREEDOR, "nombre" => "Factura de acreedor"),
             array("codigo" => ClaseDocumento::CODIGO_ENTRADAMERCANCIAS, "nombre" => "Entrada de mercancías"),
             array("codigo" => ClaseDocumento::CODIGO_PEDIDOVENTA, "nombre" => "Pedido de ventas"),
+            array("codigo" => ClaseDocumento::CODIGO_ORDENPAGO, "nombre" => "Orden de Pago"),                        
             array("codigo" => ClaseDocumento::CODIGO_FACTURADEUDOR, "nombre" => "Factura de deudor"),
             array("codigo" => ClaseDocumento::CODIGO_SALIDAMERCANCIAS, "nombre" => "Salida de mercancías"),            
+            array("codigo" => ClaseDocumento::CODIGO_DISTRIBUCIONSECUNDARIA, "nombre" => "Distribución secundaria"),            
+
         );
 
         foreach ($values as $value) {

@@ -12,7 +12,7 @@
             <tr>
                 <td>{{ item.clasificador }}</td>
                 <td>{{ item.objetoCosto }}</td>
-                <td>{{ item.importe }}</td>                
+                <td>$ {{ item.importe|number_format(2, ',', '.') }}</td>                
             </tr>
             {% endfor %}   
             

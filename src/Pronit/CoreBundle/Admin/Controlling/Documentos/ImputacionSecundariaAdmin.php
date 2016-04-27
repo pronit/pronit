@@ -9,9 +9,8 @@ use Sonata\AdminBundle\Route\RouteCollection;
 use Knp\Menu\ItemInterface as MenuItemInterface;
 use Sonata\AdminBundle\Admin\AdminInterface;
 
-
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormEvent;
+use Pronit\CoreBundle\Entity\Controlling\Documentos\ImputacionSecundaria;
+use Pronit\CoreBundle\Entity\Documentos\ClaseDocumento;
 
 /**
  *
@@ -19,13 +18,14 @@ use Symfony\Component\Form\FormEvent;
  */
 class ImputacionSecundariaAdmin extends Admin
 {   
-    protected $baseRouteName = 'pronit_controlling_imputacionsecundaria';
+    protected $baseRouteName = 'pronit_controlling_documentos_imputacionsecundaria';
     
     // Fields to be shown on lists
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
             ->addIdentifier('numero', null, array('route' => array('name' => 'show')))
+            ->add('contabilizado')
             ->add('sociedad')
             ->add('fecha', 'date', array( 'format' => 'd/m/Y' ))
         ;
@@ -36,6 +36,7 @@ class ImputacionSecundariaAdmin extends Admin
         $showMapper
             ->with('Cabecera')
                 ->add('numero')
+                ->add('contabilizado')
                 ->add('sociedad')                
                 ->add('fecha', 'date', array( 'format' => 'd/m/Y' ))                                                
                 ->add('textoCabecera')
@@ -99,13 +100,18 @@ class ImputacionSecundariaAdmin extends Admin
     
     protected function configureSideMenu(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null) 
     {        
-        if( $action == "show"){
+        if( $action == "show" ){
             
             $admin = $this->isChild() ? $this->getParent() : $this;
             $id = $admin->getRequest()->get('id');
-
-            $menu->addChild( 'Contabilizar', array('uri' => $admin->generateUrl('contabilizar', array('id' => $id))) )
-                        ->setLinkAttribute('class', 'glyphicon glyphicon-ok');                
+            
+            /* @var $imputacionSecundaria \Pronit\CoreBundle\Entity\Controlling\Documentos\ImputacionSecundaria */            
+            $imputacionSecundaria = $this->getObject($id);
+            
+            if(! $imputacionSecundaria->isContabilizado()){
+                $menu->addChild( 'Contabilizar', array('uri' => $admin->generateUrl('contabilizar', array('id' => $id))) )
+                            ->setLinkAttribute('class', 'glyphicon glyphicon-ok');                
+            }
         }
     }    
     
@@ -113,4 +119,15 @@ class ImputacionSecundariaAdmin extends Admin
     {
         $collection->add('contabilizar', $this->getRouterIdParameter() . '/contabilizar');
     }    
+    
+    public function getNewInstance()
+    {
+        /* @var $clase \Pronit\CoreBundle\Entity\Documentos\ClaseDocumento  */
+        $clase = $this->getModelManager()->find('Pronit\CoreBundle\Entity\Documentos\ClaseDocumento', ClaseDocumento::CODIGO_DISTRIBUCIONSECUNDARIA);        
+        
+        $documento = new ImputacionSecundaria();
+        $documento->setClase($clase);
+        
+        return $documento;
+    }        
 }

@@ -12,6 +12,8 @@ use Pronit\ComprasBundle\Entity\Documentos\Pedidos\Pedido;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+use Pronit\CoreBundle\Entity\Documentos\ClaseDocumento;
+
 /**
  * @author ldelia
  */
@@ -51,9 +53,12 @@ class LoadPedidos extends AbstractFixture implements FixtureInterface, OrderedFi
 
         $clasificador = $this->getReference('pronit-documentos-compras-clasificadoritempedido-100');
         $escalaMetro = $this->getReference('pronit-parametrizaciongeneral-escala-metro');
+        
+        $clase = $this->getReference('pronit-core-clasedocumento-' . ClaseDocumento::CODIGO_PEDIDO);
 
         
         $pedido = new Pedido();
+        $pedido->setClase($clase);
         $pedido->setSociedad($sociedad);
         $pedido->setNumero("3444/5");
         $pedido->setFecha(new DateTime());

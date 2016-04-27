@@ -71,7 +71,7 @@ class GeneradorItemsFinanzas implements IGeneradorItemsFinanzas {
         $mappingCondicionPagos = $this->operacionesCustomizingManager->getMappingsCondicionPagosByClaseDocumento($claseDocumento);
 
         $operacion = $mappingCondicionPagos->getOperacion();
-        $cuenta = $documento->getProveedorSociedad()->getAcreedor()->getCuenta();
+        $cuenta = $documento->getDeudorSociedad()->getDeudor()->getCuenta();
 
         $importeTotal = $documento->getImporteTotal();
 

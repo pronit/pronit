@@ -8,6 +8,8 @@ class ControllingMenuBuilderListener
 {
     public function addMenuItems(ConfigureMenuEvent $event)
     {
+        /*
+         * 
         $menu = $event->getMenu();
         
         $child = $menu
@@ -18,5 +20,7 @@ class ControllingMenuBuilderListener
                 ));
 
         $child->setLabel('Liquidación de objetos de costo');
+         * 
+         */
     }
 }

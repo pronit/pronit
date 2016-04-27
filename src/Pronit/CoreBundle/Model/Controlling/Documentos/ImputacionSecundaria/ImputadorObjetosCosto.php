@@ -86,8 +86,8 @@ class ImputadorObjetosCosto implements IImputadorObjetosCosto {
         $this->em->persist($imputacion);
         
         $gestionImputacion = $this->gestionImputacionRepository->find(array(
-            'itemDocumento' => $itemDocumento->getImputacion()->getItemDocumento(),
-            'objetoCosto' => $itemDocumento->getImputacion()->getObjetoCosto()
+            'itemDocumento' => $itemDocumento->getGestionImputacion()->getImputacionInicial()->getItemDocumento(),
+            'objetoCosto' => $itemDocumento->getGestionImputacion()->getImputacionInicial()->getObjetoCosto()
         ));
         
         if (is_null($gestionImputacion)) {

@@ -11,6 +11,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\EntradaMercancias;
 use Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\ItemEntradaMercancias;
 
+use Pronit\CoreBundle\Entity\Documentos\ClaseDocumento;
+
 /**
  * @author ldelia
  */
@@ -48,10 +50,13 @@ class LoadEntradaMercancias extends AbstractFixture implements FixtureInterface,
         $objetoCosto = $this->getReference('pronit-core-controlling-centrocosto-Pintura');
 
         $clasificador = $this->getReference('pronit-documentos-clasificadoritementradamercancias-101');        
+        
+        $clase = $this->getReference('pronit-core-clasedocumento-' . ClaseDocumento::CODIGO_ENTRADAMERCANCIAS);
 
         $pedidoEntregado = $this->getReference('pronit-compras-pedido-3444/5');
 
         $entradaMercancias = new EntradaMercancias();
+        $entradaMercancias->setClase($clase);
         $entradaMercancias->setSociedad($sociedad);
         $entradaMercancias->setNumero("0001/1");
         $entradaMercancias->setFecha(new \DateTime());

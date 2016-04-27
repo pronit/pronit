@@ -11,6 +11,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
 use Pronit\ComprasBundle\Entity\Documentos\Pedidos\Pedido;
+use Pronit\CoreBundle\Entity\Documentos\ClaseDocumento;
 /**
  *
  * @author ldelia
@@ -159,6 +160,17 @@ class PedidoAdmin extends Admin
             }            
         }
     }
+    
+    public function getNewInstance()
+    {
+        /* @var $clase \Pronit\CoreBundle\Entity\Documentos\ClaseDocumento  */
+        $clase = $this->getModelManager()->find('Pronit\CoreBundle\Entity\Documentos\ClaseDocumento', ClaseDocumento::CODIGO_PEDIDO);        
+        
+        $documento = new Pedido();
+        $documento->setClase($clase);
+        
+        return $documento;
+    }    
     
     public function isGranted($name, $pedido = null)
     {

@@ -13,6 +13,7 @@ use Sonata\AdminBundle\Show\ShowMapper;
 use Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\EntradaMercancias;
 use Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\ItemEntradaMercancias;
 
+use Pronit\CoreBundle\Entity\Documentos\ClaseDocumento;
 /**
  *
  * @author ldelia
@@ -138,7 +139,11 @@ class EntradaMercanciasAdmin extends Admin
     
     public function getNewInstance()
     {
+        /* @var $clase \Pronit\CoreBundle\Entity\Documentos\ClaseDocumento  */
+        $clase = $this->getModelManager()->find('Pronit\CoreBundle\Entity\Documentos\ClaseDocumento', ClaseDocumento::CODIGO_ENTRADAMERCANCIAS);                
+        
         $entradaMercancia = new EntradaMercancias();
+        $entradaMercancia->setClase($clase);
         
         $pedido_id = $this->request->query->get('pedido_id');
         
@@ -156,7 +161,7 @@ class EntradaMercanciasAdmin extends Admin
         /* @var $pedido \Pronit\ComprasBundle\Entity\Documentos\Pedidos\Pedido  */
         $pedido = $this->getModelManager()->find('Pronit\ComprasBundle\Entity\Documentos\Pedidos\Pedido', $pedido_id);        
         
-        if( $pedido ){
+        if( $pedido ){        
             
             $entradaMercancia->setSociedad( $pedido->getSociedad() );
             $entradaMercancia->setMoneda( $pedido->getMoneda() );
@@ -174,6 +179,14 @@ class EntradaMercanciasAdmin extends Admin
                 $item->setCantidad($itemPedido->getCantidadPendienteDeEntrega());        
                 $item->setEscala($itemPedido->getEscala());
                 $item->setItemPedidoEntregado( $itemPedido );
+
+                if( $itemPedido->getAlmacen() ){
+                    $item->setAlmacen($itemPedido->getAlmacen());    
+                }                
+                
+                if( $itemPedido->getObjetoCosto() ){
+                    $item->setObjetoCosto($itemPedido->getObjetoCosto());    
+                }                
 
                 $entradaMercancia->addItem($item);
             }

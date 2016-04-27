@@ -12,6 +12,14 @@ services:
         class: Pronit\CoreBundle\Model\Controlling\Documentos\ImputacionSecundaria\ImputadorObjetosCosto
         arguments: [@doctrine.orm.entity_manager, @pronit.controlling.repositories.gestionimputacion, @pronit.controlling.aspectos.manager.imputa_objetoscosto ]
 
+    pronit.controlling.documentos.imputacionsecundaria.generador_items_finanzas:
+        class: Pronit\CoreBundle\Model\Controlling\Documentos\ImputacionSecundaria\GeneradorItemsFinanzas
+        arguments: [@doctrine.orm.entity_manager, @pronit_customizing.operaciones_customizing_manager, @pronit_gestion_bienesyservicios_customizing_contabilidad.imputaciones_manager, @pronit_contabilidad_customizing.imputaciones_manager]
+        
+    pronit_controlling.documentos.transaccion.imputacionsecundaria:
+        class: Pronit\CoreBundle\Model\Transacciones\Controlling\Documentos\ImputacionSecundaria\TransaccionImputacionSecundaria
+        arguments: [@doctrine.orm.entity_manager, @pronit.controlling.documentos.imputacionsecundaria.generador_items_finanzas, @pronit_contabilidad_customizing.generador_asientos_contables, @pronit.controlling.documentos.imputacionsecundaria.imputador_objetoscosto]        
+
     pronit.form.type.controlling.documentos.itememisortype:
         class: Pronit\CoreBundle\Form\Type\Controlling\Documentos\ItemEmisorType
         tags:

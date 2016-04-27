@@ -15,8 +15,8 @@ use Doctrine\ORM\Mapping as ORM;
  * 
  * @author gcaseres
  */
-class ImputacionCompensatoria {
-
+class ImputacionCompensatoria 
+{
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -43,7 +43,8 @@ class ImputacionCompensatoria {
      */
     private $gestionImputacion;
 
-    public function __construct(GestionImputacion $gestionImputacion, Imputacion $imputacion) {
+    public function __construct(GestionImputacion $gestionImputacion, Imputacion $imputacion) 
+    {
         $this->imputacion = $imputacion;
         $this->gestionImputacion = $gestionImputacion;
     }

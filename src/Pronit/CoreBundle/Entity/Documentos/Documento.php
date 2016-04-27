@@ -5,6 +5,8 @@ namespace Pronit\CoreBundle\Entity\Documentos;
 use Doctrine\ORM\Mapping as ORM;
 
 use Pronit\EstructuraEmpresaBundle\Entity\SociedadFI;
+use Pronit\CoreBundle\Entity\Documentos\Item;
+use Pronit\CoreBundle\Entity\Documentos\ClaseDocumento;
 
 /**
  * @ORM\Entity
@@ -31,6 +33,12 @@ abstract class Documento
      */
     protected $id;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Pronit\CoreBundle\Entity\Documentos\ClaseDocumento")
+     * @ORM\JoinColumn(name="clase", referencedColumnName="codigo", nullable=false)
+     */
+    protected $clase;
+    
     /**
      * @ORM\ManyToOne(targetEntity="Pronit\EstructuraEmpresaBundle\Entity\SociedadFI")
      * @ORM\JoinColumn(nullable=false)
@@ -101,6 +109,16 @@ abstract class Documento
     {
         $this->textoCabecera = $textoCabecera;
     }    
+    
+    function getClase() 
+    {
+        return $this->clase;
+    }
+
+    function setClase(ClaseDocumento $clase) 
+    {
+        $this->clase = $clase;
+    }    
         
     public function getNumero() {
         return $this->numero;
@@ -114,13 +132,27 @@ abstract class Documento
         $this->items = $items;
     }
 
-    public function addItem(Item $item) {
+    public function addItem(Item $item) 
+    {       
         $item->setDocumento($this);
         $this->items[] = $item;
+        $this->asignarPosicionItems();
     }
 
     public function removeItem(Item $item) {
         $this->items->removeElement($item);
+        $this->asignarPosicionItems();
+    }
+    
+    private function asignarPosicionItems()
+    {
+        $posicion = 1;
+        
+        foreach( $this->getItems() as /* @var $item Item */  $item )
+        {
+            $item->setPosicion($posicion);
+            $posicion++;
+        }
     }
 
     public function getFecha() {

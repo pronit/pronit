@@ -38,7 +38,7 @@
                 {% set documento = value[0].documento %}
                 
                 <tr>
-                    <td colspan="6"><strong>Importe Neto</strong></td>
+                    <td colspan="8"><strong>Importe Neto</strong></td>
                     <td class="text-right"><strong>{{ documento.moneda.signoMonetario }} {{ documento.importeNeto|number_format(2, ',', '.') }}</strong></td>
                 </tr>
             {% endif %}
