@@ -22,6 +22,16 @@
                 <target>Centros de costo</target>
             </trans-unit>
 
+            <trans-unit id="Centro Costo Create">
+                <source>Centro Costo Create</source>
+                <target>Nuevo Centro de Costo</target>
+            </trans-unit>
+
+            <trans-unit id="Centro Beneficio Create">
+                <source>Centro Beneficio Create</source>
+                <target>Nuevo Centro de Beneficio</target>
+            </trans-unit>
+
             <trans-unit id="Centro Beneficio List">
                 <source>Centro Beneficio List</source>
                 <target>Centros de Beneficio</target>
@@ -30,6 +40,11 @@
             <trans-unit id="Orden List">
                 <source>Orden List</source>
                 <target>Ordenes</target>
+            </trans-unit>
+
+            <trans-unit id="Orden Create">
+                <source>Orden Create</source>
+                <target>Nueva orden</target>
             </trans-unit>
 
             <trans-unit id="Imputacion Secundaria List">
@@ -77,6 +92,29 @@
                 <target>Reporte de Imputaciones</target>
             </trans-unit>            
 
+            <trans-unit id="Version Fabricacion List">
+                <source>Version Fabricacion List</source>
+                <target>Versiones de Fabricación</target>
+            </trans-unit>
+
+            <trans-unit id="Hoja Ruta List">
+                <source>Hoja Ruta List</source>
+                <target>Hojas de Ruta</target>
+            </trans-unit>
+
+            <trans-unit id="Hoja Ruta Create">
+                <source>Hoja Ruta Create</source>
+                <target>Nueva Hoja de Ruta</target>
+            </trans-unit>
+
+            <trans-unit id="Lista Materiales List">
+                <source>Lista Materiales List</source>
+                <target>Listas de Materiales</target>
+            </trans-unit>
+            <trans-unit id="Lista Materiales Create">
+                <source>Lista Materiales Create</source>
+                <target>Nueva Lista de Materiales</target>
+            </trans-unit>
             <trans-unit id="Action">
                 <source>Action</source>
                 <target>Acción</target>

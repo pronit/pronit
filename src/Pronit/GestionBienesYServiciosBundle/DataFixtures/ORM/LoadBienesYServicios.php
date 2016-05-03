@@ -51,8 +51,41 @@ class LoadBienesYServicios extends AbstractFixture implements FixtureInterface, 
     }
 
     protected function loadMateriales() {
-        $valuesDummies = array();
+        $values = array();
 
+        $values[] = array('codigo' => "R5-471T",
+            "nombre" => "Aspire R5-471T",
+            'categoria' => $this->getReference('pronit-gestionbienesyservicios-categoriavaloracion-3006'),
+            'tipo' => $this->getReference('pronit-gestionbienesyservicios-tipobienservicio-productoelaborado'),
+            "sistemaMedicion" => $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-unidades'),
+            'presentacionesCompra' => array(),
+            'presentacionesVenta' => array(),
+        );
+        $values[] = array('codigo' => "RAM-4GB",
+            "nombre" => "RAM 4GB",
+            'categoria' => $this->getReference('pronit-gestionbienesyservicios-categoriavaloracion-3006'),
+            'tipo' => $this->getReference('pronit-gestionbienesyservicios-tipobienservicio-productoelaborado'),
+            "sistemaMedicion" => $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-unidades'),
+            'presentacionesCompra' => array(),
+            'presentacionesVenta' => array(),
+        );
+        $values[] = array('codigo' => "INTEL-Graphics-520",
+            "nombre" => "Intel HD Graphics 520",
+            'categoria' => $this->getReference('pronit-gestionbienesyservicios-categoriavaloracion-3006'),
+            'tipo' => $this->getReference('pronit-gestionbienesyservicios-tipobienservicio-productoelaborado'),
+            "sistemaMedicion" => $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-unidades'),
+            'presentacionesCompra' => array(),
+            'presentacionesVenta' => array(),
+        );
+        $values[] = array('codigo' => "INTEL-i5-6200U",
+            "nombre" => "Intel Core i5-6200U processor 2.30 GHz",
+            'categoria' => $this->getReference('pronit-gestionbienesyservicios-categoriavaloracion-3006'),
+            'tipo' => $this->getReference('pronit-gestionbienesyservicios-tipobienservicio-productoelaborado'),
+            "sistemaMedicion" => $this->getReference('pronit-parametrizaciongeneral-sistemamedicion-unidades'),
+            'presentacionesCompra' => array(),
+            'presentacionesVenta' => array(),
+        );
+        
         $values[] = array('codigo' => "MM001",
             "nombre" => "Aditivo A1SW",
             'categoria' => $this->getReference('pronit-gestionbienesyservicios-categoriavaloracion-3006'),

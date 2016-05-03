@@ -1,0 +1,11 @@
+
+services:
+    app.form.type.listamateriales.componenteexternotype:
+        class: Pronit\CoreBundle\Form\Type\PlanificacionProduccion\ListaMateriales\ComponenteExternoType
+        tags:
+            - { name: form.type, alias: componenteexternotype }
+
+    app.form.type.listamateriales.componenteinternotype:
+        class: Pronit\CoreBundle\Form\Type\PlanificacionProduccion\ListaMateriales\ComponenteInternoType
+        tags:
+            - { name: form.type, alias: componenteinternotype }
