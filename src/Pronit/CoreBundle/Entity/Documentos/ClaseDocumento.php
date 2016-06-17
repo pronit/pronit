@@ -24,6 +24,7 @@ class ClaseDocumento {
     const CODIGO_SALIDAMERCANCIAS = "SM";
     
     const CODIGO_DISTRIBUCIONSECUNDARIA = "DS";
+    const CODIGO_ORDENPRODUCCION = "PR";
     
     /**
      * @ORM\Column(type="string")

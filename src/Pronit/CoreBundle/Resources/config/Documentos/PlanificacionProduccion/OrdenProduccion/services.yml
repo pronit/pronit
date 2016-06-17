@@ -1,0 +1,6 @@
+
+services:
+    app.form.type.documentos.planificacionproduccion.ordenproduccion.itemmaterialdirectotype:
+        class: Pronit\CoreBundle\Form\Type\Documentos\PlanificacionProduccion\OrdenProduccion\ItemMaterialDirectoType
+        tags:
+            - { name: form.type, alias: itemmaterialdirectotype }

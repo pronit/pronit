@@ -50,7 +50,8 @@ class LoadClaseDocumento extends AbstractFixture implements FixtureInterface, Or
             array("codigo" => ClaseDocumento::CODIGO_ORDENPAGO, "nombre" => "Orden de Pago"),                        
             array("codigo" => ClaseDocumento::CODIGO_FACTURADEUDOR, "nombre" => "Factura de deudor"),
             array("codigo" => ClaseDocumento::CODIGO_SALIDAMERCANCIAS, "nombre" => "Salida de mercancías"),            
-            array("codigo" => ClaseDocumento::CODIGO_DISTRIBUCIONSECUNDARIA, "nombre" => "Distribución secundaria"),            
+            array("codigo" => ClaseDocumento::CODIGO_DISTRIBUCIONSECUNDARIA, "nombre" => "Distribución secundaria"),
+            array("codigo" => ClaseDocumento::CODIGO_ORDENPRODUCCION, "nombre" => "Orden de producción"),
 
         );
 

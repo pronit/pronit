@@ -115,6 +115,14 @@
                 <source>Lista Materiales Create</source>
                 <target>Nueva Lista de Materiales</target>
             </trans-unit>
+            <trans-unit id="Orden Produccion List">
+                <source>Orden Produccion List</source>
+                <target>Ordenes de Producción</target>
+            </trans-unit>
+            <trans-unit id="Orden Produccion Create">
+                <source>Orden Produccion Create</source>
+                <target>Nueva Orden de Producción</target>
+            </trans-unit>
             <trans-unit id="Action">
                 <source>Action</source>
                 <target>Acción</target>
