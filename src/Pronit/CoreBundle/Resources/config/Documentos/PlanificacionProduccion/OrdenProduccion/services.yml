@@ -4,3 +4,8 @@ services:
         class: Pronit\CoreBundle\Form\Type\Documentos\PlanificacionProduccion\OrdenProduccion\ItemMaterialDirectoType
         tags:
             - { name: form.type, alias: itemmaterialdirectotype }
+
+    app.form.type.documentos.planificacionproduccion.ordenproduccion.itemcostoindirectotype:
+        class: Pronit\CoreBundle\Form\Type\Documentos\PlanificacionProduccion\OrdenProduccion\ItemCostoIndirectoType
+        tags:
+            - { name: form.type, alias: itemcostoindirectotype }

@@ -25,6 +25,10 @@ class OrdenProduccionAdmin extends Admin
 {
     protected $baseRouteName = 'pronit_ordenes_produccion';
 
+    /*
+     * TODO realizar el show de la Orden de Producción
+     */
+
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
@@ -59,7 +63,8 @@ class OrdenProduccionAdmin extends Admin
                 ->add(
                     $formMapper->create('items', 'infinite_form_polycollection', array(
                         'types' => array(
-                            'itemmaterialdirectotype'
+                            'itemmaterialdirectotype',
+                            'itemcostoindirectotype'
                         ),
                         'allow_add' => true,
                         'allow_delete' => true,

@@ -97,6 +97,11 @@
                 <target>Versiones de Fabricación</target>
             </trans-unit>
 
+            <trans-unit id="Version Fabricacion">
+                <source>Version Fabricacion</source>
+                <target>Versión de Fabricación</target>
+            </trans-unit>
+
             <trans-unit id="Hoja Ruta List">
                 <source>Hoja Ruta List</source>
                 <target>Hojas de Ruta</target>
