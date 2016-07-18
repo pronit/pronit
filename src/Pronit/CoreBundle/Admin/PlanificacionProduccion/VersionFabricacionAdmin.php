@@ -16,20 +16,23 @@ use Sonata\AdminBundle\Route\RouteCollection;
  *
  * @author ldelia
  */
-class VersionFabricacionAdmin extends Admin {
-
-    // Fields to be shown on lists
+class VersionFabricacionAdmin extends Admin
+{
     protected function configureListFields(ListMapper $listMapper) {
         $listMapper
                 ->add('nombre')
                 ->add('listaMateriales')
                 ->add('hojaRuta')
                 ->add('_action', 'actions', array(
-                    'actions' => array(
-                        'show' => array(),
-                        'edit' => array(),
-                    ),
-                )
+                        'actions' => array(
+                            'show' => array(),
+                            'edit' => array(),
+                            'crearOrdenProduccionDesdeVersionFabricacion' => array(
+                               // 'template' => 'PronitCoreBundle:PlanificacionProduccion\VersionFabricacion\CRUD\show:itemsMaterialDirecto.html.twig'
+                                'template' => 'PronitCoreBundle:PlanificacionProduccion\VersionFabricacion\CRUD\list:action_crear_orden_produccion.html.twig'
+                            )
+                        ),
+                    )
                 )
         ;
     }

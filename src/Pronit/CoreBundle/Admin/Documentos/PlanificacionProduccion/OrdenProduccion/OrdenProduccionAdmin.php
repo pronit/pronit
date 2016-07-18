@@ -7,6 +7,8 @@ use Pronit\CoreBundle\Entity\PlanificacionProduccion\Componente;
 use Pronit\CoreBundle\Entity\PlanificacionProduccion\ComponenteExterno;
 use Pronit\CoreBundle\Entity\PlanificacionProduccion\VersionFabricacion;
 use Pronit\GestionBienesYServiciosBundle\Entity\Material;
+use Pronit\CoreBundle\Entity\Documentos\ClaseDocumento;
+
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
@@ -15,7 +17,6 @@ use Sonata\AdminBundle\Route\RouteCollection;
 use Knp\Menu\ItemInterface as MenuItemInterface;
 use Sonata\AdminBundle\Admin\AdminInterface;
 
-use Pronit\CoreBundle\Entity\Documentos\ClaseDocumento;
 
 /**
  *
@@ -37,8 +38,39 @@ class OrdenProduccionAdmin extends Admin
             ->add('versionFabricacion')
             ->add('cantidadBase')
             ->add('escala')
+            ->add('_action', 'actions', array(
+                    'actions' => array(
+                        'show' => array(),
+                        'edit' => array(),
+                    ),
+                )
+            )
         ;
     }
+
+    protected function configureShowFields(ShowMapper $showMapper)
+    {
+        $showMapper
+            ->with('Orden de Producción')
+                ->add('numero')
+                ->add('sociedad')
+                ->add('fecha', 'date', array( 'format' => 'd/m/Y' ))
+            ->end()
+            ->with('Cabecera')
+                ->add('versionFabricacion')
+                ->add('cantidadBase')
+                ->add('escala')
+                ->add('textoCabecera')
+            ->end()
+            ->with('Items Material Directo')
+               ->add('itemsMaterialDirecto', null, array('template' => 'PronitCoreBundle:Documentos\PlanificacionProduccion\OrdenProduccion\CRUD\show:itemsMaterialDirecto.html.twig'))
+            ->end()
+            ->with('Items Costo Indirecto')
+                ->add('itemsCostoIndirecto', null, array('template' => 'PronitCoreBundle:Documentos\PlanificacionProduccion\OrdenProduccion\CRUD\show:itemsCostoIndirecto.html.twig'))
+            ->end()
+        ;
+    }
+
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper

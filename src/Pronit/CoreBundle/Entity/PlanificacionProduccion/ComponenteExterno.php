@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Lisandro
- * Date: 27/04/2016
- * Time: 22:56
- */
 
 namespace Pronit\CoreBundle\Entity\PlanificacionProduccion;
 

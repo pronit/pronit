@@ -83,5 +83,29 @@ class OrdenProduccion extends Documento
     {
         $this->cantidadBase = $cantidadBase;
     }
+
+    public function getItemsMaterialDirecto()
+    {
+        $subitems = new \Doctrine\Common\Collections\ArrayCollection();
+
+        foreach( $this->getItems() as $item ){
+            if ('Pronit\CoreBundle\Entity\Documentos\PlanificacionProduccion\OrdenProduccion\ItemMaterialDirecto' === get_class($item)){
+                $subitems->add($item);
+            }
+        }
+        return $subitems;
+    }
+
+    public function getItemsCostoIndirecto()
+    {
+        $subitems = new \Doctrine\Common\Collections\ArrayCollection();
+
+        foreach( $this->getItems() as $item ){
+            if ('Pronit\CoreBundle\Entity\Documentos\PlanificacionProduccion\OrdenProduccion\ItemCostoIndirecto' === get_class($item)){
+                $subitems->add($item);
+            }
+        }
+        return $subitems;
+    }
 }
 

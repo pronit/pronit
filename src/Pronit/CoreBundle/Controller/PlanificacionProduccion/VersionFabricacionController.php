@@ -2,6 +2,7 @@
 
 namespace Pronit\CoreBundle\Controller\PlanificacionProduccion;
 
+use Pronit\CoreBundle\Entity\Documentos\PlanificacionProduccion\OrdenProduccion\OrdenProduccion;
 use Sonata\AdminBundle\Controller\CRUDController as Controller;
 
 class VersionFabricacionController extends Controller
