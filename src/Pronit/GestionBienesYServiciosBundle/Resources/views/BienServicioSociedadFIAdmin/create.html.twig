@@ -1,0 +1,28 @@
+{% extends 'SonataAdminBundle:CRUD:edit.html.twig' %}
+
+{% block sonata_form_action_url %}
+{% endblock %}
+
+
+{% block sonata_tab_content %}
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h4 class="box-title">
+                            Bien/Servicio de Sociedad FI
+                        </h4>
+                    </div>
+                    <div class="box-body">
+                        <div class="sonata-ba-collapsed-fields">
+                            {{ form_row(form.sociedadFI) }}
+                            {{ form_row(form.bienServicio) }}
+                            {{ form_row(form.codigo) }}
+                        </div>
+                    </div>
+                </div>
+            </div>            
+        </div>
+    </div>
+{% endblock %}

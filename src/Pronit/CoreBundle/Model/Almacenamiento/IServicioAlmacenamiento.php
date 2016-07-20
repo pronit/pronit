@@ -20,7 +20,7 @@ interface IServicioAlmacenamiento {
      * @param PresentacionVenta $presentacion
      * @param Cantidades $cantidades
      */
-    function modificarExistencias(PresentacionVenta $presentacion, Cantidades $cantidades);
+    function modificarExistencias(Almacen $almacen, PresentacionVenta $presentacion, Cantidades $cantidades);
     
     /**
      * Configura la estructura de control de stock para un material.

@@ -30,7 +30,7 @@ class ServicioAlmacenamiento implements IServicioAlmacenamiento {
      * 
      * {@inheritDoc}
      */
-    public function modificarExistencias(PresentacionVenta $presentacion, Cantidades $cantidades) {
+    public function modificarExistencias(Almacen $almacen, PresentacionVenta $presentacion, Cantidades $cantidades) {
         $unidades = $presentacion->getUnidades();
 
         foreach ($unidades as /* @var $unidad Escala */ $unidad) {
@@ -48,7 +48,7 @@ class ServicioAlmacenamiento implements IServicioAlmacenamiento {
         }
         
         /* @var $existencia Existencia */
-        $existencia = $this->existenciaRepository->findByMaterial($presentacion->getMaterial());
+        $existencia = $this->existenciaRepository->findOneByAlmacenYMaterial($almacen, $presentacion->getMaterial());
         foreach ($unidades as /* @var $unidad Escala */ $unidad) {
             $actual = $existencia->getCantidad($presentacion, $unidad);
             

@@ -29,7 +29,7 @@ class Escala {
      */
     protected $abreviatura;
 
-    /** @ORM\ManyToOne(targetEntity=SistemaMedicionn", inversedBy="escalas") */
+    /** @ORM\ManyToOne(targetEntity="Pronit\ParametrizacionGeneralBundle\Entity\SistemaMedicion", inversedBy="escalas") */
     protected $sistemaMedicion;
 
     /**
@@ -96,6 +96,14 @@ class Escala {
     public function escalar($valor, Escala $escala) {
         $factor = $this->getFactor() / $escala->getFactor();
         return $valor * $factor;
+    }
+
+    public function equals(Escala $escala) {
+        if ($this->id === null) {
+            return $this === $escala;
+        } else {
+            return $this->id === $escala->getId();
+        }
     }
 
 }
