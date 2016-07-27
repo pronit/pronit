@@ -1,13 +1,22 @@
 parameters:
     pronit_contabilidad_customizing.imputaciones_manager.class: Pronit\CoreBundle\Model\Contabilidad\Customizing\ImputacionesCustomizingManager
     pronit_contabilidad_customizing.generador_asientos_contables.class: Pronit\CoreBundle\Model\Contabilidad\Movimientos\GeneradorAsientosContables
-    pronit_core.numeracion_sociedadfi_manager.class: Pronit\CoreBundle\Model\Numeraciones\NumeracionSociedadFIManager    
+    pronit_core.numeracion_sociedadfi_manager.class: Pronit\CoreBundle\Model\Numeraciones\NumeracionSociedadFIManager
+    pronit_core_bienesyservicios.serviciobienservicio.class: Pronit\CoreBundle\Model\BienesYServicios\ServicioBienServicio
+    pronit_core_almacenamiento.servicioalmacenamiento.class: Pronit\CoreBundle\Model\Almacenamiento\ServicioAlmacenamiento
     
     pronit_ventas_documentos_facturas.generador_items_finanzas.class: Pronit\CoreBundle\Model\Documentos\Ventas\Facturas\GeneradorItemsFinanzas    
     pronit_ventas_transaccion.salidamercancias.class: Pronit\CoreBundle\Model\Transacciones\SalidasMercancias\TransaccionSalidaMercancias
     pronit_ventas_transaccion.factura.class: Pronit\CoreBundle\Model\Transacciones\Facturas\TransaccionFactura
     
 services:
+
+    pronit_core_almacenamiento.repositories.existencias:
+        class: Doctrine\ORM\EntityRepository
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments:
+          - Pronit\CoreBundle\Entity\Almacenamiento\Existencia
 
     pronit_core.buscador_registro_condicion:
         class: Pronit\CoreBundle\Model\Automatizacion\Secuencias\BuscadorRegistroCondicion
@@ -44,6 +53,14 @@ services:
     pronit_ventas_transaccion.factura:
         class: %pronit_ventas_transaccion.factura.class%
         arguments: [@doctrine.orm.entity_manager, @pronit_ventas_documentos_facturas.generador_items_finanzas, @pronit_contabilidad_customizing.generador_asientos_contables]        
+
+    pronit_core_bienesyservicios.serviciobienservicio:
+        class: %pronit_core_bienesyservicios.serviciobienservicio.class%
+        arguments: [@doctrine.orm.entity_manager, @pronit_core_almacenamiento.servicioalmacenamiento]
+
+    pronit_core_almacenamiento.servicioalmacenamiento:
+        class: %pronit_core_almacenamiento.servicioalmacenamiento.class%
+        arguments: [@pronit_core_almacenamiento.repositories.existencias]
 
     app.controlling_menu_listener:
         class: Pronit\CoreBundle\EventListener\ControllingMenuBuilderListener
