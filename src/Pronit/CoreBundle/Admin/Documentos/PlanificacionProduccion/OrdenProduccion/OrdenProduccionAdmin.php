@@ -5,6 +5,7 @@ use Pronit\CoreBundle\Entity\Documentos\PlanificacionProduccion\OrdenProduccion\
 use Pronit\CoreBundle\Entity\Documentos\PlanificacionProduccion\OrdenProduccion\OrdenProduccion;
 use Pronit\CoreBundle\Entity\PlanificacionProduccion\Componente;
 use Pronit\CoreBundle\Entity\PlanificacionProduccion\ComponenteExterno;
+use Pronit\CoreBundle\Entity\PlanificacionProduccion\ComponenteInterno;
 use Pronit\CoreBundle\Entity\PlanificacionProduccion\VersionFabricacion;
 use Pronit\GestionBienesYServiciosBundle\Entity\Material;
 use Pronit\CoreBundle\Entity\Documentos\ClaseDocumento;
@@ -109,28 +110,19 @@ class OrdenProduccionAdmin extends Admin
 
     public function getNewInstance()
     {
-        /* @var $clase \Pronit\CoreBundle\Entity\Documentos\ClaseDocumento  */
-        $clase = $this->getModelManager()->find('Pronit\CoreBundle\Entity\Documentos\ClaseDocumento', ClaseDocumento::CODIGO_ORDENPRODUCCION);
-
-        $ordenProduccion = new OrdenProduccion();
-        $ordenProduccion->setClase($clase);
+        $generadorOrdenProduccion = $this->getConfigurationPool()->getContainer()
+                                    ->get('pronit_documentos_planificacionproduccion.ordenproduccion.generador_orden_produccion');
 
         $versionFabricacion_id = $this->request->query->get('versionFabricacion_id');
-        /* @var $versionFabricacion VersionFabricacion */
-        $versionFabricacion = $this->getModelManager()->find('Pronit\CoreBundle\Entity\PlanificacionProduccion\VersionFabricacion', $versionFabricacion_id);
-        if($versionFabricacion){
 
-            $ordenProduccion->setVersionFabricacion($versionFabricacion);
+        if( ! is_null($versionFabricacion_id)){
 
-            /* @var $componenteExterno ComponenteExterno */
-            foreach ( $versionFabricacion->getListaMateriales()->getComponentesExternos() as $componenteExterno ){
-                $itemMaterialDirecto = new ItemMaterialDirecto();
-                $itemMaterialDirecto->setMaterial( $componenteExterno->getMaterial() );
-
-                $ordenProduccion->addItem( $itemMaterialDirecto );
-            }
+            /* @var $versionFabricacion VersionFabricacion */
+            $versionFabricacion = $this->getModelManager()->find('Pronit\CoreBundle\Entity\PlanificacionProduccion\VersionFabricacion', $versionFabricacion_id);
+            $ordenProduccion = $generadorOrdenProduccion->generar( $versionFabricacion );
+        }else{
+            $ordenProduccion = $generadorOrdenProduccion->generar();
         }
-
         return $ordenProduccion;
     }
 

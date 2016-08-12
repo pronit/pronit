@@ -25,7 +25,7 @@ class CentroLogistico
     protected $codigo;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Pronit\EstructuraEmpresaBundle\Entity\SociedadFI")
+     * @ORM\ManyToOne(targetEntity="Pronit\EstructuraEmpresaBundle\Entity\SociedadFI", inversedBy="centrosLogisticos")
      * @ORM\JoinColumn(nullable=false)
      */    
     protected $sociedadFI;    

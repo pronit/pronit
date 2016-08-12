@@ -69,7 +69,7 @@ class VersionFabricacionAdmin extends Admin
             $id = $admin->getRequest()->get('id');
 
             $menu->addChild( 'Crear Orden de Producción', array('uri' => $admin->generateUrl('crearOrdenProduccionDesdeVersionFabricacion', array('id' => $id))) )
-                ->setLinkAttribute('class', 'glyphicon glyphicon-wrench');
+                ->setLinkAttribute('class', 'fa fa-rocket');
         }
     }
 

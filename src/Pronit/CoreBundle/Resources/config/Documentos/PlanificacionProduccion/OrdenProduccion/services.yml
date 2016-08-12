@@ -9,3 +9,7 @@ services:
         class: Pronit\CoreBundle\Form\Type\Documentos\PlanificacionProduccion\OrdenProduccion\ItemCostoIndirectoType
         tags:
             - { name: form.type, alias: itemcostoindirectotype }
+
+    pronit_documentos_planificacionproduccion.ordenproduccion.generador_orden_produccion:
+        class: Pronit\CoreBundle\Model\Documentos\PlanificacionProduccion\OrdenProduccion\GeneradorOrdenProduccion
+        arguments: [@doctrine.orm.entity_manager]
