@@ -1,8 +1,8 @@
 {
-    "name": "symfony/framework-standard-edition",
-    "license": "MIT",
+    "name": "pronit/pronit",
+    "license": "",
     "type": "project",
-    "description": "The \"Symfony Standard Edition\" distribution",
+    "description": "",
     "autoload": {
         "psr-0": { "": "src/" }
     },
@@ -10,26 +10,27 @@
     "require": {
         "php": ">=5.3.3",
         "symfony/symfony": "2.6.*",
-        "doctrine/orm": "v2.5.2",        
+        "doctrine/orm": "v2.5.2",
         "doctrine/doctrine-bundle": "~1.2",
         "twig/extensions": "~1.0",
         "symfony/assetic-bundle": "~2.3",
         "symfony/swiftmailer-bundle": "~2.3",
         "symfony/monolog-bundle": "~2.4",
         "sensio/distribution-bundle": "~3.0",
-        "sensio/framework-extra-bundle": "~3.0",        
+        "sensio/framework-extra-bundle": "~3.0",
         "incenteev/composer-parameter-handler": "~2.0",
-        "sonata-project/admin-bundle": "dev-master",
-        "sonata-project/doctrine-orm-admin-bundle": "2.4.x-dev",
-        "sonata-project/user-bundle": "2.3.*@dev",        
+        "sonata-project/admin-bundle": "3.3.x@stable",
         "bluegrass/metadata": "dev-master",
         "fieryprophet/php-sandbox": "dev-master@dev",
         "jeremeamia/functionparser": "dev-master@dev",
         "infinite-networks/form-bundle": "~1.0@dev",
-        "doctrine/doctrine-fixtures-bundle": "^2.2@dev"
+        "doctrine/doctrine-fixtures-bundle": "^2.2@dev",
+        "sonata-project/user-bundle": "3.0.x@stable",
+        "sonata-project/doctrine-orm-admin-bundle": "3.0.x@stable"
     },
-	"require-dev": {
-        "sensio/generator-bundle": "~2.3"
+    "require-dev": {
+        "sensio/generator-bundle": "~2.3",
+        "tchwork/debug-bundle": "~1.4@dev"
     },
     "scripts": {
         "post-install-cmd": [
@@ -48,7 +49,11 @@
         ]
     },
     "config": {
-        "bin-dir": "bin"
+        "bin-dir": "bin",
+        "cache-dir": "/dev/shm/composer",
+        "process-timeout":      600,
+        "preferred-install":    "dist",
+        "github-protocols":     ["https"]
     },
     "extra": {
         "symfony-app-dir": "app",
@@ -56,8 +61,5 @@
         "incenteev-parameters": {
             "file": "app/config/parameters.yml"
         }
-    },
-    "require-dev": {
-        "tchwork/debug-bundle": "~1.4@dev"
     }
 }
