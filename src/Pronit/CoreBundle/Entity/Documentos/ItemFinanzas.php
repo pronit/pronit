@@ -26,7 +26,7 @@ class ItemFinanzas {
     private $id;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Documento", inversedBy="items")
+     * @ORM\ManyToOne(targetEntity="Documento", inversedBy="itemsFinanzas")
      * @var Documento
      */
     private $documento;

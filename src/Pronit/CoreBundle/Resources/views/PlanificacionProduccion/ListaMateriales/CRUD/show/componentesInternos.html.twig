@@ -1,0 +1,20 @@
+<td>
+    {% block field %}
+        <table class="table table-bordered">
+            <thead>
+            <th>Versión de Fabricación</th>
+            <th>Cantidad</th>
+            </thead>
+            <tbody>
+            {% for item in value %}
+
+                <tr>
+                    <td>{{ item.versionFabricacion }}</td>
+                    <td>{{ item.cantidad }}</td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    {% endblock %}
+</td>

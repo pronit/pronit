@@ -1,0 +1,15 @@
+
+services:
+    app.form.type.documentos.planificacionproduccion.ordenproduccion.itemmaterialdirectotype:
+        class: Pronit\CoreBundle\Form\Type\Documentos\PlanificacionProduccion\OrdenProduccion\ItemMaterialDirectoType
+        tags:
+            - { name: form.type, alias: itemmaterialdirectotype }
+
+    app.form.type.documentos.planificacionproduccion.ordenproduccion.itemcostoindirectotype:
+        class: Pronit\CoreBundle\Form\Type\Documentos\PlanificacionProduccion\OrdenProduccion\ItemCostoIndirectoType
+        tags:
+            - { name: form.type, alias: itemcostoindirectotype }
+
+    pronit_documentos_planificacionproduccion.ordenproduccion.generador_orden_produccion:
+        class: Pronit\CoreBundle\Model\Documentos\PlanificacionProduccion\OrdenProduccion\GeneradorOrdenProduccion
+        arguments: [@doctrine.orm.entity_manager]

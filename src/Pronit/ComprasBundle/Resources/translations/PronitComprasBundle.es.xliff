@@ -27,6 +27,11 @@
                 <target>Facturas</target>
             </trans-unit>
 
+            <trans-unit id="Factura Create">
+                <source>Factura Create</source>
+                <target>Nueva Factura</target>
+            </trans-unit>
+
             <trans-unit id="Orden Pago List">
                 <source>Orden Pago List</source>
                 <target>Ordenes de Pago</target>

@@ -1,0 +1,124 @@
+{% extends 'SonataAdminBundle:Form:form_admin_fields.html.twig' %}
+
+{% form_theme form.items _self %}
+
+{% block infinite_form_polycollection_row %}
+
+    {% if form.vars.name == 'items' %}
+
+        {{ block('items_field') }}
+
+    {% endif %}    
+
+{% endblock %}
+
+{% block items_field %}
+
+    <div class="collection_item">
+
+        <div class="row">
+            <div class="col-sm-2">
+                <strong>Clasificador</strong>
+            </div>
+            <div class="col-sm-4">
+                <strong>Material</strong>
+            </div>            
+            <div class="col-sm-2">
+                <strong>Costo Unitario ML/ Costo Imputado</strong>
+            </div>
+            <div class="col-sm-1">
+                <strong>Eficiencia/ Porcentaje</strong>
+            </div>
+            <div class="col-sm-1">
+                <strong>Cantidad</strong>
+            </div>
+            <div class="col-sm-1">
+                <strong>Objeto Costo</strong>
+            </div>
+            <div class="col-sm-1">
+                <strong>Acciones</strong>
+            </div>
+        </div>
+
+        {{ form_widget(form) }}        
+
+        <hr>
+        
+        <a class="add_item btn btn-info btn-sm" data-prototype="{{ form_row(form.vars.prototypes.itemmaterialdirectotype) | escape }}" href="#">
+            <span class="glyphicon glyphicon-log-in"></span> Agregar Item Material Directo
+        </a>
+
+        <a class="add_item btn btn-info btn-sm" data-prototype="{{ form_row(form.vars.prototypes.itemcostoindirectotype) | escape }}" href="#">
+            <span class="glyphicon glyphicon-log-in"></span> Agregar Item Costo Indirecto
+        </a>
+    </div>
+
+    <script type="text/javascript">
+        $(function () {
+
+            var items = $('#{{ form.vars.id }}');
+            new window.infinite.Collection(items, items.siblings('.add_item'));
+
+            items.bind('infinite_collection_add', function (e) {
+
+            });
+        });
+    </script>    
+
+{% endblock %}
+
+{% block itemmaterialdirectotype_row %}
+    
+    <div class="row item itemreceptor">
+        <div class="col-sm-2">
+            {{ form_widget(form.clasificador) }}
+        </div>
+        <div class="col-sm-4">
+            {{ form_widget(form.material) }}
+        </div>                
+        <div class="col-sm-2">
+            {{ form_widget(form.costoUnitarioML) }}
+        </div>
+        <div class="col-sm-1">
+            {{ form_widget(form.eficiencia) }}
+        </div>
+        <div class="col-sm-1">
+            {{ form_widget(form.cantidad) }}
+        </div>
+        <div class="col-sm-1">
+        </div>
+        <div class="col-sm-1">
+            <a class="remove_item" href="#">Eliminar</a>            
+        </div>
+        {{ form_widget(form) }}        
+    </div>
+{% endblock %}
+
+{% block itemcostoindirectotype_row %}
+
+    <div class="row item itemreceptor">
+        <div class="col-sm-2">
+            {{ form_widget(form.clasificador) }}
+        </div>
+        <div class="col-sm-4">
+            {{ form_widget(form.material) }}
+        </div>
+        <div class="col-sm-2">
+            {{ form_widget(form.costoImputado) }}
+        </div>
+        <div class="col-sm-1">
+            {{ form_widget(form.porcentaje) }}
+        </div>
+        <div class="col-sm-1">
+        </div>
+
+        <div class="col-sm-1">
+            {{ form_widget(form.objetoCosto) }}
+        </div>
+
+        <div class="col-sm-1">
+            <a class="remove_item" href="#">Eliminar</a>
+        </div>
+        {{ form_widget(form) }}
+    </div>
+{% endblock %}

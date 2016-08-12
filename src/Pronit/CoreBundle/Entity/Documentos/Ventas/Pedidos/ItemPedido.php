@@ -4,8 +4,6 @@ namespace Pronit\CoreBundle\Entity\Documentos\Ventas\Pedidos;
 
 use Doctrine\ORM\Mapping as ORM;
 
-use Symfony\Component\Serializer\Exception\Exception;
-
 use Pronit\CoreBundle\Entity\Documentos\ClasificadorItem;
 use Pronit\CoreBundle\Entity\Documentos\Ventas\ItemVentas;
 use Pronit\CoreBundle\Entity\Documentos\Ventas\Pedidos\ClasificadorItemPedido;
@@ -65,7 +63,7 @@ class ItemPedido extends ItemVentas
    public function setClasificador(ClasificadorItem $clasificador) 
     {
         if (!$clasificador instanceof ClasificadorItemPedido) {
-            throw new Exception("Los items de pedido solo admiten clasificadores de items de pedido.");
+            throw new \Exception("Los items de pedido solo admiten clasificadores de items de pedido.");
         }
         parent::setClasificador($clasificador);
     }

@@ -1,0 +1,12 @@
+{% extends 'SonataAdminBundle:CRUD:edit.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts
+        'bundles/infiniteform/js/collections.js'
+        output='js/application.js'
+    %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}    
+    
+{% endblock %}

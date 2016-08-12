@@ -264,4 +264,64 @@ services:
             - Pronit\CoreBundle\Entity\Controlling\Imputacion
             - ~
         calls:
-            - [ setTranslationDomain, [PronitCoreBundle]]                
+            - [ setTranslationDomain, [PronitCoreBundle]]
+
+
+    pronit.admin.core.planificacionproduccion.versionfabricacion:
+        class: Pronit\CoreBundle\Admin\PlanificacionProduccion\VersionFabricacionAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Planificación de la Producción", label: "Versiones de Fabricación" }
+        arguments:
+            - ~
+            - Pronit\CoreBundle\Entity\PlanificacionProduccion\VersionFabricacion
+            - 'PronitCoreBundle:PlanificacionProduccion\VersionFabricacion'
+        calls:
+            - [ setTranslationDomain, [PronitCoreBundle]]
+
+    pronit.admin.core.planificacionproduccion.hojaruta:
+            class: Pronit\CoreBundle\Admin\PlanificacionProduccion\HojaRutaAdmin
+            tags:
+                - { name: sonata.admin, manager_type: orm, group: "Planificación de la Producción", label: "Hojas de Ruta" }
+            arguments:
+                - ~
+                - Pronit\CoreBundle\Entity\PlanificacionProduccion\HojaRuta
+                - ~
+            calls:
+                - [ setTranslationDomain, [PronitCoreBundle]]
+
+    pronit.admin.core.planificacionproduccion.listamateriales:
+            class: Pronit\CoreBundle\Admin\PlanificacionProduccion\ListaMaterialesAdmin
+            tags:
+                - { name: sonata.admin, manager_type: orm, group: "Planificación de la Producción", label: "Lista Materiales" }
+            arguments:
+                - ~
+                - Pronit\CoreBundle\Entity\PlanificacionProduccion\ListaMateriales
+                - ~
+            calls:
+                - [ setTemplate, [edit, PronitCoreBundle:PlanificacionProduccion\\ListaMateriales\\CRUD:edit.html.twig]]
+                - [ setTranslationDomain, [PronitCoreBundle]]
+
+
+    pronit.admin.core.planificacionproduccion.operacion:
+            class: Pronit\CoreBundle\Admin\PlanificacionProduccion\OperacionAdmin
+            tags:
+                - { name: sonata.admin, manager_type: orm, show_in_dashboard: false, group: null }
+            arguments:
+                - ~
+                - Pronit\CoreBundle\Entity\PlanificacionProduccion\Operacion
+                - ~
+            calls:
+                - [ setTranslationDomain, [PronitCoreBundle]]
+
+
+    pronit.admin.core.planificacionproduccion.ordenproduccion.ordenproduccion:
+            class: Pronit\CoreBundle\Admin\Documentos\PlanificacionProduccion\OrdenProduccion\OrdenProduccionAdmin
+            tags:
+                - { name: sonata.admin, manager_type: orm, group: "Planificación de la Producción", label: "Ordenes de Producción" }
+            arguments:
+                - ~
+                - Pronit\CoreBundle\Entity\Documentos\PlanificacionProduccion\OrdenProduccion\OrdenProduccion
+                - ~
+            calls:
+                - [ setTemplate, [edit, PronitCoreBundle:Documentos\\PlanificacionProduccion\\OrdenProduccion\\CRUD:edit.html.twig]]
+                - [ setTranslationDomain, [PronitCoreBundle]]

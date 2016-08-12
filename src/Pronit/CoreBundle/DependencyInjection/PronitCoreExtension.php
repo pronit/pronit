@@ -24,6 +24,8 @@ class PronitCoreExtension extends Extension {
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
         $loader->load('controlling/services.yml');
+        $loader->load('planificacionproduccion/services.yml');
+        $loader->load('Documentos/PlanificacionProduccion/OrdenProduccion/services.yml');
         $loader->load('controlling/repositories.yml');
     }
 

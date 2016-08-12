@@ -20,7 +20,8 @@ use Pronit\CoreBundle\Entity\Documentos\ClaseDocumento;
         "OrdenPagoValue" = "Pronit\ComprasBundle\Entity\Documentos\OrdenesPago\OrdenPago",
         "VentasPedidoValue" = "Pronit\CoreBundle\Entity\Documentos\Ventas\Pedidos\Pedido",
         "VentasSalidaMercanciasValue" = "Pronit\CoreBundle\Entity\Documentos\Ventas\SalidasMercancias\SalidaMercancias", 
-        "VentasFacturaValue" = "Pronit\CoreBundle\Entity\Documentos\Ventas\Facturas\Factura", 
+        "VentasFacturaValue" = "Pronit\CoreBundle\Entity\Documentos\Ventas\Facturas\Factura",
+        "OrdenProduccionValue" = "Pronit\CoreBundle\Entity\Documentos\PlanificacionProduccion\OrdenProduccion\OrdenProduccion",
         "ControllingImputacionSecundariaValue" = "Pronit\CoreBundle\Entity\Controlling\Documentos\ImputacionSecundaria", 
     })
  */

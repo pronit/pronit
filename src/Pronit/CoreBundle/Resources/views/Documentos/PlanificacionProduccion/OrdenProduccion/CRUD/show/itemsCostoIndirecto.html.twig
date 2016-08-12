@@ -1,0 +1,25 @@
+<td>
+{% block field %}   
+    <table class="table table-bordered">
+        <thead>
+            <th>Clasificador</th>
+            <th>Material</th>
+            <th>Costo Imputado</th>
+            <th>Porcentaje</th>
+            <th>Objeto Costo</th>
+        </thead>
+        <tbody>
+            {% for item in value %}
+            <tr>
+                <td>{{ item.clasificador }}</td>
+                <td>{{ item.material }}</td>
+                <td>{{ item.costoImputado }}</td>
+                <td>{{ item.porcentaje }}</td>
+                <td>{{ item.objetoCosto }}</td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+</td>

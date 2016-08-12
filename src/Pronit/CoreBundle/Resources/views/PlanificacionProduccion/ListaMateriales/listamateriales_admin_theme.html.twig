@@ -1,0 +1,96 @@
+{% extends 'SonataAdminBundle:Form:form_admin_fields.html.twig' %}
+
+{% form_theme form.items _self %}
+
+{% block infinite_form_polycollection_row %}
+
+    {% if form.vars.name == 'componentes' %}
+
+        {{ block('componentesListaMateriales_field') }}
+
+    {% endif %}    
+
+{% endblock %}
+
+{% block componentesListaMateriales_field %}
+
+    <div class="collection_item">
+
+        <div class="row">
+            <div class="col-sm-4">
+                <strong>Versión de Fabricación</strong>
+            </div>            
+            <div class="col-sm-4">
+                <strong>Material</strong>
+            </div>
+            <div class="col-sm-3">
+                <strong>Cantidad</strong>
+            </div>
+            <div class="col-sm-1">            
+                <strong>Acciones</strong>
+            </div>
+        </div>
+
+        {{ form_widget(form) }}        
+
+        <hr>
+        
+        <a class="add_item btn btn-info btn-sm" data-prototype="{{ form_row(form.vars.prototypes.componenteinternotype) | escape }}" href="#">
+            <span class="glyphicon glyphicon-log-in"></span> Agregar Componente Interno
+        </a>
+        <a class="add_item btn btn-primary btn-sm" data-prototype="{{ form_row(form.vars.prototypes.componenteexternotype) | escape }}" href="#">
+            <span class="glyphicon glyphicon-log-out"></span> Agregar Componente Externo
+        </a>
+
+    </div>
+
+    <script type="text/javascript">
+        $(function () {
+
+            var items = $('#{{ form.vars.id }}');
+            new window.infinite.Collection(items, items.siblings('.add_item'));
+
+            items.bind('infinite_collection_add', function (e) {
+
+            });
+        });
+    </script>    
+
+{% endblock %}
+
+{% block componenteexternotype_row %}
+    
+    <div class="row item itemreceptor">
+        <div class="col-sm-4">
+
+        </div>                
+        <div class="col-sm-4">
+            {{ form_widget(form.material) }}
+        </div>
+        <div class="col-sm-3">
+            {{ form_widget(form.cantidad) }}
+        </div>
+        <div class="col-sm-1">            
+            <a class="remove_item" href="#">Eliminar</a>            
+        </div>
+        {{ form_widget(form) }}        
+    </div>
+{% endblock %}
+
+{% block componenteinternotype_row %}
+
+    <div class="row item itememisor">
+        <div class="col-sm-4">
+            {{ form_widget(form.versionFabricacion) }}
+        </div>
+        <div class="col-sm-4">
+        </div>
+        <div class="col-sm-3">
+            {{ form_widget(form.cantidad) }}
+        </div>
+        <div class="col-sm-1">
+            <a class="remove_item" href="#">Eliminar</a>
+        </div>
+        {{ form_widget(form) }}
+    </div>
+{% endblock %}

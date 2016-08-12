@@ -1,0 +1,24 @@
+<td>
+{% block field %}   
+    <table class="table table-bordered">
+        <thead>
+            <th>Clasificador</th>
+            <th>Material</th>
+            <th>Costo Unitario ML</th>
+            <th>Eficiencia</th>
+            <th>Cantidad</th>
+        </thead>
+        <tbody>
+            {% for item in value %}
+            <tr>
+                <td>{{ item.clasificador }}</td>
+                <td>{{ item.material }}</td>
+                <td>{{ item.costoUnitarioML }}</td>
+                <td>{{ item.eficiencia }}</td>
+                <td>{{ item.cantidad }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+</td>

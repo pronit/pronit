@@ -25,7 +25,7 @@ class Almacen
     protected $codigo;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Pronit\EstructuraEmpresaBundle\Entity\CentroLogistico")
+     * @ORM\ManyToOne(targetEntity="Pronit\EstructuraEmpresaBundle\Entity\CentroLogistico", inversedBy="almacenes")
      * @ORM\JoinColumn(nullable=false)
      */    
     protected $centroLogistico;    
