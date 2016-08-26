@@ -9,7 +9,7 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.3",
-        "symfony/symfony": "2.7.*",
+        "symfony/symfony": "2.8.*",
         "doctrine/orm": "v2.5.2",
         "doctrine/doctrine-bundle": "~1.2",
         "twig/extensions": "~1.0",
@@ -26,7 +26,8 @@
         "infinite-networks/form-bundle": "~1.0@dev",
         "doctrine/doctrine-fixtures-bundle": "^2.2@dev",
         "sonata-project/user-bundle": "3.0.x@stable",
-        "sonata-project/doctrine-orm-admin-bundle": "3.0.x@stable"
+        "sonata-project/doctrine-orm-admin-bundle": "3.0.x@stable",
+        "symfony/polyfill-iconv": "~1.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",

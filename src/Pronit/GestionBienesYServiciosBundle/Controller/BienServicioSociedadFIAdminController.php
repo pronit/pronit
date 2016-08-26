@@ -49,7 +49,7 @@ class BienServicioSociedadFIAdminController extends CRUDController {
         $this->admin->setSubject($object);
 
         /** @var $form \Symfony\Component\Form\Form */
-        $form = $this->createForm(new AsociacionBienServicioSociedadFormType());
+        $form = $this->createForm( AsociacionBienServicioSociedadFormType::class );
 
         if ($this->getRestMethod($request) == 'POST') {
             $form->submit($request);
