@@ -1,0 +1,10 @@
+{% extends 'SonataAdminBundle::standard_layout.html.twig' %}
+
+{% block stylesheets %}    
+   {{ parent() }}
+   {% stylesheets 'bundles/pronitcore/less/*' filter='less' output='pronitcore/vendor/bootstrap/dist/css/bootstrap.css' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+   {% endstylesheets %}
+{% endblock %}
+
+{% block body_attributes %}class="pronit sonata-bc skin-black fixed"{% endblock %}
