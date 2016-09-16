@@ -156,8 +156,8 @@ class LoadFuncion extends AbstractFixture implements FixtureInterface, OrderedFi
                                  $itemDocumentoEntradaMercancias = $contexto->getItem();
                                 
                                  $precioItemML = $itemDocumentoEntradaMercancias->getImporteNeto(); 
-                                 $bienServicio = $itemDocumentoEntradaMercancias->getBienServicio();
-				 $sociedadFI = $itemDocumentoEntradaMercancias->getDocumento()->getSociedad();
+                                 $bienServicio = $itemDocumentoEntradaMercancias->getPresentacionCompra()->getMaterial();
+				                 $sociedadFI = $itemDocumentoEntradaMercancias->getDocumento()->getSociedad();
                                  
                                  $bienServicioSociedadFI = $em->getRepository("Pronit\GestionBienesYServiciosBundle\Entity\Customizing\EstructuraEmpresa\BienServicioSociedadFI")->findOneBy(array("sociedadFI" => $sociedadFI->getId(), "bienServicio" => $bienServicio->getId()));
                                  $precioValoracionBienServicio = $bienServicioSociedadFI->getPrecioValoracionEstandar();
@@ -186,7 +186,7 @@ class LoadFuncion extends AbstractFixture implements FixtureInterface, OrderedFi
                                  $itemDocumentoEntradaMercancias = $contexto->getItem();
                                 
                                  $precioItemML = $itemDocumentoEntradaMercancias->getImporteNeto(); 
-                                 $bienServicio = $itemDocumentoEntradaMercancias->getBienServicio();
+                                 $bienServicio = $itemDocumentoEntradaMercancias->getPresentacionCompra()->getMaterial();
 				 $sociedadFI = $itemDocumentoEntradaMercancias->getDocumento()->getSociedad();
                                  
                                  $bienServicioSociedadFI = $em->getRepository("Pronit\GestionBienesYServiciosBundle\Entity\Customizing\EstructuraEmpresa\BienServicioSociedadFI")->findOneBy(array("sociedadFI" => $sociedadFI->getId(), "bienServicio" => $bienServicio->getId()));
@@ -216,7 +216,7 @@ class LoadFuncion extends AbstractFixture implements FixtureInterface, OrderedFi
                                  $itemDocumentoEntradaMercancias = $contexto->getItem();
                                 
                                  $precioItemML = $itemDocumentoEntradaMercancias->getImporteNeto();
-                                 $bienServicio = $itemDocumentoEntradaMercancias->getBienServicio();
+                                 $bienServicio = $itemDocumentoEntradaMercancias->getPresentacionCompra()->getMaterial();
 				 $sociedadFI = $itemDocumentoEntradaMercancias->getDocumento()->getSociedad();
                                  
                                  $bienServicioSociedadFI = $em->getRepository("Pronit\GestionBienesYServiciosBundle\Entity\Customizing\EstructuraEmpresa\BienServicioSociedadFI")->findOneBy(array("sociedadFI" => $sociedadFI->getId(), "bienServicio" => $bienServicio->getId()));
@@ -246,7 +246,7 @@ class LoadFuncion extends AbstractFixture implements FixtureInterface, OrderedFi
                                  $itemDocumentoEntradaMercancias = $contexto->getItem();
                                 
                                  $precioItemML = $itemDocumentoEntradaMercancias->getImporteNeto();
-                                 $bienServicio = $itemDocumentoEntradaMercancias->getBienServicio();
+                                 $bienServicio = $itemDocumentoEntradaMercancias->getPresentacionCompra()->getMaterial();
 				 $sociedadFI = $itemDocumentoEntradaMercancias->getDocumento()->getSociedad();
                                  
                                  $bienServicioSociedadFI = $em->getRepository("Pronit\GestionBienesYServiciosBundle\Entity\Customizing\EstructuraEmpresa\BienServicioSociedadFI")->findOneBy(array("sociedadFI" => $sociedadFI->getId(), "bienServicio" => $bienServicio->getId()));

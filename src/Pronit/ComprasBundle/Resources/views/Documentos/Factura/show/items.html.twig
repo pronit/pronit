@@ -3,7 +3,7 @@
         <table class="table table-bordered">
         <thead>
             <th>Clasificador</th>
-            <th>Bien/Servicio</th>
+            <th>Presentación</th>
             <th>Escala</th>
             <th>Indicador de Impuestos</th>
             <th>Cantidad</th>            
@@ -16,7 +16,7 @@
             {% for itemFactura in value %}
             <tr>
                 <td>{{ itemFactura.clasificador }}</td>
-                <td>{{ itemFactura.bienServicio }}</td>
+                <td>{{ itemFactura.presentacionCompra }}</td>
                 <td>{{ itemFactura.escala }}</td>
                 <td>{{ itemFactura.indicadorImpuestos }}</td>                
                 <td class="text-right">

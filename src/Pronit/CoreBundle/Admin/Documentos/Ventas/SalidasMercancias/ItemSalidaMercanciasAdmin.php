@@ -2,7 +2,7 @@
 namespace Pronit\CoreBundle\Admin\Documentos\Ventas\SalidasMercancias;
 
 use Doctrine\ORM\EntityRepository;
-use Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Admin\AbstractAdmin as Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 

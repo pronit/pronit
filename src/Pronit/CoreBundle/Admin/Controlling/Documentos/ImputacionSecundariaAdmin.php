@@ -1,13 +1,13 @@
 <?php
 namespace Pronit\CoreBundle\Admin\Controlling\Documentos;
 
-use Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Admin\AbstractAdmin as Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Knp\Menu\ItemInterface as MenuItemInterface;
-use Sonata\AdminBundle\Admin\AdminInterface;
+use Sonata\AdminBundle\Admin\AbstractAdmin as AdminInterface;
 
 use Pronit\CoreBundle\Entity\Controlling\Documentos\ImputacionSecundaria;
 use Pronit\CoreBundle\Entity\Documentos\ClaseDocumento;
@@ -98,7 +98,7 @@ class ImputacionSecundariaAdmin extends Admin
         );
     }    
     
-    protected function configureSideMenu(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null) 
+    protected function configureTabMenu(MenuItemInterface $menu, $action, \Sonata\AdminBundle\Admin\AdminInterface $childAdmin = null)
     {        
         if( $action == "show" ){
             

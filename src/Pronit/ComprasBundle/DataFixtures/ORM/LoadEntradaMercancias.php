@@ -71,7 +71,7 @@ class LoadEntradaMercancias extends AbstractFixture implements FixtureInterface,
             $item->setClasificador($clasificador);
             $item->setCantidad( $itemPedido->getCantidad() );
             $item->setEscala( $itemPedido->getEscala() );
-            $item->setBienServicio( $itemPedido->getBienServicio() );
+            $item->setPresentacionCompra( $itemPedido->getPresentacionCompra() );
             $item->setPrecioUnitario($itemPedido->getPrecioUnitario());
             $item->setObjetoCosto($objetoCosto);
             $item->setItemPedidoEntregado( $itemPedido );

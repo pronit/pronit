@@ -1,9 +1,9 @@
 <?php
 namespace Pronit\ComprasBundle\Admin\Documentos\Pedidos;
 
-use Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Admin\AbstractAdmin as Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
-use Sonata\AdminBundle\Datagrid\DatagridMapper;
+use Doctrine\ORM\EntityRepository;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
@@ -19,8 +19,12 @@ class ItemPedidoAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('clasificador')
-            ->add('bienServicio')
+            ->add('clasificador', null, array('query_builder' => function(EntityRepository $er) {
+                $qb = $er->createQueryBuilder('c');
+                $qb->where($qb->expr()->in('c.id', 'SELECT cip.id FROM Pronit\ComprasBundle\Entity\Documentos\Pedidos\ClasificadorItemPedido cip'));
+                return $qb;
+            }))
+            ->add('presentacionCompra')
             ->add('escala')                
             ->add('cantidad')
             ->add('precioUnitario')

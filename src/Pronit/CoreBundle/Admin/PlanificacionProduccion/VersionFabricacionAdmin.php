@@ -3,12 +3,12 @@
 namespace Pronit\CoreBundle\Admin\PlanificacionProduccion;
 
 use Pronit\CoreBundle\Entity\PlanificacionProduccion\VersionFabricacion;
-use Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Admin\AbstractAdmin as Admin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
-use Sonata\AdminBundle\Admin\AdminInterface;
+use Sonata\AdminBundle\Admin\AbstractAdmin as AdminInterface;
 use Knp\Menu\ItemInterface as MenuItemInterface;
 use Sonata\AdminBundle\Route\RouteCollection;
 
@@ -61,7 +61,7 @@ class VersionFabricacionAdmin extends Admin
         ;
     }
 
-    protected function configureSideMenu(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)
+    protected function configureTabMenu(MenuItemInterface $menu, $action, \Sonata\AdminBundle\Admin\AdminInterface $childAdmin = null)
     {
         if( $action == "show"){
 

@@ -11,7 +11,12 @@
                 <source>Pedido Create</source>
                 <target>Nuevo Pedido</target>
             </trans-unit>
-                        
+
+            <trans-unit id="Orden Pago Create">
+                <source>Orden Pago Create</source>
+                <target>Nueva Orden de Pago</target>
+            </trans-unit>
+
             <trans-unit id="Entrada Mercancias List">
                 <source>Entrada Mercancias List</source>
                 <target>Entrada de Mercancías</target>
@@ -52,6 +57,20 @@
                 <target>Estado Facturación</target>
             </trans-unit>
             
+            <trans-unit id="Presentacion Compra">
+                <source>Presentacion Compra</source>
+                <target>Presentación Compra</target>
+            </trans-unit>
+
+            <trans-unit id="Almacen">
+                <source>Almacen</source>
+                <target>Almacén</target>
+            </trans-unit>
+
+            <trans-unit id="Centro Logistico">
+                <source>Centro Logistico</source>
+                <target>Centro Logístico</target>
+            </trans-unit>
 
             <trans-unit id="Action">
                 <source>Action</source>

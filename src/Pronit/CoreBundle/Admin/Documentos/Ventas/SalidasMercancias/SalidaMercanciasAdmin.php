@@ -1,12 +1,12 @@
 <?php
 namespace Pronit\CoreBundle\Admin\Documentos\Ventas\SalidasMercancias;
 
-use Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Admin\AbstractAdmin as Admin;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Knp\Menu\ItemInterface as MenuItemInterface;
-use Sonata\AdminBundle\Admin\AdminInterface;
+use Sonata\AdminBundle\Admin\AbstractAdmin as AdminInterface;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 
@@ -160,7 +160,7 @@ class SalidaMercanciasAdmin extends Admin
         return $salidaMercancias;
     }
     
-    protected function configureSideMenu(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null) 
+    protected function configureTabMenu(MenuItemInterface $menu, $action, \Sonata\AdminBundle\Admin\AdminInterface $childAdmin = null)
     {        
         if( $action == "show"){
             

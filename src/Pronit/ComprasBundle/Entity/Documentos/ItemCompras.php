@@ -41,8 +41,11 @@ abstract class ItemCompras extends Item
     public function setBienServicio(BienServicio $bienServicio)
     {
         $this->bienServicio = $bienServicio;
-    }    
-    
+    }
+
+    /**
+     * @return PresentacionCompra
+     */
     function getPresentacionCompra() 
     {
         return $this->presentacionCompra;

@@ -44,7 +44,7 @@ class PresentacionVenta extends Presentacion {
      */
     protected $fraccionamientoVentaDestino;
 
-    public function __construct($nombre) {
+    public function __construct($nombre = null) {
         $this->nombre = $nombre;
         $this->unidades = new ArrayCollection();
     }

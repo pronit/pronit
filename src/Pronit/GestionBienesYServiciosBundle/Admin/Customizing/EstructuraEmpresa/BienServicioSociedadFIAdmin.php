@@ -5,7 +5,7 @@ namespace Pronit\GestionBienesYServiciosBundle\Admin\Customizing\EstructuraEmpre
 use Pronit\CoreBundle\Model\BienesYServicios\AsociacionBienServicioSociedad;
 use Pronit\CoreBundle\Model\BienesYServicios\IServicioBienServicio;
 use Pronit\GestionBienesYServiciosBundle\Entity\Customizing\EstructuraEmpresa\BienServicioSociedadFI;
-use Sonata\AdminBundle\Admin\AbstractAdmin;
+use Sonata\AdminBundle\Admin\AbstractAdmin as Admin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -15,7 +15,7 @@ use Sonata\AdminBundle\Show\ShowMapper;
  *
  * @author ldelia
  */
-class BienServicioSociedadFIAdmin extends AbstractAdmin {
+class BienServicioSociedadFIAdmin extends Admin {
 
     /**
      * @var IServicioBienServicio

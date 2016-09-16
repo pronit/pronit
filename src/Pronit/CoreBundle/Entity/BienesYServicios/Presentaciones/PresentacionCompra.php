@@ -5,6 +5,7 @@ namespace Pronit\CoreBundle\Entity\BienesYServicios\Presentaciones;
 use Doctrine\ORM\Mapping as ORM;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Pronit\GestionBienesYServiciosBundle\Entity\Material;
 
 /**
  * @ORM\Entity
@@ -31,8 +32,8 @@ class PresentacionCompra extends Presentacion
     
     public function __construct()
     {
-    }    
-        
+    }
+
     function getNombre() 
     {
         return $this->nombre;
@@ -41,8 +42,11 @@ class PresentacionCompra extends Presentacion
     function setNombre($nombre) 
     {
         $this->nombre = $nombre;
-    }    
-    
+    }
+
+    /**
+     * @return Material
+     */
     function getMaterial() 
     {
         return $this->material;
@@ -63,5 +67,9 @@ class PresentacionCompra extends Presentacion
         $this->fraccionamiento = $fraccionamiento;
         $fraccionamiento->setPresentacionOrigen($this);
     }
-    
+
+    public function __toString()
+    {
+        return $this->getMaterial()->getNombre() . " - " . $this->getNombre();
+    }
 }

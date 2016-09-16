@@ -1,14 +1,14 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
-    - { resource: @PronitCoreBundle/Resources/config/admin.yml }
-    - { resource: @PronitEstructuraEmpresaBundle/Resources/config/admin.yml }
-    - { resource: @PronitParametrizacionGeneralBundle/Resources/config/admin.yml }
-    - { resource: @PronitGeographicCoreBundle/Resources/config/admin.yml }
-    - { resource: @PronitCustomizingBundle/Resources/config/admin.yml }
-    - { resource: @PronitGestionBienesYServiciosBundle/Resources/config/admin.yml }
-    - { resource: @PronitComprasBundle/Resources/config/admin.yml }
-    - { resource: @PronitAutomatizacionBundle/Resources/config/admin.yml }
+    - { resource: '@PronitCoreBundle/Resources/config/admin.yml' }
+    - { resource: '@PronitEstructuraEmpresaBundle/Resources/config/admin.yml' }
+    - { resource: '@PronitParametrizacionGeneralBundle/Resources/config/admin.yml' }
+    - { resource: '@PronitGeographicCoreBundle/Resources/config/admin.yml' }
+    - { resource: '@PronitCustomizingBundle/Resources/config/admin.yml' }
+    - { resource: '@PronitGestionBienesYServiciosBundle/Resources/config/admin.yml' }
+    - { resource: '@PronitComprasBundle/Resources/config/admin.yml' }
+    - { resource: '@PronitAutomatizacionBundle/Resources/config/admin.yml' }
     
 framework:
     #esi:             ~

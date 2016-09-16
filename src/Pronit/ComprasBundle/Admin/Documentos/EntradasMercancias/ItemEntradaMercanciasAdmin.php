@@ -2,7 +2,7 @@
 namespace Pronit\ComprasBundle\Admin\Documentos\EntradasMercancias;
 
 use Doctrine\ORM\EntityRepository;
-use Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Admin\AbstractAdmin as Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
@@ -24,7 +24,7 @@ class ItemEntradaMercanciasAdmin extends Admin
                  $qb->where($qb->expr()->in('c.id', 'SELECT cem.id FROM Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\ClasificadorItemEntradaMercancias cem'));
                  return $qb;
             }))
-            ->add('bienServicio')
+            ->add('presentacionCompra')
             ->add('escala')                
             ->add('cantidad')
             ->add('precioUnitario')

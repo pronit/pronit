@@ -68,23 +68,15 @@ class LoadPedidos extends AbstractFixture implements FixtureInterface, OrderedFi
         $pedido->setTextoCabecera('Pedido de compra.... ');
 
         
-        $bienServicio = $this->getReference('pronit-gestionbienesyservicios-bienservicio-610615008');
+        $presentacion = $this->getReference('pronit-gestionbienesyservicios-bienservicio-6796342-presentacionCompra-Balde de 60 lts');
         $itemPedido = new ItemPedido();
         $itemPedido->setClasificador($clasificador);
         $itemPedido->setCantidad(100);
-        $itemPedido->setBienServicio($bienServicio);
+        $itemPedido->setPresentacionCompra($presentacion);
         $itemPedido->setPrecioUnitario(25.5);
         $itemPedido->setEscala($escalaMetro);
         $pedido->addItem($itemPedido);
 
-        $bienServicio = $this->getReference('pronit-gestionbienesyservicios-bienservicio-610612011');
-        $itemPedido = new ItemPedido();
-        $itemPedido->setClasificador($clasificador);
-        $itemPedido->setCantidad(2500);
-        $itemPedido->setBienServicio($bienServicio);
-        $itemPedido->setPrecioUnitario(3.825);
-        $itemPedido->setEscala($escalaMetro);
-        $pedido->addItem($itemPedido);
         
         $pedido->contabilizar();
 

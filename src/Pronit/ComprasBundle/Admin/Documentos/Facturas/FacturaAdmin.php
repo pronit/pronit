@@ -8,13 +8,13 @@ use Pronit\ComprasBundle\Entity\Documentos\Pedidos\Pedido;
 
 use Pronit\CoreBundle\Entity\Documentos\ClaseDocumento;
 
-use Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Admin\AbstractAdmin as Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Knp\Menu\ItemInterface as MenuItemInterface;
-use Sonata\AdminBundle\Admin\AdminInterface;
+use Sonata\AdminBundle\Admin\AbstractAdmin as AdminInterface;
 
 /**
  *
@@ -140,7 +140,7 @@ class FacturaAdmin extends Admin
 
                 $item = new ItemFactura();
                 $item->setClasificador($clasificador);        
-                $item->setBienServicio($itemEntradaMercancias->getBienServicio());
+                $item->setPresentacionCompra($itemEntradaMercancias->getPresentacionCompra());
                 $item->setPrecioUnitario($itemEntradaMercancias->getPrecioUnitario());
                 $item->setCantidad($itemEntradaMercancias->getCantidad());        
                 $item->setEscala($itemEntradaMercancias->getEscala());
@@ -152,7 +152,7 @@ class FacturaAdmin extends Admin
         return $factura;
     }
     
-    protected function configureSideMenu(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null) 
+    protected function configureTabMenu(MenuItemInterface $menu, $action, \Sonata\AdminBundle\Admin\AdminInterface $childAdmin = null)
     {        
         if( $action == "show"){
             

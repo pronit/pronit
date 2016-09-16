@@ -52,7 +52,7 @@ services:
             - ~
             - Pronit\GestionBienesYServiciosBundle\Entity\Customizing\EstructuraEmpresa\BienServicioSociedadFI
             - PronitGestionBienesYServiciosBundle:BienServicioSociedadFIAdmin
-            - @pronit_core_bienesyservicios.serviciobienservicio
+            - '@pronit_core_bienesyservicios.serviciobienservicio'
         calls:
             - [ setTranslationDomain, [PronitGestionBienesYServiciosBundle]]   
             - [setTemplates, [{create: PronitGestionBienesYServiciosBundle:BienServicioSociedadFIAdmin:create.html.twig}]]

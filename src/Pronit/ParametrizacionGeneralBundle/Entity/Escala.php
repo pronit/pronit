@@ -37,7 +37,7 @@ class Escala {
      */
     private $factor;
 
-    public function __construct($nombre, $abreviatura, $factor) {
+    public function __construct($nombre = null, $abreviatura = null, $factor = null) {
         $this->nombre = $nombre;
         $this->abreviatura = $abreviatura;
         $this->factor = $factor;

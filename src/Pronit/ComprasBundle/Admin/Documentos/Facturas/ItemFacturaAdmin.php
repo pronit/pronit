@@ -1,7 +1,7 @@
 <?php
 namespace Pronit\ComprasBundle\Admin\Documentos\Facturas;
 
-use Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Admin\AbstractAdmin as Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -19,7 +19,7 @@ class ItemFacturaAdmin extends Admin
     {
         $formMapper
             ->add('clasificador')
-            ->add('bienServicio')
+            ->add('presentacionCompra')
             ->add('escala')                
             ->add('cantidad')
             ->add('precioUnitario')

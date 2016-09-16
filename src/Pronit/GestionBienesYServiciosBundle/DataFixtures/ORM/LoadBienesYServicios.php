@@ -254,14 +254,12 @@ class LoadBienesYServicios extends AbstractFixture implements FixtureInterface, 
                 $presentacionCompra->setNombre($pc['nombre']);
 
                 $bienServicio->addPresentacionCompra($presentacionCompra);                
-                
                 $this->addReference('pronit-gestionbienesyservicios-bienservicio-' . $v['codigo'] . '-presentacionCompra-' . $pc['nombre'], $presentacionCompra);
             }
             
             foreach( $v['presentacionesVenta'] as $pv ){
                 
-                $presentacionVenta = new \Pronit\CoreBundle\Entity\BienesYServicios\Presentaciones\PresentacionVenta();
-                $presentacionVenta->setNombre($pv['nombre']);                
+                $presentacionVenta = new \Pronit\CoreBundle\Entity\BienesYServicios\Presentaciones\PresentacionVenta( $pv['nombre'] );
                 foreach ( $pv['unidades'] as $unidad){                    
                     $presentacionVenta->addUnidad($unidad);
                 }                                                

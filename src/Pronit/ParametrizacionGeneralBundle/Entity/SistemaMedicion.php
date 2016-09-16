@@ -38,7 +38,7 @@ class SistemaMedicion {
      */
     protected $escalas;
 
-    public function __construct($nombre, $abreviatura) {
+    public function __construct($nombre = null, $abreviatura = null) {
         $this->nombre = $nombre;
         $this->abreviatura = $abreviatura;
         $this->setEscalas(new \Doctrine\Common\Collections\ArrayCollection());

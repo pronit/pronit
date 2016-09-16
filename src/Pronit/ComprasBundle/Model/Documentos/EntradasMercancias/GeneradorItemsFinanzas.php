@@ -76,6 +76,7 @@ class GeneradorItemsFinanzas implements IGeneradorItemsFinanzas {
             $cuenta = $this->fiImputacionesCustomizingManager->getCuenta($operacion);
 
             $contexto = new ContextoDocumentoEntradaMercancias($operacion, $entradaMercancias);
+
             $importe = $funcion->ejecutar($contexto);
 
             if ($importe != 0) {
@@ -97,7 +98,7 @@ class GeneradorItemsFinanzas implements IGeneradorItemsFinanzas {
             $funcion = $mappingClasificadorItemOperacion->getFuncion();
             $contexto = new ContextoItemDocumentoEntradaMercancias($item, $this->em);
 
-            $cuenta = $this->mmImputacionesCustomizingManager->getCuenta($clasificador, $operacion, $item->getBienServicio()->getCategoriaValoracion());
+            $cuenta = $this->mmImputacionesCustomizingManager->getCuenta($clasificador, $operacion, $item->getPresentacionCompra()->getMaterial()->getCategoriaValoracion());
             if ($cuenta == null) {
                 $cuenta = $this->fiImputacionesCustomizingManager->getCuenta($operacion);
             }
