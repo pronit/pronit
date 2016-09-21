@@ -21,27 +21,11 @@ abstract class ItemCompras extends Item
      * @ORM\ManyToOne(targetEntity="Pronit\ParametrizacionGeneralBundle\Entity\Escala")
      */    
     protected $escala;    
-    
-    /**
-     * @todo esto debería desaparecer. Se deja para mantener compatibilidad
-     * @ORM\ManyToOne(targetEntity="Pronit\GestionBienesYServiciosBundle\Entity\BienServicio")
-     */    
-    protected $bienServicio;    
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Pronit\CoreBundle\Entity\BienesYServicios\Presentaciones\PresentacionCompra")
      */    
     protected $presentacionCompra;
-                
-    public function getBienServicio()
-    {
-        return $this->bienServicio;
-    }
-
-    public function setBienServicio(BienServicio $bienServicio)
-    {
-        $this->bienServicio = $bienServicio;
-    }
 
     /**
      * @return PresentacionCompra
