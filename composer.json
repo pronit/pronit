@@ -27,7 +27,8 @@
         "doctrine/doctrine-fixtures-bundle": "^2.2@dev",
         "sonata-project/user-bundle": "3.0.x@stable",
         "sonata-project/doctrine-orm-admin-bundle": "3.0.x@stable",
-        "symfony/polyfill-iconv": "~1.0"
+        "symfony/polyfill-iconv": "~1.0",
+        "doctrine/lexer": "1.*"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",

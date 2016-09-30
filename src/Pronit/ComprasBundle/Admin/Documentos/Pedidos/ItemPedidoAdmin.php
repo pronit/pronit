@@ -6,6 +6,10 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Doctrine\ORM\EntityRepository;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+
 
 /**
  *
@@ -25,12 +29,45 @@ class ItemPedidoAdmin extends Admin
                 return $qb;
             }))
             ->add('presentacionCompra')
-            ->add('escala')                
+            ->add('escala') // lo dejo acá solo para ubicarlo en la posición correspondiente. Se sobreescribe en el evento
             ->add('cantidad')
             ->add('precioUnitario')
             ->add('almacen')
             ->add('objetoCosto')    
-        ;        
+        ;
+
+        $eventListener = function (FormEvent $event) use ($formMapper) {
+
+            $modelManager = $formMapper->getAdmin()->getModelManager();
+
+            $qb = $modelManager
+                ->getEntityManager('Pronit\ParametrizacionGeneralBundle\Entity\Escala')
+                ->createQueryBuilder();
+            $query = $qb
+                        ->select('e')
+                        ->from('Pronit\ParametrizacionGeneralBundle\Entity\Escala', 'e')
+                        ->where('e.id = 1')
+                        ->getQuery();
+
+            $formOptions = array(
+                'auto_initialize'       => false,
+                'class'                 => 'Pronit\ParametrizacionGeneralBundle\Entity\Escala',
+                'query'                 => $query,
+                'label'                 => 'Escala',
+                'model_manager'         => $modelManager
+
+            );
+
+            $event->getForm()->add( $formMapper->create('escala', 'sonata_type_model', $formOptions)->getForm() );
+
+        };
+        $formMapper->getFormBuilder()->addEventListener(FormEvents::PRE_SET_DATA, $eventListener);
+
+        // TODO continuar leyendo:
+        //http://symfony.com/doc/2.8/form/events.html
+        //http://symfony.com/doc/current/form/dynamic_form_modification.html#form-events-submitted-data
+        //http://stackoverflow.com/questions/26246192/correct-way-to-use-formevents-to-customise-fields-in-sonataadmin#26255708
+        //http://stackoverflow.com/questions/16526547/sonata-user-admin-custom-field-dependency#19303524
     }
 
     // Fields to be shown on lists
