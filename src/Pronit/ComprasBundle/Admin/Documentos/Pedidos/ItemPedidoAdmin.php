@@ -1,6 +1,8 @@
 <?php
 namespace Pronit\ComprasBundle\Admin\Documentos\Pedidos;
 
+use Doctrine\ORM\QueryBuilder;
+use Pronit\ComprasBundle\Entity\Documentos\Pedidos\ItemPedido;
 use Sonata\AdminBundle\Admin\AbstractAdmin as Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Doctrine\ORM\EntityRepository;
@@ -28,7 +30,14 @@ class ItemPedidoAdmin extends Admin
                 $qb->where($qb->expr()->in('c.id', 'SELECT cip.id FROM Pronit\ComprasBundle\Entity\Documentos\Pedidos\ClasificadorItemPedido cip'));
                 return $qb;
             }))
-            ->add('presentacionCompra')
+            ->add('presentacionCompra',
+                null,
+                array(
+                    'label' => 'Presentación',
+                    'attr' => array(
+                        'class' => 'presentacionCompraField'
+                    )
+                ))
             ->add('escala') // lo dejo acá solo para ubicarlo en la posición correspondiente. Se sobreescribe en el evento
             ->add('cantidad')
             ->add('precioUnitario')
@@ -37,29 +46,38 @@ class ItemPedidoAdmin extends Admin
         ;
 
         $eventListener = function (FormEvent $event) use ($formMapper) {
+            /** @var ItemPedido $item */
+            $item = $event->getData();
 
-            $modelManager = $formMapper->getAdmin()->getModelManager();
+            // Este evento es invocado 4 veces. Estudiar ciclos.
 
-            $qb = $modelManager
-                ->getEntityManager('Pronit\ParametrizacionGeneralBundle\Entity\Escala')
-                ->createQueryBuilder();
-            $query = $qb
-                        ->select('e')
-                        ->from('Pronit\ParametrizacionGeneralBundle\Entity\Escala', 'e')
-                        ->where('e.id = 1')
-                        ->getQuery();
+            if(( ! is_null($item) ) && ( ! is_null($item->getPresentacionCompra())) )
+            {
+                $modelManager = $formMapper->getAdmin()->getModelManager();
 
-            $formOptions = array(
-                'auto_initialize'       => false,
-                'class'                 => 'Pronit\ParametrizacionGeneralBundle\Entity\Escala',
-                'query'                 => $query,
-                'label'                 => 'Escala',
-                'model_manager'         => $modelManager
+                /** @var QueryBuilder $qb */
+                $qb = $modelManager
+                    ->getEntityManager('Pronit\ParametrizacionGeneralBundle\Entity\Escala')
+                    ->createQueryBuilder();
+                $query = $qb
+                    ->select('e')
+                    ->from('Pronit\ParametrizacionGeneralBundle\Entity\Escala', 'e')
+                    ->join('e.sistemaMedicion', 'sm')
+                    ->where( 'sm.id = :idSistemaMedicion')
+                    ->setParameter('idSistemaMedicion', $item->getPresentacionCompra()->getMaterial()->getSistemaMedicion()->getId() )
+                    ->getQuery();
 
-            );
+                $formOptions = array(
+                    'auto_initialize'       => false,
+                    'class'                 => 'Pronit\ParametrizacionGeneralBundle\Entity\Escala',
+                    'query'                 => $query,
+                    'label'                 => 'Escala',
+                    'model_manager'         => $modelManager
 
-            $event->getForm()->add( $formMapper->create('escala', 'sonata_type_model', $formOptions)->getForm() );
+                );
 
+                $event->getForm()->add( $formMapper->create('escala', 'sonata_type_model', $formOptions)->getForm() );
+            }
         };
         $formMapper->getFormBuilder()->addEventListener(FormEvents::PRE_SET_DATA, $eventListener);
 
@@ -90,8 +108,16 @@ class ItemPedidoAdmin extends Admin
             ->add('cantidad')
             ->add('precioUnitario')
         ;
-    }    
-    
+    }
+
+    public function getFormTheme()
+    {
+        return array_merge(
+            parent::getFormTheme(), array(
+                'PronitComprasBundle:Documentos\Pedido\CRUD:formtheme.html.twig')
+        );
+    }
+
 }
 
 

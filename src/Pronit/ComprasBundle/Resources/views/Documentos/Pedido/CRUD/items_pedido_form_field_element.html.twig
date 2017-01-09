@@ -1,0 +1,23 @@
+{% form_theme form 'PronitComprasBundle:Documentos/Pedido/CRUD:formtheme.html.twig' %}
+
+{% for field_name, nested_field in form.children %}
+
+    <td class="sonata-ba-td-{{ form.parent.vars.id }}-{{ field_name  }} control-group{% if nested_field.vars.errors|length > 0 %} error{% endif %}"{% if (nested_field.vars['attr']['hidden'] is defined) and (nested_field.vars['attr']['hidden']) %} style="display:none;"{% endif %}>
+        {% if sonata_admin.field_description.associationadmin.formfielddescriptions[field_name] is defined %}
+            {{ form_widget(nested_field) }}
+
+            {% set dummy = nested_group_field.setrendered %}
+        {% else %}
+            {% if field_name == '_delete' %}
+                {{ form_widget(nested_field, {'label_render': false}) }}
+            {% else %}
+                {{ form_widget(nested_field, {'class' : 'form-control'}) }}
+            {% endif %}
+        {% endif %}
+        {% if nested_field.vars.errors|length > 0 %}
+            <div class="help-inline sonata-ba-field-error-messages">
+                {{ form_errors(nested_field) }}
+            </div>
+        {% endif %}
+    </td>
+{% endfor %}

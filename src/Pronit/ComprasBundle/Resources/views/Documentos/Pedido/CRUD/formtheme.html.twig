@@ -1,0 +1,55 @@
+{% extends 'SonataAdminBundle:Form:form_admin_fields.html.twig' %}
+
+{% block sonata_admin_orm_one_to_many_widget %}
+    {% include 'SonataDoctrineORMAdminBundle:CRUD:edit_orm_one_to_many.html.twig' %}
+{% endblock %}
+
+{% block pronit_admin_compras_itempedido_presentacionCompra_entity_widget %}
+
+    {{ block('choice_widget') }}
+
+    {% autoescape false %}
+
+    <script>
+
+        /*
+         * Combo de presentacion compra
+         * Recargar lista de Escala según presentación elegida.
+         */
+
+        cmb_presentacionCompra = $('#{{ form.vars.id }}');
+        cmb_presentacionCompra.change(function (e) {
+
+            var form = jQuery(this).closest('form');
+
+            // the ajax post
+            jQuery(form).ajaxSubmit({
+
+                url: '{{ path('pronit_pedidos_update_items_pedido_form_field_element', {
+                    'elementId': form.parent.vars.id,
+                    'objectId':  sonata_admin.admin.root.id(sonata_admin.admin.root.subject),
+                    'uniqid':    sonata_admin.admin.root.uniqid,
+                    'subclass': app.request.query.get('subclass'),
+                } + sonata_admin.field_description.getOption('link_parameters', {})) }}',
+                type: "POST",
+                dataType: 'html',
+                data: { _xml_http_request: true },
+                success: function(html) {
+
+                    var tr = $('#tr-{{ form.parent.vars.id }}');
+                    tr.html(html);
+
+                    Admin.shared_setup(jQuery('#field_container_{{ form.parent.parent.vars.id }}'));
+                    jQuery('#sonata-ba-field-container-{{ form.parent.parent.vars.id }}').trigger('sonata.add_element');
+                    jQuery('#field_container_{{ form.parent.parent.vars.id }}').trigger('sonata.add_element');
+                }
+            });
+
+        });
+
+    </script>
+
+    {% endautoescape %}
+
+{% endblock %}
+
