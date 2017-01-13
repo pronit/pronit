@@ -9,7 +9,7 @@ services:
             - 'PronitComprasBundle:Documentos\Pedidos\Pedido'
         calls:
             - [ setTranslationDomain, [PronitComprasBundle]]
-            
+
     pronit.admin.compras.itempedido:
         class: Pronit\ComprasBundle\Admin\Documentos\Pedidos\ItemPedidoAdmin
         tags:

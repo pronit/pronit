@@ -69,10 +69,6 @@ class PedidoController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $subject = $form->getData();
-
-            list(, $form) = $this->get('sonata.admin.helper')->appendFormFieldElement($this->admin, $subject, $elementId);
-
             $formView = $form->createView();
 
             $formItemView = $this->get('sonata.admin.helper')->getChildFormView( $formView, $elementId);

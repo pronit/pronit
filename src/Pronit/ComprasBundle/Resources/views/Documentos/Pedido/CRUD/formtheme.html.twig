@@ -22,7 +22,13 @@
 
             var form = jQuery(this).closest('form');
 
-            // the ajax post
+            // el style se especifica porque el AdminLTE está desactualizado.
+            jQuery(this).closest('.box-body').prepend(
+                '<div class="overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%">' +
+                    '<i class="fa fa-refresh fa-spin"></i>' +
+                '</div>'
+            );
+
             jQuery(form).ajaxSubmit({
 
                 url: '{{ path('pronit_pedidos_update_items_pedido_form_field_element', {
@@ -38,6 +44,7 @@
 
                     var tr = $('#tr-{{ form.parent.vars.id }}');
                     tr.html(html);
+                    tr.closest('.box-body').find('.overlay').remove();
 
                     Admin.shared_setup(jQuery('#field_container_{{ form.parent.parent.vars.id }}'));
                     jQuery('#sonata-ba-field-container-{{ form.parent.parent.vars.id }}').trigger('sonata.add_element');

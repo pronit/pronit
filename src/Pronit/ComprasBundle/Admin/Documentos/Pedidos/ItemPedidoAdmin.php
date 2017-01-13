@@ -3,6 +3,7 @@ namespace Pronit\ComprasBundle\Admin\Documentos\Pedidos;
 
 use Doctrine\ORM\QueryBuilder;
 use Pronit\ComprasBundle\Entity\Documentos\Pedidos\ItemPedido;
+use Pronit\CoreBundle\Entity\BienesYServicios\Presentaciones\PresentacionCompra;
 use Sonata\AdminBundle\Admin\AbstractAdmin as Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Doctrine\ORM\EntityRepository;
@@ -20,8 +21,33 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 class ItemPedidoAdmin extends Admin
 {
     protected $parentAssociationMapping = 'documento';
-    
-     // Fields to be shown on create/edit forms
+
+    protected function addEscalaFormField(PresentacionCompra $presentacionCompra, FormMapper $formMapper, FormEvent $event)
+    {
+        /** @var QueryBuilder $qb */
+        $qb = $formMapper->getAdmin()->getModelManager()
+            ->getEntityManager('Pronit\ParametrizacionGeneralBundle\Entity\Escala')
+            ->createQueryBuilder();
+        $query = $qb
+            ->select('e')
+            ->from('Pronit\ParametrizacionGeneralBundle\Entity\Escala', 'e')
+            ->join('e.sistemaMedicion', 'sm')
+            ->where( 'sm.id = :idSistemaMedicion')
+            ->setParameter('idSistemaMedicion', $presentacionCompra->getMaterial()->getSistemaMedicion()->getId() )
+            ->getQuery();
+
+        $formOptions = array(
+            'auto_initialize'       => false,
+            'class'                 => 'Pronit\ParametrizacionGeneralBundle\Entity\Escala',
+            'query'                 => $query,
+            'label'                 => 'Escala',
+            'model_manager'         => $formMapper->getAdmin()->getModelManager()
+
+        );
+
+        $event->getForm()->add( $formMapper->create('escala', 'sonata_type_model', $formOptions)->getForm() );
+    }
+
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
@@ -45,42 +71,43 @@ class ItemPedidoAdmin extends Admin
             ->add('objetoCosto')    
         ;
 
-        $eventListener = function (FormEvent $event) use ($formMapper) {
-            /** @var ItemPedido $item */
+        $preSubmitEventListener = function (FormEvent $event) use ($formMapper) {
+
             $item = $event->getData();
 
-            // Este evento es invocado 4 veces. Estudiar ciclos.
+            $modelManager = $formMapper->getAdmin()->getModelManager();
 
-            if(( ! is_null($item) ) && ( ! is_null($item->getPresentacionCompra())) )
-            {
-                $modelManager = $formMapper->getAdmin()->getModelManager();
+            $qbPC = $modelManager
+                ->getEntityManager('Pronit\CoreBundle\Entity\BienesYServicios\Presentaciones\PresentacionCompra')
+                ->createQueryBuilder();
+            $queryPC = $qbPC
+                ->select('pc')
+                ->from('Pronit\CoreBundle\Entity\BienesYServicios\Presentaciones\PresentacionCompra', 'pc')
+                ->where( 'pc.id = :idPresentacionCompra')
+                ->setParameter('idPresentacionCompra', $item['presentacionCompra'] )
+                ->getQuery();
+            $presentacionCompra = $queryPC->getSingleResult();
 
-                /** @var QueryBuilder $qb */
-                $qb = $modelManager
-                    ->getEntityManager('Pronit\ParametrizacionGeneralBundle\Entity\Escala')
-                    ->createQueryBuilder();
-                $query = $qb
-                    ->select('e')
-                    ->from('Pronit\ParametrizacionGeneralBundle\Entity\Escala', 'e')
-                    ->join('e.sistemaMedicion', 'sm')
-                    ->where( 'sm.id = :idSistemaMedicion')
-                    ->setParameter('idSistemaMedicion', $item->getPresentacionCompra()->getMaterial()->getSistemaMedicion()->getId() )
-                    ->getQuery();
+            $this->addEscalaFormField($presentacionCompra, $formMapper, $event);
+        };
 
-                $formOptions = array(
-                    'auto_initialize'       => false,
-                    'class'                 => 'Pronit\ParametrizacionGeneralBundle\Entity\Escala',
-                    'query'                 => $query,
-                    'label'                 => 'Escala',
-                    'model_manager'         => $modelManager
+        $formMapper->getFormBuilder()->addEventListener(FormEvents::PRE_SUBMIT, $preSubmitEventListener);
 
-                );
+        $preSetDataEventListener = function (FormEvent $event) use ($formMapper) {
 
-                $event->getForm()->add( $formMapper->create('escala', 'sonata_type_model', $formOptions)->getForm() );
+            $data = $event->getData();
+
+            if( ! is_null($data) ){
+
+                $item = $data;
+                if( $item->getPresentacionCompra()){
+                    dump($data);
+
+                    $this->addEscalaFormField($data->getPresentacionCompra(), $formMapper, $event);
+                }
             }
         };
-        $formMapper->getFormBuilder()->addEventListener(FormEvents::PRE_SET_DATA, $eventListener);
-
+        $formMapper->getFormBuilder()->addEventListener(FormEvents::PRE_SET_DATA, $preSetDataEventListener);
         // TODO continuar leyendo:
         //http://symfony.com/doc/2.8/form/events.html
         //http://symfony.com/doc/current/form/dynamic_form_modification.html#form-events-submitted-data
