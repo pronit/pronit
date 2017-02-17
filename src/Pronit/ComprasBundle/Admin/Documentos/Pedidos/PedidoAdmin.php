@@ -172,15 +172,6 @@ class PedidoAdmin extends Admin
         return $documento;
     }
 
-    public function getFormTheme()
-    {
-        return array_merge(
-            parent::getFormTheme(), array(
-                'PronitComprasBundle:Documentos\Pedido\CRUD:formtheme.html.twig')
-        );
-    }
-
-
     public function isGranted($name, $pedido = null)
     {
         /* @var $pedido \Pronit\ComprasBundle\Entity\Documentos\Pedidos\Pedido  */
@@ -194,7 +185,12 @@ class PedidoAdmin extends Admin
     
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->add('update_items_pedido_form_field_element', '/update-items-form-element');
+        $collection->add(
+                    'update_items_pedido_form_field_element',
+                    'update-items-form-element',
+                    array( '_controller' => 'PronitComprasBundle:Documentos\Pedidos\Pedido:updateRowItemsFormFieldElement')
+        );
+
         $collection->add('contabilizar', $this->getRouterIdParameter() . '/contabilizar');
         $collection->add('crearEntradaMercanciasDesdePedido', $this->getRouterIdParameter() . '/new');
     }    

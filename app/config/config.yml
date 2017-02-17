@@ -38,9 +38,11 @@ twig:
     strict_variables: "%kernel.debug%"
     form:
         resources:
+            - 'PronitCoreBundle:Form:form_admin_fields.html.twig'
             - 'InfiniteFormBundle::form_theme.html.twig'
             - 'InfiniteFormBundle::collection_theme.html.twig'            
-            - 'SonataCoreBundle:Form:datepicker.html.twig'            
+            - 'SonataCoreBundle:Form:datepicker.html.twig'
+
 # Assetic Configuration
 assetic:
     debug:          "%kernel.debug%"
@@ -96,6 +98,11 @@ sonata_admin:
     title_logo: bundles/pronitcore/img/logo.png
     security:
         handler: sonata.admin.security.handler.role
+
+sonata_doctrine_orm_admin:
+  templates:
+    form:
+      - PronitCoreBundle:Form:form_admin_fields.html.twig
     
 fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'

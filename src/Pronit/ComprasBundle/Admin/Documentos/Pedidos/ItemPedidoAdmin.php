@@ -5,6 +5,7 @@ use Doctrine\ORM\QueryBuilder;
 use Pronit\ComprasBundle\Entity\Documentos\Pedidos\ItemPedido;
 use Pronit\ComprasBundle\Form\EventListener\AddEscalaFieldSubscriber;
 use Pronit\CoreBundle\Entity\BienesYServicios\Presentaciones\PresentacionCompra;
+use Pronit\CoreBundle\Form\Type\PresentacionCompra\PresentacionCompraType;
 use Sonata\AdminBundle\Admin\AbstractAdmin as Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Doctrine\ORM\EntityRepository;
@@ -31,14 +32,8 @@ class ItemPedidoAdmin extends Admin
                 $qb->where($qb->expr()->in('c.id', 'SELECT cip.id FROM Pronit\ComprasBundle\Entity\Documentos\Pedidos\ClasificadorItemPedido cip'));
                 return $qb;
             }))
-            ->add('presentacionCompra',
-                null,
-                array(
-                    'label' => 'Presentación',
-                    'attr' => array(
-                        'class' => 'presentacionCompraField'
-                    )
-                ))
+            ->add('presentacionCompra', null, array( 'refresh_route' => 'pronit_pedidos_update_items_pedido_form_field_element') )
+            //->add('presentacionCompra', PresentacionCompraType::class)
             ->add('escala') // lo dejo acá solo para ubicarlo en la posición correspondiente. Se sobreescribe en el evento
             ->add('cantidad')
             ->add('precioUnitario')
@@ -70,13 +65,13 @@ class ItemPedidoAdmin extends Admin
         ;
     }
 
-    public function getFormTheme()
-    {
-        return array_merge(
-            parent::getFormTheme(), array(
-                'PronitComprasBundle:Documentos\Pedido\CRUD:formtheme.html.twig')
-        );
-    }
+//    public function getFormTheme()
+//    {
+//        return array_merge(
+//            parent::getFormTheme(), array(
+//                'PronitComprasBundle:Documentos\Pedido\CRUD:formtheme.html.twig')
+//        );
+//    }
 
 }
 

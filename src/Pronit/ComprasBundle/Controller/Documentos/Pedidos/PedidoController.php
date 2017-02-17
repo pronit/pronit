@@ -32,15 +32,7 @@ class PedidoController extends Controller
         return $this->redirect($this->generateUrl('pronit_entradas_mercancias_create', array( 'pedido_id' => $id ) ));
     }
 
-
-    /**
-     * @throws NotFoundHttpException
-     *
-     * @param Request $request
-     *
-     * @return Response
-     */
-    public function updateItemsPedidoFormFieldElementAction(Request $request)
+    public function updateRowItemsFormFieldElementAction(Request $request)
     {
         $elementId = $request->get('elementId');
         $objectId = $request->get('objectId');
@@ -73,11 +65,11 @@ class PedidoController extends Controller
 
             $formItemView = $this->get('sonata.admin.helper')->getChildFormView( $formView, $elementId);
 
-            return $this->render( 'PronitComprasBundle:Documentos/Pedido/CRUD:items_pedido_form_field_element.html.twig',
-                                array(
-                                    'id' => $elementId,
-                                    'form' => $formItemView
-                                )
+            return $this->render( '@PronitCore/Form/edit_orm_row_one_to_many.html.twig',
+                array(
+                    'id' => $elementId,
+                    'form' => $formItemView
+                )
             );
         }
     }

@@ -66,3 +66,8 @@ services:
         class: Pronit\CoreBundle\EventListener\ControllingMenuBuilderListener
         tags:
             - { name: kernel.event_listener, event: sonata.admin.event.configure.menu.sidebar, method: addMenuItems }
+
+    pronit_core.refreshabe_type_extension:
+             class: Pronit\CoreBundle\Form\Extension\RefreshableTypeExtension
+             tags:
+                 - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\ChoiceType }
