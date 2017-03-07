@@ -5,6 +5,7 @@ use Doctrine\ORM\EntityRepository;
 use Sonata\AdminBundle\Admin\AbstractAdmin as Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Pronit\ComprasBundle\Form\EventListener\AddEscalaFieldSubscriber;
 
 /**
  *
@@ -24,7 +25,13 @@ class ItemEntradaMercanciasAdmin extends Admin
                  $qb->where($qb->expr()->in('c.id', 'SELECT cem.id FROM Pronit\ComprasBundle\Entity\Documentos\EntradasMercancias\ClasificadorItemEntradaMercancias cem'));
                  return $qb;
             }))
-            ->add('presentacionCompra')
+            ->add(
+                'presentacionCompra',
+                null,
+                array(
+                    'refresh_route' => 'update_items_form_field_element'
+                )
+            )
             ->add('escala')                
             ->add('cantidad')
             ->add('precioUnitario')
@@ -32,7 +39,7 @@ class ItemEntradaMercanciasAdmin extends Admin
             ->add('almacen')
             ->add('objetoCosto')
         ;
-        
+        $formMapper->getFormBuilder()->addEventSubscriber( new AddEscalaFieldSubscriber($formMapper));
     }
 
     // Fields to be shown on lists

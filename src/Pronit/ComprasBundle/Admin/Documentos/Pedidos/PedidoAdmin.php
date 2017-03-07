@@ -185,12 +185,6 @@ class PedidoAdmin extends Admin
     
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->add(
-                    'update_items_pedido_form_field_element',
-                    'update-items-form-element',
-                    array( '_controller' => 'PronitComprasBundle:Documentos\Pedidos\Pedido:updateRowItemsFormFieldElement')
-        );
-
         $collection->add('contabilizar', $this->getRouterIdParameter() . '/contabilizar');
         $collection->add('crearEntradaMercanciasDesdePedido', $this->getRouterIdParameter() . '/new');
     }    

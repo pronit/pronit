@@ -15,6 +15,7 @@
             {% autoescape false %}
             <script>
 
+
                 cmb = $('#{{ form.vars.id }}');
                 cmb.change(function (e) {
 
@@ -34,6 +35,7 @@
                             'objectId':  sonata_admin.admin.root.id(sonata_admin.admin.root.subject),
                             'uniqid':    sonata_admin.admin.root.uniqid,
                             'subclass': app.request.query.get('subclass'),
+                            'adminCode': form.parent.vars.sonata_admin_code,
                         } + sonata_admin.field_description.getOption('link_parameters', {})) }}',
                         type: "POST",
                         dataType: 'html',

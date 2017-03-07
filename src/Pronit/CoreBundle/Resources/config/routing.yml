@@ -1,0 +1,3 @@
+update_items_form_field_element:
+    path:      /update-items-form-field-element
+    defaults:  { _controller: PronitCoreBundle:Helper:updateRowItemsFormFieldElement }

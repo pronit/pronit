@@ -32,8 +32,13 @@ class ItemPedidoAdmin extends Admin
                 $qb->where($qb->expr()->in('c.id', 'SELECT cip.id FROM Pronit\ComprasBundle\Entity\Documentos\Pedidos\ClasificadorItemPedido cip'));
                 return $qb;
             }))
-            ->add('presentacionCompra', null, array( 'refresh_route' => 'pronit_pedidos_update_items_pedido_form_field_element') )
-            //->add('presentacionCompra', PresentacionCompraType::class)
+            ->add(
+                'presentacionCompra',
+                null,
+                array(
+                    'refresh_route' => 'update_items_form_field_element'
+                )
+            )
             ->add('escala') // lo dejo acá solo para ubicarlo en la posición correspondiente. Se sobreescribe en el evento
             ->add('cantidad')
             ->add('precioUnitario')
@@ -64,15 +69,6 @@ class ItemPedidoAdmin extends Admin
             ->add('precioUnitario')
         ;
     }
-
-//    public function getFormTheme()
-//    {
-//        return array_merge(
-//            parent::getFormTheme(), array(
-//                'PronitComprasBundle:Documentos\Pedido\CRUD:formtheme.html.twig')
-//        );
-//    }
-
 }
 
 

@@ -27,8 +27,6 @@ class AddEscalaFieldSubscriber implements EventSubscriberInterface
 
     public function onPreSetData(FormEvent $event)
     {
-        //$form = $event->getForm();
-
         $data = $event->getData();
 
         if( ! is_null($data) ){
